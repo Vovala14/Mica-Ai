@@ -27,7 +27,7 @@ python r1/runs/claude_flame_word_20260928/word_decode.py sentence \
 ```
 
 `sentence` writes a full sentence ("I went to the" → " movies with you.").
-`suggest` gives a 2-3 word next-words suggestion ("Can you help me" → " find a").
+`suggest` gives a 2-3 word next-words suggestion ("Can you help me" → " find my").
 Each output line in `out.jsonl` has the prompt and its `continuation`.
 
 Generate text with Ember:
