@@ -7,33 +7,42 @@ revision R1.
 | Part | Where | Status |
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
-| MICA Flame-W (word model) | [`flame/`](flame/) | checkpoint added |
+| MICA Flame-W (word model) | [`flame/`](flame/) | checkpoint, vocabulary and decoder added |
 | MICA Ember (byte/letter model) | [`ember/`](ember/) | not added yet |
 
 ## Quick start
 
 ```bash
 pip install -r requirements.txt
-python -m pytest r1/tests/test_conformance.py -q    # engine conformance (§7 worked example)
+python -m pytest r1/tests -q          # 139 tests, including the §7 worked example
 ```
 
-Load the Flame checkpoint:
+Generate text with Flame-W:
 
-```python
-import json, os, sys
-run = "flame/runs/claude_flame_word_20260930/a_full40_lr030"
-info = json.load(open(f"{run}/run_info.json"))
-os.environ.update({k: str(v) for k, v in info["env"].items()})  # set geometry before import
-sys.path.insert(0, "r1")
-from mica_r1 import serialize
-model = serialize.load(f"{run}/best.mica")
+```bash
+echo {"id":"1","prompt":"I went to the"} > prompts.jsonl
+python r1/runs/claude_flame_word_20260928/word_decode.py sentence \
+  --model mica:flame/runs/claude_flame_word_20260930/a_full40_lr030 \
+  --vocab r1/data/word/vocab.json --prompts prompts.jsonl --tag demo --out out.jsonl
 ```
 
-Flame works on word IDs, so turning its output into text needs the vocabulary
-file `r1/data/word/vocab.json`. That file is not in the repo yet.
+`sentence` writes a full sentence ("I went to the" → " store and bought a book.").
+`suggest` gives a 2-3 word next-words suggestion ("Can you help me" → " find a").
+Each output line in `out.jsonl` has the prompt and its `continuation`.
 
-See [`r1/README.md`](r1/README.md) for the engine layout and training commands.
+## What is where
+
+| Path | Contents |
+|------|----------|
+| `r1/mica_r1/` | The engine: spec, exact integer engine, model file loader, decoders |
+| `r1/data/` | Corpus builders; `r1/data/word/vocab.json` is the Flame-W vocabulary |
+| `r1/runs/claude_flame_word_20260928/` | Flame-W word decoder (`word_decode.py`) and word metrics (`word_eval.py`) |
+| `r1/run_train.py`, `r1/train_soft.py` | Training |
+| `r1/checks/`, `r1/tests/` | Experiments, evaluations and tests |
+| `docs/` | Findings, plans and experiment write-ups (`r1-findings.md`, `spec-gaps.md`, ...) |
+
 `r1/mica_r1/score.dll` is a Windows build of `r1/mica_r1/score_kernel.c`.
+See [`r1/README.md`](r1/README.md) for the engine layout and training commands.
 
 ## License
 
