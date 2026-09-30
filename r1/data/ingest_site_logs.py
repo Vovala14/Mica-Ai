@@ -3,7 +3,7 @@
 
     python r1/data/ingest_site_logs.py mica-site-logs.jsonl --out r1/data/site/2026-10-01
 
-Input is the owner export (/api/export?key=ADMIN_KEY), one JSON object per line:
+Input is the owner export (curl -H "Authorization: Bearer ADMIN_KEY" <site>/api/export), one JSON object per line:
 "generation" rows (prompt, model output) and "feedback" rows (rating up/down
 and an optional user-written continuation, the "correction").
 
@@ -80,7 +80,7 @@ def key(text: str) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("export", type=Path, help="mica-site-logs.jsonl from /api/export")
+    ap.add_argument("export", type=Path, help="mica-site-logs.jsonl from <site>/api/export")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--val-percent", type=int, default=5)
     ap.add_argument("--no-prompts", action="store_true", help="skip prompts that have no approved continuation")

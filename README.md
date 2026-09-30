@@ -49,7 +49,7 @@ Both are research models. Neither produces reliably sensible sentences yet.
 | `public/index.html` | The page: Flame-W sentence / next words, Ember letter by letter, 👍/👎 and "how should it continue?" |
 | `api/flame.py`, `api/ember.py` | Run the official checkpoints with the exact integer engine (`webapp/`) and sign each output |
 | `api/log.js` | Saves signed generations and feedback to a private Vercel Blob store |
-| `api/export.js` | Owner download of all logs: `/api/export?key=ADMIN_KEY` (`&summary=1` for counts) |
+| `api/export.js` | Owner download of all logs: `curl -H "Authorization: Bearer ADMIN_KEY" <site>/api/export -o logs.jsonl` (`?summary=1` for counts, `?check=1` for a storage check) |
 | `r1/data/ingest_site_logs.py` | Turns that export into Ember byte records and Flame-W word records for training |
 
 The site needs three environment variables: `LOG_SECRET`, `ADMIN_KEY` and `BLOB_READ_WRITE_TOKEN`.

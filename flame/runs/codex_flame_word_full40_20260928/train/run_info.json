@@ -23,8 +23,8 @@
     "MICA_WINDOW": "1"
   },
   "args": {
-    "records": "C:\\Users\\vlavrik\\PycharmProjects\\mica\\r1\\data\\word\\v02a\\train.jsonl",
-    "val_records": "C:\\Users\\vlavrik\\PycharmProjects\\mica\\r1\\data\\word\\v02a\\val.jsonl",
+    "records": "r1\\data\\word\\v02a\\train.jsonl",
+    "val_records": "r1\\data\\word\\v02a\\val.jsonl",
     "steps": 40,
     "batch": 16,
     "record_bytes": 64,
@@ -75,7 +75,7 @@
     "fresh": false,
     "no_yield": false,
     "yield_gb": 3.0,
-    "out": "C:\\Users\\vlavrik\\PycharmProjects\\mica\\r1\\runs\\codex_flame_word_full40_20260928\\train",
+    "out": "r1\\runs\\codex_flame_word_full40_20260928\\train",
     "dry_run": false
   },
   "init_sig": {
