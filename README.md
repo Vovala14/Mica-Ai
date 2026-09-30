@@ -7,8 +7,8 @@ revision R1.
 | Part | Where | Status |
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
-| MICA Flame-W (word model) | [`flame/`](flame/) | checkpoint, vocabulary and decoder added |
-| MICA Ember (byte/letter model) | [`ember/`](ember/) | not added yet |
+| MICA Flame-W (word model) | [`flame/`](flame/) | official full40 checkpoint, vocabulary and decoder |
+| MICA Ember (byte/letter model) | [`ember/`](ember/) | official v0.2A checkpoint |
 
 ## Quick start
 
@@ -22,13 +22,21 @@ Generate text with Flame-W:
 ```bash
 echo '{"id":"1","prompt":"I went to the"}' > prompts.jsonl
 python r1/runs/claude_flame_word_20260928/word_decode.py sentence \
-  --model mica:flame/runs/claude_flame_word_20260930/a_full40_lr030 \
+  --model mica:flame/runs/codex_flame_word_full40_20260928/train \
   --vocab r1/data/word/vocab.json --prompts prompts.jsonl --tag demo --out out.jsonl
 ```
 
-`sentence` writes a full sentence ("I went to the" → " store and bought a book.").
+`sentence` writes a full sentence ("I went to the" → " movies with you.").
 `suggest` gives a 2-3 word next-words suggestion ("Can you help me" → " find a").
 Each output line in `out.jsonl` has the prompt and its `continuation`.
+
+Generate text with Ember:
+
+```bash
+python r1/generate_bytes.py ember/runs/codex_ember_balanced_v02a_20260928/train "I don't know"
+```
+
+Both are research models. Neither produces reliably sensible sentences yet.
 
 ## What is where
 
