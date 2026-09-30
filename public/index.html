@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MICA Playground</title>
+<meta name="description" content="Try MICA Flame-W and MICA Ember, language models built from learned integer cellular-automaton rules.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c2410c'/%3E%3Cpath d='M9 23V9l7 8 7-8v14' stroke='white' stroke-width='3' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #faf9f7; --surface: #ffffff; --surface-2: #f3f1ed; --text: #1c1917; --muted: #6b645c;
+  --border: #e4e0da; --accent: #c2410c; --accent-soft: #fdebdd; --accent-text: #ffffff;
+  --ok: #15803d; --bad: #b91c1c; --prompt: #8a8178;
+  --radius: 12px; --shadow: 0 1px 2px rgba(28,25,23,.06), 0 4px 16px rgba(28,25,23,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141210; --surface: #1d1a17; --surface-2: #26221e; --text: #f2eee9; --muted: #a39a90;
+    --border: #36302a; --accent: #fb923c; --accent-soft: #3a2415; --accent-text: #1c1917;
+    --ok: #4ade80; --bad: #f87171; --prompt: #8f867c; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141210; --surface: #1d1a17; --surface-2: #26221e; --text: #f2eee9; --muted: #a39a90;
+  --border: #36302a; --accent: #fb923c; --accent-soft: #3a2415; --accent-text: #1c1917;
+  --ok: #4ade80; --bad: #f87171; --prompt: #8f867c; --shadow: none;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+header h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -0.02em; }
+header p { margin: 0; color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 20px; margin-top: 20px; }
+.tabs { display: flex; gap: 6px; background: var(--surface-2); padding: 4px; border-radius: 10px; }
+.tab { flex: 1; border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 14px;
+  padding: 8px 6px; border-radius: 7px; cursor: pointer; line-height: 1.25; }
+.tab b { display: block; color: var(--text); font-size: 15px; }
+.tab[aria-selected="true"] { background: var(--surface); box-shadow: var(--shadow); }
+.tab[aria-selected="true"] b { color: var(--accent); }
+.desc { color: var(--muted); font-size: 14px; margin: 12px 2px 0; min-height: 42px; }
+textarea { width: 100%; margin-top: 14px; min-height: 84px; resize: vertical; font: inherit;
+  color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+textarea:focus, input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.row .grow { flex: 1; }
+button.primary { background: var(--accent); color: var(--accent-text); border: 0; font: inherit; font-weight: 600;
+  padding: 10px 22px; border-radius: 10px; cursor: pointer; }
+button.primary:disabled { opacity: .55; cursor: progress; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.chip { border: 1px solid var(--border); background: transparent; color: var(--muted); font: inherit; font-size: 13px;
+  padding: 3px 10px; border-radius: 999px; cursor: pointer; }
+.chip:hover { color: var(--text); border-color: var(--muted); }
+label.small { font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+input[type=range] { accent-color: var(--accent); width: 120px; }
+.count { font-size: 13px; color: var(--muted); }
+.notice { font-size: 13px; color: var(--muted); margin-top: 14px; padding: 10px 12px; background: var(--surface-2);
+  border-radius: 8px; }
+.result { margin-top: 20px; }
+.result.hidden { display: none; }
+.text { font-size: 19px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+.text .p { color: var(--prompt); }
+.text .o { background: var(--accent-soft); border-radius: 4px; padding: 1px 2px; }
+.meta { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.next { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; font-size: 13px; }
+.next span { background: var(--surface-2); border-radius: 6px; padding: 2px 8px; font-family: ui-monospace, monospace; }
+.fb { border-top: 1px solid var(--border); margin-top: 16px; padding-top: 14px; }
+.fb .q { font-size: 14px; color: var(--muted); }
+.vote { border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 18px;
+  width: 44px; height: 38px; border-radius: 9px; cursor: pointer; }
+.vote[aria-pressed="true"].up { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 14%, transparent); }
+.vote[aria-pressed="true"].down { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, transparent); }
+input.better { width: 100%; font: inherit; color: var(--text); background: var(--bg);
+  border: 1px solid var(--border); border-radius: 9px; padding: 9px 11px; }
+button.ghost { border: 1px solid var(--border); background: transparent; color: var(--text); font: inherit;
+  font-size: 14px; padding: 8px 14px; border-radius: 9px; cursor: pointer; }
+.status { font-size: 13px; }
+.status.ok { color: var(--ok); } .status.err { color: var(--bad); }
+.error { color: var(--bad); margin-top: 12px; font-size: 14px; }
+h2 { font-size: 18px; margin: 0 0 10px; }
+.history .item { padding: 10px 0; border-top: 1px solid var(--border); font-size: 15px; }
+.history .item:first-of-type { border-top: 0; }
+.history .tag { font-size: 12px; color: var(--muted); }
+.models { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.models div { font-size: 14px; color: var(--muted); }
+.models b { color: var(--text); font-size: 15px; }
+footer { margin-top: 28px; font-size: 13px; color: var(--muted); text-align: center; }
+footer a, .card a { color: var(--accent); }
+.spin { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent;
+  border-radius: 50%; animation: s .7s linear infinite; vertical-align: -2px; margin-right: 6px; }
+@keyframes s { to { transform: rotate(360deg); } }
+@media (max-width: 560px) { .models { grid-template-columns: 1fr; } .tab { font-size: 12px; } .tab b { font-size: 14px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>MICA Playground</h1>
+    <p>Language models made of learned integer rules in a cellular automaton, with no neural network at inference. Try them and rate what they write.</p>
+  </header>
+
+  <section class="card" aria-label="Try a model">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-m="flame-sentence" aria-selected="true"><b>Flame-W</b>sentence</button>
+      <button class="tab" role="tab" data-m="flame-suggest" aria-selected="false"><b>Flame-W</b>next words</button>
+      <button class="tab" role="tab" data-m="ember" aria-selected="false"><b>Ember</b>letter by letter</button>
+    </div>
+    <p class="desc" id="desc"></p>
+
+    <textarea id="prompt" maxlength="300" placeholder="Start a sentence, e.g. “I was thinking about”"></textarea>
+    <div class="chips" id="chips"></div>
+    <div class="row">
+      <label class="small" id="tempWrap" hidden>Creativity
+        <input type="range" id="temp" min="0" max="1.2" step="0.1" value="0">
+        <span id="tempVal">0 (exact)</span></label>
+      <span class="grow"></span>
+      <span class="count" id="count">0 / 300</span>
+      <button class="primary" id="go">Generate</button>
+    </div>
+    <div class="error" id="err" hidden></div>
+    <p class="notice">Prompts, outputs and ratings are saved and may be used to train MICA. No names or IP addresses are stored with them, but please don't type personal information.</p>
+
+    <div class="result hidden" id="result" aria-live="polite">
+      <div class="text" id="text"></div>
+      <div class="meta" id="meta"></div>
+      <div class="next" id="next"></div>
+      <div class="fb">
+        <div class="row" style="margin-top:0">
+          <span class="q grow">Did it make sense?</span>
+          <button class="vote up" id="up" aria-pressed="false" title="Good">👍</button>
+          <button class="vote down" id="down" aria-pressed="false" title="Bad">👎</button>
+        </div>
+        <div class="row">
+          <input class="better" id="better" maxlength="400" placeholder="Optional: how should it continue? (teaches MICA)">
+        </div>
+        <div class="row">
+          <span class="status grow" id="fbStatus"></span>
+          <button class="ghost" id="send">Send feedback</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card history" id="historyCard" hidden>
+    <h2>This session</h2>
+    <div id="history"></div>
+  </section>
+
+  <section class="card">
+    <h2>The models</h2>
+    <div class="models">
+      <div><b>Flame-W (full40)</b><br>Predicts whole words (16,384-word vocabulary). Next-word top-1 accuracy 20.7% on chat and 18.5% on everyday text, 6.84–7.0 bits per word.</div>
+      <div><b>Ember (v0.2A)</b><br>Predicts one byte at a time, with no vocabulary. The model file is 4.5 MB. It scores 1.86–1.88 bits per byte on chat and everyday text.</div>
+    </div>
+    <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Their sentences often don't make sense yet. Your ratings and corrections are what this site collects to improve them.</p>
+  </section>
+
+  <footer>
+    MICA by Vladimir Lavrik · <a href="https://github.com/Vovala14/Mica-Ai">Code and models</a> ·
+    Personal and research use only; commercial use is forbidden (<a href="https://github.com/Vovala14/Mica-Ai/blob/main/LICENSE">license</a>)
+  </footer>
+</div>
+
+<script>
+const MODES = {
+  'flame-sentence': { api: '/api/flame', body: p => ({ prompt: p, mode: 'sentence' }),
+    desc: 'Flame-W writes the rest of the sentence, one word at a time. It takes a few seconds.' },
+  'flame-suggest': { api: '/api/flame', body: p => ({ prompt: p, mode: 'suggest' }),
+    desc: 'Flame-W suggests the next two or three words, like a phone keyboard.' },
+  'ember': { api: '/api/ember', body: p => ({ prompt: p, temperature: +$('temp').value, limit: 120 }),
+    desc: 'Ember writes one letter (byte) at a time. At creativity 0 its output is exact and repeatable. Raise creativity to sample.' },
+};
+const EXAMPLES = ['I was thinking about', 'The weather today is', 'Can you help me', 'My favorite food is', 'Yesterday I went to the'];
+const $ = id => document.getElementById(id);
+let mode = 'flame-sentence', last = null, rating = null;
+let session = '';
+try { session = localStorage.getItem('mica-session') || ''; } catch {}
+if (!session) {
+  session = crypto.randomUUID().replace(/-/g, '').slice(0, 16);
+  try { localStorage.setItem('mica-session', session); } catch {}
+}
+
+function esc(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.m === m));
+  $('desc').textContent = MODES[m].desc;
+  $('tempWrap').hidden = m !== 'ember';
+}
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => setMode(t.dataset.m));
+EXAMPLES.forEach(e => { const b = document.createElement('button'); b.className = 'chip'; b.textContent = e;
+  b.onclick = () => { $('prompt').value = e; updCount(); $('prompt').focus(); }; $('chips').append(b); });
+function updCount() { $('count').textContent = `${$('prompt').value.length} / 300`; }
+$('prompt').addEventListener('input', updCount);
+$('prompt').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) generate(); });
+$('temp').oninput = () => { const t = +$('temp').value; $('tempVal').textContent = t === 0 ? '0 (exact)' : t.toFixed(1); };
+$('go').onclick = generate;
+
+async function log(payload) {
+  const r = await fetch('/api/log', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...payload, session }) });
+  return r.ok;
+}
+
+async function generate() {
+  const prompt = $('prompt').value;
+  if (!prompt.trim()) { $('prompt').focus(); return; }
+  const m = MODES[mode];
+  $('err').hidden = true;
+  $('go').disabled = true;
+  $('go').innerHTML = '<span class="spin"></span>Thinking';
+  try {
+    const res = await fetch(m.api, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(m.body(prompt)) });
+    const d = await res.json().catch(() => ({ error: 'The server did not answer. Please try again.' }));
+    if (!res.ok || d.error) throw new Error(d.error || 'Something went wrong.');
+    show(d);
+    const settings = d.temperature !== undefined ? { temperature: d.temperature, limit: d.limit } : { decoder: d.decoder };
+    log({ kind: 'generation', ...pick(d), ms: d.ms, settings, model_sha256: d.model_sha256 }).catch(() => {});
+  } catch (e) {
+    $('err').textContent = e.message; $('err').hidden = false;
+  } finally {
+    $('go').disabled = false; $('go').textContent = 'Generate';
+  }
+}
+function pick(d) { return { id: d.id, model: d.model, mode: d.mode, prompt: d.prompt, output: d.output, sig: d.sig }; }
+
+function show(d) {
+  last = d; rating = null;
+  ['up', 'down'].forEach(k => $(k).setAttribute('aria-pressed', 'false'));
+  $('better').value = ''; $('fbStatus').textContent = ''; $('fbStatus').className = 'status grow';
+  const out = d.output || '';
+  $('text').innerHTML = `<span class="p">${esc(d.prompt)}</span><span class="o">${out ? esc(out) : '…'}</span>`;
+  const name = d.model.startsWith('flame') ? 'Flame-W' : 'Ember';
+  $('meta').textContent = `${name} · ${d.mode} · ${(d.ms / 1000).toFixed(2)} s` + (out ? '' : ' · no continuation found');
+  $('next').innerHTML = d.next_byte ? 'Ember’s first-byte guess: ' +
+    d.next_byte.map(x => `<span>${esc(x.byte)} ${(x.p * 100).toFixed(0)}%</span>`).join('') : '';
+  $('result').classList.remove('hidden');
+  addHistory(d, name);
+}
+function addHistory(d, name) {
+  const el = document.createElement('div'); el.className = 'item';
+  el.innerHTML = `<span class="tag">${name} · ${esc(d.mode)}</span><br><span style="color:var(--prompt)">${esc(d.prompt)}</span>${esc(d.output || '…')}`;
+  $('history').prepend(el); $('historyCard').hidden = false;
+}
+function vote(k) {
+  rating = rating === k ? null : k;
+  ['up', 'down'].forEach(x => $(x).setAttribute('aria-pressed', String(rating === x)));
+  if (rating && !$('better').value.trim()) sendFeedback();
+}
+$('up').onclick = () => vote('up');
+$('down').onclick = () => vote('down');
+$('send').onclick = sendFeedback;
+$('better').addEventListener('keydown', e => { if (e.key === 'Enter') sendFeedback(); });
+async function sendFeedback() {
+  if (!last) return;
+  const correction = $('better').value.trim();
+  if (!rating && !correction) { $('fbStatus').textContent = 'Pick 👍/👎 or write a better continuation.'; return; }
+  const ok = await log({ kind: 'feedback', ...pick(last), rating, correction }).catch(() => false);
+  $('fbStatus').textContent = ok ? 'Thanks! Saved for training.' : 'Could not save feedback.';
+  $('fbStatus').className = 'status grow ' + (ok ? 'ok' : 'err');
+}
+setMode(mode);
+</script>
+</body>
+</html>

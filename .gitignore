@@ -7,3 +7,5 @@ venv/
 # training data stays local
 r1/data/**/*.jsonl
 r1/data/**/*.gz
+node_modules/
+.vercel/

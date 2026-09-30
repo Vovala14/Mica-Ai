@@ -13,7 +13,7 @@ revision R1.
 ## Quick start
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-dev.txt   # requirements.txt is numpy only, for the website
 python -m pytest r1/tests -q          # 139 tests, including the §7 worked example
 ```
 
@@ -37,6 +37,21 @@ python r1/generate_bytes.py ember/runs/codex_ember_balanced_v02a_20260928/train 
 ```
 
 Both are research models. Neither produces reliably sensible sentences yet.
+
+## Test website
+
+`public/` and `api/` are a Vercel site where people try both models and rate the output:
+
+| Path | What it does |
+|------|--------------|
+| `public/index.html` | The page: Flame-W sentence / next words, Ember letter by letter, 👍/👎 and "how should it continue?" |
+| `api/flame.py`, `api/ember.py` | Run the official checkpoints with the exact integer engine (`webapp/`) and sign each output |
+| `api/log.js` | Saves signed generations and feedback to a private Vercel Blob store |
+| `api/export.js` | Owner download of all logs: `/api/export?key=ADMIN_KEY` (`&summary=1` for counts) |
+| `r1/data/ingest_site_logs.py` | Turns that export into Ember byte records and Flame-W word records for training |
+
+The site needs three environment variables: `LOG_SECRET`, `ADMIN_KEY` and `BLOB_READ_WRITE_TOKEN`.
+The last one is set automatically when the Blob store is connected.
 
 ## What is where
 
