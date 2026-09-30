@@ -12,6 +12,8 @@ revision R1.
 | MICA Flame-W (word model) | [`flame/`](flame/) | official full40 checkpoint, vocabulary and decoder |
 | MICA Ember (byte/letter model) | [`ember/`](ember/) | official v0.2A checkpoint |
 
+**Want to experiment or do research with MICA?** Start with [RESEARCH.md](RESEARCH.md): how it works, how to measure it, the open problems, and what has already been tried.
+
 ## Quick start
 
 ```bash
