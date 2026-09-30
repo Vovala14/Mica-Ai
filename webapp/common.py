@@ -40,35 +40,38 @@ def result(model: str, mode: str, prompt: str, output: str, t0: float, **extra) 
             "sig": sign(gen_id, model, mode, prompt, output), **extra}
 
 
-def make_handler(run):
-    """A Vercel Python handler that POSTs JSON to run(body) -> dict."""
+class JsonHandler(BaseHTTPRequestHandler):
+    """Base for the Vercel Python functions: POST JSON to run(body) -> dict.
 
-    class handler(BaseHTTPRequestHandler):
-        def _send(self, code: int, obj: dict) -> None:
-            data = json.dumps(obj, ensure_ascii=False).encode("utf-8")
-            self.send_response(code)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.send_header("Cache-Control", "no-store")
-            self.send_header("Content-Length", str(len(data)))
-            self.end_headers()
-            self.wfile.write(data)
+    Each api/*.py file must declare `class handler(JsonHandler)` literally,
+    because Vercel only detects a Python function from that source line.
+    """
 
-        def do_POST(self):
-            try:
-                n = int(self.headers.get("content-length") or 0)
-                if n > 16_384:
-                    raise ValueError("Request too large.")
-                body = json.loads(self.rfile.read(n) or b"{}")
-                if not isinstance(body, dict):
-                    raise ValueError("Bad request.")
-                self._send(200, run(body))
-            except ValueError as e:
-                self._send(400, {"error": str(e)})
-            except Exception:
-                traceback.print_exc()
-                self._send(500, {"error": "The model failed on this prompt."})
+    run = None  # set by the subclass as staticmethod(run)
 
-        def do_GET(self):
-            self._send(405, {"error": "Use POST."})
+    def _send(self, code: int, obj: dict) -> None:
+        data = json.dumps(obj, ensure_ascii=False).encode("utf-8")
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
 
-    return handler
+    def do_POST(self):
+        try:
+            n = int(self.headers.get("content-length") or 0)
+            if n > 16_384:
+                raise ValueError("Request too large.")
+            body = json.loads(self.rfile.read(n) or b"{}")
+            if not isinstance(body, dict):
+                raise ValueError("Bad request.")
+            self._send(200, self.run(body))
+        except ValueError as e:
+            self._send(400, {"error": str(e)})
+        except Exception:
+            traceback.print_exc()
+            self._send(500, {"error": "The model failed on this prompt."})
+
+    def do_GET(self):
+        self._send(405, {"error": "Use POST."})
