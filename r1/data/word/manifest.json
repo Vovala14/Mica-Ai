@@ -1,0 +1,116 @@
+{
+ "version": 1,
+ "n_symbols": 16384,
+ "max_tokens": 64,
+ "source": {
+  "mix": "v02a",
+  "mix_manifest_sha256": "74158d323157828c7f6d2fff511e65a9a9447b6c86b52cc6958be59b625fcd8a",
+  "train_sha256": "345087044fb16487e53c82af3ed7b564abf2323d16a74d89911e93362376abd5",
+  "val_sha256": "df147cb3df16f8ad1fbafe3d2ab29c8586a427ea03e93d2f1d213187ef0613e7"
+ },
+ "vocab_sha256": "af1c6d47b1d3c412ab1e131044d8d197df494b51534eff25b3afcb3733b9a2ca",
+ "report": {
+  "train_records": 4507891,
+  "train_tokens": 80543613,
+  "types": 328144,
+  "vocab_tokens": 16125,
+  "train_coverage": 0.97888
+ },
+ "files": {
+  "v02a/train.jsonl": {
+   "records": 4507891,
+   "tokens": 80543613,
+   "oov_rate": 0.02099,
+   "records_cut": 20846,
+   "records_empty": 0,
+   "sha256": "898799971e502706a624e3eadf9de0ade31bf81008c5cb0c1dc002ca924c19d8",
+   "parts": {
+    "train.part0.u16.gz": "1a7223562a6007907d50c8bd18dc6ad819ea8b8da6b8fa8b19e7e086d8c2732f",
+    "train.part1.u16.gz": "e0a3dd1c778d536f01c304f24a028b2dfe0b142feac98efb0dfb95d24b69ea06",
+    "train.part2.u16.gz": "24fe85566d00496fe4ff15febc083bf2cb5843ffe7b31ebfba9ba4b971f911b7",
+    "train.part3.u16.gz": "fd7c72ac41a84d1be2b3f4ebb32bfc1636841e6c998a999a1a15a08b9e38f0b9"
+   }
+  },
+  "v02a/val.jsonl": {
+   "records": 29933,
+   "tokens": 457105,
+   "oov_rate": 0.01049,
+   "records_cut": 93,
+   "records_empty": 0,
+   "sha256": "a83b65e50f9512137864ad602fb38b83e8471fdf20349e34e484e20be8bfc79b"
+  },
+  "eval/chat_dev1000.jsonl": {
+   "records": 1000,
+   "tokens": 21832,
+   "oov_rate": 0.01571,
+   "records_cut": 1,
+   "records_empty": 0,
+   "sha256": "05c923dc5add19a77247837d689dbd6e1a39958ed5c8308d47f08de517473f3d",
+   "source_sha256": "34de6dad9c09c5750e29df4a9052d355aab49bb3fefb1adac3ed46fa8e7ed64d"
+  },
+  "eval/everyday_dev_fresh1000.jsonl": {
+   "records": 1000,
+   "tokens": 9622,
+   "oov_rate": 0.01569,
+   "records_cut": 0,
+   "records_empty": 0,
+   "sha256": "0757d45ef2d94fbb36034cf1c3e7197c103ddaf7c14993354d0d853b587fbb70",
+   "source_sha256": "19166643727556c67fbb1cc4fbc52bc3b5ac356f8c1d81d3fa5ff7131f8bb585"
+  },
+  "eval/chat_dev2_1000.jsonl": {
+   "records": 1000,
+   "tokens": 23115,
+   "oov_rate": 0.01112,
+   "records_cut": 2,
+   "records_empty": 0,
+   "sha256": "90cff1c16b7a050d98a2ec82663d0d86171b4b82f7846431416096242171dbbe",
+   "source_sha256": "061aed46cc155ebd0aca85dfa2a34c8406467ed727341981054aa658636f8027"
+  },
+  "eval/everyday_dev2_1000.jsonl": {
+   "records": 1000,
+   "tokens": 9837,
+   "oov_rate": 0.01718,
+   "records_cut": 0,
+   "records_empty": 0,
+   "sha256": "5a05521e2e302f86b1e3a8b5122afc2550ce5cb2b0338d442195e9e59ac57e1e",
+   "source_sha256": "5d228442623901b70b8a16319805d878b0d392a47c7a1972b442e0487b31d8f8"
+  },
+  "eval/chat_val1000_clean.jsonl": {
+   "records": 1000,
+   "tokens": 21660,
+   "oov_rate": 0.0139,
+   "records_cut": 0,
+   "records_empty": 0,
+   "sha256": "8c78141aec467a80a8d5ab793e6154598bcc8d129b70f032345766adac8e6414",
+   "source_sha256": "a8eb6d3553656a2cf78e8a2f61c66a4b02a6dd1a124f5f2b8b938a1d3c77423e"
+  },
+  "eval/everyday_val1000_clean.jsonl": {
+   "records": 1000,
+   "tokens": 9657,
+   "oov_rate": 0.01512,
+   "records_cut": 0,
+   "records_empty": 0,
+   "sha256": "c0cc50a6618b3c464ec568947ca0184c94f6c14c2a101e5e1d08c1f6d35c5456",
+   "source_sha256": "c6107c8e80f28156c0314db180576e7311ff3f7a9e2843d711709c9a7d2f4d26"
+  },
+  "eval/chat_long600.jsonl": {
+   "records": 600,
+   "tokens": 16315,
+   "oov_rate": 0.00699,
+   "records_cut": 0,
+   "records_empty": 0,
+   "sha256": "ce6a79daf00b265e99c28bb801c96680117be2651c59f8a7d1bf45a3d74f8b0d",
+   "source_sha256": "7c23055bac517d4b7c004420efb1b4ed1ab520532f07defe71cb1960226c5158"
+  },
+  "eval/everyday_long600.jsonl": {
+   "records": 600,
+   "tokens": 10768,
+   "oov_rate": 0.03148,
+   "records_cut": 1,
+   "records_empty": 0,
+   "sha256": "4db5114f175e9f53ec7be39417cee2070d16e61b7f86483c0a6224c403578aa9",
+   "source_sha256": "72f3036297eb7f79778cd511378faa9a6c7e3787624bb1adccdbd0629fa50451"
+  }
+ },
+ "missing_eval_sets": []
+}

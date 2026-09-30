@@ -1,0 +1,15 @@
+{
+  "purpose": "Model-only generation development set; blank prompt tests sentence creation from BOS.",
+  "rows": [
+    {"id": "gen-00", "category": "generation", "prompt": ""},
+    {"id": "gen-01", "category": "generation", "prompt": "The doctor "},
+    {"id": "gen-02", "category": "generation", "prompt": "The dog "},
+    {"id": "gen-03", "category": "generation", "prompt": "After the storm, "},
+    {"id": "gen-04", "category": "generation", "prompt": "Our flight "},
+    {"id": "gen-05", "category": "generation", "prompt": "This morning, "},
+    {"id": "gen-06", "category": "generation", "prompt": "The children "},
+    {"id": "gen-07", "category": "generation", "prompt": "At the store, "},
+    {"id": "gen-08", "category": "generation", "prompt": "I decided to "},
+    {"id": "gen-09", "category": "generation", "prompt": "We went to "}
+  ]
+}

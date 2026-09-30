@@ -1,0 +1,25 @@
+{
+  "purpose": "Qualitative holdout for English sentence completion; do not tune the decoder to these prompts.",
+  "prompts": [
+    "After the storm, the streets were",
+    "The teacher asked the students to",
+    "I forgot my umbrella because",
+    "She put the book on the",
+    "The train arrived at the station",
+    "We decided to make dinner with",
+    "The doctor explained that the patient",
+    "He opened the window to let",
+    "The garden looked beautiful in the",
+    "Our flight was delayed because of",
+    "The computer restarted before I could",
+    "They walked home together after the",
+    "The team won the game by",
+    "I called my friend to ask",
+    "The shop closes early on",
+    "When the lights went out, everyone",
+    "The museum displayed a collection of",
+    "She sent the package to her",
+    "He saved the file before",
+    "The dog waited by the door"
+  ]
+}
