@@ -1,0 +1,10 @@
+{
+  "framework": null,
+  "outputDirectory": "public",
+  "functions": {
+    "api/flame.py": { "maxDuration": 60, "excludeFiles": "{ember/**,node_modules/**,public/**}" },
+    "api/ember.py": { "maxDuration": 30, "excludeFiles": "{flame/**,r1/data/word/**,node_modules/**,public/**}" },
+    "api/log.js": { "maxDuration": 15 },
+    "api/export.js": { "maxDuration": 300 }
+  }
+}

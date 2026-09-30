@@ -1,0 +1,7 @@
+numpy
+# GPU backend and training (mica_r1/torch_batch.py, train_soft.py)
+torch
+# corpus building (r1/data/build_prose.py)
+pyarrow
+# tests
+pytest

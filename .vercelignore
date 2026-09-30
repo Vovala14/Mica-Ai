@@ -1,0 +1,11 @@
+# Only the site, the engine and the two official models are deployed.
+docs/
+flame/runs/claude_flame_word_20260930/
+r1/tests/
+r1/checks/
+r1/research_baselines/
+r1/runs/grok_/
+r1/data/*.py
+!r1/data/build_word_corpus.py
+**/progress.json
+**/*.md
