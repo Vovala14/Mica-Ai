@@ -1,0 +1,5 @@
+numpy
+# optional: GPU backend (mica_r1/torch_batch.py, train_soft.py)
+torch
+# tests
+pytest
