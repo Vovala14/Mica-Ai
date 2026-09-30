@@ -7,8 +7,8 @@ revision R1.
 | Part | Where | Status |
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
-| MICA Flame (word-level) | [`flame/`](flame/) | checkpoint added |
-| MICA Ember (letter-level) | [`ember/`](ember/) | not added yet |
+| MICA Flame-W (word model) | [`flame/`](flame/) | checkpoint added |
+| MICA Ember (byte/letter model) | [`ember/`](ember/) | not added yet |
 
 ## Quick start
 

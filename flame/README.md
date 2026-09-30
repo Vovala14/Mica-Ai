@@ -1,4 +1,8 @@
-# MICA Flame
+# MICA Flame-W (word model)
+
+Flame-W is the word-level MICA model: the same cellular automaton, with one
+symbol per word (16,384-symbol vocabulary). It is not the byte-level Flame;
+the byte/letter-level model is [MICA Ember](../ember/).
 
 ## Checkpoints
 

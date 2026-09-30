@@ -1,3 +1,3 @@
-# MICA Ember
+# MICA Ember (byte/letter model)
 
-Place the MICA Ember files in this folder.
+Ember is the byte/letter-level MICA model. Its files are not added yet.
