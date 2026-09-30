@@ -20,7 +20,7 @@ python -m pytest r1/tests -q          # 139 tests, including the §7 worked exam
 Generate text with Flame-W:
 
 ```bash
-echo {"id":"1","prompt":"I went to the"} > prompts.jsonl
+echo '{"id":"1","prompt":"I went to the"}' > prompts.jsonl
 python r1/runs/claude_flame_word_20260928/word_decode.py sentence \
   --model mica:flame/runs/claude_flame_word_20260930/a_full40_lr030 \
   --vocab r1/data/word/vocab.json --prompts prompts.jsonl --tag demo --out out.jsonl
