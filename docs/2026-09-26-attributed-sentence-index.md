@@ -76,7 +76,7 @@ Its official URL is
 To rebuild with the same local inputs:
 
 ```powershell
-& 'C:\Users\vlavrik\PycharmProjects\.venv-rocm\Scripts\python.exe' r1\data\build_attributed_tatoeba_index.py `
+& 'python' r1\data\build_attributed_tatoeba_index.py `
   --train r1\data\everyday\train.txt `
   --tatoeba r1\data\external\tatoeba\eng_sentences.tsv.bz2 `
   --detailed r1\data\external\tatoeba\eng_sentences_detailed.tsv.bz2 `

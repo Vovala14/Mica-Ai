@@ -1,15 +1,15 @@
 // Owner-only download of every logged generation and rating as JSON Lines.
-//   /api/export?key=ADMIN_KEY            -> mica-site-logs.jsonl
-//   /api/export?key=ADMIN_KEY&summary=1  -> counts only
-//   /api/export?key=ADMIN_KEY&check=1    -> storage health check (write + list + read)
+// The key goes in a header, never the URL, so it stays out of request logs
+// and browser history:
+//   curl -H "Authorization: Bearer ADMIN_KEY" https://SITE/api/export -o mica-site-logs.jsonl
+//   .../api/export?summary=1  -> counts only
+//   .../api/export?check=1    -> storage health check (write + list + read)
 import { describe, listAll, read, save } from '../lib/blob.js';
 import { timingSafeEqual } from 'node:crypto';
 
 function authorized(request) {
   const key = process.env.ADMIN_KEY;
-  const url = new URL(request.url);
-  const given = url.searchParams.get('key') ||
-    (request.headers.get('authorization') || '').replace(/^Bearer /, '');
+  const given = (request.headers.get('authorization') || '').replace(/^Bearer /, '');
   if (!key || !given || given.length !== key.length) return false;
   return timingSafeEqual(Buffer.from(given), Buffer.from(key));
 }

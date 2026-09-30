@@ -22,8 +22,8 @@
     "MICA_WINDOW": "1"
   },
   "args": {
-    "records": "C:\\Users\\vlavrik\\PycharmProjects\\mica\\r1\\data\\mix\\v02a\\train.jsonl",
-    "val_records": "C:\\Users\\vlavrik\\PycharmProjects\\mica\\r1\\data\\mix\\v02a\\val.jsonl",
+    "records": "r1\\data\\mix\\v02a\\train.jsonl",
+    "val_records": "r1\\data\\mix\\v02a\\val.jsonl",
     "steps": 40,
     "batch": 16,
     "record_bytes": 256,
@@ -74,7 +74,7 @@
     "fresh": false,
     "no_yield": false,
     "yield_gb": 3.0,
-    "out": "C:\\Users\\vlavrik\\PycharmProjects\\mica\\r1\\runs\\codex_ember_balanced_v02a_20260928\\train",
+    "out": "r1\\runs\\codex_ember_balanced_v02a_20260928\\train",
     "dry_run": false
   },
   "init_sig": {
