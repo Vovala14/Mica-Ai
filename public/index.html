@@ -203,9 +203,17 @@ $('temp').oninput = () => { const t = +$('temp').value; $('tempVal').textContent
 $('go').onclick = generate;
 
 async function log(payload) {
-  const r = await fetch('/api/log', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...payload, session }) });
-  return r.ok;
+  // keepalive lets the request finish if the tab closes; one retry covers a dropped connection.
+  const body = JSON.stringify({ ...payload, session });
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const r = await fetch('/api/log', { method: 'POST', keepalive: true,
+        headers: { 'Content-Type': 'application/json' }, body });
+      if (r.ok || r.status < 500) return r.ok;
+    } catch {}
+    await new Promise(res => setTimeout(res, 1200));
+  }
+  return false;
 }
 
 async function generate() {
