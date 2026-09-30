@@ -1,6 +1,6 @@
 // Stores one generation or one rating in the private Blob store.
 // Only outputs signed by api/flame.py or api/ember.py (LOG_SECRET) are accepted.
-import { put } from '@vercel/blob';
+import { save } from '../lib/blob.js';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
 const MODELS = new Set(['flame-w-full40', 'ember-v02a']);
@@ -45,9 +45,11 @@ export async function POST(request) {
     };
     path = `logs/${now.toISOString().slice(0, 10)}/${r.id}.json`;
   }
-  await put(path, JSON.stringify(record), {
-    access: 'private', addRandomSuffix: false, allowOverwrite: true,
-    contentType: 'application/json',
-  });
+  try {
+    await save(path, JSON.stringify(record));
+  } catch (e) {
+    console.error('blob save failed:', e && e.message);
+    return Response.json({ error: 'Storage is not set up.' }, { status: 503 });
+  }
   return Response.json({ ok: true });
 }

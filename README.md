@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/mica-flame.svg" alt="MICA flame logo" width="120"></p>
+
 # MICA AI
 
 MICA is a learned integer-rule cellular automaton language model. Its reference
