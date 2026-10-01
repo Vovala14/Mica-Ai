@@ -18,6 +18,18 @@ cd C:\Users\<you>\PycharmProjects\mica
   and running the same command again continues from there.
 - **Evaluation only** (for example after a stop): add `--skip-train`.
 
+## Day run 2026-10-01: does removing SODA cut the chat clichés?
+
+Arm **C** branches from last night's B and trains on data without TinyStories **and** without
+SODA, the emotional-support dialogue set behind "I don't know if I can ever trust you again".
+Arm **B** continues on the no-TinyStories data as the control. C runs first, so both start
+from the same state. The evaluation compares full40, B as it was before this run, B
+continued, and C.
+
+```powershell
+& ..\.venv-rocm\Scripts\python.exe r1\runs\claude_flamew_night_20261001\night.py --hours 5 --eval-hours 0.6 --arms C_nosoda,B_lr010
+```
+
 ## What it does
 
 1. **Corpus.** Rebuilds the word corpus from `r1/data/mix/v02a` without TinyStories

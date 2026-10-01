@@ -60,8 +60,17 @@ LR030 = R1 / "runs/claude_flame_word_20260930/a_full40_lr030/train"
 MIX = R1 / "data/mix/v02a"
 WORD = R1 / "data/word"
 NOSTORY = WORD / "v02a_nostories"
-TINYSTORIES = 4                                   # build_chat_corpus.SOURCES index
-ARMS = {"A_lr030": 0.03, "B_lr010": 0.01}
+# build_chat_corpus.SOURCES: 0 soda, 1 taskmaster, 2 sgd, 3 topicalchat, 4 tinystories, 5 everyday, 6 coco
+TINYSTORIES, SODA = 4, 0
+CORPORA = {"nostories": (TINYSTORIES,), "nostories_nosoda": (TINYSTORIES, SODA)}
+# lr: --round-lr; data: CORPORA key; start: "full40" or another arm's name (its saved state)
+ARMS = {"A_lr030": dict(lr=0.03, data="nostories", start="full40"),
+        "B_lr010": dict(lr=0.01, data="nostories", start="full40"),
+        "C_nosoda": dict(lr=0.01, data="nostories_nosoda", start="B_lr010")}
+
+
+def corpus_dir(name: str) -> Path:
+    return WORD / f"v02a_{name}"
 OVERRIDE = {"records", "val_records", "steps", "round_lr", "out", "fresh", "dry_run",
             "val_records_n", "gpu_mem_fraction", "min_free_ram_gb"}
 LOG = HERE / "night.log"
@@ -190,7 +199,9 @@ def process_ram_gb(pid: int) -> float:
 
 
 # ------------------------------------------------------------------ 1 corpus
-def build_corpus() -> dict:
+def build_corpus(name: str = "nostories") -> dict:
+    drop = CORPORA[name]
+    target = corpus_dir(name)
     sys.path.insert(0, str(R1 / "data"))
     import build_word_corpus as W
     vocab = W.Vocab.load(WORD / "vocab.json")
@@ -220,44 +231,47 @@ def build_corpus() -> dict:
                          f"{ref}. Nothing was trained.")
     say("[corpus] self-check passed: 5,000 rebuilt records match the existing word corpus")
 
-    NOSTORY.mkdir(parents=True, exist_ok=True)
+    target.mkdir(parents=True, exist_ok=True)
     info = {}
     for split in ("train", "val"):
         kept = dropped = 0
-        tmp = NOSTORY / f"{split}.jsonl.tmp"
+        tmp = target / f"{split}.jsonl.tmp"
         with open(tmp, "w", encoding="ascii", newline="\n") as out:
             for code, packed in records(split):
-                if code == TINYSTORIES:
+                if code in drop:
                     dropped += 1
                     continue
                 out.write(packed + "\n")
                 kept += 1
-        os.replace(tmp, NOSTORY / f"{split}.jsonl")
-        info[split] = {"records": kept, "tinystories_dropped": dropped,
-                       "sha256": sha256(NOSTORY / f"{split}.jsonl")}
-        say(f"[corpus] {split}: kept {kept:,} records, dropped {dropped:,} TinyStories records")
+        os.replace(tmp, target / f"{split}.jsonl")
+        info[split] = {"records": kept, "dropped": dropped, "dropped_sources": list(drop),
+                       "sha256": sha256(target / f"{split}.jsonl")}
+        say(f"[corpus] {name} {split}: kept {kept:,} records, dropped {dropped:,} (sources {list(drop)})")
     info["source"] = {f: sha256(MIX / f) for f in ("train.jsonl", "train.src", "val.jsonl", "val.src")}
-    (NOSTORY / "manifest.json").write_text(json.dumps(info, indent=1) + "\n")
+    (target / "manifest.json").write_text(json.dumps(info, indent=1) + "\n")
     return info
 
 
 # ------------------------------------------------------------------ 2 train
-def prepare_arm(out: Path) -> None:
-    """Copy full40's state into a new folder with the 'best so far' reset."""
+def prepare_arm(out: Path, start: str) -> None:
+    """Copy a saved state (full40 or another arm) into a new folder, 'best so far' reset."""
     import torch
     out.mkdir(parents=True, exist_ok=True)
     if (out / "resume.pt").exists():
         say(f"[train] {out.parent.name}: resume.pt exists, continuing it")
         return
-    ck = torch.load(FULL40 / "resume.pt", map_location="cpu", weights_only=False)
-    say(f"[train] {out.parent.name}: starting from full40 round {ck['step']} "
+    src = FULL40 if start == "full40" else HERE / start / "train"
+    if not (src / "resume.pt").exists():
+        raise SystemExit(f"{out.parent.name} starts from {start}, but {src / 'resume.pt'} is missing")
+    ck = torch.load(src / "resume.pt", map_location="cpu", weights_only=False)
+    say(f"[train] {out.parent.name}: starting from {start} round {ck['step']} "
         f"(its best {ck['best']:.4f} was on different validation records; reset)")
     ck["best"], ck["hist"] = float("inf"), []
     torch.save(ck, out / "resume.pt")
-    shutil.copy2(FULL40 / "run_info.json", out / "run_info.json")
+    shutil.copy2(src / "run_info.json", out / "run_info.json")
 
 
-def train_command(info: dict, out: Path, round_lr: float, steps: int, a) -> list[str]:
+def train_command(info: dict, out: Path, round_lr: float, steps: int, a, data: Path = NOSTORY) -> list[str]:
     cmd = [sys.executable, str(R1 / "train_soft.py")]
     for key, val in info["args"].items():
         if key in OVERRIDE or val is None:
@@ -268,23 +282,26 @@ def train_command(info: dict, out: Path, round_lr: float, steps: int, a) -> list
                 cmd.append(flag)
         else:
             cmd += [flag, str(val)]
-    cmd += ["--records", str(NOSTORY / "train.jsonl"), "--val-records", str(NOSTORY / "val.jsonl"),
+    cmd += ["--records", str(data / "train.jsonl"), "--val-records", str(data / "val.jsonl"),
             "--val-records-n", "128", "--round-lr", str(round_lr), "--steps", str(steps),
             "--gpu-mem-fraction", str(a.gpu_mem_fraction), "--min-free-ram-gb", str(a.min_free_ram_gb),
             "--out", str(out)]
     return cmd
 
 
-def run_arm(name: str, round_lr: float, deadline: float, a) -> Path | None:
+def run_arm(name: str, cfg: dict, deadline: float, a) -> Path | None:
+    round_lr = cfg["lr"]
     out = HERE / name / "train"
-    prepare_arm(out)
+    prepare_arm(out, cfg["start"])
     info = json.loads((FULL40 / "run_info.json").read_text(encoding="utf-8"))
     env = dict(os.environ, **{k: str(v) for k, v in info["env"].items()}, PYTHONUNBUFFERED="1")
-    cmd = train_command(info, out, round_lr, 40 + a.max_rounds, a)
+    import torch
+    start_step = torch.load(out / "resume.pt", map_location="cpu", weights_only=False)["step"]
+    cmd = train_command(info, out, round_lr, start_step + a.max_rounds, a, corpus_dir(cfg["data"]))
     (HERE / name).mkdir(exist_ok=True)
     (HERE / name / "command.txt").write_text(" ".join(cmd) + "\n")
     say(f"[train] {name}: round-lr {round_lr}, until {dt.datetime.fromtimestamp(deadline):%H:%M} "
-        f"or {a.max_rounds} rounds")
+        f"or {a.max_rounds} more rounds, data {cfg['data']}")
     created_stop, reason = False, "finished"
     with open(HERE / name / "train.log", "a", encoding="utf-8") as logf:
         proc = subprocess.Popen(cmd, cwd=ROOT, env=env, stdout=logf, stderr=subprocess.STDOUT)
@@ -371,7 +388,7 @@ def main() -> int:
     ap.add_argument("--ram-cap-gb", type=float, default=12.0)
     ap.add_argument("--min-free-ram-gb", type=float, default=4.0)
     ap.add_argument("--skip-train", action="store_true", help="only (re)run the evaluation")
-    ap.add_argument("--arms", default=",".join(ARMS),
+    ap.add_argument("--arms", default="C_nosoda,B_lr010",
                     help="which arms to train, e.g. B_lr010; an arm with a resume.pt continues")
     a = ap.parse_args()
     start = time.time()
@@ -386,26 +403,32 @@ def main() -> int:
             if not need.exists():
                 raise SystemExit(f"missing {need}")
         models = {"full40": FULL40 / "best.mica"}
-        if LR030.joinpath("best.mica").exists():
-            models["lr030_20260930"] = LR030 / "best.mica"
+        arms = {n: ARMS[n] for n in a.arms.split(",") if n}
+        # an arm that starts from another arm in this run goes first, so it branches
+        # from that arm's state as it is now, not after it has trained on
+        arms = dict(sorted(arms.items(), key=lambda kv: kv[1]["start"] not in arms))
+        stamp = dt.datetime.now().strftime("%m%d_%H%M")
+        for name in arms:                         # freeze each arm's current best before it moves on
+            best = HERE / name / "train/best.mica"
+            if best.exists():
+                snap = HERE / name / f"best_before_{stamp}.mica"
+                shutil.copy2(best, snap)
+                models[f"{name}_before"] = snap
         if not a.skip_train:
-            if not (NOSTORY / "manifest.json").exists():
-                build_corpus()
+            for name, cfg in arms.items():
+                if not (corpus_dir(cfg["data"]) / "manifest.json").exists():
+                    build_corpus(cfg["data"])
             train_end = end - a.eval_hours * 3600
-            arms = {n: ARMS[n] for n in a.arms.split(",") if n}
-            for i, (name, lr) in enumerate(arms.items()):
+            for i, (name, cfg) in enumerate(arms.items()):
                 left = train_end - time.time()
                 if left < 1800:
                     say(f"[train] skipping {name}: under 30 min left")
                     continue
-                best = run_arm(name, lr, time.time() + left / (len(arms) - i), a)
+                best = run_arm(name, cfg, time.time() + left / (len(arms) - i), a)
                 if best:
                     models[name] = best
-            for name in ARMS:                     # also score arms trained on earlier nights
-                if name not in models and (HERE / name / "train/best.mica").exists():
-                    models[name] = HERE / name / "train/best.mica"
         else:
-            for name in ARMS:
+            for name in arms:
                 if (HERE / name / "train/best.mica").exists():
                     models[name] = HERE / name / "train/best.mica"
         evaluate(models, end)
