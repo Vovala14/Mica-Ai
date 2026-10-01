@@ -242,6 +242,14 @@ def _tables(model, dev):
                 "op_a", "inj_delta")}
 
 
+def topic_step(prev: torch.Tensor, code: torch.Tensor) -> torch.Tensor:
+    """engine.topic_step on integer tensors: decay one step toward zero,
+    add the code, saturate. Exactly the engine's arithmetic."""
+    prev = prev.long()
+    d = prev - torch.sign(prev) * (prev.abs() >> spec.TOPIC_SHIFT)
+    return (d + code.long()).clamp(SAT_MIN, SAT_MAX)
+
+
 def _simulate(model, records, dev, ticks: int, batch: int = 256,
               on_tick=None, on_read=None):
     """Run the integer machine over `records` for a structured rule book
@@ -269,9 +277,12 @@ def _simulate(model, records, dev, ticks: int, batch: int = 256,
         imm = torch.cat([imm, torch.as_tensor(m.op_v.astype(np.int64),
                                               device=dev)], -1)    # (P,C,VW)
     codes = tb["inj_delta"][:, :K]
-    wdelta = tb["inj_delta"][:, K:]
-    wcell = torch.as_tensor(m.inj_cell[:, K:].astype(np.int64), device=dev)
-    wchan = torch.as_tensor(m.inj_chan[:, K:].astype(np.int64), device=dev)
+    # spec.TOPIC_CHANNELS: entries K..K+T-1 are topic codes, the rest work
+    T, TOP = spec.TOPIC_CHANNELS, spec.TOPIC_AT
+    tcodes = tb["inj_delta"][:, K:K + T]
+    wdelta = tb["inj_delta"][:, K + T:]
+    wcell = torch.as_tensor(m.inj_cell[:, K + T:].astype(np.int64), device=dev)
+    wchan = torch.as_tensor(m.inj_chan[:, K + T:].astype(np.int64), device=dev)
     off = torch.tensor(OFFSETS, device=dev)
     rc = torch.tensor(ROUTING_CHANNELS, device=dev)
     rw = 1 << torch.arange(len(ROUTING_CHANNELS), device=dev)
@@ -298,8 +309,12 @@ def _simulate(model, records, dev, ticks: int, batch: int = 256,
 
         def ingest(sym, pos):
             head = pos % N_CELLS
+            if T:
+                prev = F[:, (head - 1) % N_CELLS, TOP:].clone()
             F[:, head] = 0
             F[:, head, :K] = codes[sym]
+            if T:
+                F[:, head, TOP:] = topic_step(prev, tcodes[sym])
             phase[:, head] = 0
             prov[:, head] = -1
             if wdelta.shape[1]:
@@ -1002,22 +1017,45 @@ def template_rules(model, records, dev, max_back: tuple = (1, 2, 2, 2),
     return {"covered": covered}
 
 
-def from_integer(m, ticks: int, margin: float = 6.0):
+def from_integer(m, ticks: int, margin: float = 6.0, compact: bool = None):
     """A SoftMica whose hard forward pass is exactly the integer model `m`
     (every selector's logit peaked at the file's choice, every integer
     parameter copied). For analysis, sampling, and continuing training from
-    a .mica file."""
+    a .mica file.
+
+    compact (default: word alphabets) keeps one shared row of injection and
+    probe selectors, as fit mode trains word models; the model's wiring must
+    then be the same for every symbol. At 16,384 symbols the full rows would
+    need over 12 GB."""
     from .soft import SoftMica
-    sm = SoftMica(ticks=ticks, tau=0.5, hard=True, sel_init=0.0, sel_tau=1.0)
+    if compact is None:
+        compact = N_SYMBOLS > 258
+    sm = SoftMica(ticks=ticks, tau=0.5, hard=True, sel_init=0.0, sel_tau=1.0,
+                  compact_selectors=compact)
+    return load_integer(sm, m, margin)
+
+
+def load_integer(sm, m, margin: float = 6.0):
+    """Copy integer model `m` into an existing SoftMica `sm` (any device), so
+    that sm's hard forward pass is exactly `m`. Returns sm."""
+    compact = bool(getattr(sm, "compact_selectors", False))
+
+    def rows(a):
+        a = np.asarray(a)
+        if not compact:
+            return a
+        if not (a == a[:1]).all():
+            raise ValueError("compact selectors need the same wiring for every symbol")
+        return a[:1]
 
     def peak(name, idx):
         p = getattr(sm, name)
-        x = torch.zeros(p.shape)
-        x.scatter_(-1, torch.as_tensor(np.asarray(idx).astype(np.int64))[..., None],
-                   margin)
+        x = torch.zeros(p.shape, device=p.device)
+        x.scatter_(-1, torch.as_tensor(np.asarray(idx).astype(np.int64),
+                                       device=p.device)[..., None], margin)
         p.data.copy_(x)
     with torch.no_grad():
-        peak("inj_cell", m.inj_cell); peak("inj_chan", m.inj_chan)
+        peak("inj_cell", rows(m.inj_cell)); peak("inj_chan", rows(m.inj_chan))
         sm.inj_delta.copy_(torch.as_tensor(m.inj_delta.astype(np.float32)))
         peak("sc_nb", m.sc_nb); peak("sc_ch", m.sc_ch)
         peak("sc_co", m.sc_co.astype(np.int64) + 1)
@@ -1028,13 +1066,61 @@ def from_integer(m, ticks: int, margin: float = 6.0):
         sm.op_b.copy_(torch.as_tensor(m.op_b.astype(np.float32)))
         if spec.VSET_WIDTH > 1:
             sm.op_v.copy_(torch.as_tensor(m.op_v.astype(np.float32)))
-        peak("pr_cell", m.pr_cell); peak("pr_chan", m.pr_chan)
+        peak("pr_cell", rows(m.pr_cell)); peak("pr_chan", rows(m.pr_chan))
         if spec.WIDE_PROBE_COEF:
             sm.pr_w.copy_(torch.as_tensor(m.pr_co.astype(np.float32)))
         else:
-            peak("pr_co", m.pr_co.astype(np.int64) + 1)
+            peak("pr_co", rows(m.pr_co.astype(np.int64) + 1))
         sm.pr_bias.copy_(torch.as_tensor(m.pr_bias.astype(np.float32)))
     return sm
+
+
+def add_topic_register(m, codes: np.ndarray, phases, terms: int = 2,
+                       seed: int = 0) -> dict:
+    """Make an integer model without the topic register the start of one
+    (spec.TOPIC_CHANNELS), in place.
+
+    * Injection entries K..K+T-1 become the topic codes, addressed (head,
+      topic channel t). They must have been unused (zero deltas).
+    * In each phase of `phases`, the last `terms` scoring terms of every
+      candidate read the head cell's OWN topic channels (a random channel per
+      term, distinct within a candidate) with a random sign. The other terms,
+      the routing and every immediate are untouched; phases not listed are
+      exactly as before. Biases must be rebalanced afterwards
+      (balance_by_simulation), and the immediates refitted.
+
+    With `codes` all zero the register stays zero, so the listed phases lose
+    `terms` of their terms and nothing else: the matched control."""
+    K, T, TOP = spec.TAPE_CHANNELS, spec.TOPIC_CHANNELS, spec.TOPIC_AT
+    if not T:
+        raise ValueError("set MICA_TOPIC to add a topic register")
+    codes = np.asarray(codes)
+    if codes.shape != (N_SYMBOLS, T) or codes.dtype != np.int8 or (codes == -128).any():
+        raise ValueError(f"topic codes must be int8 {(N_SYMBOLS, T)} without -128")
+    if (m.inj_delta[:, K:K + T] != 0).any():
+        raise ValueError("injection entries for the topic codes are in use")
+    if not 1 <= terms <= min(T, N_SCORE_TERMS):
+        raise ValueError(f"terms must be 1..{min(T, N_SCORE_TERMS)}")
+    phases = sorted(set(int(p) for p in phases))
+    if not phases or phases[0] < 0 or phases[-1] >= N_PHASE:
+        raise ValueError(f"phases must be within 0..{N_PHASE - 1}")
+    r = np.random.default_rng(seed)
+    m.inj_cell[:, K:K + T] = 0
+    m.inj_chan[:, K:K + T] = TOP + np.arange(T, dtype=np.uint8)
+    m.inj_delta[:, K:K + T] = codes
+    self_sel = list(OFFSETS).index(0)
+    C, S = N_CANDIDATES, N_SCORE_TERMS
+    for p in phases:
+        pages = slice(p * PAGE_STRIDE, (p + 1) * PAGE_STRIDE)
+        n = PAGE_STRIDE
+        chans = np.argsort(r.random((n, C, T)), -1)[..., :terms]     # distinct
+        m.sc_nb[pages, :, S - terms:] = self_sel
+        m.sc_ch[pages, :, S - terms:] = (TOP + chans).astype(np.uint8)
+        m.sc_co[pages, :, S - terms:] = np.where(
+            r.random((n, C, terms)) < 0.5, -1, 1).astype(np.int8)
+    m.validate()
+    return {"phases": phases, "terms": terms,
+            "content_symbols": int((codes != 0).any(1).sum())}
 
 
 # bytes that continue a word: letters, digits, apostrophe, and the bytes of

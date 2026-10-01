@@ -45,6 +45,9 @@ class TorchModelStack:
     """K models as int32 tensors on one device."""
 
     def __init__(self, models: list[Model], device, routing: str = "r1"):
+        if spec.TOPIC_CHANNELS:
+            raise NotImplementedError("this batch machine has no topic register; "
+                                      "use engine.py for topic models")
         if spec.EXTENDED:
             raise NotImplementedError(
                 "torch_batch runs R1 only; the tape extensions (MICA_TAPE, "

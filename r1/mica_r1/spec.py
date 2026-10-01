@@ -151,8 +151,25 @@ WIDE_PROBE_COEF = os.environ.get("MICA_PROBE_COEF", "ternary") == "int8"
 #                        bits/byte on documents the fit never saw. Channels
 #                        past the last one are simply not written.
 VSET_WIDTH = _env("MICA_VSET", 0)
+#   MICA_TOPIC=T         a topic register: the last T channels of every cell.
+#                        At ingest the head cell's topic is the previous
+#                        cell's, decayed one step toward zero, plus the
+#                        symbol's topic code (injection entries K..K+T-1,
+#                        addressed (head, topic channel t) like the tape):
+#                            d = prev - sign(prev) * (|prev| >> TOPIC_SHIFT)
+#                            topic = sat(d + code)
+#                        Content words carry codes, function words zero, so
+#                        the register is a slowly fading sum of the recent
+#                        content words: the topic, from further back than the
+#                        rules' eight-cell reach. No rule and no work
+#                        injection may write it; rules read it like the tape.
+#   MICA_TOPIC_SHIFT=S   decay per symbol: |prev| >> S is removed (default 3,
+#                        so a code fades by 1/8 per word).
+TOPIC_CHANNELS = _env("MICA_TOPIC", 0)
+TOPIC_SHIFT = _env("MICA_TOPIC_SHIFT", 3)
+TOPIC_AT = N_CHANNELS - TOPIC_CHANNELS          # first topic channel
 EXTENDED = bool(TAPE_CHANNELS or WINDOW or PROBE_WINDOW or WIDE_PROBE_COEF
-                or VSET_WIDTH or N_SYMBOLS != 258)
+                or VSET_WIDTH or N_SYMBOLS != 258 or TOPIC_CHANNELS)
 PROBE_CO_MIN, PROBE_CO_MAX = (-127, 127) if WIDE_PROBE_COEF else (-1, 1)
 
 # ---- file layout (sections 10 and 11) ------------------------------------
@@ -221,6 +238,14 @@ def _check_layout():
         f"MICA_VSET={VSET_WIDTH}: a candidate record has room for "
         f"{CANDIDATE_BYTES - CAND_VSET_AT} extra immediates")
     assert 0 <= WINDOW <= N_CELLS and 0 <= PROBE_WINDOW <= N_CELLS
+    if TOPIC_CHANNELS:
+        assert TAPE_CHANNELS and WINDOW, "the topic register needs MICA_TAPE and MICA_WINDOW"
+        assert TAPE_CHANNELS + TOPIC_CHANNELS <= N_INJECT, (
+            f"MICA_TOPIC={TOPIC_CHANNELS}: injection entries {TAPE_CHANNELS}.. "
+            f"hold the topic codes, but there are only {N_INJECT}")
+        assert TOPIC_AT >= TAPE_CHANNELS + max(1, VSET_WIDTH), (
+            "the topic register leaves no work channels")
+        assert 0 <= TOPIC_SHIFT <= 7, TOPIC_SHIFT
     if TAPE_CHANNELS or WINDOW or PROBE_WINDOW:
         # all three are defined in the write head's frame
         assert ROLLING_READOUT, "the tape extensions need MICA_ROLLING_READOUT=1"
@@ -256,7 +281,8 @@ def describe() -> dict:
             "tape_channels": TAPE_CHANNELS, "window": WINDOW,
             "probe_window": PROBE_WINDOW,
             "probe_coef": "int8" if WIDE_PROBE_COEF else "ternary",
-            "vset_width": VSET_WIDTH, "phases": N_PHASE}
+            "vset_width": VSET_WIDTH, "phases": N_PHASE,
+            "topic_channels": TOPIC_CHANNELS, "topic_shift": TOPIC_SHIFT}
 
 
 def probe_cell_allowed(k: int) -> bool:

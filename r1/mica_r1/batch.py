@@ -35,6 +35,9 @@ class ModelStack:
               "op_u", "pr_cell", "pr_chan", "pr_co", "pr_bias")
 
     def __init__(self, models: list[Model], score_backend: str = "numpy"):
+        if spec.TOPIC_CHANNELS:
+            raise NotImplementedError("this batch machine has no topic register; "
+                                      "use engine.py for topic models")
         if score_backend not in ("numpy", "c"):
             raise ValueError(score_backend)
         self.K = len(models)

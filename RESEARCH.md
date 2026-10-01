@@ -115,6 +115,9 @@ continuations that are at least partly useful:
    - *Current hypothesis:* a slowly changing "topic" track, updated by content words, that
      some phases' rule-selection hashes can read (see
      [`docs/2026-09-28-mica-s1-pilot.md`](docs/2026-09-28-mica-s1-pilot.md)).
+     *Being tested:* the topic register (`MICA_TOPIC`), a fading sum of recent content
+     words' codes that half the rule phases read when choosing a rule; see
+     [`r1/runs/claude_flamew_topic_20261002/`](r1/runs/claude_flamew_topic_20261002/).
 2. **Stock phrases and loops.** Ember loops on phrases like "the street", and Flame-W drifts
    into story clichés. Data mix, decoding and rules all play a part.
 3. **Measuring sentence quality.** Bits and next-word accuracy don't track usefulness well.

@@ -198,6 +198,8 @@ INIT_KEYS = (
     "rule_scoring", "template_records", "template_phases",
     "rule_self_terms", "rule_state", "reversible_multiplier",
     "probe_reversible_state", "choose_channels",
+    "init_mica_sha", "topic_codes_sha", "topic_phases", "topic_terms",
+    "topic_init_lr",
 )
 # These options were added after older run_info.json files were written.
 # Missing values in those files used exactly these old behaviours.
@@ -207,6 +209,11 @@ LEGACY_INIT_DEFAULTS = {
     "template_phases": "all",
     "reversible_multiplier": 4,
     "probe_reversible_state": False,
+    "init_mica_sha": "",
+    "topic_codes_sha": "",
+    "topic_phases": "",
+    "topic_terms": 2,
+    "topic_init_lr": 0.3,
 }
 
 
@@ -229,6 +236,9 @@ def resume_problem(saved_sig, now_sig, saved_init, now_init,
     """Reject incompatible resumes; older checkpoints use prior run_info."""
     if not same_run(saved_sig, now_sig):
         return "saved geometry or schedule differs from this run"
+    if isinstance(saved_init, dict):
+        # options added later default to the behaviour older runs had
+        saved_init = {**LEGACY_INIT_DEFAULTS, **saved_init}
     prior = (saved_init if saved_init is not None else
              ({**LEGACY_INIT_DEFAULTS, **legacy_args}
               if isinstance(legacy_args, dict) else None))
@@ -748,6 +758,21 @@ def main() -> int:
                          "a word and resets at separators; 'word-reserved' "
                          "reserves one routing bit so those resets are exact; "
                          "'stream' hashes separators too")
+    ap.add_argument("--init-mica", default="",
+                    help="fit mode: start from this trained .mica instead of "
+                         "building a rule book (its geometry may differ only "
+                         "in the channel count, e.g. a model without the "
+                         "topic register)")
+    ap.add_argument("--topic-codes", default="",
+                    help="with --init-mica and MICA_TOPIC: .npz holding int8 "
+                         "'codes' (N_SYMBOLS, MICA_TOPIC); fit.add_topic_register")
+    ap.add_argument("--topic-phases", default="",
+                    help="phases whose last --topic-terms scoring terms read "
+                         "the topic register, e.g. 8,9,10,11,12,13,14,15")
+    ap.add_argument("--topic-terms", type=int, default=2)
+    ap.add_argument("--topic-init-lr", type=float, default=0.3,
+                    help="step-size scale of the first refit after the topic "
+                         "terms change which rules win")
     ap.add_argument("--reversible-multiplier", type=int, default=4,
                     help="reversible rule selection: invertible state multiplier "
                          "modulo 243; compare candidates on held-out text")
@@ -820,6 +845,18 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true",
                     help="time one step and report memory, then stop")
     args = ap.parse_args()
+    import hashlib as _hashlib
+
+    def _sha(path):
+        return _hashlib.sha256(Path(path).read_bytes()).hexdigest() if path else ""
+    if args.init_mica and (args.mode != "fit" or not spec.TAPE_CHANNELS):
+        ap.error("--init-mica needs --mode fit and the tape machine")
+    if bool(args.topic_codes) != bool(spec.TOPIC_CHANNELS) or \
+            (args.topic_codes and not (args.init_mica and args.topic_phases)):
+        ap.error("a topic run needs MICA_TOPIC, --init-mica, --topic-codes "
+                 "and --topic-phases together")
+    args.init_mica_sha = _sha(args.init_mica)
+    args.topic_codes_sha = _sha(args.topic_codes)
     if args.word_start_weight < 1:
         ap.error("--word-start-weight must be at least 1")
     if args.rule_lag_coverage and args.init != "fit-rules":
@@ -1147,7 +1184,35 @@ def main() -> int:
             "args": vars(args), "init_sig": init_sig}, indent=2))
     except OSError:
         pass
-    if args.init in ("tape", "fit", "fit-rules") and step == 0 and \
+    if args.init_mica and step == 0:
+        from mica_r1 import fit as _fit
+        start = serialize.load_other_channels(args.init_mica)
+        if spec.TOPIC_CHANNELS:
+            codes = np.load(args.topic_codes)["codes"]
+            info = _fit.add_topic_register(
+                start, codes, [int(p) for p in args.topic_phases.split(",")],
+                terms=args.topic_terms)
+            print(f"[train] topic register: {spec.TOPIC_CHANNELS} channels "
+                  f"(decay 1/{1 << spec.TOPIC_SHIFT} per word), "
+                  f"{info['content_symbols']:,} symbols with codes; "
+                  f"{info['terms']} scoring terms read it in phases "
+                  f"{info['phases']}", flush=True)
+        else:
+            start.validate()
+        _fit.load_integer(model, start)
+        del start
+        print(f"[train] starting from {args.init_mica}", flush=True)
+        if spec.TOPIC_CHANNELS:
+            _fit.balance_by_simulation(model, train, dev, args.ticks,
+                                       row_stride=31,
+                                       log=lambda m: print(m, flush=True))
+            h = _fit.fit_readout_and_rules(
+                model, train, dev, args.ticks, steps=args.fit_steps,
+                max_records=args.fit_records, lr_scale=args.topic_init_lr,
+                log=lambda m: print(m, flush=True))
+            print(f"[train] after rebalancing and one refit: {h:.4f} bits "
+                  f"on held-out positions", flush=True)
+    elif args.init in ("tape", "fit", "fit-rules") and step == 0 and \
             spec.TAPE_CHANNELS:
         from mica_r1 import fit as _fit
         layout = (_fit.structured_work_probes(

@@ -216,6 +216,20 @@ class SoftMica(nn.Module):
                 lag = (N - torch.arange(N)) % N          # cell k is `lag` behind
                 icell[K:] = lag[None, :] >= spec.WINDOW
             masks["inj_cell"] = icell
+        T = spec.TOPIC_CHANNELS
+        if T:
+            # spec.TOPIC_CHANNELS: no rule or work injection writes the
+            # register; a VSET writes VSET_WIDTH channels from d
+            top = spec.TOPIC_AT
+            ch = torch.arange(N_CHANNELS)
+            masks["op_d"] = masks["op_d"] | (ch + max(1, spec.VSET_WIDTH) - 1 >= top)
+            masks["op_u"] = masks["op_u"] | (ch >= top)
+            ic = masks["inj_chan"]
+            ic[K + T:] |= (ch >= top)[None, :]
+            ic[K:K + T] = True
+            ic[K + torch.arange(T), top + torch.arange(T)] = False
+            masks["inj_cell"][K:K + T] = True
+            masks["inj_cell"][K:K + T, 0] = False
         if spec.PROBE_WINDOW:
             masks["pr_cell"] = torch.arange(N) < N - spec.PROBE_WINDOW
         self._mask_names = tuple(masks)
@@ -443,6 +457,10 @@ class SoftMica(nn.Module):
 
     # -- ingest and readout ----------------------------------------------
     def ingest(self, st: dict, sym: torch.Tensor, rp: dict = None) -> dict:
+        if spec.TOPIC_CHANNELS:
+            raise NotImplementedError(
+                "the straight-through soft machine has no topic register; "
+                "topic models train in fit mode (fit._simulate) only")
         rp = self.rule_params() if rp is None else rp
         F, phase = st["F"], st["phase"]
         B = F.shape[0]
