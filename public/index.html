@@ -26,6 +26,7 @@
   --ok: #4ade80; --bad: #f87171; --prompt: #8f867c; --shadow: none;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body { margin: 0; background: var(--bg); color: var(--text);
   font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
@@ -92,6 +93,20 @@ footer a, .card a { color: var(--accent); }
 .spin { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent;
   border-radius: 50%; animation: s .7s linear infinite; vertical-align: -2px; margin-right: 6px; }
 @keyframes s { to { transform: rotate(360deg); } }
+.think { position: relative; margin-top: 20px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); }
+.think canvas { display: block; width: 100%; height: 92px; }
+.think .steps { list-style: none; margin: 0; padding: 10px 14px 12px; font-size: 14px; color: var(--muted);
+  border-top: 1px solid var(--border); }
+.think .steps li { padding: 2px 0; animation: in .35s ease both; }
+.think .steps li::before { content: "✓"; display: inline-block; width: 1.4em; color: var(--ok); }
+.think .steps li.now { color: var(--text); }
+.think .steps li.now::before { content: "›"; color: var(--accent); font-weight: 700; }
+.think .steps li.now::after { content: ""; animation: dots 1.2s steps(4) infinite; }
+.think .clock { position: absolute; top: 6px; right: 8px; font-size: 12px; color: var(--muted);
+  font-variant-numeric: tabular-nums; background: var(--bg); padding: 0 6px; border-radius: 6px; }
+@keyframes in { from { opacity: 0; transform: translateY(3px); } }
+@keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+@media (prefers-reduced-motion: reduce) { .think .steps li, .think .steps li.now::after { animation: none; } }
 @media (max-width: 560px) { .models { grid-template-columns: 1fr; } .tab { font-size: 12px; } .tab b { font-size: 14px; } }
 </style>
 </head>
@@ -126,6 +141,11 @@ footer a, .card a { color: var(--accent); }
     <div class="error" id="err" hidden></div>
     <p class="notice">Prompts, outputs and ratings are saved and may be used to train MICA. No names or IP addresses are stored with them, but please don't type personal information.</p>
 
+    <div class="think" id="think" hidden>
+      <span class="clock" id="clock"></span>
+      <canvas id="ca" aria-hidden="true"></canvas>
+      <ul class="steps" id="steps" aria-live="polite"></ul>
+    </div>
     <div class="result hidden" id="result" aria-live="polite">
       <div class="text" id="text"></div>
       <div class="meta" id="meta"></div>
@@ -216,6 +236,132 @@ async function log(payload) {
   return false;
 }
 
+// "Thinking" panel: a small automaton seeded from the prompt, plus what the engine is doing.
+// The picture is illustrative (the real field is 768 cells x 112 channels); the steps are real.
+function quoteWords(p) {
+  const w = p.trim().split(/\s+/);
+  return (w.length > 5 ? '… ' : '') + w.slice(-5).map(x => `“${x}”`).join(' ');
+}
+const STEPS = {
+  'flame-sentence': p => [
+    `Writing your words onto the tape: ${quoteWords(p)}`,
+    'Running 16 rule phases across 768 cells × 112 channels',
+    'Each cell picks one of 1,024 learned integer rules',
+    'Reading 240 probes to score all 16,125 words it knows',
+    'Growing 6 candidate endings, word by word',
+    'Penalizing stock phrases it would say to anyone',
+    'Checking which endings finish the sentence cleanly',
+  ],
+  'flame-suggest': p => [
+    `Writing your words onto the tape: ${quoteWords(p)}`,
+    'Running 16 rule phases across 768 cells',
+    'Scoring all 16,125 words it knows',
+    'Picking the likeliest next few words',
+  ],
+  'ember': p => [
+    'Writing your text onto the tape, one byte at a time',
+    'Running 16 rule phases across 768 cells × 112 channels',
+    'Each cell picks one of 256 learned integer rules',
+    +$('temp').value ? 'Sampling each next letter from 256 bytes' : 'Choosing the single likeliest next letter of 256',
+    'Writing it back onto the tape and going again',
+  ],
+};
+const MORE = ['No floating point anywhere: every step is integer math', 'Still weighing the candidates',
+  'Same prompt, same answer: the engine is fully deterministic', 'All of this runs on a plain CPU, no GPU'];
+const STEP_MS = { 'flame-sentence': 1500, 'flame-suggest': 450, 'ember': 900 };
+let thinking = null;
+
+function startThinking(prompt) {
+  stopThinking(true);
+  const lines = STEPS[mode](prompt), t0 = performance.now(), cv = $('ca');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clock = $('clock'); clock.textContent = '0.0 s';
+  $('steps').innerHTML = '';
+  let n = 0, lastStep = 0;
+  const step = () => {
+    const prev = $('steps').querySelector('.now'); if (prev) prev.className = '';
+    const li = document.createElement('li'); li.className = 'now';
+    li.textContent = n < lines.length ? lines[n] : MORE[(n - lines.length) % MORE.length];
+    $('steps').append(li); n++; lastStep = performance.now();
+    if ($('steps').children.length > 6) $('steps').firstChild.remove();   // keep the list short
+  };
+  step();
+  const timer = setInterval(() => {
+    if (n < lines.length || performance.now() - lastStep > 3500) step();
+  }, STEP_MS[mode]);
+
+  // Illustrative automaton: 4-state cells, a 3-neighbour rule table seeded from the prompt,
+  // and a write head that injects the prompt's bytes, as MICA does with each symbol.
+  $('think').hidden = false;
+  const below = $('think').getBoundingClientRect().top + 290 - innerHeight;   // room for the canvas and steps
+  if (below > 0) scrollBy({ top: below, behavior: reduce ? 'auto' : 'smooth' });
+  const dpr = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = W * dpr; cv.height = H * dpr;
+  const g = cv.getContext('2d'); g.scale(dpr, dpr);
+  const size = W < 480 ? 5 : 6, cols = Math.ceil(W / size), rows = Math.ceil(H / size);
+  let h = 2166136261;
+  for (const ch of prompt) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+  const rnd = () => ((h = Math.imul(h ^ (h >>> 15), 2246822519) ^ Math.imul(h, 3266489917)) >>> 0) / 4294967296;
+  const bytes = [...new TextEncoder().encode(prompt || ' ')];
+  const inject = (row, tick) => {       // a new symbol every 16 phases, written under a moving head
+    if (tick % 16) return;
+    const b = bytes[(tick / 16) % bytes.length], head = ((tick / 16) * 7) % cols;
+    for (let k = 0; k < 4; k++) row[(head + k) % cols] = 1 + ((b >> (2 * k)) % 3);
+  };
+  const stepRow = (tbl, row) => row.map((c, i) => tbl[row[(i + cols - 1) % cols] * 16 + c * 4 + row[(i + 1) % cols]]);
+  // Try rule tables seeded from the prompt; keep the first that is lively but not noise.
+  let table = null, bestScore = Infinity;
+  for (let t = 0; t < 40; t++) {
+    const tbl = Array.from({ length: 64 }, () => (rnd() < 0.6 ? 0 : 1 + ((rnd() * 3) | 0)));
+    tbl[0] = 0;
+    let row = new Array(cols).fill(0), dens = 0, chg = 0;
+    for (let tick = 0; tick < 240; tick++) {
+      const nxt = stepRow(tbl, row); inject(nxt, tick);
+      if (tick >= 80) for (let i = 0; i < cols; i++) { dens += nxt[i] > 0; chg += nxt[i] !== row[i]; }
+      row = nxt;
+    }
+    dens /= 160 * cols; chg /= 160 * cols;
+    const score = Math.max(0, 0.15 - dens, dens - 0.4) + Math.max(0, 0.08 - chg, chg - 0.3);
+    if (score < bestScore) { bestScore = score; table = tbl; }
+    if (score === 0) break;
+  }
+  let cur = new Array(cols).fill(0);
+  const hist = [];
+  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c2410c';
+  let tick = 0, last = 0, raf = 0;
+  const advance = () => {
+    const nxt = stepRow(table, cur); inject(nxt, tick);
+    cur = nxt; hist.push(cur); if (hist.length > rows) hist.shift(); tick++;
+  };
+  const draw = () => {
+    g.clearRect(0, 0, W, H); g.fillStyle = accent;
+    hist.forEach((r, y) => r.forEach((c, x) => {
+      if (!c) return; g.globalAlpha = [0, .22, .5, .9][c]; g.fillRect(x * size, y * size, size - 1, size - 1);
+    }));
+    g.globalAlpha = 1;
+  };
+  const frame = t => {
+    if (t - last > 55) { advance(); draw(); last = t; }
+    clock.textContent = ((performance.now() - t0) / 1000).toFixed(1) + ' s';
+    raf = requestAnimationFrame(frame);
+  };
+  if (reduce) {
+    for (let i = 0; i < rows; i++) advance();
+    draw();
+    const c = setInterval(() => { clock.textContent = ((performance.now() - t0) / 1000).toFixed(1) + ' s'; }, 200);
+    thinking = { stop: () => { clearInterval(timer); clearInterval(c); } };
+  } else {
+    raf = requestAnimationFrame(frame);
+    thinking = { stop: () => { clearInterval(timer); cancelAnimationFrame(raf); } };
+  }
+}
+function stopThinking(now) {
+  if (!thinking) return;
+  thinking.stop(); thinking = null;
+  const cur = $('steps').querySelector('.now'); if (cur) cur.className = '';
+  if (now) $('think').hidden = true;
+}
+
 async function generate() {
   const prompt = $('prompt').value;
   if (!prompt.trim()) { $('prompt').focus(); return; }
@@ -223,17 +369,21 @@ async function generate() {
   $('err').hidden = true;
   $('go').disabled = true;
   $('go').innerHTML = '<span class="spin"></span>Thinking';
+  $('result').classList.add('hidden');
+  startThinking(prompt);
   try {
     const res = await fetch(m.api, { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(m.body(prompt)) });
     const d = await res.json().catch(() => ({ error: 'The server did not answer. Please try again.' }));
     if (!res.ok || d.error) throw new Error(d.error || 'Something went wrong.');
+    stopThinking(true);
     show(d);
     const settings = d.temperature !== undefined ? { temperature: d.temperature, limit: d.limit } : { decoder: d.decoder };
     log({ kind: 'generation', ...pick(d), ms: d.ms, settings, model_sha256: d.model_sha256 }).catch(() => {});
   } catch (e) {
     $('err').textContent = e.message; $('err').hidden = false;
   } finally {
+    stopThinking(true);
     $('go').disabled = false; $('go').textContent = 'Generate';
   }
 }
