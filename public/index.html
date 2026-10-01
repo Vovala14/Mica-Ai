@@ -94,15 +94,16 @@ footer a, .card a { color: var(--accent); }
   border-radius: 50%; animation: s .7s linear infinite; vertical-align: -2px; margin-right: 6px; }
 @keyframes s { to { transform: rotate(360deg); } }
 .think { position: relative; margin-top: 20px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); }
-.think canvas { display: block; width: 100%; height: 92px; }
-.think .steps { list-style: none; margin: 0; padding: 10px 14px 12px; font-size: 14px; color: var(--muted);
+.think canvas { display: block; width: 100%; height: 30px; }
+.think .steps { list-style: none; margin: 0; padding: 6px 70px 7px 12px; font-size: 13px; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   border-top: 1px solid var(--border); }
-.think .steps li { padding: 2px 0; animation: in .35s ease both; }
+.think .steps li { overflow: hidden; text-overflow: ellipsis; animation: in .35s ease both; }
 .think .steps li::before { content: "✓"; display: inline-block; width: 1.4em; color: var(--ok); }
 .think .steps li.now { color: var(--text); }
 .think .steps li.now::before { content: "›"; color: var(--accent); font-weight: 700; }
 .think .steps li.now::after { content: ""; animation: dots 1.2s steps(4) infinite; }
-.think .clock { position: absolute; top: 6px; right: 8px; font-size: 12px; color: var(--muted);
+.think .clock { position: absolute; bottom: 7px; right: 10px; font-size: 12px; color: var(--muted);
   font-variant-numeric: tabular-nums; background: var(--bg); padding: 0 6px; border-radius: 6px; }
 @keyframes in { from { opacity: 0; transform: translateY(3px); } }
 @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
@@ -283,7 +284,7 @@ function startThinking(prompt) {
     const li = document.createElement('li'); li.className = 'now';
     li.textContent = n < lines.length ? lines[n] : MORE[(n - lines.length) % MORE.length];
     $('steps').append(li); n++; lastStep = performance.now();
-    if ($('steps').children.length > 6) $('steps').firstChild.remove();   // keep the list short
+    if ($('steps').children.length > 1) $('steps').firstChild.remove();   // one line: the current step
   };
   step();
   const timer = setInterval(() => {
@@ -293,12 +294,12 @@ function startThinking(prompt) {
   // Illustrative automaton: 4-state cells, a 3-neighbour rule table seeded from the prompt,
   // and a write head that injects the prompt's bytes, as MICA does with each symbol.
   $('think').hidden = false;
-  const below = $('think').getBoundingClientRect().top + 290 - innerHeight;   // room for the canvas and steps
+  const below = $('think').getBoundingClientRect().bottom + 16 - innerHeight;
   if (below > 0) scrollBy({ top: below, behavior: reduce ? 'auto' : 'smooth' });
   const dpr = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
   cv.width = W * dpr; cv.height = H * dpr;
   const g = cv.getContext('2d'); g.scale(dpr, dpr);
-  const size = W < 480 ? 5 : 6, cols = Math.ceil(W / size), rows = Math.ceil(H / size);
+  const size = 4, cols = Math.ceil(W / size), rows = Math.ceil(H / size);
   let h = 2166136261;
   for (const ch of prompt) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
   const rnd = () => ((h = Math.imul(h ^ (h >>> 15), 2246822519) ^ Math.imul(h, 3266489917)) >>> 0) / 4294967296;
@@ -311,16 +312,16 @@ function startThinking(prompt) {
   const stepRow = (tbl, row) => row.map((c, i) => tbl[row[(i + cols - 1) % cols] * 16 + c * 4 + row[(i + 1) % cols]]);
   // Try rule tables seeded from the prompt; keep the first that is lively but not noise.
   let table = null, bestScore = Infinity;
-  for (let t = 0; t < 40; t++) {
+  for (let t = 0; t < 60; t++) {
     const tbl = Array.from({ length: 64 }, () => (rnd() < 0.6 ? 0 : 1 + ((rnd() * 3) | 0)));
     tbl[0] = 0;
     let row = new Array(cols).fill(0), dens = 0, chg = 0;
-    for (let tick = 0; tick < 240; tick++) {
+    for (let tick = 0; tick < 400; tick++) {
       const nxt = stepRow(tbl, row); inject(nxt, tick);
-      if (tick >= 80) for (let i = 0; i < cols; i++) { dens += nxt[i] > 0; chg += nxt[i] !== row[i]; }
+      if (tick >= 240) for (let i = 0; i < cols; i++) { dens += nxt[i] > 0; chg += nxt[i] !== row[i]; }
       row = nxt;
     }
-    dens /= 160 * cols; chg /= 160 * cols;
+    dens /= 160 * cols; chg /= 160 * cols;   // measured late, so it stays lively
     const score = Math.max(0, 0.15 - dens, dens - 0.4) + Math.max(0, 0.08 - chg, chg - 0.3);
     if (score < bestScore) { bestScore = score; table = tbl; }
     if (score === 0) break;
@@ -345,9 +346,9 @@ function startThinking(prompt) {
     clock.textContent = ((performance.now() - t0) / 1000).toFixed(1) + ' s';
     raf = requestAnimationFrame(frame);
   };
+  for (let i = 0; i < 160; i++) advance();   // start with a full strip
+  draw();
   if (reduce) {
-    for (let i = 0; i < rows; i++) advance();
-    draw();
     const c = setInterval(() => { clock.textContent = ((performance.now() - t0) / 1000).toFixed(1) + ' s'; }, 200);
     thinking = { stop: () => { clearInterval(timer); clearInterval(c); } };
   } else {
@@ -378,6 +379,9 @@ async function generate() {
     if (!res.ok || d.error) throw new Error(d.error || 'Something went wrong.');
     stopThinking(true);
     show(d);
+    const fb = document.querySelector('.fb');
+    if (fb && fb.getBoundingClientRect().bottom > innerHeight)
+      fb.scrollIntoView({ block: 'end', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     const settings = d.temperature !== undefined ? { temperature: d.temperature, limit: d.limit } : { decoder: d.decoder };
     log({ kind: 'generation', ...pick(d), ms: d.ms, settings, model_sha256: d.model_sha256 }).catch(() => {});
   } catch (e) {
