@@ -9,3 +9,4 @@ r1/data/**/*.jsonl
 r1/data/**/*.gz
 node_modules/
 .vercel/
+r1/data/external/

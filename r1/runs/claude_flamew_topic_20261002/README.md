@@ -94,3 +94,32 @@ and scored before unblinding:
 **Verdict (by the rule above): not promoted.** T_topic beats T_zero, but it is not yet as good
 as B. Next: continue T_topic, which resumes where it stopped, until it passes the start
 model on bits, then judge again. The same command does this with `--arms T_topic`.
+
+## Second run: topical data (v03) and better codes
+
+The first run's records were one or two turns (about 20 words), so the register had little to
+carry, and its codes mostly told writing styles apart. `T2_topic` changes the data, not the
+machine:
+
+- **Data** ([`r1/data/build_topical_corpus.py`](../../data/build_topical_corpus.py)): windows of
+  consecutive turns from one dialogue, up to 64 words, added to the no-TinyStories corpus
+  (about 12% of records, about 28% of words):
+  - Topical-Chat, Taskmaster, SGD and SODA (already used), now as whole dialogues;
+  - UltraChat 200k (MIT), OpenAssistant oasst1 (Apache 2.0) and Synthetic-Persona-Chat
+    (CC BY 4.0), new.
+  - Assistant answers are cut to their first two or three sentences. Turns with code,
+    lists or tables are dropped and end the window. Training splits only.
+- **Codes**: learned from those windows only, with a 16-word window and the 250 most frequent
+  words skipped. On a sample of the new sources the channels separate subjects: food and
+  recipes, government and politics, religion, travel and hiking, fashion and décor,
+  scheduling.
+- **Evaluation**: 24 new prompts that give a subject first ("I just got back from Italy. The
+  food there was"), added to the 50 used so far, and every earlier arm evaluated again
+  for comparison.
+
+```powershell
+& ..\.venv-rocm\Scripts\python.exe r1\runs\claude_flamew_topic_20261002\topic.py --hours 8
+```
+
+The default arm is `T2_topic`. The first run downloads about 300 MB and builds the corpus
+(about 15 minutes, once).
