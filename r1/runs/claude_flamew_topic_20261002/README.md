@@ -57,3 +57,40 @@ own process, and writes `topic_report.zip`. It uses the same guards as the night
 is at least as good on bits and next-word accuracy, *and* it is more useful on the blind
 sentence comparison (holdout and dev), *and* it is at least as useful as the current
 official B.
+
+## Result of the first run (2026-10-01, 18:06–22:32)
+
+Both arms started from `B_lr010` round 740 (SHA `1f4d5503…`), trained 224 rounds (2.1 h each)
+at `--round-lr 0.01` on no-TinyStories data, and were evaluated identically
+([results/](results/)).
+
+| Model | Bits/word val500 | Next-word top-1 chat / everyday | Best training-val bits |
+|---|---|---|---|
+| start (B continued) | **5.309** | **27.3% / 24.0%** | — |
+| T_topic | 5.493 | 25.6% / 22.2% | **5.309** |
+| T_zero (control) | 5.502 | 25.5% / 22.6% | 5.342 |
+
+Sentences with `w-sent-bos.5f`, 50 prompts, all three models shown in random order (A/B/C)
+and scored before unblinding:
+
+| Model | Holdout 20: partly / fully useful | Dev 30: partly / fully useful | All 50 partly |
+|---|---|---|---|
+| start | 4 / 0 | 18 / 10 | 22 |
+| **T_topic** | 3 / 1 | **18 / 10** | **21** |
+| T_zero | 5 / 0 | 12 / 6 | 17 |
+
+**Reading.**
+- **The topic signal is real.** Against its matched control, T_topic is ahead on training
+  validation (5.309 vs 5.342 bits) and on dev sentences (18 vs 12 partly useful). On the
+  20 holdout prompts it is 3 vs 5, which is within one judge's noise at this size.
+- **The rewiring costs more than 224 rounds can repay.** Taking two of six terms away
+  from the local words in half the phases reset about 0.2 bits. Both arms were still
+  improving when time ran out, and neither has caught up with the start model.
+- **The codes capture genre more than subject.** The strongest channels separate
+  encyclopedic text ("established, former, January"), story text ("wagged, Amy's, Ben's")
+  and captions ("sits, wooden, white"). Mean |code| is 7, so the register moves
+  slowly.
+
+**Verdict (by the rule above): not promoted.** T_topic beats T_zero, but it is not yet as good
+as B. Next: continue T_topic, which resumes where it stopped, until it passes the start
+model on bits, then judge again. The same command does this with `--arms T_topic`.

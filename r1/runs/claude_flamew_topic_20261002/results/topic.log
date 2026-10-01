@@ -1,0 +1,16 @@
+2026-10-01 18:05:50  [topic] start; everything ends by 23:05
+2026-10-01 18:05:51  [codes] building topic codes from the training records (CPU, a few minutes)
+2026-10-01 18:06:00  [topic] 400,000 records, 6,379,899 words; 6000 content words, 2000 contexts
+2026-10-01 18:06:00  [topic] wrote C:\Users\vlavrik\PycharmProjects\mica\r1\runs\claude_flamew_topic_20261002\topic_codes.npz in 9 s; mean |code| of content words 7.2
+2026-10-01 18:06:00  [topic]   channel 0: development included th according original established  <->  wagged amy's ben's sue's spot's bobo
+2026-10-01 18:06:00  [topic]   channel 1: established former january february september political  <->  sits sitting beside white wooden orange
+2026-10-01 18:06:00  [topic]   channel 2: anyway upset scared angry yourself they'll  <->  former west east north south district
+2026-10-01 18:06:00  [train] T_topic: from best.mica (1f4d55038693), round-lr 0.01, until 20:11 or 400 more rounds
+2026-10-01 20:12:03  [train] T_topic: stopping cleanly -- time budget for this arm used up
+2026-10-01 20:12:33  [train] T_topic: exit code 0, time budget for this arm used up, peak RAM 7.3 GB
+2026-10-01 20:12:33  [train] T_zero: from best.mica (1f4d55038693), round-lr 0.01, until 22:17 or 400 more rounds
+2026-10-01 22:17:53  [train] T_zero: stopping cleanly -- time budget for this arm used up
+2026-10-01 22:18:23  [train] T_zero: exit code 0, time budget for this arm used up, peak RAM 7.3 GB
+2026-10-01 22:22:57  [eval] start: bits/word 5.309, chat next-word top-1 0.273, 274 s
+2026-10-01 22:27:31  [eval] T_topic: bits/word 5.4929, chat next-word top-1 0.256, 274 s
+2026-10-01 22:32:04  [eval] T_zero: bits/word 5.5023, chat next-word top-1 0.255, 272 s
