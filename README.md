@@ -9,7 +9,7 @@ revision R1.
 | Part | Where | Status |
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
-| MICA Flame-W (word model) | [`flame/`](flame/) | official full40 checkpoint, vocabulary and decoder |
+| MICA Flame-W (word model) | [`flame/`](flame/) | official checkpoint B (2026-10-01), vocabulary and decoders |
 | MICA Ember (byte/letter model) | [`ember/`](ember/) | official v0.2A checkpoint |
 
 **Want to experiment or do research with MICA?** Start with [RESEARCH.md](RESEARCH.md): how it works, how to measure it, the open problems, and what has already been tried.
@@ -26,7 +26,7 @@ Generate text with Flame-W:
 ```bash
 echo '{"id":"1","prompt":"I went to the"}' > prompts.jsonl
 python r1/runs/claude_flame_word_20260928/word_decode.py sentence \
-  --model mica:flame/runs/codex_flame_word_full40_20260928/train \
+  --model mica:flame/runs/claude_flamew_b_20261001/train \
   --vocab r1/data/word/vocab.json --prompts prompts.jsonl --tag demo --out out.jsonl
 ```
 

@@ -1,0 +1,424 @@
+{
+ "model": "r1\\runs\\claude_flamew_night_20261001\\A_lr030\\train\\best.mica",
+ "sha256": "cae9766e5dec1062dda2036254c1f48a986a96c97b1168350191e423043e128f",
+ "nextword_chat_dev1000": {
+  "positions": 1000,
+  "top1": 0.259,
+  "top3": 0.399,
+  "top10": 0.572
+ },
+ "nextword_everyday_dev_fresh1000": {
+  "positions": 1000,
+  "top1": 0.241,
+  "top3": 0.358,
+  "top10": 0.514
+ },
+ "bits_val500": 5.3968,
+ "sentences": {
+  "w-sent-mmi.3": [
+   {
+    "prompt": "After the storm, the streets were",
+    "continuation": " a lot of work, but it's worth it in the end."
+   },
+   {
+    "prompt": "The teacher asked the students to",
+    "continuation": " do that by himself."
+   },
+   {
+    "prompt": "I forgot my umbrella because",
+    "continuation": " I was just trying to be funny."
+   },
+   {
+    "prompt": "She put the book on the",
+    "continuation": " beach."
+   },
+   {
+    "prompt": "The train arrived at the station",
+    "continuation": " of the airport."
+   },
+   {
+    "prompt": "We decided to make dinner with",
+    "continuation": " all of us, but I'm not sure if I'm ready for it."
+   },
+   {
+    "prompt": "The doctor explained that the patient",
+    "continuation": " of the city of England, and I was wondering if you could tell me a little bit about yourself."
+   },
+   {
+    "prompt": "He opened the window to let",
+    "continuation": " me know if you need anything, okay?"
+   },
+   {
+    "prompt": "The garden looked beautiful in the",
+    "continuation": " middle of nowhere."
+   },
+   {
+    "prompt": "Our flight was delayed because of",
+    "continuation": " it, but I don't know if I can ever trust you again."
+   },
+   {
+    "prompt": "The computer restarted before I could",
+    "continuation": " have done more."
+   },
+   {
+    "prompt": "They walked home together after the",
+    "continuation": " last time I saw Tom and Mary had to do that by himself."
+   },
+   {
+    "prompt": "The team won the game by",
+    "continuation": " a few weeks ago and I don't know what to do."
+   },
+   {
+    "prompt": "I called my friend to ask",
+    "continuation": " for a few hours."
+   },
+   {
+    "prompt": "The shop closes early on",
+    "continuation": " top of it."
+   },
+   {
+    "prompt": "When the lights went out, everyone",
+    "continuation": " in the neighborhood and thought I'd stop by and say hi."
+   },
+   {
+    "prompt": "The museum displayed a collection of",
+    "continuation": " food and a laptop computer on a tennis court with a racket in front of a building."
+   },
+   {
+    "prompt": "She sent the package to her",
+    "continuation": " about it and see if we can come up with a plan to help you through this tough time."
+   },
+   {
+    "prompt": "He saved the file before",
+    "continuation": " and I was wondering if you could help me with something."
+   },
+   {
+    "prompt": "The dog waited by the door",
+    "continuation": " of the world."
+   },
+   {
+    "prompt": "The weather today is",
+    "continuation": " new York city."
+   },
+   {
+    "prompt": "I was thinking about",
+    "continuation": " getting a new car."
+   },
+   {
+    "prompt": "Can you help me",
+    "continuation": " find a hotel?"
+   },
+   {
+    "prompt": "Thanks so much for the",
+    "continuation": " promotion, but I'm not sure if I'm ready for it."
+   },
+   {
+    "prompt": "I'll be there in",
+    "continuation": " a few minutes."
+   },
+   {
+    "prompt": "My favorite food is",
+    "continuation": " incredible."
+   },
+   {
+    "prompt": "Yesterday I went to the",
+    "continuation": " park and then came home."
+   },
+   {
+    "prompt": "We should go to the beach",
+    "continuation": " today, so I don't have to worry about that."
+   },
+   {
+    "prompt": "Sorry I missed your call, I was",
+    "continuation": " wondering if you could help me out."
+   },
+   {
+    "prompt": "Happy birthday! I hope",
+    "continuation": " you like it."
+   },
+   {
+    "prompt": "A dog running on the grass with",
+    "continuation": " lots of bananas."
+   },
+   {
+    "prompt": "A man riding a bike down the",
+    "continuation": " side of a ramp."
+   },
+   {
+    "prompt": "Two kids playing in the snow",
+    "continuation": " near a building."
+   },
+   {
+    "prompt": "A plate of pasta with",
+    "continuation": " a person on a surfboard in the ocean."
+   },
+   {
+    "prompt": "Do you want to grab lunch",
+    "continuation": " with you today."
+   },
+   {
+    "prompt": "I can't find my keys",
+    "continuation": " on the street."
+   },
+   {
+    "prompt": "The movie was so",
+    "continuation": " beautiful."
+   },
+   {
+    "prompt": "Let me know when you",
+    "continuation": " have any questions."
+   },
+   {
+    "prompt": "I just finished reading a book about",
+    "continuation": " a man in a suit and tie standing on the side of a road."
+   },
+   {
+    "prompt": "Our new apartment has a",
+    "continuation": " glass of wine."
+   },
+   {
+    "prompt": "The meeting is moved to",
+    "continuation": " a few years ago."
+   },
+   {
+    "prompt": "My brother is learning to",
+    "continuation": " do that by yourself, but I can't help but feel like I'm not good enough for you."
+   },
+   {
+    "prompt": "I love listening to music when",
+    "continuation": " I want to do with my life."
+   },
+   {
+    "prompt": "It's too cold to",
+    "continuation": " do the same thing."
+   },
+   {
+    "prompt": "The coffee shop on the corner",
+    "continuation": " of a room."
+   },
+   {
+    "prompt": "Please remember to buy",
+    "continuation": " a new one."
+   },
+   {
+    "prompt": "I'm so tired because",
+    "continuation": " I don't know what to do."
+   },
+   {
+    "prompt": "She bought a new dress for the",
+    "continuation": " first time in my life, but I don't know if I can ever trust you again."
+   },
+   {
+    "prompt": "How was your trip to",
+    "continuation": " the beach today."
+   },
+   {
+    "prompt": "The kids are playing in the",
+    "continuation": " middle of nowhere."
+   }
+  ],
+  "w-sent-bos.5f": [
+   {
+    "prompt": "After the storm, the streets were",
+    "continuation": " a lot of fun."
+   },
+   {
+    "prompt": "The teacher asked the students to",
+    "continuation": " do that today."
+   },
+   {
+    "prompt": "I forgot my umbrella because",
+    "continuation": " I was just trying to be funny."
+   },
+   {
+    "prompt": "She put the book on the",
+    "continuation": " beach."
+   },
+   {
+    "prompt": "The train arrived at the station",
+    "continuation": " of the ocean."
+   },
+   {
+    "prompt": "We decided to make dinner with",
+    "continuation": " my family and friends."
+   },
+   {
+    "prompt": "The doctor explained that the patient",
+    "continuation": " of the ocean."
+   },
+   {
+    "prompt": "He opened the window to let",
+    "continuation": " me know how it goes."
+   },
+   {
+    "prompt": "The garden looked beautiful in the",
+    "continuation": " middle of nowhere."
+   },
+   {
+    "prompt": "Our flight was delayed because of",
+    "continuation": " it, but it was worth it."
+   },
+   {
+    "prompt": "The computer restarted before I could",
+    "continuation": " have done more."
+   },
+   {
+    "prompt": "They walked home together after the",
+    "continuation": " end of the tunnel."
+   },
+   {
+    "prompt": "The team won the game by",
+    "continuation": " a few weeks."
+   },
+   {
+    "prompt": "I called my friend to ask",
+    "continuation": " for the event."
+   },
+   {
+    "prompt": "The shop closes early on",
+    "continuation": " top of it."
+   },
+   {
+    "prompt": "When the lights went out, everyone",
+    "continuation": " else is doing."
+   },
+   {
+    "prompt": "The museum displayed a collection of",
+    "continuation": " food and a laptop."
+   },
+   {
+    "prompt": "She sent the package to her",
+    "continuation": " about it and see if we can come up with a plan."
+   },
+   {
+    "prompt": "He saved the file before",
+    "continuation": " in the garden."
+   },
+   {
+    "prompt": "The dog waited by the door",
+    "continuation": " of the station."
+   },
+   {
+    "prompt": "The weather today is",
+    "continuation": " new York city?"
+   },
+   {
+    "prompt": "I was thinking about",
+    "continuation": " getting a new car."
+   },
+   {
+    "prompt": "Can you help me",
+    "continuation": " find a hotel?"
+   },
+   {
+    "prompt": "Thanks so much for the",
+    "continuation": " help, I am so sorry."
+   },
+   {
+    "prompt": "I'll be there in",
+    "continuation": " a few minutes."
+   },
+   {
+    "prompt": "My favorite food is",
+    "continuation": " amazing and I can't imagine my life without you."
+   },
+   {
+    "prompt": "Yesterday I went to the",
+    "continuation": " park and then came out."
+   },
+   {
+    "prompt": "We should go to the beach",
+    "continuation": " with a surfboard."
+   },
+   {
+    "prompt": "Sorry I missed your call, I was",
+    "continuation": " thinking about going."
+   },
+   {
+    "prompt": "Happy birthday! I hope",
+    "continuation": " you like it."
+   },
+   {
+    "prompt": "A dog running on the grass with",
+    "continuation": " lots of trees."
+   },
+   {
+    "prompt": "A man riding a bike down the",
+    "continuation": " side of a ramp."
+   },
+   {
+    "prompt": "Two kids playing in the snow",
+    "continuation": " near a building."
+   },
+   {
+    "prompt": "A plate of pasta with",
+    "continuation": " a person in front of a building."
+   },
+   {
+    "prompt": "Do you want to grab lunch",
+    "continuation": " with you today."
+   },
+   {
+    "prompt": "I can't find my keys",
+    "continuation": " on the street."
+   },
+   {
+    "prompt": "The movie was so",
+    "continuation": " beautiful."
+   },
+   {
+    "prompt": "Let me know when you",
+    "continuation": " have any questions."
+   },
+   {
+    "prompt": "I just finished reading a book about",
+    "continuation": " a man in a suit and tie standing on the side of a road."
+   },
+   {
+    "prompt": "Our new apartment has a",
+    "continuation": " glass of wine."
+   },
+   {
+    "prompt": "The meeting is moved to",
+    "continuation": " a few things."
+   },
+   {
+    "prompt": "My brother is learning to",
+    "continuation": " play the guitar."
+   },
+   {
+    "prompt": "I love listening to music when",
+    "continuation": " it comes to him."
+   },
+   {
+    "prompt": "It's too cold to",
+    "continuation": " do the same thing."
+   },
+   {
+    "prompt": "The coffee shop on the corner",
+    "continuation": " of a street."
+   },
+   {
+    "prompt": "Please remember to buy",
+    "continuation": " a new one."
+   },
+   {
+    "prompt": "I'm so tired because",
+    "continuation": " I love you."
+   },
+   {
+    "prompt": "She bought a new dress for the",
+    "continuation": " first time today."
+   },
+   {
+    "prompt": "How was your trip to",
+    "continuation": " the beach today."
+   },
+   {
+    "prompt": "The kids are playing in the",
+    "continuation": " middle of nowhere."
+   }
+  ]
+ },
+ "eval_seconds": 345
+}

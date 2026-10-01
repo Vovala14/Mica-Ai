@@ -9,3 +9,4 @@ r1/data/*.py
 !r1/data/build_word_corpus.py
 **/progress.json
 **/*.md
+flame/runs/codex_flame_word_full40_20260928/train/best.mica

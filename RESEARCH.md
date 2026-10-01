@@ -84,6 +84,12 @@ All numbers come from the exact integer engine. "Dev" sets were used for selecti
 | | | bits per word, clean chat / everyday | 6.8414 / 6.9972 |
 | Ember v0.2A (bytes) | `3b2a94e2…` | bits per byte, clean chat / everyday | 1.8609 / 1.8757 |
 
+**Newest candidate (2026-10-01):** "B" continues full40 for 240 more rounds at
+`--round-lr 0.01`, without TinyStories (SHA `4d8cab66…`). On the same 1,000 next-word positions,
+it gets 27.5% / 23.8% top-1 (full40: 23.1% / 20.0%) and 5.35 bits per word on no-TinyStories
+validation text (full40: 6.22). Details are in
+[`r1/runs/claude_flamew_night_20261001/REPORT.md`](r1/runs/claude_flamew_night_20261001/REPORT.md).
+
 Sentence usefulness is judged blind by one judge on 20 holdout prompts, as the share of
 continuations that are at least partly useful:
 
@@ -91,6 +97,8 @@ continuations that are at least partly useful:
 |---|---|
 | full40 + w-sent-mmi.3 | 15% |
 | full40 + w-sent-bos.5f | 20% |
+| B + w-sent-mmi.3 | 15% |
+| **B + w-sent-bos.5f** | **30%** |
 
 20 prompts is a small sample. Each prompt is 5 points.
 
@@ -129,8 +137,9 @@ continuations that are at least partly useful:
 | Training on a TinyStories-heavy mix | Stock story phrases and loops; balanced mixes are better |
 | Decoding with a "topic memory" bonus | No systematic change |
 
-Experiment in progress (2026-10-01): continuing full40 without TinyStories at lower
-learning rates ([`r1/runs/claude_flamew_night_20261001`](r1/runs/claude_flamew_night_20261001)).
+What worked (2026-10-01): continuing full40 at `--round-lr 0.01`–`0.03`, which gives large bits
+and next-word gains. Removing TinyStories removed the story clichés, but chat-support clichés
+replaced them. See the [night report](r1/runs/claude_flamew_night_20261001/REPORT.md).
 
 ## 7. Rules that keep results comparable
 

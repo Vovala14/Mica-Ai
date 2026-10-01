@@ -1,0 +1,562 @@
+[
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "He opened the window to let",
+  "continuation": " me go for it.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The doctor explained that the patient",
+  "continuation": " fell on the back of an elephant with a frisbee.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The teacher asked the students to",
+  "continuation": " be able to talk to you about something that's been on my mind lately.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The doctor explained that the patient",
+  "continuation": " of the water.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "He opened the window to let",
+  "continuation": " me know if you need any help with anything.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "We decided to make dinner with",
+  "continuation": " the things I want to do that, but I don't know if I can ever trust you again.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "Our flight was delayed because of",
+  "continuation": " us to be able to help you out.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "They walked home together after the",
+  "continuation": " big dog was happy to help out however I can.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The dog waited by the door",
+  "continuation": " and I don't know how to fix it.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "Our flight was delayed because of",
+  "continuation": " the way, but I don't know if I can ever trust you again.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "She sent the package to her",
+  "continuation": " home, Tim and Sue were very happy.",
+  "useful": 1
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The teacher asked the students to",
+  "continuation": " do that today.",
+  "useful": 1
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The train arrived at the station",
+  "continuation": " and see if we can figure out what's going on.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The museum displayed a collection of",
+  "continuation": " you and I want to help you through this tough time.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The doctor explained that the patient",
+  "continuation": " fell on the back of an elephant.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "When the lights went out, everyone",
+  "continuation": " in the world, and I was wondering if I could talk to you about something that's been bothering me.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The garden looked beautiful in the",
+  "continuation": " middle of the night.",
+  "useful": 1
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The garden looked beautiful in the",
+  "continuation": " corner of a bathroom.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The computer restarted before I could",
+  "continuation": " have done more.",
+  "useful": 1
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "I called my friend to ask",
+  "continuation": " for a way?",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The team won the game by",
+  "continuation": " the end of the week.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "I forgot my umbrella because",
+  "continuation": " I don't know if I can ever trust you again.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "After the storm, the streets were",
+  "continuation": " a lot of fun.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The garden looked beautiful in the",
+  "continuation": " middle of nowhere.",
+  "useful": 1
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "She put the book on the",
+  "continuation": " floor.",
+  "useful": 2
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The dog waited by the door",
+  "continuation": " of the world.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "She sent the package to her",
+  "continuation": " done.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The dog waited by the door",
+  "continuation": " in the box.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "She put the book on the",
+  "continuation": " beach.",
+  "useful": 1
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "I forgot my umbrella because",
+  "continuation": " I want to go to the hospital, but I don't know what to say.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The shop closes early on",
+  "continuation": " top of it, but it was worth it in the end.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "He saved the file before",
+  "continuation": " with his dog.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "I called my friend to ask",
+  "continuation": " for me now.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "She put the book on the",
+  "continuation": " floor with her mom.",
+  "useful": 1
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The teacher asked the students to",
+  "continuation": " find a way to fix it for a few hours, but it was worth it in the end.",
+  "useful": 1
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The dog waited by the door",
+  "continuation": " in the snow.",
+  "useful": 1
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "She sent the package to her",
+  "continuation": " about it and see if we can figure it out.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "Our flight was delayed because of",
+  "continuation": " you to let me know if you need any help with anything.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "Our flight was delayed because of",
+  "continuation": " you to say.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The doctor explained that the patient",
+  "continuation": " of the water.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "He saved the file before",
+  "continuation": " with a brown cat named Bob went for a walk in the park.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The shop closes early on",
+  "continuation": " the same time.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "When the lights went out, everyone",
+  "continuation": " in the area.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "We decided to make dinner with",
+  "continuation": " a little girl named Lily went to the park with his mom.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The teacher asked the students to",
+  "continuation": " make some changes.",
+  "useful": 1
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The train arrived at the station",
+  "continuation": " in the sky, but I think it would be a good idea.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "He saved the file before",
+  "continuation": " and I don't know how to fix it.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The team won the game by",
+  "continuation": " a little while named Sam.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "He opened the window to let",
+  "continuation": " me know if you need anything, okay?",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The train arrived at the station",
+  "continuation": " may be working.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "They walked home together after the",
+  "continuation": " last time I saw Tom and Mary didn't want to do that, but it was worth it.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "I forgot my umbrella because",
+  "continuation": " I like the way.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The museum displayed a collection of",
+  "continuation": " water in the air.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "We decided to make dinner with",
+  "continuation": " my family and friends.",
+  "useful": 2
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "When the lights went out, everyone",
+  "continuation": " in the room.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "After the storm, the streets were",
+  "continuation": " very happy and happy.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "He saved the file before",
+  "continuation": " and I don't know how to fix it.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "They walked home together after the",
+  "continuation": " big dog saw a big apple.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "She put the book on the",
+  "continuation": " beach.",
+  "useful": 1
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "She sent the package to her",
+  "continuation": " in the meantime, why don't you try to be more mindful of what you're doing.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The team won the game by",
+  "continuation": " the way, you know, just the usual stuff.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "He opened the window to let",
+  "continuation": " me know what you decide.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The shop closes early on",
+  "continuation": " top of it.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The team won the game by",
+  "continuation": " a little while named Sam went to the park with his mom and dad were very happy.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The museum displayed a collection of",
+  "continuation": " water in the morning.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The shop closes early on",
+  "continuation": " the road and I wanted to play with them, but they did not want to go to school.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The computer restarted before I could",
+  "continuation": " be doing that.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "After the storm, the streets were",
+  "continuation": " surprised, but he didn't know what to do.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The computer restarted before I could",
+  "continuation": " be doing a great job.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "The museum displayed a collection of",
+  "continuation": " you and I want to help you through this tough time.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "I forgot my umbrella because",
+  "continuation": " I feel like I can't do anything right.",
+  "useful": 1
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The computer restarted before I could",
+  "continuation": " have done more.",
+  "useful": 1
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "I called my friend to ask",
+  "continuation": " for the first time.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "They walked home together after the",
+  "continuation": " last time I saw Tom.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The garden looked beautiful in the",
+  "continuation": " corner of the water.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "I called my friend to ask",
+  "continuation": " you to do that.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "We decided to make dinner with",
+  "continuation": " all of us.",
+  "useful": 1
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-bos.5f",
+  "prompt": "The train arrived at the station",
+  "continuation": " and see what we can find.",
+  "useful": 0
+ },
+ {
+  "model": "B_lr010",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "After the storm, the streets were",
+  "continuation": " a bit of a small town in the middle of the night.",
+  "useful": 0
+ },
+ {
+  "model": "full40",
+  "decoder": "w-sent-mmi.3",
+  "prompt": "When the lights went out, everyone",
+  "continuation": " at the it.",
+  "useful": 0
+ }
+]
