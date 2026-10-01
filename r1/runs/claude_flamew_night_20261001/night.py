@@ -83,8 +83,64 @@ def sha256(path: Path) -> str:
 
 
 # ------------------------------------------------------------------ memory
-def process_ram_gb(pid: int) -> float:
-    """Private memory of one process in GB (psutil if present, else Win32)."""
+# On Windows a venv's python.exe is a small launcher that starts the real
+# interpreter as a CHILD process, so the training memory lives in a child of
+# the process we started. Measure the whole process tree. (The first night
+# measured only the launcher and logged "peak RAM 0.0 GB".)
+def _tree(pid: int) -> list[int]:
+    try:
+        import psutil
+        p = psutil.Process(pid)
+        return [pid] + [c.pid for c in p.children(recursive=True)]
+    except ImportError:
+        pass
+    except Exception:
+        return [pid]
+    parent = {}
+    if os.name == "nt":
+        import ctypes
+        from ctypes import wintypes
+
+        class PE(ctypes.Structure):
+            _fields_ = [("dwSize", wintypes.DWORD), ("cntUsage", wintypes.DWORD),
+                        ("th32ProcessID", wintypes.DWORD), ("th32DefaultHeapID", ctypes.c_size_t),
+                        ("th32ModuleID", wintypes.DWORD), ("cntThreads", wintypes.DWORD),
+                        ("th32ParentProcessID", wintypes.DWORD), ("pcPriClassBase", ctypes.c_long),
+                        ("dwFlags", wintypes.DWORD), ("szExeFile", ctypes.c_wchar * 260)]
+        k32 = ctypes.windll.kernel32
+        k32.CreateToolhelp32Snapshot.restype = wintypes.HANDLE
+        k32.Process32FirstW.argtypes = [wintypes.HANDLE, ctypes.POINTER(PE)]
+        k32.Process32NextW.argtypes = [wintypes.HANDLE, ctypes.POINTER(PE)]
+        k32.CloseHandle.argtypes = [wintypes.HANDLE]
+        snap = k32.CreateToolhelp32Snapshot(0x2, 0)
+        if not snap or snap == wintypes.HANDLE(-1).value:
+            return [pid]
+        try:
+            e = PE()
+            e.dwSize = ctypes.sizeof(PE)
+            ok = k32.Process32FirstW(snap, ctypes.byref(e))
+            while ok:
+                parent[e.th32ProcessID] = e.th32ParentProcessID
+                ok = k32.Process32NextW(snap, ctypes.byref(e))
+        finally:
+            k32.CloseHandle(snap)
+    else:
+        for d in os.listdir("/proc"):
+            if d.isdigit():
+                try:
+                    with open(f"/proc/{d}/stat") as fh:
+                        parent[int(d)] = int(fh.read().rsplit(")", 1)[1].split()[1])
+                except (OSError, ValueError, IndexError):
+                    pass
+    out, todo = [], [pid]
+    while todo:
+        p = todo.pop()
+        out.append(p)
+        todo += [c for c, par in parent.items() if par == p and c not in out]
+    return out
+
+
+def _one_ram_gb(pid: int) -> float:
     try:
         import psutil
         return psutil.Process(pid).memory_info().rss / 1e9
@@ -99,7 +155,7 @@ def process_ram_gb(pid: int) -> float:
                     if line.startswith("VmRSS:"):
                         return int(line.split()[1]) / 1e6
         except OSError:
-            return 0.0
+            pass
         return 0.0
     import ctypes
     from ctypes import wintypes
@@ -113,16 +169,24 @@ def process_ram_gb(pid: int) -> float:
                     ("PagefileUsage", ctypes.c_size_t), ("PeakPagefileUsage", ctypes.c_size_t)]
     k32 = ctypes.windll.kernel32
     k32.OpenProcess.restype = wintypes.HANDLE
+    k32.CloseHandle.argtypes = [wintypes.HANDLE]
+    psapi = ctypes.windll.psapi
+    psapi.GetProcessMemoryInfo.argtypes = [wintypes.HANDLE, ctypes.POINTER(PMC), wintypes.DWORD]
     h = k32.OpenProcess(0x1000 | 0x0010, False, pid)
     if not h:
         return 0.0
     try:
         pmc = PMC()
         pmc.cb = ctypes.sizeof(PMC)
-        ok = ctypes.windll.psapi.GetProcessMemoryInfo(h, ctypes.byref(pmc), pmc.cb)
+        ok = psapi.GetProcessMemoryInfo(h, ctypes.byref(pmc), pmc.cb)
         return max(pmc.WorkingSetSize, pmc.PagefileUsage) / 1e9 if ok else 0.0
     finally:
         k32.CloseHandle(h)
+
+
+def process_ram_gb(pid: int) -> float:
+    """Memory of a process and all its children, in GB."""
+    return sum(_one_ram_gb(p) for p in _tree(pid))
 
 
 # ------------------------------------------------------------------ 1 corpus
@@ -307,6 +371,8 @@ def main() -> int:
     ap.add_argument("--ram-cap-gb", type=float, default=12.0)
     ap.add_argument("--min-free-ram-gb", type=float, default=4.0)
     ap.add_argument("--skip-train", action="store_true", help="only (re)run the evaluation")
+    ap.add_argument("--arms", default=",".join(ARMS),
+                    help="which arms to train, e.g. B_lr010; an arm with a resume.pt continues")
     a = ap.parse_args()
     start = time.time()
     end = start + a.hours * 3600
@@ -326,14 +392,18 @@ def main() -> int:
             if not (NOSTORY / "manifest.json").exists():
                 build_corpus()
             train_end = end - a.eval_hours * 3600
-            for i, (name, lr) in enumerate(ARMS.items()):
+            arms = {n: ARMS[n] for n in a.arms.split(",") if n}
+            for i, (name, lr) in enumerate(arms.items()):
                 left = train_end - time.time()
                 if left < 1800:
                     say(f"[train] skipping {name}: under 30 min left")
                     continue
-                best = run_arm(name, lr, time.time() + left / (len(ARMS) - i), a)
+                best = run_arm(name, lr, time.time() + left / (len(arms) - i), a)
                 if best:
                     models[name] = best
+            for name in ARMS:                     # also score arms trained on earlier nights
+                if name not in models and (HERE / name / "train/best.mica").exists():
+                    models[name] = HERE / name / "train/best.mica"
         else:
             for name in ARMS:
                 if (HERE / name / "train/best.mica").exists():
