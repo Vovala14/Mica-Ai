@@ -134,6 +134,7 @@ continuations that are at least partly useful:
 | Freezing PPMI routing / tape channels | Worse bits, or neutral and unjudged |
 | Refitting only the tape readout | Lost on dev bits and next-word accuracy |
 | Continuing B for 4 more hours at `--round-lr 0.01` | Bits 5.35 → 5.31, next-word top-1 flat, holdout sentences 30% → 20% partly useful: plateaued |
+| Dropping SODA as well as TinyStories (arm C, 1.9 h from B) | Holdout sentences unchanged (6/20 both), dev worse (16/30 vs 20/30); stock phrases change kind, not amount |
 | Word-level fit at `--round-lr 0.3` | Diverges (6.75 → 16.3 bits per word); the early stop hides it |
 | Training on a TinyStories-heavy mix | Stock story phrases and loops; balanced mixes are better |
 | Decoding with a "topic memory" bonus | No systematic change |
