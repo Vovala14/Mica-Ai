@@ -71,3 +71,25 @@ the start was 8.4 GB.
 - Continue B (`--arms B_lr010 --skip-train` is evaluation only; `--arms B_lr010` continues
   training), since it had not converged.
 - Then the topic-register context experiment.
+
+## Day run (2026-10-01, 07:42-12:19): B continued
+
+The PC ran the earlier launcher, so arm C (no TinyStories, no SODA) did not run. B continued
+for 4.2 more hours at `--round-lr 0.01`; the new best is SHA `1f4d5503...`.
+
+| Model | Bits/word (val500) | Next-word top-1 chat / everyday | Top-10 everyday |
+|---|---|---|---|
+| B (official, `4d8cab66...`) | 5.3514 | 27.5% / 23.8% | 51.5% |
+| B continued (`1f4d5503...`) | 5.3090 | 27.3% / 24.0% | 54.0% |
+
+Sentences with `w-sent-bos.5f`, judged blind (old and new shown in random order as X and Y,
+unblinded after scoring). 14 of 50 continuations were identical.
+
+| Set | B: at least partly useful | B continued: at least partly useful |
+|---|---|---|
+| Holdout (20 prompts) | 6 (30%) | 4 (20%) |
+| Dev (30 prompts) | 20 | 16 |
+
+**Verdict: B stays official.** More rounds at `--round-lr 0.01` still lower bits a little, but
+next-word top-1 is flat and sentences got no better. This recipe has plateaued; the next gain
+has to come from the data mix (arm C) or from the model (the topic-register experiment).
