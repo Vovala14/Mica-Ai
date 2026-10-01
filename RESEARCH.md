@@ -115,6 +115,9 @@ continuations that are at least partly useful:
    - *Current hypothesis:* a slowly changing "topic" track, updated by content words, that
      some phases' rule-selection hashes can read (see
      [`docs/2026-09-28-mica-s1-pilot.md`](docs/2026-09-28-mica-s1-pilot.md)).
+     *Being tested:* the topic register (`MICA_TOPIC`), a fading sum of recent content
+     words' codes that half the rule phases read when choosing a rule; see
+     [`r1/runs/claude_flamew_topic_20261002/`](r1/runs/claude_flamew_topic_20261002/).
 2. **Stock phrases and loops.** Ember loops on phrases like "the street", and Flame-W drifts
    into story clichés. Data mix, decoding and rules all play a part.
 3. **Measuring sentence quality.** Bits and next-word accuracy don't track usefulness well.
@@ -134,6 +137,7 @@ continuations that are at least partly useful:
 | Freezing PPMI routing / tape channels | Worse bits, or neutral and unjudged |
 | Refitting only the tape readout | Lost on dev bits and next-word accuracy |
 | Continuing B for 4 more hours at `--round-lr 0.01` | Bits 5.35 → 5.31, next-word top-1 flat, holdout sentences 30% → 20% partly useful: plateaued |
+| Dropping SODA as well as TinyStories (arm C, 1.9 h from B) | Holdout sentences unchanged (6/20 both), dev worse (16/30 vs 20/30); stock phrases change kind, not amount |
 | Word-level fit at `--round-lr 0.3` | Diverges (6.75 → 16.3 bits per word); the early stop hides it |
 | Training on a TinyStories-heavy mix | Stock story phrases and loops; balanced mixes are better |
 | Decoding with a "topic memory" bonus | No systematic change |

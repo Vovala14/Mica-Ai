@@ -103,6 +103,19 @@ class Model:
             rng(self.inj_chan[:, K:], K, N_CHANNELS - 1, "inj_chan (work)")
             rng(self.op_d, K, N_CHANNELS - 1, "op_d (no tape writes)")
             rng(self.op_u, K, N_CHANNELS - 1, "op_u (no tape writes)")
+        T = spec.TOPIC_CHANNELS
+        if T:
+            # topic entries, like tape entries, are (head, topic channel t);
+            # nothing else may write the register
+            if (self.inj_cell[:, K:K + T] != 0).any() or \
+                    (self.inj_chan[:, K:K + T] != spec.TOPIC_AT + np.arange(T)).any():
+                raise ValueError("topic injection entries must be (head, topic channel)")
+            rng(self.inj_chan[:, K + T:], K, spec.TOPIC_AT - 1,
+                "inj_chan (work, below the topic register)")
+            last = self.op_d.astype(np.int64) + np.where(
+                self.op_code == spec.VSET, max(1, spec.VSET_WIDTH), 1) - 1
+            rng(last, K, spec.TOPIC_AT - 1, "op_d (no topic writes)")
+            rng(self.op_u, K, spec.TOPIC_AT - 1, "op_u (no topic writes)")
         if spec.PROBE_WINDOW:
             rng(self.pr_cell, N_CELLS - spec.PROBE_WINDOW, N_CELLS - 1,
                 "pr_cell (probe window)")
@@ -176,6 +189,18 @@ def conform(m: Model, r=None) -> Model:
         if spec.WINDOW:
             lag = r.integers(0, spec.WINDOW, m.inj_cell[:, K:].shape)
             m.inj_cell[:, K:] = ((N_CELLS - lag) % N_CELLS).astype(m.inj_cell.dtype)
+        T = spec.TOPIC_CHANNELS
+        if T:
+            top = spec.TOPIC_AT
+            m.inj_cell[:, K:K + T] = 0
+            m.inj_chan[:, K:K + T] = top + np.arange(T, dtype=np.uint8)
+            work = m.inj_chan[:, K + T:]
+            m.inj_chan[:, K + T:] = np.where(
+                work >= top, r.integers(K, top, work.shape), work).astype(np.uint8)
+            width = np.where(m.op_code == spec.VSET, max(1, spec.VSET_WIDTH), 1)
+            m.op_d = np.minimum(m.op_d, top - width).astype(np.uint8)
+            m.op_u = np.where(m.op_u >= top, r.integers(K, top, m.op_u.shape),
+                              m.op_u).astype(np.uint8)
     if spec.PROBE_WINDOW:
         lag = r.integers(1, spec.PROBE_WINDOW + 1, m.pr_cell.shape)
         m.pr_cell[:] = (N_CELLS - lag).astype(m.pr_cell.dtype)
@@ -411,6 +436,15 @@ def _update(m: Model, s: Session, cells: np.ndarray):
     return G, phase_next, opc, n
 
 
+def topic_step(prev: np.ndarray, code: np.ndarray) -> np.ndarray:
+    """spec.TOPIC_CHANNELS: one symbol's update of the topic register.
+    Integer and symmetric: |prev| >> TOPIC_SHIFT is removed toward zero, the
+    code is added, and the sum saturates."""
+    prev = prev.astype(np.int32)
+    d = prev - np.sign(prev) * (np.abs(prev) >> spec.TOPIC_SHIFT)
+    return np.clip(d + code.astype(np.int32), spec.SAT_MIN, spec.SAT_MAX)
+
+
 def ingest(model: Model, s: Session, symbol: int) -> None:
     """Section 4 exact ingest preparation."""
     active = np.zeros(N_CELLS, dtype=np.uint8)
@@ -424,8 +458,16 @@ def ingest(model: Model, s: Session, symbol: int) -> None:
         # N_CELLS symbols ago is cleared (and its phase with it), then the
         # symbol's code is SET on the tape channels.
         K = first = spec.TAPE_CHANNELS
+        T = spec.TOPIC_CHANNELS
+        if T:
+            # read the previous head's register before this cell is cleared
+            prev = s.F[(pos - 1) % N_CELLS, spec.TOPIC_AT:].astype(np.int32)
         s.F[pos, :] = 0
         s.F[pos, :K] = deltas[:K]
+        if T:
+            # spec.TOPIC_CHANNELS: decay one step toward zero, add the code
+            s.F[pos, spec.TOPIC_AT:] = topic_step(prev, deltas[K:K + T])
+            first = K + T
         s.phase[pos] = 0
         active[pos] = 1
     # "Each injection saturates immediately in entry order", so this loop is

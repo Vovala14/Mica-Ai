@@ -84,6 +84,13 @@ def _extension() -> bytes:
         if 80 + len(b) + 1 > 128:
             raise FormatError("no header room for the phase count")
         b += bytes([spec.N_PHASE])
+    if spec.TOPIC_CHANNELS:
+        # "T", channel count, decay shift. Only topic files carry it, so every
+        # earlier file is byte-identical, and a decoder without the register
+        # refuses a topic file (its tail is not zero) and vice versa.
+        if 80 + len(b) + 3 > 126:
+            raise FormatError("no header room for the topic register")
+        b += bytes([ord("T"), spec.TOPIC_CHANNELS, spec.TOPIC_SHIFT])
     return bytes(b)
 
 
@@ -149,7 +156,7 @@ def dumps(m: Model) -> bytes:
     return blob
 
 
-def loads(blob: bytes) -> Model:
+def loads(blob: bytes, validate: bool = True) -> Model:
     """Reject everything section 11 says to reject, before allocating."""
     if len(blob) != spec.TOTAL_BYTES:
         raise FormatError(f"file is {len(blob)} bytes, expected {spec.TOTAL_BYTES}")
@@ -249,8 +256,36 @@ def loads(blob: bytes) -> Model:
             raise FormatError("forbidden -128 immediate")
     if (m.inj_delta == -128).any():
         raise FormatError("forbidden -128 delta")
-    m.validate()                                  # selectors, coefficients, opcodes
+    if validate:
+        m.validate()                              # selectors, coefficients, opcodes
     return m
+
+
+def load_other_channels(path) -> Model:
+    """Read a model written under this geometry except for the channel count
+    (for example a model without the topic register, loaded to become the
+    start of one). The payload layout does not depend on the channel count,
+    so only the header's channel field and machine block are ignored; the
+    payload digest is still checked. The result is validated by the caller's
+    own rules after it has been adapted (fit.add_topic_register)."""
+    blob = Path(path).read_bytes()
+    if len(blob) != spec.TOTAL_BYTES or blob[0:8] != spec.MAGIC:
+        raise FormatError("not a model file of this size")
+    dims = list(struct.unpack_from("<8H", blob, 16))
+    want = [N_CELLS, N_CHANNELS, N_PAGES, N_CANDIDATES, N_SCORE_TERMS,
+            N_INJECT, N_PROBE, MAX_TICKS]
+    if dims[:1] + dims[2:] != want[:1] + want[2:]:
+        raise FormatError(f"dimensions {dims} differ from {want} beyond the channel count")
+    if hashlib.sha256(blob[spec.HEADER_LEN:]).digest() != blob[48:80]:
+        raise FormatError("payload digest mismatch")
+    want_ext = _extension()
+    base_ext = want_ext[:-3] if spec.TOPIC_CHANNELS else want_ext
+    if bytes(blob[80:80 + len(base_ext)]) != base_ext or \
+            any(blob[80 + len(base_ext):126]):
+        raise FormatError("the file's machine (tape, window, divisor, routing, "
+                          "offsets) differs beyond the channel count")
+    fixed = _header(blob[spec.HEADER_LEN:])
+    return loads(fixed + blob[spec.HEADER_LEN:], validate=False)
 
 
 def save(m: Model, path) -> int:
