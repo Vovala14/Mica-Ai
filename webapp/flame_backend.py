@@ -1,4 +1,6 @@
-"""MICA Flame-W (word model): official full40 checkpoint, native word decoders."""
+"""MICA Flame-W (word model): checkpoint B (2026-10-01).
+
+Sentence mode uses decoder w-sent-bos.5f; next-words mode uses w6-mmi.5."""
 from __future__ import annotations
 
 import sys
@@ -6,14 +8,16 @@ import time
 
 from .common import ROOT, clean_prompt, result
 
-RUN = ROOT / "flame/runs/codex_flame_word_full40_20260928/train"
+RUN = ROOT / "flame/runs/claude_flamew_b_20261001/train"
 VOCAB = ROOT / "r1/data/word/vocab.json"
-SHA = "ef969c0e96173fc11ecc3b5cf0d1d28d04e21fe846a0752297d5549e90f7e6b7"
-MODEL = "flame-w-full40"
+SHA = "4d8cab66b9b78bad75243fcbbfce7a4c3aa42d2713c17846f8030a913bf7213d"
+MODEL = "flame-w-b-20261001"
 
 sys.path.insert(0, str(ROOT / "r1/runs/claude_flame_word_20260928"))
 import word_decode as D  # noqa: E402
 import word_eval as E  # noqa: E402
+sys.path.insert(0, str(ROOT / "r1/runs/claude_flamew_night_20261001"))
+import decode_bos as B  # noqa: E402
 
 _model = None
 _vocab = None
@@ -28,7 +32,10 @@ def decoder(mode: str):
         if _model is None:
             _model = E.load_model(f"mica:{RUN}")   # sets the word geometry, then imports the engine
             _vocab = E.W.Vocab.load(VOCAB)
-        _decoders[mode] = D.WordDecoder(_model, _vocab, **D.MODES[mode])
+        if mode == "sentence":
+            _decoders[mode] = B.BosDecoder(_model, _vocab, **B.BOS5F)
+        else:
+            _decoders[mode] = D.WordDecoder(_model, _vocab, **D.MODES[mode])
     return _decoders[mode]
 
 

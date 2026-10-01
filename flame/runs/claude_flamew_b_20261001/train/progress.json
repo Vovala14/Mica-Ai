@@ -1,0 +1,1496 @@
+{
+  "steps": 440,
+  "mode": "fit",
+  "history": [
+    {
+      "step": 41,
+      "fit_heldout_bits": 6.6608,
+      "val_bits": 5.7861,
+      "seconds": 32.8,
+      "integer_bits": 5.786070218853335
+    },
+    {
+      "step": 42,
+      "fit_heldout_bits": 6.5577,
+      "val_bits": 5.7167,
+      "seconds": 67.5,
+      "integer_bits": 5.7167259493577625
+    },
+    {
+      "step": 43,
+      "fit_heldout_bits": 6.4936,
+      "val_bits": 5.662,
+      "seconds": 102.7,
+      "integer_bits": 5.661981903784544
+    },
+    {
+      "step": 44,
+      "fit_heldout_bits": 6.433,
+      "val_bits": 5.6249,
+      "seconds": 137.9,
+      "integer_bits": 5.624890242333926
+    },
+    {
+      "step": 45,
+      "fit_heldout_bits": 6.4352,
+      "val_bits": 5.598,
+      "seconds": 173.1,
+      "integer_bits": 5.597993832100694
+    },
+    {
+      "step": 46,
+      "fit_heldout_bits": 6.3957,
+      "val_bits": 5.578,
+      "seconds": 208.1,
+      "integer_bits": 5.5779771412578105
+    },
+    {
+      "step": 47,
+      "fit_heldout_bits": 6.3499,
+      "val_bits": 5.5375,
+      "seconds": 243.1,
+      "integer_bits": 5.537519639186893
+    },
+    {
+      "step": 48,
+      "fit_heldout_bits": 6.355,
+      "val_bits": 5.5237,
+      "seconds": 278.1,
+      "integer_bits": 5.523679588810213
+    },
+    {
+      "step": 49,
+      "fit_heldout_bits": 6.3295,
+      "val_bits": 5.5093,
+      "seconds": 313.2,
+      "integer_bits": 5.509321491894558
+    },
+    {
+      "step": 50,
+      "fit_heldout_bits": 6.317,
+      "val_bits": 5.4969,
+      "seconds": 348.4,
+      "integer_bits": 5.496916779133885
+    },
+    {
+      "step": 51,
+      "fit_heldout_bits": 6.306,
+      "val_bits": 5.4778,
+      "seconds": 383.1,
+      "integer_bits": 5.477834045410079
+    },
+    {
+      "step": 52,
+      "fit_heldout_bits": 6.2886,
+      "val_bits": 5.4626,
+      "seconds": 417.8,
+      "integer_bits": 5.462609929031926
+    },
+    {
+      "step": 53,
+      "fit_heldout_bits": 6.2326,
+      "val_bits": 5.4544,
+      "seconds": 452.5,
+      "integer_bits": 5.454433163452207
+    },
+    {
+      "step": 54,
+      "fit_heldout_bits": 6.2879,
+      "val_bits": 5.4591,
+      "seconds": 487.3
+    },
+    {
+      "step": 55,
+      "fit_heldout_bits": 6.2943,
+      "val_bits": 5.4522,
+      "seconds": 520.0,
+      "integer_bits": 5.452199801317491
+    },
+    {
+      "step": 56,
+      "fit_heldout_bits": 6.2679,
+      "val_bits": 5.4323,
+      "seconds": 554.8,
+      "integer_bits": 5.432320464399976
+    },
+    {
+      "step": 57,
+      "fit_heldout_bits": 6.2015,
+      "val_bits": 5.4244,
+      "seconds": 589.6,
+      "integer_bits": 5.424441176228439
+    },
+    {
+      "step": 58,
+      "fit_heldout_bits": 6.2348,
+      "val_bits": 5.4101,
+      "seconds": 624.3,
+      "integer_bits": 5.410120508556504
+    },
+    {
+      "step": 59,
+      "fit_heldout_bits": 6.1903,
+      "val_bits": 5.3973,
+      "seconds": 659.0,
+      "integer_bits": 5.397281942243511
+    },
+    {
+      "step": 60,
+      "fit_heldout_bits": 6.2191,
+      "val_bits": 5.3925,
+      "seconds": 693.6,
+      "integer_bits": 5.392466724354421
+    },
+    {
+      "step": 61,
+      "fit_heldout_bits": 6.2384,
+      "val_bits": 5.4023,
+      "seconds": 728.6
+    },
+    {
+      "step": 62,
+      "fit_heldout_bits": 6.241,
+      "val_bits": 5.4082,
+      "seconds": 761.3
+    },
+    {
+      "step": 63,
+      "fit_heldout_bits": 6.2223,
+      "val_bits": 5.3995,
+      "seconds": 793.9
+    },
+    {
+      "step": 64,
+      "fit_heldout_bits": 6.1991,
+      "val_bits": 5.3892,
+      "seconds": 826.6,
+      "integer_bits": 5.389209626935162
+    },
+    {
+      "step": 65,
+      "fit_heldout_bits": 6.1818,
+      "val_bits": 5.3873,
+      "seconds": 861.6,
+      "integer_bits": 5.387294803919105
+    },
+    {
+      "step": 66,
+      "fit_heldout_bits": 6.2126,
+      "val_bits": 5.3878,
+      "seconds": 896.2
+    },
+    {
+      "step": 67,
+      "fit_heldout_bits": 6.1645,
+      "val_bits": 5.3845,
+      "seconds": 928.9,
+      "integer_bits": 5.3845182936990845
+    },
+    {
+      "step": 68,
+      "fit_heldout_bits": 6.1654,
+      "val_bits": 5.3834,
+      "seconds": 963.8,
+      "integer_bits": 5.383429625123943
+    },
+    {
+      "step": 69,
+      "fit_heldout_bits": 6.1522,
+      "val_bits": 5.3661,
+      "seconds": 998.6,
+      "integer_bits": 5.366140987767361
+    },
+    {
+      "step": 70,
+      "fit_heldout_bits": 6.1869,
+      "val_bits": 5.3698,
+      "seconds": 1033.5
+    },
+    {
+      "step": 71,
+      "fit_heldout_bits": 6.1737,
+      "val_bits": 5.3505,
+      "seconds": 1066.4,
+      "integer_bits": 5.350481893974403
+    },
+    {
+      "step": 72,
+      "fit_heldout_bits": 6.1931,
+      "val_bits": 5.3407,
+      "seconds": 1101.4,
+      "integer_bits": 5.340651444663082
+    },
+    {
+      "step": 73,
+      "fit_heldout_bits": 6.1559,
+      "val_bits": 5.3493,
+      "seconds": 1136.4
+    },
+    {
+      "step": 74,
+      "fit_heldout_bits": 6.1605,
+      "val_bits": 5.3422,
+      "seconds": 1169.4
+    },
+    {
+      "step": 75,
+      "fit_heldout_bits": 6.1315,
+      "val_bits": 5.3381,
+      "seconds": 1202.1,
+      "integer_bits": 5.338063348429461
+    },
+    {
+      "step": 76,
+      "fit_heldout_bits": 6.1534,
+      "val_bits": 5.3281,
+      "seconds": 1237.2,
+      "integer_bits": 5.328066088177543
+    },
+    {
+      "step": 77,
+      "fit_heldout_bits": 6.1836,
+      "val_bits": 5.3285,
+      "seconds": 1272.2
+    },
+    {
+      "step": 78,
+      "fit_heldout_bits": 6.1568,
+      "val_bits": 5.3312,
+      "seconds": 1305.1
+    },
+    {
+      "step": 79,
+      "fit_heldout_bits": 6.1397,
+      "val_bits": 5.3384,
+      "seconds": 1337.9
+    },
+    {
+      "step": 80,
+      "fit_heldout_bits": 6.1147,
+      "val_bits": 5.3344,
+      "seconds": 1370.7
+    },
+    {
+      "step": 81,
+      "fit_heldout_bits": 6.1343,
+      "val_bits": 5.3344,
+      "seconds": 1403.6
+    },
+    {
+      "step": 82,
+      "fit_heldout_bits": 6.1658,
+      "val_bits": 5.3378,
+      "seconds": 1436.5
+    },
+    {
+      "step": 83,
+      "fit_heldout_bits": 6.1045,
+      "val_bits": 5.3411,
+      "seconds": 1469.4
+    },
+    {
+      "step": 84,
+      "fit_heldout_bits": 6.1785,
+      "val_bits": 5.3323,
+      "seconds": 1502.3
+    },
+    {
+      "step": 85,
+      "fit_heldout_bits": 6.1321,
+      "val_bits": 5.3406,
+      "seconds": 1535.1
+    },
+    {
+      "step": 86,
+      "fit_heldout_bits": 6.1758,
+      "val_bits": 5.3434,
+      "seconds": 1568.0
+    },
+    {
+      "step": 87,
+      "fit_heldout_bits": 6.1094,
+      "val_bits": 5.3413,
+      "seconds": 1600.8
+    },
+    {
+      "step": 88,
+      "fit_heldout_bits": 6.1563,
+      "val_bits": 5.3404,
+      "seconds": 1633.6
+    },
+    {
+      "step": 89,
+      "fit_heldout_bits": 6.1156,
+      "val_bits": 5.3308,
+      "seconds": 1666.4
+    },
+    {
+      "step": 90,
+      "fit_heldout_bits": 6.1442,
+      "val_bits": 5.3308,
+      "seconds": 1699.3
+    },
+    {
+      "step": 91,
+      "fit_heldout_bits": 6.1141,
+      "val_bits": 5.3168,
+      "seconds": 1732.0,
+      "integer_bits": 5.316838822361998
+    },
+    {
+      "step": 92,
+      "fit_heldout_bits": 6.083,
+      "val_bits": 5.3168,
+      "seconds": 1766.8
+    },
+    {
+      "step": 93,
+      "fit_heldout_bits": 6.1215,
+      "val_bits": 5.338,
+      "seconds": 1799.6
+    },
+    {
+      "step": 94,
+      "fit_heldout_bits": 6.1362,
+      "val_bits": 5.3374,
+      "seconds": 1832.4
+    },
+    {
+      "step": 95,
+      "fit_heldout_bits": 6.1045,
+      "val_bits": 5.3283,
+      "seconds": 1865.3
+    },
+    {
+      "step": 96,
+      "fit_heldout_bits": 6.1369,
+      "val_bits": 5.3356,
+      "seconds": 1898.1
+    },
+    {
+      "step": 97,
+      "fit_heldout_bits": 6.1122,
+      "val_bits": 5.3191,
+      "seconds": 1930.8
+    },
+    {
+      "step": 98,
+      "fit_heldout_bits": 6.1328,
+      "val_bits": 5.3091,
+      "seconds": 1963.7,
+      "integer_bits": 5.309090436140758
+    },
+    {
+      "step": 99,
+      "fit_heldout_bits": 6.1171,
+      "val_bits": 5.3078,
+      "seconds": 1998.6,
+      "integer_bits": 5.3077915390340245
+    },
+    {
+      "step": 100,
+      "fit_heldout_bits": 6.0784,
+      "val_bits": 5.3116,
+      "seconds": 2033.5
+    },
+    {
+      "step": 101,
+      "fit_heldout_bits": 6.1166,
+      "val_bits": 5.2972,
+      "seconds": 2066.2,
+      "integer_bits": 5.297247941958891
+    },
+    {
+      "step": 102,
+      "fit_heldout_bits": 6.0987,
+      "val_bits": 5.2895,
+      "seconds": 2101.1,
+      "integer_bits": 5.289490291731375
+    },
+    {
+      "step": 103,
+      "fit_heldout_bits": 6.0883,
+      "val_bits": 5.2919,
+      "seconds": 2136.0
+    },
+    {
+      "step": 104,
+      "fit_heldout_bits": 6.1068,
+      "val_bits": 5.2919,
+      "seconds": 2168.7
+    },
+    {
+      "step": 105,
+      "fit_heldout_bits": 6.14,
+      "val_bits": 5.3007,
+      "seconds": 2201.5
+    },
+    {
+      "step": 106,
+      "fit_heldout_bits": 6.0942,
+      "val_bits": 5.2973,
+      "seconds": 2234.5
+    },
+    {
+      "step": 107,
+      "fit_heldout_bits": 6.0828,
+      "val_bits": 5.2814,
+      "seconds": 2267.3,
+      "integer_bits": 5.281430497639863
+    },
+    {
+      "step": 108,
+      "fit_heldout_bits": 6.0998,
+      "val_bits": 5.2974,
+      "seconds": 2302.4
+    },
+    {
+      "step": 109,
+      "fit_heldout_bits": 6.078,
+      "val_bits": 5.2918,
+      "seconds": 2335.2
+    },
+    {
+      "step": 110,
+      "fit_heldout_bits": 6.0949,
+      "val_bits": 5.302,
+      "seconds": 2368.2
+    },
+    {
+      "step": 111,
+      "fit_heldout_bits": 6.0886,
+      "val_bits": 5.3,
+      "seconds": 2401.0
+    },
+    {
+      "step": 112,
+      "fit_heldout_bits": 6.0713,
+      "val_bits": 5.283,
+      "seconds": 2434.0
+    },
+    {
+      "step": 113,
+      "fit_heldout_bits": 6.0744,
+      "val_bits": 5.2972,
+      "seconds": 2466.8
+    },
+    {
+      "step": 114,
+      "fit_heldout_bits": 6.0667,
+      "val_bits": 5.2972,
+      "seconds": 2499.7
+    },
+    {
+      "step": 115,
+      "fit_heldout_bits": 6.1043,
+      "val_bits": 5.2936,
+      "seconds": 2532.6
+    },
+    {
+      "step": 116,
+      "fit_heldout_bits": 6.0872,
+      "val_bits": 5.2913,
+      "seconds": 2565.6
+    },
+    {
+      "step": 117,
+      "fit_heldout_bits": 6.0663,
+      "val_bits": 5.2783,
+      "seconds": 2598.5,
+      "integer_bits": 5.278255934940385
+    },
+    {
+      "step": 118,
+      "fit_heldout_bits": 6.0081,
+      "val_bits": 5.2794,
+      "seconds": 2633.4
+    },
+    {
+      "step": 119,
+      "fit_heldout_bits": 6.0594,
+      "val_bits": 5.2673,
+      "seconds": 2666.2,
+      "integer_bits": 5.267296335658437
+    },
+    {
+      "step": 120,
+      "fit_heldout_bits": 6.0814,
+      "val_bits": 5.2728,
+      "seconds": 2701.1
+    },
+    {
+      "step": 121,
+      "fit_heldout_bits": 6.0666,
+      "val_bits": 5.2713,
+      "seconds": 2734.0
+    },
+    {
+      "step": 122,
+      "fit_heldout_bits": 6.0525,
+      "val_bits": 5.2645,
+      "seconds": 2766.7,
+      "integer_bits": 5.2644680799760835
+    },
+    {
+      "step": 123,
+      "fit_heldout_bits": 6.0407,
+      "val_bits": 5.2634,
+      "seconds": 2801.5,
+      "integer_bits": 5.263400010471947
+    },
+    {
+      "step": 124,
+      "fit_heldout_bits": 6.0662,
+      "val_bits": 5.2632,
+      "seconds": 2836.4,
+      "integer_bits": 5.263168380050668
+    },
+    {
+      "step": 125,
+      "fit_heldout_bits": 6.0698,
+      "val_bits": 5.2783,
+      "seconds": 2871.2
+    },
+    {
+      "step": 126,
+      "fit_heldout_bits": 6.0364,
+      "val_bits": 5.2811,
+      "seconds": 2903.9
+    },
+    {
+      "step": 127,
+      "fit_heldout_bits": 6.0379,
+      "val_bits": 5.2811,
+      "seconds": 2936.7
+    },
+    {
+      "step": 128,
+      "fit_heldout_bits": 6.0544,
+      "val_bits": 5.2687,
+      "seconds": 2969.6
+    },
+    {
+      "step": 129,
+      "fit_heldout_bits": 6.0396,
+      "val_bits": 5.2821,
+      "seconds": 3002.3
+    },
+    {
+      "step": 130,
+      "fit_heldout_bits": 6.0216,
+      "val_bits": 5.2896,
+      "seconds": 3035.1
+    },
+    {
+      "step": 131,
+      "fit_heldout_bits": 6.0419,
+      "val_bits": 5.2896,
+      "seconds": 3067.8
+    },
+    {
+      "step": 132,
+      "fit_heldout_bits": 6.046,
+      "val_bits": 5.3029,
+      "seconds": 3100.6
+    },
+    {
+      "step": 133,
+      "fit_heldout_bits": 6.0773,
+      "val_bits": 5.3029,
+      "seconds": 3133.4
+    },
+    {
+      "step": 134,
+      "fit_heldout_bits": 6.0932,
+      "val_bits": 5.2915,
+      "seconds": 3166.2
+    },
+    {
+      "step": 135,
+      "fit_heldout_bits": 6.0725,
+      "val_bits": 5.2834,
+      "seconds": 3199.1
+    },
+    {
+      "step": 136,
+      "fit_heldout_bits": 6.0756,
+      "val_bits": 5.2598,
+      "seconds": 3231.9,
+      "integer_bits": 5.259848942710829
+    },
+    {
+      "step": 137,
+      "fit_heldout_bits": 6.0821,
+      "val_bits": 5.266,
+      "seconds": 3266.9
+    },
+    {
+      "step": 138,
+      "fit_heldout_bits": 6.0597,
+      "val_bits": 5.2679,
+      "seconds": 3299.7
+    },
+    {
+      "step": 139,
+      "fit_heldout_bits": 6.0691,
+      "val_bits": 5.2808,
+      "seconds": 3332.6
+    },
+    {
+      "step": 140,
+      "fit_heldout_bits": 6.055,
+      "val_bits": 5.262,
+      "seconds": 3365.4
+    },
+    {
+      "step": 141,
+      "fit_heldout_bits": 6.0342,
+      "val_bits": 5.2717,
+      "seconds": 3398.2
+    },
+    {
+      "step": 142,
+      "fit_heldout_bits": 6.0157,
+      "val_bits": 5.2895,
+      "seconds": 3431.0
+    },
+    {
+      "step": 143,
+      "fit_heldout_bits": 6.0803,
+      "val_bits": 5.2809,
+      "seconds": 3463.9
+    },
+    {
+      "step": 144,
+      "fit_heldout_bits": 6.0291,
+      "val_bits": 5.2913,
+      "seconds": 3496.9
+    },
+    {
+      "step": 145,
+      "fit_heldout_bits": 6.038,
+      "val_bits": 5.2847,
+      "seconds": 3529.7
+    },
+    {
+      "step": 146,
+      "fit_heldout_bits": 6.0511,
+      "val_bits": 5.2773,
+      "seconds": 3562.6
+    },
+    {
+      "step": 147,
+      "fit_heldout_bits": 6.024,
+      "val_bits": 5.2792,
+      "seconds": 3595.5
+    },
+    {
+      "step": 148,
+      "fit_heldout_bits": 6.0051,
+      "val_bits": 5.2792,
+      "seconds": 3628.4
+    },
+    {
+      "step": 149,
+      "fit_heldout_bits": 6.048,
+      "val_bits": 5.2792,
+      "seconds": 3661.4
+    },
+    {
+      "step": 150,
+      "fit_heldout_bits": 6.0491,
+      "val_bits": 5.2792,
+      "seconds": 3694.3
+    },
+    {
+      "step": 151,
+      "fit_heldout_bits": 6.0336,
+      "val_bits": 5.2879,
+      "seconds": 3727.3
+    },
+    {
+      "step": 152,
+      "fit_heldout_bits": 5.9964,
+      "val_bits": 5.265,
+      "seconds": 3760.2
+    },
+    {
+      "step": 153,
+      "fit_heldout_bits": 6.0478,
+      "val_bits": 5.265,
+      "seconds": 3793.2
+    },
+    {
+      "step": 154,
+      "fit_heldout_bits": 6.0156,
+      "val_bits": 5.2596,
+      "seconds": 3826.2,
+      "integer_bits": 5.2595922112916735
+    },
+    {
+      "step": 155,
+      "fit_heldout_bits": 6.0663,
+      "val_bits": 5.2678,
+      "seconds": 3861.2
+    },
+    {
+      "step": 156,
+      "fit_heldout_bits": 6.0524,
+      "val_bits": 5.2678,
+      "seconds": 3894.1
+    },
+    {
+      "step": 157,
+      "fit_heldout_bits": 6.0708,
+      "val_bits": 5.2678,
+      "seconds": 3926.9
+    },
+    {
+      "step": 158,
+      "fit_heldout_bits": 6.0236,
+      "val_bits": 5.2463,
+      "seconds": 3959.7,
+      "integer_bits": 5.24627392691473
+    },
+    {
+      "step": 159,
+      "fit_heldout_bits": 6.072,
+      "val_bits": 5.2453,
+      "seconds": 3994.6,
+      "integer_bits": 5.245299484258517
+    },
+    {
+      "step": 160,
+      "fit_heldout_bits": 6.0107,
+      "val_bits": 5.2451,
+      "seconds": 4029.5,
+      "integer_bits": 5.2451136954941395
+    },
+    {
+      "step": 161,
+      "fit_heldout_bits": 6.0698,
+      "val_bits": 5.2451,
+      "seconds": 4064.6
+    },
+    {
+      "step": 162,
+      "fit_heldout_bits": 6.0341,
+      "val_bits": 5.2545,
+      "seconds": 4097.4
+    },
+    {
+      "step": 163,
+      "fit_heldout_bits": 6.0505,
+      "val_bits": 5.2758,
+      "seconds": 4130.2
+    },
+    {
+      "step": 164,
+      "fit_heldout_bits": 6.0058,
+      "val_bits": 5.2855,
+      "seconds": 4163.0
+    },
+    {
+      "step": 165,
+      "fit_heldout_bits": 6.0405,
+      "val_bits": 5.2472,
+      "seconds": 4195.8
+    },
+    {
+      "step": 166,
+      "fit_heldout_bits": 6.0075,
+      "val_bits": 5.2477,
+      "seconds": 4228.5
+    },
+    {
+      "step": 167,
+      "fit_heldout_bits": 5.9845,
+      "val_bits": 5.2406,
+      "seconds": 4261.2,
+      "integer_bits": 5.240592993047469
+    },
+    {
+      "step": 168,
+      "fit_heldout_bits": 6.0178,
+      "val_bits": 5.2515,
+      "seconds": 4296.3
+    },
+    {
+      "step": 169,
+      "fit_heldout_bits": 6.0117,
+      "val_bits": 5.2516,
+      "seconds": 4329.0
+    },
+    {
+      "step": 170,
+      "fit_heldout_bits": 6.0377,
+      "val_bits": 5.2516,
+      "seconds": 4361.8
+    },
+    {
+      "step": 171,
+      "fit_heldout_bits": 6.0351,
+      "val_bits": 5.2589,
+      "seconds": 4394.7
+    },
+    {
+      "step": 172,
+      "fit_heldout_bits": 6.0228,
+      "val_bits": 5.2589,
+      "seconds": 4427.5
+    },
+    {
+      "step": 173,
+      "fit_heldout_bits": 6.0443,
+      "val_bits": 5.2589,
+      "seconds": 4460.4
+    },
+    {
+      "step": 174,
+      "fit_heldout_bits": 6.0492,
+      "val_bits": 5.2512,
+      "seconds": 4493.3
+    },
+    {
+      "step": 175,
+      "fit_heldout_bits": 6.0633,
+      "val_bits": 5.2298,
+      "seconds": 4526.1,
+      "integer_bits": 5.229787258592729
+    },
+    {
+      "step": 176,
+      "fit_heldout_bits": 6.0347,
+      "val_bits": 5.2315,
+      "seconds": 4561.3
+    },
+    {
+      "step": 177,
+      "fit_heldout_bits": 6.0183,
+      "val_bits": 5.2315,
+      "seconds": 4594.3
+    },
+    {
+      "step": 178,
+      "fit_heldout_bits": 6.0527,
+      "val_bits": 5.22,
+      "seconds": 4627.1,
+      "integer_bits": 5.220007343781582
+    },
+    {
+      "step": 179,
+      "fit_heldout_bits": 6.0148,
+      "val_bits": 5.2315,
+      "seconds": 4662.1
+    },
+    {
+      "step": 180,
+      "fit_heldout_bits": 5.9927,
+      "val_bits": 5.2354,
+      "seconds": 4695.1
+    },
+    {
+      "step": 181,
+      "fit_heldout_bits": 6.0557,
+      "val_bits": 5.2321,
+      "seconds": 4727.9
+    },
+    {
+      "step": 182,
+      "fit_heldout_bits": 6.0255,
+      "val_bits": 5.2321,
+      "seconds": 4760.9
+    },
+    {
+      "step": 183,
+      "fit_heldout_bits": 6.0264,
+      "val_bits": 5.2321,
+      "seconds": 4793.7
+    },
+    {
+      "step": 184,
+      "fit_heldout_bits": 6.0256,
+      "val_bits": 5.2321,
+      "seconds": 4826.5
+    },
+    {
+      "step": 185,
+      "fit_heldout_bits": 6.049,
+      "val_bits": 5.2373,
+      "seconds": 4859.3
+    },
+    {
+      "step": 186,
+      "fit_heldout_bits": 6.0232,
+      "val_bits": 5.2554,
+      "seconds": 4892.1
+    },
+    {
+      "step": 187,
+      "fit_heldout_bits": 6.0104,
+      "val_bits": 5.2554,
+      "seconds": 4925.1
+    },
+    {
+      "step": 188,
+      "fit_heldout_bits": 6.0425,
+      "val_bits": 5.2308,
+      "seconds": 4957.9
+    },
+    {
+      "step": 189,
+      "fit_heldout_bits": 6.018,
+      "val_bits": 5.2347,
+      "seconds": 4990.8
+    },
+    {
+      "step": 190,
+      "fit_heldout_bits": 5.9945,
+      "val_bits": 5.2423,
+      "seconds": 5023.8
+    },
+    {
+      "step": 191,
+      "fit_heldout_bits": 6.0291,
+      "val_bits": 5.2423,
+      "seconds": 5056.8
+    },
+    {
+      "step": 192,
+      "fit_heldout_bits": 5.9621,
+      "val_bits": 5.2366,
+      "seconds": 5089.7
+    },
+    {
+      "step": 193,
+      "fit_heldout_bits": 5.9979,
+      "val_bits": 5.2439,
+      "seconds": 5122.8
+    },
+    {
+      "step": 194,
+      "fit_heldout_bits": 6.0179,
+      "val_bits": 5.2404,
+      "seconds": 5155.8
+    },
+    {
+      "step": 195,
+      "fit_heldout_bits": 6.062,
+      "val_bits": 5.2404,
+      "seconds": 5188.8
+    },
+    {
+      "step": 196,
+      "fit_heldout_bits": 5.9912,
+      "val_bits": 5.2596,
+      "seconds": 5221.7
+    },
+    {
+      "step": 197,
+      "fit_heldout_bits": 6.0395,
+      "val_bits": 5.2435,
+      "seconds": 5254.7
+    },
+    {
+      "step": 198,
+      "fit_heldout_bits": 5.9958,
+      "val_bits": 5.2341,
+      "seconds": 5287.7
+    },
+    {
+      "step": 199,
+      "fit_heldout_bits": 5.996,
+      "val_bits": 5.241,
+      "seconds": 5320.6
+    },
+    {
+      "step": 200,
+      "fit_heldout_bits": 6.002,
+      "val_bits": 5.2406,
+      "seconds": 5353.5
+    },
+    {
+      "step": 201,
+      "fit_heldout_bits": 6.0385,
+      "val_bits": 5.2406,
+      "seconds": 5386.5
+    },
+    {
+      "step": 202,
+      "fit_heldout_bits": 6.0342,
+      "val_bits": 5.2293,
+      "seconds": 5419.4
+    },
+    {
+      "step": 203,
+      "fit_heldout_bits": 5.9815,
+      "val_bits": 5.2052,
+      "seconds": 5452.2,
+      "integer_bits": 5.205221666301241
+    },
+    {
+      "step": 204,
+      "fit_heldout_bits": 6.0095,
+      "val_bits": 5.2052,
+      "seconds": 5487.2
+    },
+    {
+      "step": 205,
+      "fit_heldout_bits": 6.0109,
+      "val_bits": 5.2052,
+      "seconds": 5520.2
+    },
+    {
+      "step": 206,
+      "fit_heldout_bits": 6.0411,
+      "val_bits": 5.2249,
+      "seconds": 5553.4
+    },
+    {
+      "step": 207,
+      "fit_heldout_bits": 5.9989,
+      "val_bits": 5.2417,
+      "seconds": 5586.4
+    },
+    {
+      "step": 208,
+      "fit_heldout_bits": 6.0294,
+      "val_bits": 5.2417,
+      "seconds": 5619.6
+    },
+    {
+      "step": 209,
+      "fit_heldout_bits": 6.0173,
+      "val_bits": 5.2417,
+      "seconds": 5652.8
+    },
+    {
+      "step": 210,
+      "fit_heldout_bits": 6.0084,
+      "val_bits": 5.2417,
+      "seconds": 5685.8
+    },
+    {
+      "step": 211,
+      "fit_heldout_bits": 6.0167,
+      "val_bits": 5.2417,
+      "seconds": 5718.8
+    },
+    {
+      "step": 212,
+      "fit_heldout_bits": 6.013,
+      "val_bits": 5.2417,
+      "seconds": 5751.7
+    },
+    {
+      "step": 213,
+      "fit_heldout_bits": 6.017,
+      "val_bits": 5.2417,
+      "seconds": 5784.6
+    },
+    {
+      "step": 214,
+      "fit_heldout_bits": 6.0101,
+      "val_bits": 5.2439,
+      "seconds": 5817.5
+    },
+    {
+      "step": 215,
+      "fit_heldout_bits": 5.9956,
+      "val_bits": 5.2378,
+      "seconds": 5850.4
+    },
+    {
+      "step": 216,
+      "fit_heldout_bits": 6.0106,
+      "val_bits": 5.2156,
+      "seconds": 5883.5
+    },
+    {
+      "step": 217,
+      "fit_heldout_bits": 6.0001,
+      "val_bits": 5.2258,
+      "seconds": 5916.6
+    },
+    {
+      "step": 218,
+      "fit_heldout_bits": 5.9674,
+      "val_bits": 5.2328,
+      "seconds": 5949.6
+    },
+    {
+      "step": 219,
+      "fit_heldout_bits": 6.0401,
+      "val_bits": 5.2371,
+      "seconds": 5982.7
+    },
+    {
+      "step": 220,
+      "fit_heldout_bits": 6.008,
+      "val_bits": 5.2149,
+      "seconds": 6015.8
+    },
+    {
+      "step": 221,
+      "fit_heldout_bits": 5.9919,
+      "val_bits": 5.2149,
+      "seconds": 6048.9
+    },
+    {
+      "step": 222,
+      "fit_heldout_bits": 6.0423,
+      "val_bits": 5.2153,
+      "seconds": 6081.9
+    },
+    {
+      "step": 223,
+      "fit_heldout_bits": 6.012,
+      "val_bits": 5.2198,
+      "seconds": 6115.0
+    },
+    {
+      "step": 224,
+      "fit_heldout_bits": 5.9978,
+      "val_bits": 5.2198,
+      "seconds": 6148.1
+    },
+    {
+      "step": 225,
+      "fit_heldout_bits": 6.0273,
+      "val_bits": 5.2082,
+      "seconds": 6181.4
+    },
+    {
+      "step": 226,
+      "fit_heldout_bits": 5.9925,
+      "val_bits": 5.2128,
+      "seconds": 6214.5
+    },
+    {
+      "step": 227,
+      "fit_heldout_bits": 6.0201,
+      "val_bits": 5.2103,
+      "seconds": 6247.7
+    },
+    {
+      "step": 228,
+      "fit_heldout_bits": 5.9681,
+      "val_bits": 5.2103,
+      "seconds": 6280.8
+    },
+    {
+      "step": 229,
+      "fit_heldout_bits": 6.0016,
+      "val_bits": 5.2211,
+      "seconds": 6313.8
+    },
+    {
+      "step": 230,
+      "fit_heldout_bits": 6.0397,
+      "val_bits": 5.2211,
+      "seconds": 6347.0
+    },
+    {
+      "step": 231,
+      "fit_heldout_bits": 6.0063,
+      "val_bits": 5.2211,
+      "seconds": 6380.0
+    },
+    {
+      "step": 232,
+      "fit_heldout_bits": 6.0067,
+      "val_bits": 5.2211,
+      "seconds": 6413.2
+    },
+    {
+      "step": 233,
+      "fit_heldout_bits": 5.9553,
+      "val_bits": 5.2211,
+      "seconds": 6446.3
+    },
+    {
+      "step": 234,
+      "fit_heldout_bits": 5.9945,
+      "val_bits": 5.2095,
+      "seconds": 6479.2
+    },
+    {
+      "step": 235,
+      "fit_heldout_bits": 6.0242,
+      "val_bits": 5.2395,
+      "seconds": 6512.6
+    },
+    {
+      "step": 236,
+      "fit_heldout_bits": 5.9719,
+      "val_bits": 5.2367,
+      "seconds": 6545.7
+    },
+    {
+      "step": 237,
+      "fit_heldout_bits": 6.0,
+      "val_bits": 5.2435,
+      "seconds": 6578.6
+    },
+    {
+      "step": 238,
+      "fit_heldout_bits": 5.9983,
+      "val_bits": 5.2335,
+      "seconds": 6611.6
+    },
+    {
+      "step": 239,
+      "fit_heldout_bits": 5.9691,
+      "val_bits": 5.2318,
+      "seconds": 6644.6
+    },
+    {
+      "step": 240,
+      "fit_heldout_bits": 6.0216,
+      "val_bits": 5.2224,
+      "seconds": 6677.6
+    },
+    {
+      "step": 241,
+      "fit_heldout_bits": 6.0347,
+      "val_bits": 5.2316,
+      "seconds": 6710.6
+    },
+    {
+      "step": 242,
+      "fit_heldout_bits": 6.0336,
+      "val_bits": 5.2316,
+      "seconds": 6743.6
+    },
+    {
+      "step": 243,
+      "fit_heldout_bits": 6.0121,
+      "val_bits": 5.2106,
+      "seconds": 6776.5
+    },
+    {
+      "step": 244,
+      "fit_heldout_bits": 6.0099,
+      "val_bits": 5.2217,
+      "seconds": 6809.5
+    },
+    {
+      "step": 245,
+      "fit_heldout_bits": 6.0228,
+      "val_bits": 5.2135,
+      "seconds": 6842.7
+    },
+    {
+      "step": 246,
+      "fit_heldout_bits": 5.9682,
+      "val_bits": 5.2144,
+      "seconds": 6875.7
+    },
+    {
+      "step": 247,
+      "fit_heldout_bits": 5.9632,
+      "val_bits": 5.2185,
+      "seconds": 6908.7
+    },
+    {
+      "step": 248,
+      "fit_heldout_bits": 6.0013,
+      "val_bits": 5.2185,
+      "seconds": 6941.7
+    },
+    {
+      "step": 249,
+      "fit_heldout_bits": 5.9756,
+      "val_bits": 5.2305,
+      "seconds": 6974.6
+    },
+    {
+      "step": 250,
+      "fit_heldout_bits": 5.9959,
+      "val_bits": 5.2305,
+      "seconds": 7007.7
+    },
+    {
+      "step": 251,
+      "fit_heldout_bits": 5.9767,
+      "val_bits": 5.2305,
+      "seconds": 7040.7
+    },
+    {
+      "step": 252,
+      "fit_heldout_bits": 6.0039,
+      "val_bits": 5.2305,
+      "seconds": 7073.7
+    },
+    {
+      "step": 253,
+      "fit_heldout_bits": 6.0327,
+      "val_bits": 5.2305,
+      "seconds": 7106.8
+    },
+    {
+      "step": 254,
+      "fit_heldout_bits": 6.0164,
+      "val_bits": 5.2216,
+      "seconds": 7139.9
+    },
+    {
+      "step": 255,
+      "fit_heldout_bits": 6.0191,
+      "val_bits": 5.2272,
+      "seconds": 7172.8
+    },
+    {
+      "step": 256,
+      "fit_heldout_bits": 6.0185,
+      "val_bits": 5.2035,
+      "seconds": 7205.8,
+      "integer_bits": 5.203481758086817
+    },
+    {
+      "step": 257,
+      "fit_heldout_bits": 5.9774,
+      "val_bits": 5.2261,
+      "seconds": 7240.9
+    },
+    {
+      "step": 258,
+      "fit_heldout_bits": 5.9891,
+      "val_bits": 5.2157,
+      "seconds": 7273.8
+    },
+    {
+      "step": 259,
+      "fit_heldout_bits": 5.9767,
+      "val_bits": 5.2157,
+      "seconds": 7306.6
+    },
+    {
+      "step": 260,
+      "fit_heldout_bits": 5.9911,
+      "val_bits": 5.2062,
+      "seconds": 7339.5
+    },
+    {
+      "step": 261,
+      "fit_heldout_bits": 5.9785,
+      "val_bits": 5.2062,
+      "seconds": 7372.4
+    },
+    {
+      "step": 262,
+      "fit_heldout_bits": 5.9699,
+      "val_bits": 5.2086,
+      "seconds": 7405.4
+    },
+    {
+      "step": 263,
+      "fit_heldout_bits": 5.9887,
+      "val_bits": 5.2086,
+      "seconds": 7438.2
+    },
+    {
+      "step": 264,
+      "fit_heldout_bits": 5.9685,
+      "val_bits": 5.2086,
+      "seconds": 7471.1
+    },
+    {
+      "step": 265,
+      "fit_heldout_bits": 5.9699,
+      "val_bits": 5.1792,
+      "seconds": 7504.1,
+      "integer_bits": 5.1791772735095245
+    },
+    {
+      "step": 266,
+      "fit_heldout_bits": 5.9708,
+      "val_bits": 5.2278,
+      "seconds": 7539.1
+    },
+    {
+      "step": 267,
+      "fit_heldout_bits": 5.9948,
+      "val_bits": 5.2402,
+      "seconds": 7572.0
+    },
+    {
+      "step": 268,
+      "fit_heldout_bits": 5.9919,
+      "val_bits": 5.2402,
+      "seconds": 7605.1
+    },
+    {
+      "step": 269,
+      "fit_heldout_bits": 6.0304,
+      "val_bits": 5.2462,
+      "seconds": 7638.0
+    },
+    {
+      "step": 270,
+      "fit_heldout_bits": 6.0312,
+      "val_bits": 5.2382,
+      "seconds": 7671.0
+    },
+    {
+      "step": 271,
+      "fit_heldout_bits": 6.006,
+      "val_bits": 5.2218,
+      "seconds": 7704.0
+    },
+    {
+      "step": 272,
+      "fit_heldout_bits": 5.9771,
+      "val_bits": 5.2126,
+      "seconds": 7737.0
+    },
+    {
+      "step": 273,
+      "fit_heldout_bits": 5.9584,
+      "val_bits": 5.2124,
+      "seconds": 7770.0
+    },
+    {
+      "step": 274,
+      "fit_heldout_bits": 6.029,
+      "val_bits": 5.2358,
+      "seconds": 7802.9
+    },
+    {
+      "step": 275,
+      "fit_heldout_bits": 5.9942,
+      "val_bits": 5.2358,
+      "seconds": 7836.0
+    },
+    {
+      "step": 276,
+      "fit_heldout_bits": 5.9774,
+      "val_bits": 5.2228,
+      "seconds": 7868.9
+    },
+    {
+      "step": 277,
+      "fit_heldout_bits": 6.0288,
+      "val_bits": 5.2228,
+      "seconds": 7902.0
+    },
+    {
+      "step": 278,
+      "fit_heldout_bits": 6.0052,
+      "val_bits": 5.2034,
+      "seconds": 7934.9
+    },
+    {
+      "step": 279,
+      "fit_heldout_bits": 6.0063,
+      "val_bits": 5.2232,
+      "seconds": 7967.9
+    },
+    {
+      "step": 280,
+      "fit_heldout_bits": 5.9991,
+      "val_bits": 5.2232,
+      "seconds": 8000.8
+    }
+  ]
+}
