@@ -53,8 +53,22 @@ import night as N  # noqa: E402  (shares the training command, guards, data path
 
 LOG = HERE / "topic.log"
 DATA = N.corpus_dir("nostories")
+TOPICAL = R1 / "data/word/v03_topical"          # build_topical_corpus.py
 START = NIGHT_DIR / "B_lr010/train/best.mica"
-CODES = {"T_topic": HERE / "topic_codes.npz", "T_zero": HERE / "zero_codes.npz"}
+# codes: the .npz file; data: the training corpus; from: the records the codes
+# are learned from, and topic_codes.py options for them
+ARMS = {
+    "T_topic": dict(codes=HERE / "topic_codes.npz", data=DATA,
+                    source=DATA / "train.jsonl", opts=[]),
+    "T_zero": dict(codes=HERE / "zero_codes.npz", data=DATA, source=None, opts=[]),
+    # v03: multi-turn windows that stay on one subject; codes learned from
+    # those windows only, with a wider window and more skipped function words
+    "T2_topic": dict(codes=HERE / "topic_codes_v03.npz", data=TOPICAL,
+                     source=TOPICAL / "topical.jsonl",
+                     opts=["--window", "16", "--skip", "250", "--content", "8000",
+                           "--contexts", "3000"]),
+}
+CODES = {k: v["codes"] for k, v in ARMS.items()}
 TOPIC = 8
 SHIFT = 3
 PHASES = "8,9,10,11,12,13,14,15"
@@ -80,19 +94,40 @@ def topic_env(info: dict) -> dict:
 
 
 # ------------------------------------------------------------------ 1 codes
-def make_codes() -> None:
+def make_data(arms) -> None:
+    """The v03 topical corpus, downloaded and built once, if an arm needs it."""
+    if not any(ARMS[n]["data"] == TOPICAL for n in arms) or (TOPICAL / "manifest.json").exists():
+        return
+    if not (DATA / "manifest.json").exists():
+        N.build_corpus("nostories")
+    for step in ("fetch", "build"):
+        say(f"[data] build_topical_corpus.py {step} (downloads about 300 MB once)")
+        r = subprocess.run([sys.executable, str(R1 / "data/build_topical_corpus.py"), step],
+                           cwd=ROOT, capture_output=True, text=True)
+        for line in (r.stdout + r.stderr).splitlines()[-25:]:
+            say(line)
+        if r.returncode:
+            raise SystemExit(f"build_topical_corpus.py {step} failed")
+
+
+def make_codes(arms) -> None:
     import numpy as np
-    if not CODES["T_topic"].exists():
-        say("[codes] building topic codes from the training records (CPU, a few minutes)")
-        r = subprocess.run([sys.executable, str(HERE / "topic_codes.py"), str(DATA / "train.jsonl"),
-                            str(N.WORD / "vocab.json"), str(CODES["T_topic"]),
-                            "--channels", str(TOPIC), "--shift", str(SHIFT)],
+    for name in arms:
+        a = ARMS[name]
+        if a["codes"].exists() or a["source"] is None:
+            continue
+        say(f"[codes] {name}: building topic codes from {a['source'].name} (CPU, a few minutes)")
+        r = subprocess.run([sys.executable, str(HERE / "topic_codes.py"), str(a["source"]),
+                            str(N.WORD / "vocab.json"), str(a["codes"]),
+                            "--channels", str(TOPIC), "--shift", str(SHIFT)] + a["opts"],
                            cwd=ROOT, capture_output=True, text=True)
         for line in (r.stdout + r.stderr).splitlines():
             say(line)
         if r.returncode:
             raise SystemExit("topic_codes.py failed")
-    if not CODES["T_zero"].exists():
+    if "T_zero" in arms and not CODES["T_zero"].exists():
+        if not CODES["T_topic"].exists():
+            make_codes(["T_topic"])
         codes = np.load(CODES["T_topic"])["codes"]
         np.savez(CODES["T_zero"], codes=np.zeros_like(codes))
 
@@ -107,7 +142,7 @@ def run_arm(name: str, deadline: float, a) -> Path | None:
     if (out / "progress.json").exists():
         hist = json.loads((out / "progress.json").read_text()).get("history", [])
         done = hist[-1]["step"] if hist else 0
-    cmd = N.train_command(info, out, a.round_lr, done + a.max_rounds, a, DATA)
+    cmd = N.train_command(info, out, a.round_lr, done + a.max_rounds, a, ARMS[name]["data"])
     cmd += ["--init-mica", str(a.start), "--topic-codes", str(CODES[name]),
             "--topic-phases", PHASES, "--topic-terms", str(TERMS)]
     (HERE / name / "command.txt").write_text(" ".join(cmd) + "\n")
@@ -153,7 +188,8 @@ def eval_one(name: str, model: Path, env: dict) -> None:
     E.letter_positions = lambda path, n=1000, seed=0: orig_positions(path, n=n, seed=seed)
     vocab = E.W.Vocab.load(N.WORD / "vocab.json")
     prompts = (json.loads((R1 / "checks/sentence_holdout_20260926.json").read_text())["prompts"]
-               + json.loads((NIGHT_DIR / "dev30_prompts.json").read_text()))
+               + json.loads((NIGHT_DIR / "dev30_prompts.json").read_text())
+               + json.loads((HERE / "topic24_prompts.json").read_text()))
     sets = {"chat_dev1000": R1 / "data/chat/dev1000.jsonl",
             "everyday_dev_fresh1000": R1 / "runs/codex_flame_scaling_20260928/dev_fresh1000.jsonl"}
     val500 = HERE / "eval" / "val500.jsonl"
@@ -209,7 +245,7 @@ def main() -> int:
     ap.add_argument("--max-rounds", type=int, default=400, help="rule rounds per arm at most")
     ap.add_argument("--round-lr", type=float, default=0.01)
     ap.add_argument("--start", type=Path, default=START, help="the model both arms start from")
-    ap.add_argument("--arms", default="T_topic,T_zero")
+    ap.add_argument("--arms", default="T2_topic")
     ap.add_argument("--gpu-mem-fraction", type=float, default=0.75)
     ap.add_argument("--ram-cap-gb", type=float, default=12.0)
     ap.add_argument("--min-free-ram-gb", type=float, default=4.0)
@@ -231,10 +267,11 @@ def main() -> int:
         models = {"start": (a.start, base)}
         arms = [n for n in a.arms.split(",") if n]
         for n in arms:
-            if n not in CODES:
+            if n not in ARMS:
                 raise SystemExit(f"unknown arm {n}; arms are {', '.join(CODES)}")
         if not a.skip_train:
-            make_codes()
+            make_data(arms)
+            make_codes(arms)
             train_end = end - a.eval_hours * 3600
             for i, name in enumerate(arms):
                 left = train_end - time.time()
@@ -242,7 +279,7 @@ def main() -> int:
                     say(f"[train] skipping {name}: under 30 min left")
                     continue
                 run_arm(name, time.time() + left / (len(arms) - i), a)
-        for name in arms:
+        for name in ARMS:                      # every arm with a model, for comparison
             best = HERE / name / "train/best.mica"
             if best.exists():
                 models[name] = (best, topic_env(info))

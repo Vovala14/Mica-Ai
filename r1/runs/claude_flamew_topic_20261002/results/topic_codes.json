@@ -1,0 +1,255 @@
+{
+ "symbols": 16384,
+ "channels": 8,
+ "shift": 3,
+ "content_words": 6000,
+ "skip": 150,
+ "window": 8,
+ "records": 400000,
+ "scale": 54.76214475653663,
+ "code_abs_mean_content": 7.157375,
+ "register_p99_after_scaling": 90.0,
+ "channel_ends": {
+  "0": {
+   "low": [
+    "development",
+    "included",
+    "th",
+    "according",
+    "original",
+    "established",
+    "european",
+    "form",
+    "created",
+    "e",
+    "british",
+    "include"
+   ],
+   "high": [
+    "wagged",
+    "amy's",
+    "ben's",
+    "sue's",
+    "spot's",
+    "bobo",
+    "mia's",
+    "chirpy",
+    "max's",
+    "lucy's",
+    "ollie",
+    "barked"
+   ]
+  },
+  "1": {
+   "low": [
+    "established",
+    "former",
+    "january",
+    "february",
+    "september",
+    "political",
+    "richard",
+    "member",
+    "american",
+    "december",
+    "november",
+    "development"
+   ],
+   "high": [
+    "sits",
+    "sitting",
+    "beside",
+    "white",
+    "wooden",
+    "orange",
+    "colored",
+    "colorful",
+    "large",
+    "green",
+    "front",
+    "pink"
+   ]
+  },
+  "2": {
+   "low": [
+    "anyway",
+    "upset",
+    "scared",
+    "angry",
+    "yourself",
+    "they'll",
+    "mad",
+    "frustrating",
+    "understand",
+    "hurt",
+    "honest",
+    "shouldn't"
+   ],
+   "high": [
+    "former",
+    "west",
+    "east",
+    "north",
+    "south",
+    "district",
+    "southern",
+    "central",
+    "eastern",
+    "northern",
+    "county",
+    "established"
+   ]
+  },
+  "3": {
+   "low": [
+    "died",
+    "suddenly",
+    "drove",
+    "walked",
+    "married",
+    "rima",
+    "crying",
+    "ran",
+    "woods",
+    "gunter",
+    "ziri",
+    "kissed"
+   ],
+   "high": [
+    "vegetables",
+    "cheese",
+    "meat",
+    "salad",
+    "sauce",
+    "topped",
+    "bread",
+    "sliced",
+    "fruit",
+    "broccoli",
+    "ingredients",
+    "carrots"
+   ]
+  },
+  "4": {
+   "low": [
+    "bread",
+    "cheese",
+    "salad",
+    "chicken",
+    "sandwich",
+    "sauce",
+    "plate",
+    "meat",
+    "pasta",
+    "ate",
+    "sliced",
+    "rice"
+   ],
+   "high": [
+    "trees",
+    "businesses",
+    "snowy",
+    "areas",
+    "dirt",
+    "conditions",
+    "grassy",
+    "buildings",
+    "resources",
+    "walking",
+    "path",
+    "wooded"
+   ]
+  },
+  "5": {
+   "low": [
+    "singer",
+    "author",
+    "actor",
+    "writer",
+    "songwriter",
+    "actress",
+    "artist",
+    "musician",
+    "wrote",
+    "character",
+    "starring",
+    "female"
+   ],
+   "high": [
+    "pm",
+    "ticket",
+    "reservation",
+    "flight",
+    "sacramento",
+    "seattle",
+    "portland",
+    "booking",
+    "march",
+    "departing",
+    "tickets",
+    "available"
+   ]
+  },
+  "6": {
+   "low": [
+    "movie",
+    "tickets",
+    "ticket",
+    "book",
+    "film",
+    "television",
+    "seattle",
+    "fiction",
+    "available",
+    "booking",
+    "pm",
+    "march"
+   ],
+   "high": [
+    "northern",
+    "eastern",
+    "province",
+    "north",
+    "region",
+    "turkey",
+    "southern",
+    "south",
+    "population",
+    "east",
+    "district",
+    "towns"
+   ]
+  },
+  "7": {
+   "low": [
+    "door",
+    "rima's",
+    "bedroom",
+    "immediately",
+    "ziri",
+    "cabinet",
+    "gunter",
+    "edmundo",
+    "layla's",
+    "rima",
+    "window",
+    "grabbed"
+   ],
+   "high": [
+    "soccer",
+    "football",
+    "basketball",
+    "talented",
+    "hiking",
+    "field",
+    "delicious",
+    "favorite",
+    "teams",
+    "league",
+    "rugby",
+    "shore"
+   ]
+  }
+ },
+ "seconds": 9
+}
