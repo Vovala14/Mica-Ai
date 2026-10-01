@@ -64,6 +64,16 @@ NEW = {
     "persona_train.csv": f"{HF}/google/Synthetic-Persona-Chat/resolve/main/data/"
                          "Synthetic-Persona-Chat_train.csv",
 }
+# exact size and SHA-256 of each new file (the dataset repos' LFS records). A
+# download that ends early is caught here and fetched again.
+EXPECT = {
+    "ultrachat_sft0.parquet": (243_999_189,
+        "afa8fa7426081b2a0e732fb50dbb5cd402a28ad5f0dbe66c0d996d63e7220727"),
+    "oasst1_train.parquet": (39_516_251,
+        "bbfadf5ed1278ba2208c837fdcad865adf65f5df55d80abadab2745db13fcb5e"),
+    "persona_train.csv": (15_889_931,
+        "a7bb20f1c51fd18cc51b2adc942220994e302b237053110b04fce7b413c812da"),
+}
 # windows kept per source at most (dialogues are visited in a fixed shuffled order)
 CAPS = {"topicalchat": 80_000, "taskmaster": 80_000, "sgd": 30_000, "soda": 200_000,
         "ultrachat": 120_000, "oasst": 40_000, "persona": 40_000}
@@ -85,27 +95,50 @@ def sha256(path: Path) -> str:
 
 
 # ------------------------------------------------------------------ fetch
+def _good(path: Path) -> bool:
+    """A downloaded file is usable: right size and checksum when they are
+    known (the new sources), otherwise non-empty."""
+    if not path.exists():
+        return False
+    want = EXPECT.get(path.name) if path.parent == EXT else None
+    if want is None:
+        return path.stat().st_size > 0
+    return path.stat().st_size == want[0] and sha256(path) == want[1]
+
+
+def _download(path: Path, url: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".part")
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(url, timeout=300) as r, open(tmp, "wb") as f:
+                size = int(r.headers.get("Content-Length") or 0)
+                got = 0
+                while chunk := r.read(1 << 20):
+                    f.write(chunk)
+                    got += len(chunk)
+            if size and got != size:
+                raise IOError(f"connection ended at {got:,} of {size:,} bytes")
+            tmp.replace(path)
+            if not _good(path):
+                path.unlink()
+                raise IOError("size or checksum does not match the dataset")
+            return
+        except Exception as exc:
+            say(f"  {path.name}: attempt {attempt + 1} failed ({exc}); retrying")
+            time.sleep(2 ** (attempt + 1))
+    raise SystemExit(f"download failed 5 times: {url}")
+
+
 def fetch() -> None:
     need = [(EXT / name, url) for name, url in NEW.items()]
     need += [(BC.EXT / rel, url) for rel, url in BC.downloads() if "tinystories" not in rel]
-    missing = [(p, u) for p, u in need if not p.exists()]
-    say(f"{len(need) - len(missing)} of {len(need)} source files present; downloading {len(missing)}")
+    missing = [(p, u) for p, u in need if not _good(p)]
+    say(f"{len(need) - len(missing)} of {len(need)} source files present and complete; "
+        f"downloading {len(missing)}")
     for k, (path, url) in enumerate(missing, 1):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = path.with_suffix(path.suffix + ".part")
-        for attempt in range(4):
-            try:
-                with urllib.request.urlopen(url, timeout=300) as r, open(tmp, "wb") as f:
-                    while chunk := r.read(1 << 20):
-                        f.write(chunk)
-                tmp.replace(path)
-                break
-            except Exception as exc:
-                if attempt == 3:
-                    raise SystemExit(f"download failed: {url}: {exc}")
-                time.sleep(2 ** (attempt + 1))
-        if k % 20 == 0 or path.stat().st_size > 5_000_000:
-            say(f"  {k}/{len(missing)} {path.name} ({path.stat().st_size / 1e6:.0f} MB)")
+        _download(path, url)
+        say(f"  {k}/{len(missing)} {path.name} ({path.stat().st_size / 1e6:.0f} MB)")
 
 
 # ------------------------------------------------------------------ dialogues
