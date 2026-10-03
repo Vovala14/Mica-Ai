@@ -1,4 +1,4 @@
-"""MICA Flame-W (word model): checkpoint B (2026-10-01).
+"""MICA Flame-W (word model): checkpoint B-740 with the memory readout (v0.3, 2026-10-03).
 
 Sentence mode uses decoder w-sent-bos.5f; next-words mode uses w6-mmi.5."""
 from __future__ import annotations
@@ -8,16 +8,19 @@ import time
 
 from .common import ROOT, clean_prompt, result
 
-RUN = ROOT / "flame/runs/claude_flamew_b_20261001/train"
+RUN = ROOT / "flame/runs/claude_flamew_b740_20261001/train"
+MEMORY = ROOT / "flame/runs/claude_flamew_memory_20261003/memory.npz"
 VOCAB = ROOT / "r1/data/word/vocab.json"
-SHA = "4d8cab66b9b78bad75243fcbbfce7a4c3aa42d2713c17846f8030a913bf7213d"
-MODEL = "flame-w-b-20261001"
+SHA = "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d"
+MODEL = "flame-w-memory-20261003"
 
 sys.path.insert(0, str(ROOT / "r1/runs/claude_flame_word_20260928"))
 import word_decode as D  # noqa: E402
 import word_eval as E  # noqa: E402
 sys.path.insert(0, str(ROOT / "r1/runs/claude_flamew_night_20261001"))
 import decode_bos as B  # noqa: E402
+sys.path.insert(0, str(ROOT / "flame/runs/claude_flamew_memory_20261003"))
+from memory import Memory, MemoryMicaWord  # noqa: E402
 
 _model = None
 _vocab = None
@@ -30,7 +33,8 @@ def decoder(mode: str):
         raise ValueError("Unknown mode.")
     if mode not in _decoders:
         if _model is None:
-            _model = E.load_model(f"mica:{RUN}")   # sets the word geometry, then imports the engine
+            _model = MemoryMicaWord(E.load_model(f"mica:{RUN}"),   # sets the word geometry, then imports the engine
+                                    Memory(MEMORY))
             _vocab = E.W.Vocab.load(VOCAB)
         if mode == "sentence":
             _decoders[mode] = B.BosDecoder(_model, _vocab, **B.BOS5F)

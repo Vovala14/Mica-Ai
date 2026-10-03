@@ -1,0 +1,24 @@
+[mix16] train 661,129 positions from ['train1.npz', 'train_ns_a.npz', 'train_ns_b.npz']; dev 27,632
+[mix16] B alone: dev 5.6769, held-out long 6.8307, nostories val 5.4303
+  ep 0 batch 100 train 6.3969 (32s)
+  ep 0 batch 200 train 6.3406 (63s)
+  ep 0 batch 300 train 6.3089 (93s)
+  ep 0 batch 400 train 6.2329 (123s)
+  ep 0 batch 500 train 6.2072 (154s)
+  ep 0 batch 600 train 6.1848 (185s)
+[mix16] epoch 0: long 6.3627 (B 6.8307), nsval 5.3925 (B 5.4303), dev 5.5948 (B 5.6769); select -0.2529 216s
+  ep 1 batch 100 train 6.0920 (247s)
+  ep 1 batch 200 train 6.0803 (277s)
+  ep 1 batch 300 train 6.0813 (307s)
+  ep 1 batch 400 train 6.0930 (337s)
+  ep 1 batch 500 train 6.0622 (367s)
+  ep 1 batch 600 train 6.0692 (397s)
+[mix16] epoch 1: long 6.2489 (B 6.8307), nsval 5.3819 (B 5.4303), dev 5.5789 (B 5.6769); select -0.3151 429s
+  ep 2 batch 100 train 5.9597 (459s)
+  ep 2 batch 200 train 5.9881 (490s)
+  ep 2 batch 300 train 5.9772 (520s)
+  ep 2 batch 400 train 5.9757 (551s)
+  ep 2 batch 500 train 5.9963 (582s)
+  ep 2 batch 600 train 5.9918 (614s)
+[mix16] epoch 2: long 6.2105 (B 6.8307), nsval 5.3788 (B 5.4303), dev 5.5766 (B 5.6769); select -0.3358 647s
+[mix16] best dev bits -0.3358 vs B 5.6769

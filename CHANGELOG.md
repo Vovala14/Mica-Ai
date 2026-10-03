@@ -3,6 +3,27 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## v0.3: Flame-W with memory (2026-10-03)
+
+**Models**
+- **Flame-W B-740 + memory is the new official word model.**
+  - Automaton: `flame/runs/claude_flamew_b740_20261001/train/best.mica`, SHA `1f4d5503…`, 34 MB.
+    It is B continued to round 740.
+  - Memory: `flame/runs/claude_flamew_memory_20261003/memory.npz`, 674 KB.
+- **New mechanism: a memory readout.**
+  - It is an integer readout over the last 64 words: recall of the same words plus a
+    16-channel association of related words.
+  - It is fitted with the automaton frozen, on held-out selection only.
+- **Context use:** use_w(8) is 0.0209 / 0.0407 on chat / everyday, up from 0.0006 / 0.0004. The
+  0.010 gate is passed for the first time.
+- **Bits per word on no-TinyStories validation:** 5.268, down from 5.309.
+- **Tiny Theory-of-Mind (2,000 rows):** **30.95%**, up from 28.15%, paired +2.80 pp [+1.00, +4.55].
+  That is above 6 of the 36 leaderboard models, up to Syn-2.6M at 30.30%.
+- **Sentences:** no significant difference from B in a blind 50-prompt check.
+
+**Playground**
+- The site runs B-740 + memory with the same decoders.
+
 ## v0.2: Flame-W B (2026-10-01)
 
 **Models**
