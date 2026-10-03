@@ -1,0 +1,10 @@
+{
+ "val500_bits_per_word": {
+  "B-740": 5.309,
+  "B-740+memory": 5.268120725760598
+ },
+ "dev_bits_per_word (chat+everyday dev2, long600; 27,632 targets)": {
+  "B-740": 5.6769,
+  "B-740+memory": 5.576612504427054
+ }
+}

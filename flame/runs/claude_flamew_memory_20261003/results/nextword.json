@@ -1,0 +1,22 @@
+{
+ "B740|chat_dev1000": {
+  "top1": 0.247,
+  "top3": 0.387,
+  "top10": 0.5595
+ },
+ "B740|everyday_dev_fresh1000": {
+  "top1": 0.229,
+  "top3": 0.3565,
+  "top10": 0.5125
+ },
+ "B740+memory|chat_dev1000": {
+  "top1": 0.256,
+  "top3": 0.397,
+  "top10": 0.5635
+ },
+ "B740+memory|everyday_dev_fresh1000": {
+  "top1": 0.227,
+  "top3": 0.359,
+  "top10": 0.518
+ }
+}

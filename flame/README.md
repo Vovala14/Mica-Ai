@@ -4,7 +4,28 @@ Flame-W is the word-level MICA model: the same integer cellular automaton, with
 one symbol per word (16,384-symbol vocabulary, `r1/data/word/vocab.json`).
 It is not the byte-level Flame. The byte/letter-level model is [MICA Ember](../ember/).
 
-## Official model: B (2026-10-01)
+## Official model: B-740 + memory (v0.3, 2026-10-03)
+
+- **Automaton:** `runs/claude_flamew_b740_20261001/train/best.mica`, SHA-256
+  `1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d`, 34,111,616 bytes.
+  This is checkpoint B continued to round 740 at `--round-lr 0.01`.
+- **Memory readout:** `runs/claude_flamew_memory_20261003/memory.npz`, 674 KB.
+  It is an integer recall-and-association readout over the last 64 words.
+
+The automaton's rules see about 4 words. The memory gives every word seen in the last 64 tokens,
+and the words associated with them, an integer bonus. Everything stays integer arithmetic.
+
+| | B-740 | B-740 + memory |
+|---|---:|---:|
+| Context use use_w(8), chat / everyday | 0.0006 / 0.0004 | **0.0209 / 0.0407** |
+| Bits/word, no-TinyStories validation (val500) | 5.309 | **5.268** |
+| Tiny Theory-of-Mind, 2,000 rows (chance 25%) | 28.15% | **30.95%** |
+
+30.95% is above 6 of the 36 models on the benchmark's leaderboard, up to Syn-2.6M (30.30%). In a
+blind sentence check, sentences were no different from B's: useful −0.06 [−0.22, +0.12]. Details
+and every file are in [`runs/claude_flamew_memory_20261003/`](runs/claude_flamew_memory_20261003/).
+
+## Previous official model: B (2026-10-01)
 
 `runs/claude_flamew_b_20261001/train/best.mica`
 SHA-256 `4d8cab66b9b78bad75243fcbbfce7a4c3aa42d2713c17846f8030a913bf7213d`, 34,111,616 bytes.
@@ -19,10 +40,10 @@ TinyStories. On the same evaluation sets as full40:
 | Story phrases in 50 sentences | 4–5 | **0** |
 | At least partly useful, blind holdout (20 prompts) | 15% | **30%** (with `w-sent-bos.5f`) |
 
-The site uses B, with `w-sent-bos.5f` for sentences and `w6-mmi.5` for next words. Full details
+The site used B until v0.3, with `w-sent-bos.5f` for sentences and `w6-mmi.5` for next words. Full details
 are in [`r1/runs/claude_flamew_night_20261001/REPORT.md`](../r1/runs/claude_flamew_night_20261001/REPORT.md).
 
-## Previous official model: full40
+## Earlier official model: full40
 
 `runs/codex_flame_word_full40_20260928/train/best.mica`
 SHA-256 `ef969c0e96173fc11ecc3b5cf0d1d28d04e21fe846a0752297d5549e90f7e6b7`, 34,111,616 bytes.
