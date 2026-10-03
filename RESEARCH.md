@@ -84,7 +84,18 @@ All numbers come from the exact integer engine. "Dev" sets were used for selecti
 | | | bits per word, clean chat / everyday | 6.8414 / 6.9972 |
 | Ember v0.2A (bytes) | `3b2a94e2…` | bits per byte, clean chat / everyday | 1.8609 / 1.8757 |
 
-**Newest candidate (2026-10-01):** "B" continues full40 for 240 more rounds at
+**Official since v0.3 (2026-10-03): B-740 + memory.** The automaton is checkpoint B continued
+to round 740 (SHA `1f4d5503…`). An integer memory readout runs over the last 64 words.
+
+| Metric | B-740 | + memory |
+|---|---:|---:|
+| use_w(8), chat / everyday long600 | 0.0006 / 0.0004 | 0.0209 / 0.0407 |
+| bits per word, no-TinyStories val500 | 5.309 | 5.268 |
+| Tiny Theory-of-Mind, 2,000 rows | 28.15% | 30.95% |
+
+See [`flame/runs/claude_flamew_memory_20261003/`](flame/runs/claude_flamew_memory_20261003/).
+
+**Earlier candidate (2026-10-01):** "B" continues full40 for 240 more rounds at
 `--round-lr 0.01`, without TinyStories (SHA `4d8cab66…`). On the same 1,000 next-word positions,
 it gets 27.5% / 23.8% top-1 (full40: 23.1% / 20.0%) and 5.35 bits per word on no-TinyStories
 validation text (full40: 6.22). Details are in
@@ -104,7 +115,10 @@ continuations that are at least partly useful:
 
 ## 5. Open problems (where help is most useful)
 
-1. **Context.** MICA uses only about the last 4–8 bytes, or about 4 words for Flame-W.
+1. **Context.** MICA's rules use only about the last 4–8 bytes, or about 4 words for Flame-W.
+   - Flame-W's v0.3 memory readout adds the last 64 words as a readout term.
+     use_w(8) went from 0.0005 to 0.02–0.04.
+   - The rules themselves still do not carry state. Who-knows-what reasoning is still missing.
    - *How it was measured:* replace the start of a record with another record's start.
      Past about 8 bytes, the bits barely change (use(8) ≈ 0).
    - *The comparison:* a 1M-parameter Transformer on the same data keeps about 0.07 bits
@@ -139,6 +153,7 @@ continuations that are at least partly useful:
 | Continuing B for 4 more hours at `--round-lr 0.01` | Bits 5.35 → 5.31, next-word top-1 flat, holdout sentences 30% → 20% partly useful: plateaued |
 | Dropping SODA as well as TinyStories (arm C, 1.9 h from B) | Holdout sentences unchanged (6/20 both), dev worse (16/30 vs 20/30); stock phrases change kind, not amount |
 | Topic register, first run (2.1 h from B, 8 channels, phases 8-15) | Beats its zero-code control (dev sentences 18 vs 12 of 30 partly useful, val bits 5.31 vs 5.34) but not yet the start model (bits 5.49 vs 5.31); continuing |
+| Topic register, second run (v03 topical windows, subject codes, 500 rounds) | Subject-first prompts: 3/24 at least partly useful (start 4/24); the register only reroutes rules, so the topic barely reaches word choice. Next: let the readout read the register |
 | Word-level fit at `--round-lr 0.3` | Diverges (6.75 → 16.3 bits per word); the early stop hides it |
 | Training on a TinyStories-heavy mix | Stock story phrases and loops; balanced mixes are better |
 | Decoding with a "topic memory" bonus | No systematic change |

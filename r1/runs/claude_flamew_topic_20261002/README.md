@@ -123,3 +123,42 @@ machine:
 
 The default arm is `T2_topic`. The first run downloads about 300 MB and builds the corpus
 (about 15 minutes, once).
+
+## Result of the second run (2026-10-01 23:40 – 2026-10-02 06:30)
+
+The first attempt stopped while building the corpus: the UltraChat download was truncated
+(fixed with checks on size and SHA-256). The second attempt built v03 and trained `T2_topic`
+for 500 rounds (5.9 h) from `B_lr010`. Codes from the topical windows separate subjects
+(food and recipes, booking and weekdays, cities, nature, feelings, the economy;
+[results/run2/](results/run2/)).
+
+| Model | Bits/word val500 | Next-word top-1 chat / everyday |
+|---|---|---|
+| start | **5.309** | **27.3% / 24.0%** |
+| T_topic | 5.493 | 25.6% / 22.2% |
+| T2_topic | 5.538 | 26.8% / 22.3% |
+
+Sentences (`w-sent-bos.5f`), all 74 prompts, three models in random order, scored before
+unblinding. Each cell shows prompts at least partly useful / fully useful:
+
+| Model | Holdout 20 | Dev 30 | Topic 24 (subject first) |
+|---|---|---|---|
+| start | 4 / 0 | 18 / 10 | 4 / 1 |
+| T_topic | 3 / 1 | 18 / 10 | 3 / 1 |
+| T2_topic | 3 / 0 | 15 / 12 | 3 / 1 |
+
+**Reading.** No model uses the first sentence: "I just got back from Italy. The food there
+was" → "a lot of fun." / "to be there." / "also a difference." The three are within one
+judge's noise everywhere. The register carries the topic (the codes are good), but in this
+wiring it barely changes the predicted word:
+- it only picks which rule fires in phases 8–15;
+- those rules write work channels that 96 of the 240 probes read;
+- the readout's word scores are linear in those, so the topic reaches a word only through
+  a few hashed buckets.
+
+**Verdict: not promoted. The topic register as wired does not give topic coherence.**
+The direct route is for the readout to read the register: each word gets learned weights
+on the 8 topic channels, so the same register state favours "pasta", "delicious" and
+"restaurant" after "Italy". This is a topic-conditioned word bias, exact and in integers. The
+fitter needs a third kind of probe for it, because register values come from simulation
+and are neither tape codes nor rule immediates.

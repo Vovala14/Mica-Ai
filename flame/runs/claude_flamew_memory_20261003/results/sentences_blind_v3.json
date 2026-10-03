@@ -1,0 +1,1513 @@
+{
+ "protocol": "50 prompts (20 holdout + 30 dev), decoder w-sent-bos.5f for both; one blind judge (Claude subagent), items shuffled, key opened after scoring",
+ "systems": {
+  "old": "Flame-W B 4d8cab66 (site before v0.3)",
+  "new": "Flame-W B-740 1f4d5503 + memory"
+ },
+ "items": [
+  {
+   "id": "v3-000",
+   "context": "Yesterday I went to the",
+   "suggestion": " grocery store and then came home."
+  },
+  {
+   "id": "v3-001",
+   "context": "We decided to make dinner with",
+   "suggestion": " all of us."
+  },
+  {
+   "id": "v3-002",
+   "context": "Two kids playing in the snow",
+   "suggestion": " with a snowboard."
+  },
+  {
+   "id": "v3-003",
+   "context": "When the lights went out, everyone",
+   "suggestion": " in the room."
+  },
+  {
+   "id": "v3-004",
+   "context": "My favorite food is",
+   "suggestion": " all the same thing."
+  },
+  {
+   "id": "v3-005",
+   "context": "Sorry I missed your call, I was",
+   "suggestion": " wondering if you could help me."
+  },
+  {
+   "id": "v3-006",
+   "context": "My favorite food is",
+   "suggestion": " worth a shot."
+  },
+  {
+   "id": "v3-007",
+   "context": "It's too cold to",
+   "suggestion": " do that today."
+  },
+  {
+   "id": "v3-008",
+   "context": "Let me know when you",
+   "suggestion": " have any questions."
+  },
+  {
+   "id": "v3-009",
+   "context": "She sent the package to her",
+   "suggestion": " in the house."
+  },
+  {
+   "id": "v3-010",
+   "context": "The kids are playing in the",
+   "suggestion": " middle of a field."
+  },
+  {
+   "id": "v3-011",
+   "context": "He opened the window to let",
+   "suggestion": " me know what you decide."
+  },
+  {
+   "id": "v3-012",
+   "context": "Thanks so much for the",
+   "suggestion": " help, I really appreciate it."
+  },
+  {
+   "id": "v3-013",
+   "context": "Happy birthday! I hope",
+   "suggestion": " you like it."
+  },
+  {
+   "id": "v3-014",
+   "context": "Let me know when you",
+   "suggestion": " have any questions."
+  },
+  {
+   "id": "v3-015",
+   "context": "I called my friend to ask",
+   "suggestion": " you to leave."
+  },
+  {
+   "id": "v3-016",
+   "context": "After the storm, the streets were",
+   "suggestion": " happy to see them."
+  },
+  {
+   "id": "v3-017",
+   "context": "I'm so tired because",
+   "suggestion": " I feel like I can't do anything right."
+  },
+  {
+   "id": "v3-018",
+   "context": "I'm so tired because",
+   "suggestion": " I feel like I can't do anything right."
+  },
+  {
+   "id": "v3-019",
+   "context": "The garden looked beautiful in the",
+   "suggestion": " middle of nowhere."
+  },
+  {
+   "id": "v3-020",
+   "context": "The computer restarted before I could",
+   "suggestion": " have done more."
+  },
+  {
+   "id": "v3-021",
+   "context": "She sent the package to her",
+   "suggestion": " about it and see if we can figure it out."
+  },
+  {
+   "id": "v3-022",
+   "context": "They walked home together after the",
+   "suggestion": " last time I saw Tom."
+  },
+  {
+   "id": "v3-023",
+   "context": "I called my friend to ask",
+   "suggestion": " for a way?"
+  },
+  {
+   "id": "v3-024",
+   "context": "The team won the game by",
+   "suggestion": " the end of the week."
+  },
+  {
+   "id": "v3-025",
+   "context": "The weather today is",
+   "suggestion": " a good place."
+  },
+  {
+   "id": "v3-026",
+   "context": "How was your trip to",
+   "suggestion": " the party with me."
+  },
+  {
+   "id": "v3-027",
+   "context": "Thanks so much for the",
+   "suggestion": " opportunity to work here."
+  },
+  {
+   "id": "v3-028",
+   "context": "When the lights went out, everyone",
+   "suggestion": " else, but it was worth it."
+  },
+  {
+   "id": "v3-029",
+   "context": "A dog running on the grass with",
+   "suggestion": " a frisbee in its mouth."
+  },
+  {
+   "id": "v3-030",
+   "context": "The meeting is moved to",
+   "suggestion": " Australia with a friend."
+  },
+  {
+   "id": "v3-031",
+   "context": "Sorry I missed your call, I was",
+   "suggestion": " just really mad."
+  },
+  {
+   "id": "v3-032",
+   "context": "I love listening to music when",
+   "suggestion": " I was younger."
+  },
+  {
+   "id": "v3-033",
+   "context": "The dog waited by the door",
+   "suggestion": " with a dog."
+  },
+  {
+   "id": "v3-034",
+   "context": "I just finished reading a book about",
+   "suggestion": " it, but I can't help it."
+  },
+  {
+   "id": "v3-035",
+   "context": "We decided to make dinner with",
+   "suggestion": " all of them."
+  },
+  {
+   "id": "v3-036",
+   "context": "My brother is learning to",
+   "suggestion": " do that by myself."
+  },
+  {
+   "id": "v3-037",
+   "context": "She bought a new dress for the",
+   "suggestion": " first time in my life."
+  },
+  {
+   "id": "v3-038",
+   "context": "Happy birthday! I hope",
+   "suggestion": " you like it."
+  },
+  {
+   "id": "v3-039",
+   "context": "Can you help me",
+   "suggestion": " find a movie?"
+  },
+  {
+   "id": "v3-040",
+   "context": "The coffee shop on the corner",
+   "suggestion": " of a street."
+  },
+  {
+   "id": "v3-041",
+   "context": "The train arrived at the station",
+   "suggestion": " in the sky."
+  },
+  {
+   "id": "v3-042",
+   "context": "Do you want to grab lunch",
+   "suggestion": " with you, mom?"
+  },
+  {
+   "id": "v3-043",
+   "context": "The team won the game by",
+   "suggestion": " the end of the year."
+  },
+  {
+   "id": "v3-044",
+   "context": "We should go to the beach",
+   "suggestion": " with a surfboard."
+  },
+  {
+   "id": "v3-045",
+   "context": "The museum displayed a collection of",
+   "suggestion": " pizza on a table."
+  },
+  {
+   "id": "v3-046",
+   "context": "The train arrived at the station",
+   "suggestion": " and see what we can find."
+  },
+  {
+   "id": "v3-047",
+   "context": "Please remember to buy",
+   "suggestion": " a new car."
+  },
+  {
+   "id": "v3-048",
+   "context": "The movie was so",
+   "suggestion": " much fun with you."
+  },
+  {
+   "id": "v3-049",
+   "context": "Our flight was delayed because of",
+   "suggestion": " us to be able to help out."
+  },
+  {
+   "id": "v3-050",
+   "context": "The movie was so",
+   "suggestion": " peaceful and me."
+  },
+  {
+   "id": "v3-051",
+   "context": "My brother is learning to",
+   "suggestion": " do with your life."
+  },
+  {
+   "id": "v3-052",
+   "context": "Can you help me",
+   "suggestion": " find a hotel?"
+  },
+  {
+   "id": "v3-053",
+   "context": "He saved the file before",
+   "suggestion": " the end of the world."
+  },
+  {
+   "id": "v3-054",
+   "context": "The computer restarted before I could",
+   "suggestion": " have done more."
+  },
+  {
+   "id": "v3-055",
+   "context": "Yesterday I went to the",
+   "suggestion": " park and then came home."
+  },
+  {
+   "id": "v3-056",
+   "context": "I can't find my keys",
+   "suggestion": " on the street."
+  },
+  {
+   "id": "v3-057",
+   "context": "I forgot my umbrella because",
+   "suggestion": " I want to be able to defend myself."
+  },
+  {
+   "id": "v3-058",
+   "context": "The doctor explained that the patient",
+   "suggestion": " of the water."
+  },
+  {
+   "id": "v3-059",
+   "context": "We should go to the beach",
+   "suggestion": " in the water."
+  },
+  {
+   "id": "v3-060",
+   "context": "I love listening to music when",
+   "suggestion": " I was younger."
+  },
+  {
+   "id": "v3-061",
+   "context": "The coffee shop on the corner",
+   "suggestion": " of a street."
+  },
+  {
+   "id": "v3-062",
+   "context": "I just finished reading a book about",
+   "suggestion": " it and I don't know how to fix it."
+  },
+  {
+   "id": "v3-063",
+   "context": "The weather today is",
+   "suggestion": " a lot of work, but it was worth it."
+  },
+  {
+   "id": "v3-064",
+   "context": "Do you want to grab lunch",
+   "suggestion": " with you today."
+  },
+  {
+   "id": "v3-065",
+   "context": "The kids are playing in the",
+   "suggestion": " middle of the night."
+  },
+  {
+   "id": "v3-066",
+   "context": "They walked home together after the",
+   "suggestion": " little girl was playing with her friends."
+  },
+  {
+   "id": "v3-067",
+   "context": "The museum displayed a collection of",
+   "suggestion": " you and I want to help you through this tough time."
+  },
+  {
+   "id": "v3-068",
+   "context": "I forgot my umbrella because",
+   "suggestion": " I feel like I can't do anything right."
+  },
+  {
+   "id": "v3-069",
+   "context": "I was thinking about",
+   "suggestion": " getting a new car."
+  },
+  {
+   "id": "v3-070",
+   "context": "How was your trip to",
+   "suggestion": " do that by myself."
+  },
+  {
+   "id": "v3-071",
+   "context": "It's too cold to",
+   "suggestion": " find the time."
+  },
+  {
+   "id": "v3-072",
+   "context": "The shop closes early on",
+   "suggestion": " top of it."
+  },
+  {
+   "id": "v3-073",
+   "context": "She bought a new dress for the",
+   "suggestion": " new York times."
+  },
+  {
+   "id": "v3-074",
+   "context": "A man riding a bike down the",
+   "suggestion": " street in front."
+  },
+  {
+   "id": "v3-075",
+   "context": "I can't find my keys",
+   "suggestion": " on my head."
+  },
+  {
+   "id": "v3-076",
+   "context": "The shop closes early on",
+   "suggestion": " top of it."
+  },
+  {
+   "id": "v3-077",
+   "context": "She put the book on the",
+   "suggestion": " side of the road."
+  },
+  {
+   "id": "v3-078",
+   "context": "Two kids playing in the snow",
+   "suggestion": " in front of trees."
+  },
+  {
+   "id": "v3-079",
+   "context": "Please remember to buy",
+   "suggestion": " a new one."
+  },
+  {
+   "id": "v3-080",
+   "context": "The garden looked beautiful in the",
+   "suggestion": " middle of nowhere."
+  },
+  {
+   "id": "v3-081",
+   "context": "The meeting is moved to",
+   "suggestion": " Boston for a week."
+  },
+  {
+   "id": "v3-082",
+   "context": "He opened the window to let",
+   "suggestion": " me know how it goes."
+  },
+  {
+   "id": "v3-083",
+   "context": "I'll be there in",
+   "suggestion": " a few minutes."
+  },
+  {
+   "id": "v3-084",
+   "context": "A dog running on the grass with",
+   "suggestion": " a surfboard in the ocean."
+  },
+  {
+   "id": "v3-085",
+   "context": "The teacher asked the students to",
+   "suggestion": " do that today."
+  },
+  {
+   "id": "v3-086",
+   "context": "She put the book on the",
+   "suggestion": " beach."
+  },
+  {
+   "id": "v3-087",
+   "context": "The dog waited by the door",
+   "suggestion": " of the world."
+  },
+  {
+   "id": "v3-088",
+   "context": "A plate of pasta with",
+   "suggestion": " a table in a room."
+  },
+  {
+   "id": "v3-089",
+   "context": "I'll be there in",
+   "suggestion": " a few minutes."
+  },
+  {
+   "id": "v3-090",
+   "context": "Our new apartment has a",
+   "suggestion": " lot of potential."
+  },
+  {
+   "id": "v3-091",
+   "context": "The doctor explained that the patient",
+   "suggestion": " of the water."
+  },
+  {
+   "id": "v3-092",
+   "context": "A plate of pasta with",
+   "suggestion": " a table at a restaurant."
+  },
+  {
+   "id": "v3-093",
+   "context": "He saved the file before",
+   "suggestion": " and I don't know how to fix it."
+  },
+  {
+   "id": "v3-094",
+   "context": "A man riding a bike down the",
+   "suggestion": " street in front."
+  },
+  {
+   "id": "v3-095",
+   "context": "Our flight was delayed because of",
+   "suggestion": " us to be able to help you out."
+  },
+  {
+   "id": "v3-096",
+   "context": "I was thinking about",
+   "suggestion": " getting a new job."
+  },
+  {
+   "id": "v3-097",
+   "context": "After the storm, the streets were",
+   "suggestion": " a lot of fun."
+  },
+  {
+   "id": "v3-098",
+   "context": "Our new apartment has a",
+   "suggestion": " lot of potential."
+  },
+  {
+   "id": "v3-099",
+   "context": "The teacher asked the students to",
+   "suggestion": " make a difference."
+  }
+ ],
+ "scores": [
+  {
+   "id": "v3-000",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-001",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-002",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-003",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 1
+  },
+  {
+   "id": "v3-004",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-005",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-006",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-007",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-008",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-009",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-010",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-011",
+   "relevance": 0,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-012",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-013",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-014",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-015",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-016",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-017",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-018",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-019",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-020",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-021",
+   "relevance": 0,
+   "grammar": 0,
+   "useful": 0
+  },
+  {
+   "id": "v3-022",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-023",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-024",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-025",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-026",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-027",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-028",
+   "relevance": 0,
+   "grammar": 0,
+   "useful": 0
+  },
+  {
+   "id": "v3-029",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-030",
+   "relevance": 0,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-031",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-032",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 1
+  },
+  {
+   "id": "v3-033",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-034",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-035",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-036",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-037",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-038",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-039",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-040",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-041",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-042",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-043",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-044",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-045",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-046",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-047",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-048",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-049",
+   "relevance": 0,
+   "grammar": 0,
+   "useful": 0
+  },
+  {
+   "id": "v3-050",
+   "relevance": 1,
+   "grammar": 0,
+   "useful": 0
+  },
+  {
+   "id": "v3-051",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-052",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-053",
+   "relevance": 0,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-054",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-055",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-056",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-057",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-058",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-059",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-060",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 1
+  },
+  {
+   "id": "v3-061",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-062",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-063",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-064",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-065",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-066",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-067",
+   "relevance": 0,
+   "grammar": 0,
+   "useful": 0
+  },
+  {
+   "id": "v3-068",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-069",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-070",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-071",
+   "relevance": 0,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-072",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-073",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-074",
+   "relevance": 2,
+   "grammar": 1,
+   "useful": 1
+  },
+  {
+   "id": "v3-075",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-076",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-077",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-078",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-079",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-080",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-081",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-082",
+   "relevance": 0,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-083",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-084",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 0
+  },
+  {
+   "id": "v3-085",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-086",
+   "relevance": 1,
+   "grammar": 2,
+   "useful": 1
+  },
+  {
+   "id": "v3-087",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-088",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-089",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-090",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-091",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-092",
+   "relevance": 1,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-093",
+   "relevance": 1,
+   "grammar": 0,
+   "useful": 0
+  },
+  {
+   "id": "v3-094",
+   "relevance": 2,
+   "grammar": 1,
+   "useful": 1
+  },
+  {
+   "id": "v3-095",
+   "relevance": 0,
+   "grammar": 0,
+   "useful": 0
+  },
+  {
+   "id": "v3-096",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-097",
+   "relevance": 0,
+   "grammar": 1,
+   "useful": 0
+  },
+  {
+   "id": "v3-098",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 2
+  },
+  {
+   "id": "v3-099",
+   "relevance": 2,
+   "grammar": 2,
+   "useful": 1
+  }
+ ],
+ "key": {
+  "v3-000": {
+   "system": "new",
+   "prompt": 26
+  },
+  "v3-001": {
+   "system": "old",
+   "prompt": 5
+  },
+  "v3-002": {
+   "system": "old",
+   "prompt": 32
+  },
+  "v3-003": {
+   "system": "old",
+   "prompt": 15
+  },
+  "v3-004": {
+   "system": "new",
+   "prompt": 25
+  },
+  "v3-005": {
+   "system": "old",
+   "prompt": 28
+  },
+  "v3-006": {
+   "system": "old",
+   "prompt": 25
+  },
+  "v3-007": {
+   "system": "old",
+   "prompt": 43
+  },
+  "v3-008": {
+   "system": "old",
+   "prompt": 37
+  },
+  "v3-009": {
+   "system": "new",
+   "prompt": 17
+  },
+  "v3-010": {
+   "system": "new",
+   "prompt": 49
+  },
+  "v3-011": {
+   "system": "old",
+   "prompt": 7
+  },
+  "v3-012": {
+   "system": "old",
+   "prompt": 23
+  },
+  "v3-013": {
+   "system": "new",
+   "prompt": 29
+  },
+  "v3-014": {
+   "system": "new",
+   "prompt": 37
+  },
+  "v3-015": {
+   "system": "new",
+   "prompt": 13
+  },
+  "v3-016": {
+   "system": "new",
+   "prompt": 0
+  },
+  "v3-017": {
+   "system": "new",
+   "prompt": 46
+  },
+  "v3-018": {
+   "system": "old",
+   "prompt": 46
+  },
+  "v3-019": {
+   "system": "new",
+   "prompt": 8
+  },
+  "v3-020": {
+   "system": "new",
+   "prompt": 10
+  },
+  "v3-021": {
+   "system": "old",
+   "prompt": 17
+  },
+  "v3-022": {
+   "system": "old",
+   "prompt": 11
+  },
+  "v3-023": {
+   "system": "old",
+   "prompt": 13
+  },
+  "v3-024": {
+   "system": "old",
+   "prompt": 12
+  },
+  "v3-025": {
+   "system": "new",
+   "prompt": 20
+  },
+  "v3-026": {
+   "system": "new",
+   "prompt": 48
+  },
+  "v3-027": {
+   "system": "new",
+   "prompt": 23
+  },
+  "v3-028": {
+   "system": "new",
+   "prompt": 15
+  },
+  "v3-029": {
+   "system": "new",
+   "prompt": 30
+  },
+  "v3-030": {
+   "system": "old",
+   "prompt": 40
+  },
+  "v3-031": {
+   "system": "new",
+   "prompt": 28
+  },
+  "v3-032": {
+   "system": "old",
+   "prompt": 42
+  },
+  "v3-033": {
+   "system": "new",
+   "prompt": 19
+  },
+  "v3-034": {
+   "system": "new",
+   "prompt": 38
+  },
+  "v3-035": {
+   "system": "new",
+   "prompt": 5
+  },
+  "v3-036": {
+   "system": "old",
+   "prompt": 41
+  },
+  "v3-037": {
+   "system": "old",
+   "prompt": 47
+  },
+  "v3-038": {
+   "system": "old",
+   "prompt": 29
+  },
+  "v3-039": {
+   "system": "new",
+   "prompt": 22
+  },
+  "v3-040": {
+   "system": "new",
+   "prompt": 44
+  },
+  "v3-041": {
+   "system": "new",
+   "prompt": 4
+  },
+  "v3-042": {
+   "system": "new",
+   "prompt": 34
+  },
+  "v3-043": {
+   "system": "new",
+   "prompt": 12
+  },
+  "v3-044": {
+   "system": "old",
+   "prompt": 27
+  },
+  "v3-045": {
+   "system": "new",
+   "prompt": 16
+  },
+  "v3-046": {
+   "system": "old",
+   "prompt": 4
+  },
+  "v3-047": {
+   "system": "new",
+   "prompt": 45
+  },
+  "v3-048": {
+   "system": "old",
+   "prompt": 36
+  },
+  "v3-049": {
+   "system": "new",
+   "prompt": 9
+  },
+  "v3-050": {
+   "system": "new",
+   "prompt": 36
+  },
+  "v3-051": {
+   "system": "new",
+   "prompt": 41
+  },
+  "v3-052": {
+   "system": "old",
+   "prompt": 22
+  },
+  "v3-053": {
+   "system": "new",
+   "prompt": 18
+  },
+  "v3-054": {
+   "system": "old",
+   "prompt": 10
+  },
+  "v3-055": {
+   "system": "old",
+   "prompt": 26
+  },
+  "v3-056": {
+   "system": "old",
+   "prompt": 35
+  },
+  "v3-057": {
+   "system": "new",
+   "prompt": 2
+  },
+  "v3-058": {
+   "system": "old",
+   "prompt": 6
+  },
+  "v3-059": {
+   "system": "new",
+   "prompt": 27
+  },
+  "v3-060": {
+   "system": "new",
+   "prompt": 42
+  },
+  "v3-061": {
+   "system": "old",
+   "prompt": 44
+  },
+  "v3-062": {
+   "system": "old",
+   "prompt": 38
+  },
+  "v3-063": {
+   "system": "old",
+   "prompt": 20
+  },
+  "v3-064": {
+   "system": "old",
+   "prompt": 34
+  },
+  "v3-065": {
+   "system": "old",
+   "prompt": 49
+  },
+  "v3-066": {
+   "system": "new",
+   "prompt": 11
+  },
+  "v3-067": {
+   "system": "old",
+   "prompt": 16
+  },
+  "v3-068": {
+   "system": "old",
+   "prompt": 2
+  },
+  "v3-069": {
+   "system": "old",
+   "prompt": 21
+  },
+  "v3-070": {
+   "system": "old",
+   "prompt": 48
+  },
+  "v3-071": {
+   "system": "new",
+   "prompt": 43
+  },
+  "v3-072": {
+   "system": "new",
+   "prompt": 14
+  },
+  "v3-073": {
+   "system": "new",
+   "prompt": 47
+  },
+  "v3-074": {
+   "system": "old",
+   "prompt": 31
+  },
+  "v3-075": {
+   "system": "new",
+   "prompt": 35
+  },
+  "v3-076": {
+   "system": "old",
+   "prompt": 14
+  },
+  "v3-077": {
+   "system": "new",
+   "prompt": 3
+  },
+  "v3-078": {
+   "system": "new",
+   "prompt": 32
+  },
+  "v3-079": {
+   "system": "old",
+   "prompt": 45
+  },
+  "v3-080": {
+   "system": "old",
+   "prompt": 8
+  },
+  "v3-081": {
+   "system": "new",
+   "prompt": 40
+  },
+  "v3-082": {
+   "system": "new",
+   "prompt": 7
+  },
+  "v3-083": {
+   "system": "old",
+   "prompt": 24
+  },
+  "v3-084": {
+   "system": "old",
+   "prompt": 30
+  },
+  "v3-085": {
+   "system": "old",
+   "prompt": 1
+  },
+  "v3-086": {
+   "system": "old",
+   "prompt": 3
+  },
+  "v3-087": {
+   "system": "old",
+   "prompt": 19
+  },
+  "v3-088": {
+   "system": "old",
+   "prompt": 33
+  },
+  "v3-089": {
+   "system": "new",
+   "prompt": 24
+  },
+  "v3-090": {
+   "system": "new",
+   "prompt": 39
+  },
+  "v3-091": {
+   "system": "new",
+   "prompt": 6
+  },
+  "v3-092": {
+   "system": "new",
+   "prompt": 33
+  },
+  "v3-093": {
+   "system": "old",
+   "prompt": 18
+  },
+  "v3-094": {
+   "system": "new",
+   "prompt": 31
+  },
+  "v3-095": {
+   "system": "old",
+   "prompt": 9
+  },
+  "v3-096": {
+   "system": "new",
+   "prompt": 21
+  },
+  "v3-097": {
+   "system": "old",
+   "prompt": 0
+  },
+  "v3-098": {
+   "system": "old",
+   "prompt": 39
+  },
+  "v3-099": {
+   "system": "new",
+   "prompt": 1
+  }
+ }
+}

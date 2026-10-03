@@ -1,0 +1,255 @@
+{
+ "symbols": 16384,
+ "channels": 8,
+ "shift": 3,
+ "content_words": 8000,
+ "skip": 250,
+ "window": 16,
+ "records": 400000,
+ "scale": 61.32218574954038,
+ "code_abs_mean_content": 8.122140625,
+ "register_p99_after_scaling": 90.0,
+ "channel_ends": {
+  "0": {
+   "low": [
+    "resulting",
+    "potentially",
+    "remains",
+    "suggests",
+    "aimed",
+    "walked",
+    "believed",
+    "greater",
+    "initially",
+    "carefully",
+    "objects",
+    "forced"
+   ],
+   "high": [
+    "urinal",
+    "birdy",
+    "baya",
+    "bunches",
+    "tatoeba",
+    "ducky",
+    "skura's",
+    "miroslav",
+    "gabor",
+    "gironde",
+    "wagged",
+    "peeked"
+   ]
+  },
+  "1": {
+   "low": [
+    "hurt",
+    "happened",
+    "upset",
+    "angry",
+    "scared",
+    "sick",
+    "wrong",
+    "hurts",
+    "crying",
+    "awful",
+    "mad",
+    "ruined"
+   ],
+   "high": [
+    "development",
+    "management",
+    "institutions",
+    "practices",
+    "healthcare",
+    "sector",
+    "economic",
+    "aimed",
+    "various",
+    "technologies",
+    "systems",
+    "organizations"
+   ]
+  },
+  "2": {
+   "low": [
+    "beef",
+    "butter",
+    "chicken",
+    "salad",
+    "sauce",
+    "steak",
+    "shrimp",
+    "baked",
+    "grilled",
+    "garlic",
+    "pork",
+    "roasted"
+   ],
+   "high": [
+    "hurt",
+    "upset",
+    "wrong",
+    "situation",
+    "happened",
+    "worse",
+    "angry",
+    "trust",
+    "forgive",
+    "anger",
+    "fault",
+    "ashamed"
+   ]
+  },
+  "3": {
+   "low": [
+    "butter",
+    "recipe",
+    "vegetables",
+    "ingredients",
+    "texture",
+    "vegetable",
+    "cooked",
+    "lemon",
+    "potatoes",
+    "roasted",
+    "flavor",
+    "bread"
+   ],
+   "high": [
+    "chicago",
+    "philadelphia",
+    "atlanta",
+    "arizona",
+    "england",
+    "toronto",
+    "washington",
+    "dallas",
+    "seattle",
+    "united",
+    "vancouver",
+    "houston"
+   ]
+  },
+  "4": {
+   "low": [
+    "fine",
+    "booking",
+    "tuesday",
+    "wednesday",
+    "tomorrow",
+    "thursday",
+    "booked",
+    "monday",
+    "appointments",
+    "march",
+    "confirmed",
+    "friday"
+   ],
+   "high": [
+    "breathtaking",
+    "trees",
+    "magical",
+    "lush",
+    "vibrant",
+    "creatures",
+    "forest",
+    "beneath",
+    "sky",
+    "glow",
+    "breeze",
+    "dense"
+   ]
+  },
+  "5": {
+   "low": [
+    "recipe",
+    "sauce",
+    "potatoes",
+    "avocado",
+    "veggies",
+    "chopped",
+    "butter",
+    "broccoli",
+    "chicken",
+    "beef",
+    "spinach",
+    "roasted"
+   ],
+   "high": [
+    "sky",
+    "breeze",
+    "beneath",
+    "surrounded",
+    "shadows",
+    "peaceful",
+    "forest",
+    "lush",
+    "breathtaking",
+    "trees",
+    "warmth",
+    "glow"
+   ]
+  },
+  "6": {
+   "low": [
+    "surface",
+    "diameter",
+    "windows",
+    "iphone",
+    "feet",
+    "install",
+    "rear",
+    "inches",
+    "fuel",
+    "cable",
+    "object",
+    "android"
+   ],
+   "high": [
+    "delicious",
+    "traditions",
+    "greek",
+    "religion",
+    "culture",
+    "struggles",
+    "passion",
+    "supportive",
+    "wisdom",
+    "dishes",
+    "relationship",
+    "father"
+   ]
+  },
+  "7": {
+   "low": [
+    "blog",
+    "writing",
+    "interactive",
+    "engaging",
+    "images",
+    "download",
+    "writer",
+    "browsing",
+    "photos",
+    "tools",
+    "websites",
+    "write"
+   ],
+   "high": [
+    "caused",
+    "severe",
+    "regions",
+    "economic",
+    "region",
+    "country's",
+    "nations",
+    "temperatures",
+    "damage",
+    "threat",
+    "climate",
+    "global"
+   ]
+  }
+ },
+ "seconds": 16
+}
