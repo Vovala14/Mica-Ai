@@ -139,6 +139,7 @@ continuations that are at least partly useful:
 | Continuing B for 4 more hours at `--round-lr 0.01` | Bits 5.35 → 5.31, next-word top-1 flat, holdout sentences 30% → 20% partly useful: plateaued |
 | Dropping SODA as well as TinyStories (arm C, 1.9 h from B) | Holdout sentences unchanged (6/20 both), dev worse (16/30 vs 20/30); stock phrases change kind, not amount |
 | Topic register, first run (2.1 h from B, 8 channels, phases 8-15) | Beats its zero-code control (dev sentences 18 vs 12 of 30 partly useful, val bits 5.31 vs 5.34) but not yet the start model (bits 5.49 vs 5.31); continuing |
+| Topic register, second run (v03 topical windows, subject codes, 500 rounds) | Subject-first prompts: 3/24 at least partly useful (start 4/24); the register only reroutes rules, so the topic barely reaches word choice. Next: let the readout read the register |
 | Word-level fit at `--round-lr 0.3` | Diverges (6.75 → 16.3 bits per word); the early stop hides it |
 | Training on a TinyStories-heavy mix | Stock story phrases and loops; balanced mixes are better |
 | Decoding with a "topic memory" bonus | No systematic change |
