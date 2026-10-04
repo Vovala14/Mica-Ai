@@ -1,0 +1,47 @@
+{
+  "protocol": "fixed 5000-word training-only lexicon, beam4, one-word exact integer MicaScorer; same prompts as candidate; official v0.2A bare .mica without byte memory",
+  "source_model_sha256": "3b2a94e203fc6b0cd20365e4d5c46085035722f578161a2213b8cf148a126e72",
+  "candidate_head_sha256": "cc8e0135ac38d8afcb11bce34d226e96372b8bd2fe377cae9c6a51dadadaa5d5",
+  "set": "dev",
+  "tasks": {
+    "next": {
+      "chat": {
+        "candidate_top1": 0.205,
+        "official_v02a_top1": 0.085,
+        "n": 200
+      },
+      "everyday": {
+        "candidate_top1": 0.065,
+        "official_v02a_top1": 0.02,
+        "n": 200
+      },
+      "equal_domain_gain": 0.08249999999999999,
+      "paired_95_ci": [
+        0.055,
+        0.11249999999999999
+      ]
+    },
+    "prefix2": {
+      "chat": {
+        "candidate_top1": 0.665,
+        "official_v02a_top1": 0.575,
+        "n": 200
+      },
+      "everyday": {
+        "candidate_top1": 0.39,
+        "official_v02a_top1": 0.345,
+        "n": 200
+      },
+      "equal_domain_gain": 0.0675,
+      "paired_95_ci": [
+        0.03,
+        0.10500000000000001
+      ]
+    }
+  },
+  "joint_gain": 0.075,
+  "joint_paired_95_ci": [
+    0.051250000000000004,
+    0.09874999999999999
+  ]
+}
