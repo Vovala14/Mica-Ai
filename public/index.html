@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MICA Playground</title>
-<meta name="description" content="Try MICA Flame-W and MICA Ember: one-of-a-kind language models built from learned integer cellular-automaton rules, not transformers.">
+<meta name="description" content="Try MICA Flame-W for sentences and Ember v0.3a for next-word suggestions and word completion. Both use learned integer cellular-automaton rules.">
 <meta property="og:title" content="MICA Playground">
 <meta property="og:description" content="A one-of-a-kind language model: an integer cellular automaton that writes language. Not a transformer and not a neural network. Try it and rate what it writes.">
 <meta property="og:image" content="https://mica-ai-ten.vercel.app/social-preview.png">
@@ -123,7 +123,7 @@ footer a, .card a { color: var(--accent); }
     <img src="/logo.svg" alt="" width="56" height="72">
     <div>
     <h1>MICA Playground</h1>
-    <p>One-of-a-kind language models: not transformers and not neural networks, but learned integer rules in a cellular automaton. Try them and rate what they write.</p>
+    <p>Learned integer rules in a cellular automaton. Try Flame-W for sentences and Ember v0.3a for word suggestions, then rate the results.</p>
     </div>
   </header>
 
@@ -131,16 +131,14 @@ footer a, .card a { color: var(--accent); }
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-m="flame-sentence" aria-selected="true"><b>Flame-W</b>sentence</button>
       <button class="tab" role="tab" data-m="flame-suggest" aria-selected="false"><b>Flame-W</b>next words</button>
-      <button class="tab" role="tab" data-m="ember" aria-selected="false"><b>Ember</b>letter by letter</button>
+      <button class="tab" role="tab" data-m="ember-next" aria-selected="false"><b>Ember</b>next word</button>
+      <button class="tab" role="tab" data-m="ember-complete" aria-selected="false"><b>Ember</b>finish word</button>
     </div>
     <p class="desc" id="desc"></p>
 
     <textarea id="prompt" maxlength="300" placeholder="Start a sentence, e.g. “I was thinking about”"></textarea>
     <div class="chips" id="chips"></div>
     <div class="row">
-      <label class="small" id="tempWrap" hidden>Creativity
-        <input type="range" id="temp" min="0" max="1.2" step="0.1" value="0">
-        <span id="tempVal">0 (exact)</span></label>
       <span class="grow"></span>
       <span class="count" id="count">0 / 300</span>
       <button class="primary" id="go">Generate</button>
@@ -159,12 +157,12 @@ footer a, .card a { color: var(--accent); }
       <div class="next" id="next"></div>
       <div class="fb">
         <div class="row" style="margin-top:0">
-          <span class="q grow">Did it make sense?</span>
+          <span class="q grow" id="fbQuestion">Did it make sense?</span>
           <button class="vote up" id="up" aria-pressed="false" title="Good">👍</button>
           <button class="vote down" id="down" aria-pressed="false" title="Bad">👎</button>
         </div>
         <div class="row">
-          <input class="better" id="better" maxlength="400" placeholder="Optional: how should it continue? (teaches MICA)">
+          <input class="better" id="better" maxlength="400" placeholder="Optional: how should it continue?">
         </div>
         <div class="row">
           <span class="status grow" id="fbStatus"></span>
@@ -183,9 +181,9 @@ footer a, .card a { color: var(--accent); }
     <h2>The models</h2>
     <div class="models">
       <div><b>Flame-W 0.3.1 (4 Oct 2026)</b><br>Predicts whole words (16,384-word vocabulary). An integer memory lets it use the last 64 words instead of about 4; 0.3.1 retrained it on 7 times more text. It scores 31.25% on Tiny Theory-of-Mind (chance 25%), above 6 of the 36 models on that leaderboard.</div>
-      <div><b>Ember (v0.2A)</b><br>Predicts one byte at a time, with no vocabulary. The model file is 4.5 MB. It scores 1.86–1.88 bits per byte on chat and everyday text.</div>
+      <div><b>Ember v0.3a (4 Oct 2026)</b><br>The original 4.5 MB byte-level cellular model now has 1.23 MB of integer word readouts. It suggests a next word or completes one after two typed letters. On independent clean prompts, next-word top-1 improved from 6.75% to 14.25% versus v0.2A. Its cellular byte loss is unchanged.</div>
     </div>
-    <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Their sentences often don't make sense yet. Your ratings and corrections are what this site collects to improve them.</p>
+    <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
   </section>
 
   <footer>
@@ -196,14 +194,21 @@ footer a, .card a { color: var(--accent); }
 
 <script>
 const MODES = {
-  'flame-sentence': { api: '/api/flame', body: p => ({ prompt: p, mode: 'sentence' }),
+  'flame-sentence': { api: '/api/flame', body: p => ({ prompt: p, mode: 'sentence' }), action: 'Generate',
     desc: 'Flame-W writes the rest of the sentence, one word at a time. It takes a few seconds.' },
-  'flame-suggest': { api: '/api/flame', body: p => ({ prompt: p, mode: 'suggest' }),
+  'flame-suggest': { api: '/api/flame', body: p => ({ prompt: p, mode: 'suggest' }), action: 'Suggest',
     desc: 'Flame-W suggests the next two or three words, like a phone keyboard.' },
-  'ember': { api: '/api/ember', body: p => ({ prompt: p, temperature: +$('temp').value, limit: 120 }),
-    desc: 'Ember writes one letter (byte) at a time. At creativity 0 its output is exact and repeatable. Raise creativity to sample.' },
+  'ember-next': { api: '/api/ember', body: p => ({ prompt: p, mode: 'next-word' }), action: 'Suggest',
+    desc: 'Ember v0.3a suggests one next word. Type a complete phrase; a final space is optional.' },
+  'ember-complete': { api: '/api/ember', body: p => ({ prompt: p, mode: 'complete-word' }), action: 'Complete',
+    desc: 'Ember v0.3a finishes a word after exactly two typed letters, such as “Thank you for be”.' },
 };
-const EXAMPLES = ['I was thinking about', 'The weather today is', 'Can you help me', 'My favorite food is', 'Yesterday I went to the'];
+const EXAMPLES = {
+  'flame-sentence': ['I was thinking about', 'The weather today is', 'Can you help me', 'My favorite food is'],
+  'flame-suggest': ['I was thinking about', 'The weather today is', 'Can you help me', 'Yesterday I went to the'],
+  'ember-next': ['Thank you for', 'The weather today is', 'I would like to', 'Can you help me'],
+  'ember-complete': ['Thank you for be', 'The weather today is su', 'I would like to kn', 'Can you help me fi'],
+};
 const $ = id => document.getElementById(id);
 let mode = 'flame-sentence', last = null, rating = null;
 let session = '';
@@ -218,15 +223,20 @@ function setMode(m) {
   mode = m;
   document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.m === m));
   $('desc').textContent = MODES[m].desc;
-  $('tempWrap').hidden = m !== 'ember';
+  $('go').textContent = MODES[m].action;
+  $('prompt').placeholder = m === 'ember-complete' ? 'End with two letters, e.g. “Thank you for be”' : 'Start a phrase, e.g. “I was thinking about”';
+  $('fbQuestion').textContent = m.startsWith('ember') ? 'Was this word useful?' : 'Did it make sense?';
+  $('better').placeholder = m === 'ember-complete' ? 'Optional: type the missing letters (e.g. “ing”)'
+    : m === 'ember-next' ? 'Optional: which next word fits better?' : 'Optional: how should it continue?';
+  $('chips').replaceChildren();
+  EXAMPLES[m].forEach(e => { const b = document.createElement('button'); b.className = 'chip'; b.textContent = e;
+    b.onclick = () => { $('prompt').value = e; updCount(); $('prompt').focus(); }; $('chips').append(b); });
+  $('result').classList.add('hidden'); last = null;
 }
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => setMode(t.dataset.m));
-EXAMPLES.forEach(e => { const b = document.createElement('button'); b.className = 'chip'; b.textContent = e;
-  b.onclick = () => { $('prompt').value = e; updCount(); $('prompt').focus(); }; $('chips').append(b); });
 function updCount() { $('count').textContent = `${$('prompt').value.length} / 300`; }
 $('prompt').addEventListener('input', updCount);
 $('prompt').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) generate(); });
-$('temp').oninput = () => { const t = +$('temp').value; $('tempVal').textContent = t === 0 ? '0 (exact)' : t.toFixed(1); };
 $('go').onclick = generate;
 
 async function log(payload) {
@@ -265,17 +275,23 @@ const STEPS = {
     'Scoring all 16,125 words it knows',
     'Picking the likeliest next few words',
   ],
-  'ember': p => [
+  'ember-next': p => [
     'Writing your text onto the tape, one byte at a time',
     'Running 16 rule phases across 768 cells × 112 channels',
     'Each cell picks one of 256 learned integer rules',
-    +$('temp').value ? 'Sampling each next letter from 256 bytes' : 'Choosing the single likeliest next letter of 256',
-    'Writing it back onto the tape and going again',
+    'Reading 240 cellular probes through the learned integer word readout',
+    'Ranking 4,339 known words for the next position',
+  ],
+  'ember-complete': p => [
+    'Writing your text and two typed letters onto the byte tape',
+    'Running 16 phases of learned integer cellular rules',
+    'Scoring known words with the completion readout',
+    'Keeping only words that begin with your two letters',
   ],
 };
 const MORE = ['No floating point anywhere: every step is integer math', 'Still weighing the candidates',
   'Same prompt, same answer: the engine is fully deterministic', 'All of this runs on a plain CPU, no GPU'];
-const STEP_MS = { 'flame-sentence': 1500, 'flame-suggest': 450, 'ember': 900 };
+const STEP_MS = { 'flame-sentence': 1500, 'flame-suggest': 450, 'ember-next': 600, 'ember-complete': 600 };
 let thinking = null;
 
 function startThinking(prompt) {
@@ -388,13 +404,13 @@ async function generate() {
     const fb = document.querySelector('.fb');
     if (fb && fb.getBoundingClientRect().bottom > innerHeight)
       fb.scrollIntoView({ block: 'end', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    const settings = d.temperature !== undefined ? { temperature: d.temperature, limit: d.limit } : { decoder: d.decoder };
+    const settings = { decoder: d.decoder, word_heads_sha256: d.word_heads_sha256 };
     log({ kind: 'generation', ...pick(d), ms: d.ms, settings, model_sha256: d.model_sha256 }).catch(() => {});
   } catch (e) {
     $('err').textContent = e.message; $('err').hidden = false;
   } finally {
     stopThinking(true);
-    $('go').disabled = false; $('go').textContent = 'Generate';
+    $('go').disabled = false; $('go').textContent = MODES[mode].action;
   }
 }
 function pick(d) { return { id: d.id, model: d.model, mode: d.mode, prompt: d.prompt, output: d.output, sig: d.sig }; }
@@ -406,9 +422,10 @@ function show(d) {
   const out = d.output || '';
   $('text').innerHTML = `<span class="p">${esc(d.prompt)}</span><span class="o">${out ? esc(out) : '…'}</span>`;
   const name = d.model.startsWith('flame') ? 'Flame-W' : 'Ember';
-  $('meta').textContent = `${name} · ${d.mode} · ${(d.ms / 1000).toFixed(2)} s` + (out ? '' : ' · no continuation found');
-  $('next').innerHTML = d.next_byte ? 'Ember’s first-byte guess: ' +
-    d.next_byte.map(x => `<span>${esc(x.byte)} ${(x.p * 100).toFixed(0)}%</span>`).join('') : '';
+  $('meta').textContent = `${name} · ${d.mode} · ${(d.ms / 1000).toFixed(2)} s` +
+    (out ? '' : d.model === 'ember-v0.3a' ? ' · no known-word suggestion' : ' · no continuation found');
+  $('next').innerHTML = Array.isArray(d.suggestions) && d.suggestions.length > 1
+    ? 'Other word suggestions: ' + d.suggestions.slice(1).map(w => `<span>${esc(w)}</span>`).join('') : '';
   $('result').classList.remove('hidden');
   addHistory(d, name);
 }
@@ -429,7 +446,7 @@ $('better').addEventListener('keydown', e => { if (e.key === 'Enter') sendFeedba
 async function sendFeedback() {
   if (!last) return;
   const correction = $('better').value.trim();
-  if (!rating && !correction) { $('fbStatus').textContent = 'Pick 👍/👎 or write a better continuation.'; return; }
+  if (!rating && !correction) { $('fbStatus').textContent = 'Pick 👍/👎 or write a better suggestion.'; return; }
   const ok = await log({ kind: 'feedback', ...pick(last), rating, correction }).catch(() => false);
   $('fbStatus').textContent = ok ? 'Thanks! Saved for training.' : 'Could not save feedback.';
   $('fbStatus').className = 'status grow ' + (ok ? 'ok' : 'err');

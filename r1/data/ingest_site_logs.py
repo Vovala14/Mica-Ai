@@ -52,6 +52,13 @@ def join(prompt: str, cont: str) -> str:
     return prompt + " " + cont
 
 
+def completed_word(prompt: str, correction: str) -> str:
+    """The v0.3a completion UI asks for missing letters, not a new word."""
+    if correction[:2].casefold() == prompt[-2:].casefold():
+        correction = correction[2:]  # also accept a user who typed the full word
+    return prompt + correction
+
+
 def texts(rows: list[dict], with_prompts: bool) -> list[tuple[str, str]]:
     gens = {r["id"]: r for r in rows if r.get("kind") == "generation"}
     fb: dict[str, dict] = {}
@@ -66,7 +73,11 @@ def texts(rows: list[dict], with_prompts: bool) -> list[tuple[str, str]]:
         f = fb.get(gid, {})
         prompt, output = g.get("prompt", ""), g.get("output", "")
         if f.get("correction"):
-            out.append(("correction", join(prompt, f["correction"].strip())))
+            correction = f["correction"].strip()
+            if g.get("model") == "ember-v0.3a" and g.get("mode") == "complete-word":
+                out.append(("correction", completed_word(prompt, correction)))
+            else:
+                out.append(("correction", join(prompt, correction)))
         elif f.get("rating") == "up":
             out.append(("thumbs_up", prompt + output))
         elif with_prompts:
