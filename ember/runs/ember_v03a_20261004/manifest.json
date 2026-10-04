@@ -1,0 +1,14 @@
+{
+  "version": "Ember v0.3a",
+  "role": "next-word suggestions and completion after two typed letters",
+  "architecture": "Ember v0.2A learned-integer-rule byte cellular automaton with two integer linear word readouts over its existing 240 cellular probes",
+  "source_model": "ember/runs/codex_ember_balanced_v02a_20260928/train/best.mica",
+  "source_sha256": "3b2a94e203fc6b0cd20365e4d5c46085035722f578161a2213b8cf148a126e72",
+  "word_heads": "word_heads.npz",
+  "word_heads_sha256": "cc8e0135ac38d8afcb11bce34d226e96372b8bd2fe377cae9c6a51dadadaa5d5",
+  "word_vocabulary": 4339,
+  "training": "train-only word labels and exact integer cellular features; quantized integer output weights",
+  "selection": "disjoint chat and everyday development prompts 400:600 per domain, predeclared combined top-1 gate",
+  "confirmation": "independent clean chat and everyday val1000, 200 eligible prompts per domain",
+  "sealed_test": "never accessed"
+}

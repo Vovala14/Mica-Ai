@@ -3,6 +3,20 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## Ember v0.3a: word assistance (2026-10-04)
+
+- The unchanged v0.2A byte cellular automaton now has two learned integer
+  readouts over its existing probes for next-word suggestions and completion
+  after two typed letters. The packed heads are 1.23 MB; details and hashes
+  are in [`ember/runs/ember_v03a_20261004/`](ember/runs/ember_v03a_20261004/).
+- Against official Ember v0.2A on the same 200 chat and 200 everyday clean
+  prompts, next-word top-1 improves 6.75% to 14.25%; two-letter completion
+  improves 42.75% to 48.0%. The paired equal task/domain gain is +6.375
+  percentage points, 95% CI [+4.0,+8.75]. Byte loss of the cellular base is
+  unchanged.
+- Ember's product role is word suggestions and typed-word completion. Flame-W
+  owns sentence continuation and generation. The website is unchanged.
+
 ## v0.3.1: Flame-W memory refit and answer mode (2026-10-04)
 
 **Models**

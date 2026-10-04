@@ -33,8 +33,8 @@ revision R1.
 | Part | Where | Status |
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
-| MICA Flame-W (word model) | [`flame/`](flame/) | official B-740 + memory (0.3.1, 2026-10-04), vocabulary and decoders |
-| MICA Ember (byte/letter model) | [`ember/`](ember/) | official v0.2A checkpoint |
+| MICA Flame-W (sentence model) | [`flame/`](flame/) | B-740 + memory (0.3.1); sentence continuation and generation |
+| MICA Ember (word assistance on a byte engine) | [`ember/`](ember/) | v0.3a integer word readouts on the v0.2A cellular checkpoint |
 
 **Want to experiment or do research with MICA?** Start with [RESEARCH.md](RESEARCH.md): how it works, how to measure it, the open problems, and what has already been tried.
 
@@ -65,13 +65,22 @@ python flame/runs/claude_flamew_031_20261004/run_tom.py     # Tiny Theory-of-Min
 `suggest` gives a 2-3 word next-words suggestion ("Can you help me" → " find my").
 Each output line in `out.jsonl` has the prompt and its `continuation`.
 
-Generate text with Ember:
+Try Ember v0.3a word suggestions:
+
+```bash
+python ember/runs/ember_v03a_20261004/test_word_model.py
+python ember/runs/ember_v03a_20261004/word_model.py
+```
+
+The original v0.2A byte generator is also available:
 
 ```bash
 python r1/generate_bytes.py ember/runs/codex_ember_balanced_v02a_20260928/train "I don't know"
 ```
 
-Both are research models. Neither produces reliably sensible sentences yet.
+These are research models. Ember's measured role is next-word suggestion and
+typed-word completion; Flame-W handles sentences. The website still uses its
+existing models and has not switched to Ember v0.3a.
 
 ## Test website
 
