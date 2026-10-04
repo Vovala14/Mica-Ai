@@ -1,0 +1,13 @@
+start 00:47:41
+[v031] train 4,506,623 positions from 11 files (dropped 75 held-out duplicates); held-out long 40,002, nsval 14,779
+[v031] B alone: long 6.8304, nsval 5.4303 | v0.3 start: long 6.2103, nsval 5.3788, select -0.3358
+[v031] epoch 0 step 1500: long 6.1370, nsval 5.3411, select -0.3913 (v0.3 -0.33580282516906523) 521s
+[v031] epoch 0 step 3000: long 6.1136, nsval 5.3304, select -0.4083 (v0.3 ) 1038s
+[v031] epoch 1 step 4500: long 6.0951, nsval 5.3256, select -0.4200 (v0.3 ) 1563s
+[v031] epoch 1 step 6000: long 6.0919, nsval 5.3163, select -0.4263 (v0.3 ) 2089s
+[v031] epoch 1 step 7500: long 6.0873, nsval 5.3212, select -0.4261 (v0.3 ) 2616s
+[v031] epoch 2 step 9000: long 6.0872, nsval 5.3210, select -0.4263 (v0.3 ) 3137s
+[v031] epoch 2 step 10500: long 6.0889, nsval 5.3167, select -0.4276 (v0.3 ) 3657s
+[v031] epoch 2 step 12000: long 6.0759, nsval 5.3206, select -0.4321 (v0.3 ) 4179s
+[v031] epoch 3 step 13483: long 6.0843, nsval 5.3161, select -0.4301 (v0.3 ) 4693s
+[v031] done: best select -0.4321

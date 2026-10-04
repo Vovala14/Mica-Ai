@@ -1,0 +1,41 @@
+{
+ "model": "B-740 + 0.3.1 memory (exact integers)",
+ "val500_bits_per_word": 5.2084,
+ "val500_targets": 7320,
+ "dev_bits_per_word": 5.5035,
+ "dev_targets": 27632,
+ "reference": {
+  "B-740": {
+   "val500": 5.309,
+   "dev": 5.677
+  },
+  "v0.3": {
+   "val500": 5.268,
+   "dev": 5.577
+  }
+ },
+ "selection_sets_float_fit": {
+  "heldout_long_40002": {
+   "B": 6.8304,
+   "v0.3": 6.2103,
+   "0.3.1": 6.0759
+  },
+  "nsval_500_1499_14779": {
+   "B": 5.4303,
+   "v0.3": 5.3788,
+   "0.3.1": 5.3206
+  },
+  "select": {
+   "v0.3": -0.3358,
+   "0.3.1": -0.4321
+  }
+ },
+ "training": {
+  "train_positions": 4506623,
+  "files": 11,
+  "dropped_heldout_duplicates": 75,
+  "steps": 13483,
+  "best_step": 12000,
+  "hours": 1.3
+ }
+}

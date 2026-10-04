@@ -84,16 +84,20 @@ All numbers come from the exact integer engine. "Dev" sets were used for selecti
 | | | bits per word, clean chat / everyday | 6.8414 / 6.9972 |
 | Ember v0.2A (bytes) | `3b2a94e2…` | bits per byte, clean chat / everyday | 1.8609 / 1.8757 |
 
-**Official since v0.3 (2026-10-03): B-740 + memory.** The automaton is checkpoint B continued
-to round 740 (SHA `1f4d5503…`). An integer memory readout runs over the last 64 words.
+**Official since 0.3.1 (2026-10-04): B-740 + refitted memory.** The automaton is checkpoint B
+continued to round 740 (SHA `1f4d5503…`). An integer memory readout runs over the last 64 words.
+It was introduced in v0.3, and 0.3.1 refits it on 7 times more text.
 
-| Metric | B-740 | + memory |
-|---|---:|---:|
-| use_w(8), chat / everyday long600 | 0.0006 / 0.0004 | 0.0209 / 0.0407 |
-| bits per word, no-TinyStories val500 | 5.309 | 5.268 |
-| Tiny Theory-of-Mind, 2,000 rows | 28.15% | 30.95% |
+| Metric | B-740 | + v0.3 memory | 0.3.1 |
+|---|---:|---:|---:|
+| use_w(8), chat / everyday long600 | 0.0006 / 0.0004 | 0.0209 / 0.0407 | 0.0183 / 0.0483 |
+| bits per word, no-TinyStories val500 | 5.309 | 5.268 | 5.208 |
+| Tiny Theory-of-Mind, 2,000 rows, per word token / per character | 28.15% / 26.15% | 30.95% / 29.90% | 31.25% / 31.45% |
 
-See [`flame/runs/claude_flamew_memory_20261003/`](flame/runs/claude_flamew_memory_20261003/).
+0.3.1's ToM number includes answer mode: +3.25 nats for content words already in the context,
+picked on synthetic practice items. Without it, the 0.3.1 memory scores 31.15% / 30.15%. See
+[`flame/runs/claude_flamew_031_20261004/`](flame/runs/claude_flamew_031_20261004/) and, for v0.3,
+[`flame/runs/claude_flamew_memory_20261003/`](flame/runs/claude_flamew_memory_20261003/).
 
 **Earlier candidate (2026-10-01):** "B" continues full40 for 240 more rounds at
 `--round-lr 0.01`, without TinyStories (SHA `4d8cab66…`). On the same 1,000 next-word positions,
@@ -157,6 +161,10 @@ continuations that are at least partly useful:
 | Word-level fit at `--round-lr 0.3` | Diverges (6.75 → 16.3 bits per word); the early stop hides it |
 | Training on a TinyStories-heavy mix | Stock story phrases and loops; balanced mixes are better |
 | Decoding with a "topic memory" bonus | No systematic change |
+| Tiny ToM: training a pointer readout on 40 synthetic ToM topic generators | 83% on synthetic dev items, but 30.35% on Tiny ToM, and validation bits got worse (5.53): it did not transfer |
+| Tiny ToM: word n-gram models (KenLM) | 28.4–28.7%, about the automaton alone (28.15%): local fluency does not help |
+| Tiny ToM: other multiple-choice scoring variants after answer mode; counting names as seen content | No further gain |
+| Refitting the memory on 7 times more text (0.3.1) | Better bits (val500 5.27 → 5.21), but Tiny ToM unchanged within noise |
 
 What worked (2026-10-01): continuing full40 at `--round-lr 0.01`–`0.03`, which gives large bits
 and next-word gains. Removing TinyStories removed the story clichés, but chat-support clichés

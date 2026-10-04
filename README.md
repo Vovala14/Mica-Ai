@@ -23,15 +23,16 @@ revision R1.
   112 integer channels. 16 phases of learned local rules run, and 240 probes read the result
   to score the next symbol. The same prompt always gives the same output, on any machine.
 - **Where it stands:** Flame-W's rules see about the last 4 words.
-  - Since v0.3, an integer **memory readout** lets it use the last 64.
-  - It scores **30.95% on Tiny Theory-of-Mind**, above 6 of the 36 models on that leaderboard,
-    and 5.27 bits per word on validation text.
+  - Since v0.3, an integer **memory readout** lets it use the last 64. 0.3.1 refits it on 7
+    times more text.
+  - It scores **31.25% on Tiny Theory-of-Mind** (31.45% per character), above 6–7 of the 36
+    models on that leaderboard, and 5.21 bits per word on validation text.
   - These are research models, not assistants.
 
 | Part | Where | Status |
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
-| MICA Flame-W (word model) | [`flame/`](flame/) | official B-740 + memory (v0.3, 2026-10-03), vocabulary and decoders |
+| MICA Flame-W (word model) | [`flame/`](flame/) | official B-740 + memory (0.3.1, 2026-10-04), vocabulary and decoders |
 | MICA Ember (byte/letter model) | [`ember/`](ember/) | official v0.2A checkpoint |
 
 **Want to experiment or do research with MICA?** Start with [RESEARCH.md](RESEARCH.md): how it works, how to measure it, the open problems, and what has already been tried.
@@ -52,11 +53,11 @@ python r1/runs/claude_flame_word_20260928/word_decode.py sentence \
   --vocab r1/data/word/vocab.json --prompts prompts.jsonl --tag demo --out out.jsonl
 ```
 
-The command above runs the automaton alone. With the v0.3 memory readout, as on the website:
+The command above runs the automaton alone. With the 0.3.1 memory readout, as on the website:
 
 ```bash
-python flame/runs/claude_flamew_memory_20261003/generate.py "I went to the"
-python flame/runs/claude_flamew_memory_20261003/run_tom.py     # Tiny Theory-of-Mind, 30.95%
+python flame/runs/claude_flamew_031_20261004/generate.py "I went to the"
+python flame/runs/claude_flamew_031_20261004/run_tom.py     # Tiny Theory-of-Mind, 31.25% / 31.45%
 ```
 
 `sentence` writes a full sentence ("I went to the" → " movies with you.").

@@ -3,6 +3,27 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## v0.3.1: Flame-W memory refit and answer mode (2026-10-04)
+
+**Models**
+- **Flame-W 0.3.1 is the new official word model.** It is the same B-740 automaton with a
+  refitted memory.
+  - Memory: `flame/runs/claude_flamew_031_20261004/memory.npz`, 674 KB. It is v0.3's readout,
+    refitted on 4.5 million word positions (7 times more) and selected on held-out text.
+  - Bits per word on no-TinyStories validation: **5.208**, down from 5.268. Dev: 5.504, down from
+    5.577.
+  - Context use use_w(8), chat / everyday: 0.0183 / 0.0483 (v0.3: 0.0209 / 0.0407).
+- **Answer mode** for multiple-choice questions: +3.25 nats for content words already in the
+  context. The gain was picked on synthetic practice items. The website does not use it.
+- **Tiny Theory-of-Mind:** 31.25% per word token and 31.45% per character. On the held-out half
+  it is 31.80% / 32.50%.
+  - That is not significantly different from v0.3 with answer mode (32.20% / 31.40%, p = 0.17).
+  - It is above 6–7 of the 36 leaderboard models.
+- **Tried without gain:** counting names as seen content in answer mode.
+
+**Playground**
+- The site runs B-740 with the 0.3.1 memory (no answer mode) and the same decoders.
+
 ## v0.3: Flame-W with memory (2026-10-03)
 
 **Models**
