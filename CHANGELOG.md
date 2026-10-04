@@ -15,7 +15,8 @@ Model files are identified by their SHA-256. Scores come from the exact integer 
   percentage points, 95% CI [+4.0,+8.75]. Byte loss of the cellular base is
   unchanged.
 - Ember's product role is word suggestions and typed-word completion. Flame-W
-  owns sentence continuation and generation. The website is unchanged.
+  owns sentence continuation and generation. The site now exposes both Ember
+  word actions through the v0.3a integer readouts.
 
 ## v0.3.1: Flame-W memory refit and answer mode (2026-10-04)
 

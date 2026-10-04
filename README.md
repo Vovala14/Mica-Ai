@@ -79,8 +79,8 @@ python r1/generate_bytes.py ember/runs/codex_ember_balanced_v02a_20260928/train 
 ```
 
 These are research models. Ember's measured role is next-word suggestion and
-typed-word completion; Flame-W handles sentences. The website still uses its
-existing models and has not switched to Ember v0.3a.
+typed-word completion; Flame-W handles sentences. The website offers both
+Ember v0.3a word actions alongside Flame-W's sentence actions.
 
 ## Test website
 
@@ -88,7 +88,7 @@ existing models and has not switched to Ember v0.3a.
 
 | Path | What it does |
 |------|--------------|
-| `public/index.html` | The page: Flame-W sentence / next words, Ember letter by letter, 👍/👎 and "how should it continue?" |
+| `public/index.html` | The page: Flame-W sentence / next words, Ember v0.3a next word / finish word, feedback and corrections |
 | `api/flame.py`, `api/ember.py` | Run the official checkpoints with the exact integer engine (`webapp/`) and sign each output |
 | `api/log.js` | Saves signed generations and feedback to a private Vercel Blob store |
 | `api/export.js` | Owner download of all logs: `curl -H "Authorization: Bearer ADMIN_KEY" <site>/api/export -o logs.jsonl` (`?summary=1` for counts, `?check=1` for a storage check) |

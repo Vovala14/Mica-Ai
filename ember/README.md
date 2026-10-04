@@ -17,7 +17,7 @@ The paired combined improvement is +6.375 percentage points [95% CI +4.0,
 model hashes, prompt counts, domain scores and limitations.
 
 Ember owns word suggestions and typed-word completion. Flame-W owns sentence
-continuation and generation. The website has not switched to v0.3a.
+continuation and generation. The website exposes Ember v0.3a in two word modes.
 
 ## Cellular base: v0.2 balanced mix A
 

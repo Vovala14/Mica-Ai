@@ -70,5 +70,5 @@ Or import `EmberWord` from `word_model.py` and call
 
 The vocabulary contains common training words only. These top-1 tests do not
 measure relevance beyond the exact target, calibrated abstention, sentence
-coherence or open-vocabulary coverage. The website still runs its existing
-models; this GitHub release does not deploy the new word route.
+coherence or open-vocabulary coverage. The website now offers separate next-word
+and two-letter completion routes backed by this integer readout.
