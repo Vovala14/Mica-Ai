@@ -4,13 +4,30 @@ Flame-W is the word-level MICA model: the same integer cellular automaton, with
 one symbol per word (16,384-symbol vocabulary, `r1/data/word/vocab.json`).
 It is not the byte-level Flame. The byte/letter-level model is [MICA Ember](../ember/).
 
-## Official model: B-740 + memory (v0.3, 2026-10-03)
+## Official model: 0.3.1 (2026-10-04)
 
 - **Automaton:** `runs/claude_flamew_b740_20261001/train/best.mica`, SHA-256
   `1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d`, 34,111,616 bytes.
   This is checkpoint B continued to round 740 at `--round-lr 0.01`.
-- **Memory readout:** `runs/claude_flamew_memory_20261003/memory.npz`, 674 KB.
-  It is an integer recall-and-association readout over the last 64 words.
+- **Memory readout:** `runs/claude_flamew_031_20261004/memory.npz`, 674 KB.
+  It is an integer recall-and-association readout over the last 64 words. 0.3.1 refits v0.3's
+  readout on 4.5 million word positions, 7 times more.
+- **Answer mode** (for multiple-choice questions only): `runs/claude_flamew_031_20261004/answer_mode.npz`.
+  It adds +3.25 nats to content words already in the context.
+
+| | B-740 | + v0.3 memory | 0.3.1 |
+|---|---:|---:|---:|
+| Bits/word, no-TinyStories validation (val500) | 5.309 | 5.268 | **5.208** |
+| Context use use_w(8), chat / everyday | 0.0006 / 0.0004 | 0.0209 / 0.0407 | 0.0183 / 0.0483 |
+| Tiny Theory-of-Mind, per word token / per character | 28.15% / 26.15% | 30.95% / 29.90% | **31.25% / 31.45%** |
+
+The refit improves text prediction. On Tiny Theory-of-Mind, 0.3.1 is not significantly different
+from v0.3 with answer mode (32.20% / 31.40%; p = 0.17), and on the held-out half the two are
+within 0.2 points. Details and every file are in [`runs/claude_flamew_031_20261004/`](runs/claude_flamew_031_20261004/).
+
+## Previous official model: B-740 + memory (v0.3, 2026-10-03)
+
+The same automaton with the first memory readout, `runs/claude_flamew_memory_20261003/memory.npz`.
 
 The automaton's rules see about 4 words. The memory gives every word seen in the last 64 tokens,
 and the words associated with them, an integer bonus. Everything stays integer arithmetic.
@@ -25,7 +42,7 @@ and the words associated with them, an integer bonus. Everything stays integer a
 blind sentence check, sentences were no different from B's: useful −0.06 [−0.22, +0.12]. Details
 and every file are in [`runs/claude_flamew_memory_20261003/`](runs/claude_flamew_memory_20261003/).
 
-## Previous official model: B (2026-10-01)
+## Earlier official model: B (2026-10-01)
 
 `runs/claude_flamew_b_20261001/train/best.mica`
 SHA-256 `4d8cab66b9b78bad75243fcbbfce7a4c3aa42d2713c17846f8030a913bf7213d`, 34,111,616 bytes.

@@ -1,0 +1,17 @@
+automaton alone                            word: full 28.15%  held-out half 27.30%  beats 0/36 -> rank 37/37
+automaton alone                            char: full 26.15%  held-out half 26.50%  beats 0/36 -> rank 37/37
++ v0.3 memory                              word: full 30.95%  held-out half 29.70%  beats 6/36 -> rank 31/37
++ v0.3 memory                              char: full 29.90%  held-out half 30.00%  beats 3/36 -> rank 34/37
++ v0.3 memory + answer mode (v0.3 gain)    word: full 32.20%  held-out half 31.70%  beats 9/36 -> rank 28/37
++ v0.3 memory + answer mode (v0.3 gain)    char: full 31.40%  held-out half 32.30%  beats 6/36 -> rank 31/37
++ 0.3.1 memory                             word: full 31.15%  held-out half 30.50%  beats 6/36 -> rank 31/37
++ 0.3.1 memory                             char: full 30.15%  held-out half 29.80%  beats 5/36 -> rank 32/37
++ 0.3.1 memory + answer mode = 0.3.1       word: full 31.25%  held-out half 31.80%  beats 6/36 -> rank 31/37
++ 0.3.1 memory + answer mode = 0.3.1       char: full 31.45%  held-out half 32.50%  beats 7/36 -> rank 30/37
+paired MA vs MA_old (word): +77 / -96, McNemar p = 0.1710
+paired M vs M_old (word): +98 / -94, McNemar p = 0.8287
+paired MA vs MA_old (char): +85 / -84, McNemar p = 1.0000
+paired MA vs B (word): +256 / -194, McNemar p = 0.0040
+paired MA vs M (word): +113 / -111, McNemar p = 0.9467
+weakest topics: bluffing 16%, communication_failure 16%, diverse_beliefs 18%, white_lie 18%, goal_inference 20%
+strongest topics: desire_based_emotion 42%, first_order_false_belief 42%, indirect_request 44%, participant_role_common_ground 46%, recursive_belief_reasoning 50%

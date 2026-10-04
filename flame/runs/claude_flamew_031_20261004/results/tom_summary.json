@@ -1,0 +1,66 @@
+{
+ "dataset": "AxiomicLabs/Tiny_Theory_of_Mind (2,000 rows)",
+ "protocol": "context fed in full; each ending teacher-forced from a forked state; argmax of length-normalized log-likelihood",
+ "results": {
+  "automaton": {
+   "per_word_token": {
+    "accuracy_full_2000": 0.2815,
+    "accuracy_heldout_half_1000": 0.273,
+    "leaderboard_models_beaten_of_36": 0
+   },
+   "per_character": {
+    "accuracy_full_2000": 0.2615,
+    "accuracy_heldout_half_1000": 0.265,
+    "leaderboard_models_beaten_of_36": 0
+   }
+  },
+  "v0.3 memory": {
+   "per_word_token": {
+    "accuracy_full_2000": 0.3095,
+    "accuracy_heldout_half_1000": 0.297,
+    "leaderboard_models_beaten_of_36": 6
+   },
+   "per_character": {
+    "accuracy_full_2000": 0.299,
+    "accuracy_heldout_half_1000": 0.3,
+    "leaderboard_models_beaten_of_36": 3
+   }
+  },
+  "v0.3 memory + answer mode 2.5": {
+   "per_word_token": {
+    "accuracy_full_2000": 0.322,
+    "accuracy_heldout_half_1000": 0.317,
+    "leaderboard_models_beaten_of_36": 9
+   },
+   "per_character": {
+    "accuracy_full_2000": 0.314,
+    "accuracy_heldout_half_1000": 0.323,
+    "leaderboard_models_beaten_of_36": 6
+   }
+  },
+  "0.3.1 memory": {
+   "per_word_token": {
+    "accuracy_full_2000": 0.3115,
+    "accuracy_heldout_half_1000": 0.305,
+    "leaderboard_models_beaten_of_36": 6
+   },
+   "per_character": {
+    "accuracy_full_2000": 0.3015,
+    "accuracy_heldout_half_1000": 0.298,
+    "leaderboard_models_beaten_of_36": 5
+   }
+  },
+  "0.3.1 memory + answer mode 3.25 (0.3.1)": {
+   "per_word_token": {
+    "accuracy_full_2000": 0.3125,
+    "accuracy_heldout_half_1000": 0.318,
+    "leaderboard_models_beaten_of_36": 6
+   },
+   "per_character": {
+    "accuracy_full_2000": 0.3145,
+    "accuracy_heldout_half_1000": 0.325,
+    "leaderboard_models_beaten_of_36": 7
+   }
+  }
+ }
+}

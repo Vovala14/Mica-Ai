@@ -1,4 +1,4 @@
-"""MICA Flame-W (word model): checkpoint B-740 with the memory readout (v0.3, 2026-10-03).
+"""MICA Flame-W (word model) 0.3.1: checkpoint B-740 with the refitted memory readout (2026-10-04).
 
 Sentence mode uses decoder w-sent-bos.5f; next-words mode uses w6-mmi.5."""
 from __future__ import annotations
@@ -9,17 +9,17 @@ import time
 from .common import ROOT, clean_prompt, result
 
 RUN = ROOT / "flame/runs/claude_flamew_b740_20261001/train"
-MEMORY = ROOT / "flame/runs/claude_flamew_memory_20261003/memory.npz"
+MEMORY = ROOT / "flame/runs/claude_flamew_031_20261004/memory.npz"
 VOCAB = ROOT / "r1/data/word/vocab.json"
 SHA = "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d"
-MODEL = "flame-w-memory-20261003"
+MODEL = "flame-w-0.3.1"
 
 sys.path.insert(0, str(ROOT / "r1/runs/claude_flame_word_20260928"))
 import word_decode as D  # noqa: E402
 import word_eval as E  # noqa: E402
 sys.path.insert(0, str(ROOT / "r1/runs/claude_flamew_night_20261001"))
 import decode_bos as B  # noqa: E402
-sys.path.insert(0, str(ROOT / "flame/runs/claude_flamew_memory_20261003"))
+sys.path.insert(0, str(ROOT / "flame/runs/claude_flamew_031_20261004"))
 from memory import Memory, MemoryMicaWord  # noqa: E402
 
 _model = None
