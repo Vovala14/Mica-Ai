@@ -2,8 +2,8 @@
 
 <h1 align="center">MICA AI</h1>
 
-<p align="center"><b>An integer cellular automaton that writes language.</b><br>
-No neural network and no floating point at inference: just learned integer rules on a ring of cells.</p>
+<p align="center"><b>A one-of-a-kind language model: an integer cellular automaton that writes language.</b><br>
+Not a transformer and not a neural network: no attention, just learned integer rules on a ring of cells.</p>
 
 <p align="center">
   <a href="https://mica-ai-ten.vercel.app"><b>Try it in your browser</b></a> ·
@@ -15,7 +15,8 @@ No neural network and no floating point at inference: just learned integer rules
 <p align="center"><img src="assets/playground.gif" alt="The MICA playground: typing a prompt, the automaton thinking, and Flame-W answering" width="640"><br>
 <sub>The live playground with Flame-W. The waiting time is sped up about 2×.</sub></p>
 
-MICA is a learned integer-rule cellular automaton language model. Its reference
+MICA is its own kind of language model, designed from scratch rather than adapted from a
+transformer. It is a learned integer-rule cellular automaton. Its reference
 implementation follows the *MICA exact mechanism and learning specification*,
 revision R1.
 
