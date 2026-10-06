@@ -7,6 +7,7 @@ Not a transformer, not a neural network: just learned integer rules on a ring of
 
 <p align="center">
   <a href="https://mica-ai-ten.vercel.app"><b>Try the live demo</b></a> ·
+  <a href="https://huggingface.co/vynly"><b>Hugging Face</b></a> ·
   <a href="RESEARCH.md">Research guide</a> ·
   <a href="CHANGELOG.md">Changelog</a> ·
   <a href="LICENSE">License (non-commercial)</a>
@@ -40,6 +41,15 @@ The answer appears to be: yes, in a research setting.
 - The 0.3.1 memory refit improves context use and validation loss
 - Ember v0.3a improves next-word prediction and typed-word completion
 - The model is small, inspectable, and intentionally different from mainstream transformer stacks
+
+## Published model cards
+
+MICA models are also published on Hugging Face under the vynly organization:
+
+- [vynly/mica-flame-w-0.3.1](https://huggingface.co/vynly/mica-flame-w-0.3.1) — the sentence model
+- [vynly/mica-ember-0.3a](https://huggingface.co/vynly/mica-ember-0.3a) — the byte-level assistant model
+
+These model cards mirror the research work in this repository and provide a public point of access alongside the GitHub project.
 
 ## Current performance snapshot
 
