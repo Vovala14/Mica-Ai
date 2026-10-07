@@ -126,9 +126,17 @@ class Model:
                 raise ValueError("work injection outside the rule window")
 
     def copy(self) -> "Model":
-        return Model(**{k: (None if getattr(self, k) is None else
-                            getattr(self, k).copy())
-                        for k in self.__dataclass_fields__})
+        m = Model(**{k: (None if getattr(self, k) is None else
+                         getattr(self, k).copy())
+                     for k in self.__dataclass_fields__})
+        for name in ("topic_codes", "topic_w"):
+            value = getattr(self, name, None)
+            if value is not None:
+                setattr(m, name, np.array(value, copy=True))
+        for name in ("topic_shift", "topic_mul", "topic_rshift"):
+            if hasattr(self, name):
+                setattr(m, name, getattr(self, name))
+        return m
 
 
 def random_model(seed: int) -> Model:
@@ -224,17 +232,29 @@ class Session:
     ended: bool = False
     updates: int = 0          # active cell updates, for the section 12 penalty
     ticks_run: int = 0
+    # Sidecar topic register (readout-only). None unless a topic readout is
+    # bound. It is not a field channel: rules never read or write it, and it
+    # is not part of the model file.
+    topic: np.ndarray = None
 
     def check(self) -> None:
         assert self.F.min() >= -127 and self.F.max() <= 127
         assert self.phase.max() < N_PHASE
+        if self.topic is not None:
+            assert self.topic.min() >= -127 and self.topic.max() <= 127
 
     def snapshot(self):
-        return self.F.copy(), self.phase.copy(), self.position
+        topic = None if self.topic is None else self.topic.copy()
+        return self.F.copy(), self.phase.copy(), self.position, topic
 
     def restore(self, snap):
-        F, ph, pos = snap
+        if len(snap) == 3:
+            F, ph, pos = snap
+            topic = None
+        else:
+            F, ph, pos, topic = snap
         self.F, self.phase, self.position = F.copy(), ph.copy(), pos
+        self.topic = None if topic is None else np.asarray(topic, np.int32).copy()
 
 
 def new_session(model: Model) -> Session:
@@ -436,13 +456,181 @@ def _update(m: Model, s: Session, cells: np.ndarray):
     return G, phase_next, opc, n
 
 
-def topic_step(prev: np.ndarray, code: np.ndarray) -> np.ndarray:
-    """spec.TOPIC_CHANNELS: one symbol's update of the topic register.
-    Integer and symmetric: |prev| >> TOPIC_SHIFT is removed toward zero, the
-    code is added, and the sum saturates."""
-    prev = prev.astype(np.int32)
-    d = prev - np.sign(prev) * (np.abs(prev) >> spec.TOPIC_SHIFT)
-    return np.clip(d + code.astype(np.int32), spec.SAT_MIN, spec.SAT_MAX)
+def topic_step(prev: np.ndarray, code: np.ndarray, shift: int = None) -> np.ndarray:
+    """One symbol's update of the topic register.
+
+    Integer and symmetric: |prev| >> shift is removed toward zero, the code
+    is added, and the sum saturates. ``shift`` defaults to spec.TOPIC_SHIFT
+    (3, so a code fades by 1/8 per symbol). No floating point.
+    """
+    if shift is None:
+        shift = spec.TOPIC_SHIFT
+    prev = np.asarray(prev, np.int32)
+    code = np.asarray(code, np.int32)
+    sign = np.where(prev > 0, np.int32(1),
+                    np.where(prev < 0, np.int32(-1), np.int32(0))).astype(np.int32)
+    decayed = prev - sign * (np.abs(prev) >> np.int32(shift))
+    return np.clip(decayed + code, spec.SAT_MIN, spec.SAT_MAX).astype(np.int32)
+
+
+def bind_topic_readout(model: Model, codes: np.ndarray, weights: np.ndarray,
+                       shift: int = None, mul: int = 1, rshift: int = 0) -> Model:
+    """Attach an int8 word×topic bias without touching the automaton.
+
+    ``codes`` and ``weights`` are int8 ``(N_SYMBOLS, T)``. The register is a
+    side vector on the session, updated by ``topic_step`` as symbols arrive.
+    Rules, probes, injection and the ``.mica`` bytes stay as they were: this
+    is a third readout, not a retargeting of the existing probes and not the
+    phase-8–15 rule rewiring. Scores gain
+
+        ((weights · register) * mul) >> rshift
+
+    in the engine's integer logit units. With ``mul == 1`` and ``rshift == 0``
+    that is the bare dot product. Call this before ``new_session``.
+    """
+    if shift is None:
+        shift = spec.TOPIC_SHIFT
+    codes = np.asarray(codes)
+    weights = np.asarray(weights)
+    if codes.dtype != np.int8 or weights.dtype != np.int8:
+        raise ValueError("topic codes and weights must be int8")
+    if codes.ndim != 2 or codes.shape != weights.shape or codes.shape[0] != N_SYMBOLS:
+        raise ValueError(f"topic codes and weights must be int8 {(N_SYMBOLS, 'T')}")
+    if codes.shape[1] < 1:
+        raise ValueError("topic readout needs at least one channel")
+    if (codes.view(np.uint8) == 128).any() or (weights.view(np.uint8) == 128).any():
+        raise ValueError("forbidden -128 in topic codes or weights")
+    if not 0 <= int(shift) <= 7 or int(mul) < 1 or int(rshift) < 0:
+        raise ValueError("topic shift must be 0..7, mul >= 1, rshift >= 0")
+    model.topic_codes = codes.copy()
+    model.topic_w = weights.copy()
+    model.topic_shift = int(shift)
+    model.topic_mul = int(mul)
+    model.topic_rshift = int(rshift)
+    return model
+
+
+def save_topic_readout(path, model: Model) -> None:
+    """Write the sidecar table. The automaton file is not involved."""
+    if getattr(model, "topic_w", None) is None:
+        raise ValueError("no topic readout is bound")
+    np.savez(path, codes=model.topic_codes, W=model.topic_w,
+             shift=np.int64(model.topic_shift), mul=np.int64(model.topic_mul),
+             rshift=np.int64(model.topic_rshift))
+
+
+def load_topic_readout(path, model: Model) -> Model:
+    """Bind a sidecar written by ``save_topic_readout``."""
+    d = np.load(path, allow_pickle=False)
+    return bind_topic_readout(model, d["codes"], d["W"], int(d["shift"]),
+                              int(d["mul"]), int(d["rshift"]))
+
+
+def topic_bonus(model: Model, session: Session):
+    """Integer word×topic bonus, or None when no readout is bound.
+
+    Runtime path: int8 weights, int32 register, int64 dot product. No
+    floating point. None leaves ``probe_scores`` exactly as it was.
+    """
+    weights = getattr(model, "topic_w", None)
+    if weights is None:
+        return None
+    width = weights.shape[1]
+    reg = session.topic
+    if reg is None:
+        reg = np.zeros(width, np.int32)
+    dot = weights.astype(np.int64) @ np.asarray(reg, np.int64)
+    mul = int(getattr(model, "topic_mul", 1))
+    rshift = int(getattr(model, "topic_rshift", 0))
+    if mul != 1 or rshift:
+        dot = (dot * np.int64(mul)) >> np.int64(rshift)
+    lo, hi = np.iinfo(np.int32).min, np.iinfo(np.int32).max
+    if int(dot.min()) < lo or int(dot.max()) > hi:
+        raise OverflowError("topic bonus does not fit int32")
+    return dot.astype(np.int32)
+
+
+def _with_topic(model: Model, session: Session, scores: np.ndarray) -> np.ndarray:
+    bonus = topic_bonus(model, session)
+    if bonus is None:
+        return scores
+    return scores + bonus
+
+
+def record_symbols(record) -> np.ndarray:
+    """Symbols of one training record, matching fit.contexts."""
+    if N_SYMBOLS == 258:
+        raw = record if isinstance(record, (bytes, bytearray)) else bytes(record)
+        return np.frombuffer(raw, np.uint8).astype(np.int64)
+    return np.asarray(record, np.int64)
+
+
+def topic_register_rows(codes: np.ndarray, symbols, shift: int = None) -> np.ndarray:
+    """Register after each ingested symbol. Row 0 is after BOS.
+
+    ``symbols`` is the record without BOS or EOS. The returned array has
+    one row per target (each record symbol, then the EOS that follows),
+    and row k is the register that scores that target: lag 1, every channel.
+    """
+    if shift is None:
+        shift = spec.TOPIC_SHIFT
+    codes = np.asarray(codes)
+    symbols = np.asarray(symbols, np.int64)
+    width = codes.shape[1]
+    rows = np.zeros((len(symbols) + 1, width), np.int32)
+    state = topic_step(np.zeros(width, np.int32), codes[BOS], shift)
+    rows[0] = state
+    for i, sym in enumerate(symbols):
+        state = topic_step(state, codes[int(sym)], shift)
+        rows[i + 1] = state
+    return rows
+
+
+def topic_registers(records, codes: np.ndarray, shift: int = None) -> np.ndarray:
+    """Stack ``topic_register_rows`` in record order (the sidecar features)."""
+    if shift is None:
+        shift = spec.TOPIC_SHIFT
+    codes = np.asarray(codes)
+    parts = [topic_register_rows(codes, record_symbols(r), shift) for r in records]
+    if not parts:
+        return np.zeros((0, codes.shape[1]), np.int32)
+    return np.concatenate(parts, 0)
+
+
+def topic_probe_features(records, codes: np.ndarray, probes, shift: int = None) -> np.ndarray:
+    """Features for probes that read the topic register.
+
+    ``probes`` is ``(probe_index, lag, channel)`` with ``channel`` at or above
+    ``spec.TOPIC_AT``. The value is the simulated register, not a tape code
+    and not a rule immediate. Lag 1 is the register after the last ingested
+    symbol; a lag that reaches before BOS reads 0. Row order matches
+    ``fit.contexts`` (record symbols, then EOS).
+    """
+    if shift is None:
+        shift = spec.TOPIC_SHIFT
+    codes = np.asarray(codes)
+    lags = np.array([lag for _, lag, _ in probes], np.int64)
+    ch = np.array([c - spec.TOPIC_AT for _, _, c in probes], np.int64)
+    parts = []
+    for record in records:
+        reg = topic_register_rows(codes, record_symbols(record), shift)
+        n = reg.shape[0]
+        idx = np.arange(n)[:, None] + 1 - lags[None, :]
+        valid = idx >= 0
+        safe = np.clip(idx, 0, n - 1)
+        vals = reg[safe, ch[None, :]]
+        parts.append(np.where(valid, vals, 0).astype(np.int32))
+    if not parts:
+        return np.zeros((0, len(probes)), np.int32)
+    return np.concatenate(parts, 0)
+
+
+def _update_topic_register(model: Model, s: Session, symbol: int) -> None:
+    codes = getattr(model, "topic_codes", None)
+    if codes is None:
+        return
+    prev = s.topic if s.topic is not None else np.zeros(codes.shape[1], np.int32)
+    s.topic = topic_step(prev, codes[int(symbol)], getattr(model, "topic_shift", None))
 
 
 def ingest(model: Model, s: Session, symbol: int) -> None:
@@ -483,6 +671,9 @@ def ingest(model: Model, s: Session, symbol: int) -> None:
     else:
         run_ticks(model, s, active)
     s.position = (pos + 1) % N_CELLS
+    # Sidecar register only. Absent when no readout is bound, so the field
+    # and the rules are untouched.
+    _update_topic_register(model, s, symbol)
 
 
 def probe_scores(model: Model, s: Session) -> np.ndarray:
@@ -506,9 +697,11 @@ def probe_scores(model: Model, s: Session) -> np.ndarray:
             if spec.ROLLING_READOUT:
                 cells = (cells + s.position) % N_CELLS
             values = s.F[cells, chans].astype(np.int32)
-            return model.pr_bias.astype(np.int32) + coefficients @ values
+            return _with_topic(model, s, model.pr_bias.astype(np.int32) + coefficients @ values)
     cells = model.pr_cell.astype(np.int32)
     if spec.ROLLING_READOUT:
         cells = (cells + s.position) % N_CELLS
     vals = s.F[cells, model.pr_chan.astype(np.int32)]
-    return model.pr_bias.astype(np.int32) + (model.pr_co.astype(np.int32) * vals).sum(axis=1)
+    return _with_topic(
+        model, s,
+        model.pr_bias.astype(np.int32) + (model.pr_co.astype(np.int32) * vals).sum(axis=1))

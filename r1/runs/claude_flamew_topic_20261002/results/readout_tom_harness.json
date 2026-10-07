@@ -1,0 +1,20 @@
+{
+ "model": "B-740 + 0.3.1 memory",
+ "answer_mode": true,
+ "n": 2000,
+ "acc_norm": 0.3145,
+ "acc_word": 0.3125,
+ "hf_repo": "AxiomicLabs/Tiny_Theory_of_Mind",
+ "hf_file": "tiny_theory_of_mind_2000.jsonl",
+ "hf_revision": "ba4c644ea7ace67e096305fe2c9f87c4cf4879ad",
+ "data_sha256": "58827a0361597ae4d5ffa79ddbab0936d1509cafcfc02cbb731e4d7a7f3584b8",
+ "bias": null,
+ "published_0.3.1": {
+  "acc_word": 0.3125,
+  "acc_norm": 0.3145
+ },
+ "note": "Trained weights are required before this number is a topic result. A missing --bias scores 0.3.1 only. Tiny ToM was not a fit set.",
+ "what_this_is": "Harness check of the frozen B-740 + 0.3.1 memory + answer mode stack, scored by topic_readout.py with no topic bias bound. It is not a fitted topic model and was not trained on these rows.",
+ "val500": "not in the repo; published 5.208 was not remeasured",
+ "zero_bias_parity": "30/30 predictions identical to the unbound stack"
+}

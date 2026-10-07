@@ -132,7 +132,11 @@ class MicaWord:
         if self.spec.ROLLING_READOUT:
             cells = (cells + s.position) % self.spec.N_CELLS
         f = s.F[cells, m.pr_chan[0].astype(np.int32)].astype(np.int32)
-        return self.bias + self.co @ f
+        base = self.bias + self.co @ f
+        # The fast path does not call probe_scores. Add the same sidecar the
+        # engine adds there. None when no topic readout is bound.
+        bonus = self.eng.topic_bonus(m, s)
+        return base if bonus is None else base + bonus
 
     def logp(self, s, ids) -> np.ndarray:
         z = self.scores(s).astype(np.float64) / self.div

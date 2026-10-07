@@ -223,6 +223,29 @@ def structured_work_probes(n_work: int, ticks: int = 2,
     return out
 
 
+def split_probe_layout(layout) -> tuple:
+    """Classify probes into tape, topic and work.
+
+    Tape probes read a context symbol's code. Work probes read a rule
+    immediate (provenance). Topic probes read the simulated topic register:
+    neither of those. With ``MICA_TOPIC`` unset, nothing is a topic probe
+    and the other two classes are exactly the historical split.
+    """
+    K = spec.TAPE_CHANNELS
+    topic_on = spec.TOPIC_CHANNELS
+    top = spec.TOPIC_AT
+    tape, topic, work = [], [], []
+    for p, (lag, ch) in enumerate(layout):
+        lag, ch = int(lag), int(ch)
+        if topic_on and ch >= top:
+            topic.append((p, lag, ch))
+        elif ch < K:
+            tape.append((p, lag, ch))
+        else:
+            work.append((p, lag, ch))
+    return tape, topic, work
+
+
 def probe_layout(model) -> list:
     """(lag, channel) of every probe as the integer machine reads it (the
     argmax of its selectors; the same for every symbol after tape init)."""
@@ -444,8 +467,10 @@ def fit_readout_and_rules(model, records, dev, ticks: int, steps: int = 3000,
     K = spec.TAPE_CHANNELS
     D = spec.LOGIT_DIVISOR
     layout = probe_layout(model)
-    tape_p = [(p, l, c) for p, (l, c) in enumerate(layout) if c < K]
-    work_p = [(p, l, c) for p, (l, c) in enumerate(layout) if c >= K]
+    # Third probe kind: a channel in the topic register is the simulated
+    # fading sum, not a tape code and not a rule immediate. With MICA_TOPIC
+    # unset this split is the old tape/work split and topic_feat stays None.
+    tape_p, topic_p, work_p = split_probe_layout(layout)
     stride = max(1, len(records) // max_records)
     sample = [r for r in records[::stride] if len(r)]
     ulags = sorted({l for _, l, _ in tape_p})
@@ -501,6 +526,21 @@ def fit_readout_and_rules(model, records, dev, ticks: int, steps: int = 3000,
         code = model.inj_delta[:, :K].detach().round().clamp(-127, 127).to(dev)
         code = torch.cat([code, torch.zeros(N_SYMBOLS + 1 - code.shape[0], K,
                                             device=dev)])
+    topic_feat = None
+    topic_pi = None
+    if topic_p:
+        from .engine import topic_probe_features
+        codes_np = (model.inj_delta[:, K:K + spec.TOPIC_CHANNELS].detach()
+                    .round().clamp(-127, 127).cpu().numpy().astype(np.int8))
+        feat_np = topic_probe_features(sample, codes_np, topic_p, spec.TOPIC_SHIFT)
+        if feat_np.shape[0] != int(tgt.shape[0]):
+            raise RuntimeError(f"topic features {feat_np.shape} do not match "
+                               f"{tuple(tgt.shape)} targets")
+        topic_feat = torch.as_tensor(feat_np, dtype=torch.float32, device=dev)
+        topic_pi = torch.tensor([p for p, _, _ in topic_p], device=dev,
+                                dtype=torch.long)
+        log(f"[fit] topic probes: {len(topic_p)} read the simulated register, "
+            f"not tape codes or rule immediates")
     w = model.pr_w.detach().clone().to(dev).requires_grad_()
     bias = model.pr_bias.detach().clone().to(dev).requires_grad_()
     imm0 = model.op_b.detach().clone()[..., None]
@@ -530,6 +570,8 @@ def fit_readout_and_rules(model, records, dev, ticks: int, steps: int = 3000,
                                  pv.clamp(min=0), wslot],
                              torch.zeros((), device=dev))
             sc = sc + iv @ wr[:, wpi].T
+        if topic_feat is not None:
+            sc = sc + topic_feat[rows] @ wr[:, topic_pi].T
         return sc / D + elig
 
     def held_out():
@@ -753,8 +795,7 @@ def choose_channels(model, records, dev, ticks: int, steps: int = 2000,
             "writes, which the general simulator does not track; with VSET "
             "every candidate writes its whole group and it is not needed")
     layout = probe_layout(model)
-    tape_p = [(p, l, c) for p, (l, c) in enumerate(layout) if c < K]
-    work_p = [(p, l, c) for p, (l, c) in enumerate(layout) if c >= K]
+    tape_p, topic_p, work_p = split_probe_layout(layout)
     assert work_p, "no work probes"
     groups = sorted({(l, (c - K) // Q) for _, l, c in work_p})
     gidx = {g: i for i, g in enumerate(groups)}
@@ -785,6 +826,17 @@ def choose_channels(model, records, dev, ticks: int, steps: int = 2000,
         code = model.inj_delta[:, :K].detach().round().clamp(-127, 127).to(dev)
         code = torch.cat([code, torch.zeros(N_SYMBOLS + 1 - code.shape[0], K,
                                             device=dev)])
+        topic_feat = None
+        topic_pi = None
+        if topic_p:
+            from .engine import topic_probe_features
+            codes_np = (model.inj_delta[:, K:K + spec.TOPIC_CHANNELS].detach()
+                        .round().clamp(-127, 127).cpu().numpy().astype(np.int8))
+            feat_np = topic_probe_features(sample, codes_np, topic_p,
+                                           spec.TOPIC_SHIFT)
+            topic_feat = torch.as_tensor(feat_np, dtype=torch.float32, device=dev)
+            topic_pi = torch.tensor([p for p, _, _ in topic_p], device=dev,
+                                    dtype=torch.long)
         d_now = model.logits_of("op_d").argmax(-1).reshape(-1).to(dev) - K
         imm0 = torch.zeros(N_PAGES * C, Q, device=dev)
         imm0[torch.arange(N_PAGES * C, device=dev), d_now % Q] = \
@@ -803,7 +855,10 @@ def choose_channels(model, records, dev, ticks: int, steps: int = 2000,
         pv = prov[rows][:, wg].long()                              # (n,Qw)
         iv = torch.where(pv >= 0, rnd(imm, -127, 127)[pv.clamp(min=0), wslot],
                          torch.zeros((), device=dev))
-        return (sc + iv @ wr[:, wpi].T) / D + elig
+        sc = sc + iv @ wr[:, wpi].T
+        if topic_feat is not None:
+            sc = sc + topic_feat[rows] @ wr[:, topic_pi].T
+        return sc / D + elig
 
     def held_out():
         with torch.no_grad():
@@ -1121,6 +1176,92 @@ def add_topic_register(m, codes: np.ndarray, phases, terms: int = 2,
     m.validate()
     return {"phases": phases, "terms": terms,
             "content_symbols": int((codes != 0).any(1).sum())}
+
+
+def fit_topic_bias(registers, base_scores, targets, *, steps: int = 400,
+                   lr: float = 0.2, l2: float = 1e-4, divisor: int = None,
+                   eligible=None, seed: int = 0, log=print) -> dict:
+    """Fit an int8 word×topic bias on frozen scores.
+
+    ``registers`` is int ``[N, T]``: the simulated topic register at each
+    position (``engine.topic_registers``). It is not a tape code and not a
+    rule immediate. ``base_scores`` is int ``[N, V]``, the frozen automaton
+    (and, if wanted, memory) scores in engine logit units. This function
+    does not read or write a ``.mica`` file and does not change rules.
+
+    The forward pass rounds the weights to int8 with a straight-through
+    gradient. The matrix written back is that int8 table, and it starts from
+    zeros: held-out positions keep the zeros when the bias does not help.
+    Do not pass Tiny Theory-of-Mind rows here.
+    """
+    if divisor is None:
+        divisor = spec.LOGIT_DIVISOR
+    registers = np.asarray(registers, np.int64)
+    base_scores = np.asarray(base_scores, np.int64)
+    targets = np.asarray(targets, np.int64)
+    if registers.ndim != 2 or base_scores.ndim != 2:
+        raise ValueError("registers must be [N, T] and base_scores [N, V]")
+    if registers.shape[0] != base_scores.shape[0] or targets.shape != (registers.shape[0],):
+        raise ValueError("registers, base_scores and targets must share N")
+    n, width = registers.shape
+    vocab = base_scores.shape[1]
+    if n < 2:
+        raise ValueError("need at least two positions")
+    dev = torch.device("cpu")
+    torch.manual_seed(seed)
+    reg = torch.as_tensor(registers, dtype=torch.float64, device=dev)
+    base = torch.as_tensor(base_scores, dtype=torch.float64, device=dev)
+    tgt = torch.as_tensor(targets, dtype=torch.long, device=dev)
+    if eligible is None:
+        elig = torch.zeros(vocab, dtype=torch.float64, device=dev)
+    else:
+        mask = torch.as_tensor(np.asarray(eligible, bool), device=dev)
+        if mask.shape != (vocab,):
+            raise ValueError("eligible must be a bool mask over the vocabulary")
+        elig = torch.where(mask, 0.0, float("-inf"))
+    weight = torch.zeros(vocab, width, dtype=torch.float64, device=dev,
+                         requires_grad=True)
+    opt = torch.optim.Adam([weight], lr=lr)
+    n_hold = max(1, min(n // 5, 200_000))
+    perm = torch.randperm(n, generator=torch.Generator().manual_seed(seed))
+    hold, train = perm[:n_hold], perm[n_hold:]
+    if len(train) == 0:
+        train = perm
+
+    def rounded():
+        return weight + (weight.detach().round().clamp(-127, 127) - weight.detach())
+
+    def logits(idx):
+        bonus = reg[idx] @ rounded().T
+        return (base[idx] + bonus) / float(divisor) + elig
+
+    def bits(idx):
+        with torch.no_grad():
+            loss = Fn.cross_entropy(logits(idx), tgt[idx])
+        return float(loss) / math.log(2)
+
+    start = bits(hold)
+    best = start
+    keep = torch.zeros_like(weight)
+    log(f"[topic] start held-out {start:.4f} bits/word on {n_hold} positions")
+    for step in range(steps):
+        rows = train[torch.randint(0, len(train), (min(256, len(train)),))]
+        pred = logits(rows)
+        loss = Fn.cross_entropy(pred, tgt[rows]) + l2 * weight.square().mean()
+        opt.zero_grad(set_to_none=True)
+        loss.backward()
+        opt.step()
+        if (step + 1) % 50 == 0 or step == steps - 1:
+            held = bits(hold)
+            if held < best:
+                best = held
+                keep = weight.detach().round().clamp(-127, 127).clone()
+            if (step + 1) % 200 == 0 or step == steps - 1:
+                log(f"[topic] step {step + 1:4d}  held-out {held:.4f} "
+                    f"(best {best:.4f})")
+    table = keep.cpu().numpy().astype(np.int8)
+    return {"W": table, "heldout_bits_start": start, "heldout_bits_best": best,
+            "divisor": int(divisor), "channels": int(width)}
 
 
 # bytes that continue a word: letters, digits, apostrophe, and the bytes of

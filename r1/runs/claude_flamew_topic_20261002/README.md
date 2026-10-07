@@ -162,3 +162,23 @@ on the 8 topic channels, so the same register state favours "pasta", "delicious"
 "restaurant" after "Italy". This is a topic-conditioned word bias, exact and in integers. The
 fitter needs a third kind of probe for it, because register values come from simulation
 and are neither tape codes nor rule immediates.
+
+## Readout-only follow-up (do not rewire the rules)
+
+`topic_readout.py` is that third probe. B-740's file is not rewritten, and phases 8–15
+are not pointed at the register. The register is simulated with the same integer decay
+(`engine.topic_step`) and each word has an int8 weight on its channels. The weights sit
+in a sidecar npz, added to the frozen scores (and, optionally, to the 0.3.1 memory
+bonus). With no sidecar bound, probe scores are unchanged.
+
+```bash
+python r1/runs/claude_flamew_topic_20261002/topic_readout.py hash
+python r1/runs/claude_flamew_topic_20261002/topic_readout.py fit \
+    --train TRAIN.jsonl --codes CODES.npz --out bias.npz --memory
+python r1/runs/claude_flamew_topic_20261002/topic_readout.py tom \
+    --revision ba4c644ea7ace67e096305fe2c9f87c4cf4879ad --bias bias.npz
+```
+
+`fit` refuses a Tiny Theory-of-Mind file. The original val500 records are not in the
+repo; `bits` scores only a jsonl you pass and labels it as not that set. Do not train
+the bias on Tiny ToM rows.
