@@ -7,7 +7,8 @@ Not a transformer, not a neural network: just learned integer rules on a ring of
 
 <p align="center">
   <a href="https://mica-ai-ten.vercel.app"><b>Try the live demo</b></a> ·
-  <a href="https://huggingface.co/vynly"><b>Hugging Face</b></a> ·
+  <a href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton"><b>Hugging Face collection</b></a> ·
+  <a href="https://github.com/Vovala14/Mica-Ai"><b>Clone</b></a> ·
   <a href="RESEARCH.md">Research guide</a> ·
   <a href="CHANGELOG.md">Changelog</a> ·
   <a href="LICENSE">License (non-commercial)</a>
@@ -15,6 +16,20 @@ Not a transformer, not a neural network: just learned integer rules on a ring of
 
 <p align="center"><img src="assets/playground.gif" alt="The MICA playground: typing a prompt, the automaton thinking, and Flame-W answering" width="640"><br>
 <sub>The live playground with Flame-W. The waiting time is sped up about 2×.</sub></p>
+
+## Start here
+
+**Not a small transformer.** Learned integer rules on a ring of cells. Same prompt → same output on any CPU. Research only.
+
+| | |
+|---|---|
+| Try it | [Live demo](https://mica-ai-ten.vercel.app) |
+| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.1](https://huggingface.co/vynly/mica-flame-w-0.3.1) · [Ember v0.3a](https://huggingface.co/vynly/mica-ember-0.3a) |
+| Clone | `git clone https://github.com/Vovala14/Mica-Ai.git` |
+
+It is an integer cellular automaton: no attention, no floating point, no neural network. It is not a production assistant. Commercial use is forbidden.
+
+On Tiny Theory-of-Mind (2,000 items, chance 25%) Flame-W 0.3.1 scores **31.25%** per word token, above 6 of 36 models on that list. The same run is below chance on bluffing and communication failure (**16%**) and on diverse beliefs and white lie (**18%**). The 31.25% figure uses answer mode. The demo and the replay below do not.
 
 ## What is MICA?
 
@@ -44,7 +59,7 @@ The answer appears to be: yes, in a research setting.
 
 ## Published model cards
 
-MICA models are also published on Hugging Face under the vynly organization:
+MICA models are also published on Hugging Face in the [vynly collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton):
 
 - [vynly/mica-flame-w-0.3.1](https://huggingface.co/vynly/mica-flame-w-0.3.1) — the sentence model
 - [vynly/mica-ember-0.3a](https://huggingface.co/vynly/mica-ember-0.3a) — the byte-level assistant model
@@ -78,11 +93,36 @@ This is not a production assistant. It is a research model that explores a diffe
 ## Quick start
 
 ```bash
+git clone https://github.com/Vovala14/Mica-Ai.git
+cd Mica-Ai
 pip install -r requirements-dev.txt   # requirements.txt is numpy only, for the website
 python -m pytest r1/tests -q          # 139 tests, including the §7 worked example
 ```
 
-Generate text with Flame-W:
+### Bit-identical replay (Flame-W 0.3.1)
+
+Playground sentence mode is deterministic. `flame/replay/prompts.jsonl` is five fixed prompts. `flame/replay/out.jsonl` is the continuation bytes from the website decoder: B-740 plus the 0.3.1 memory, answer mode off. The playground's Flame-W rating chips are these same prompts (`prompt_id` `s1`–`s5`).
+
+| Piece | Identity |
+|---|---|
+| Model | `flame-w-0.3.1` |
+| Automaton | `flame/runs/claude_flamew_b740_20261001/train/best.mica` |
+| Automaton SHA-256 | `1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d` |
+| Memory | `flame/runs/claude_flamew_031_20261004/memory.npz` |
+| Memory SHA-256 | `5fda5a6c744749932bfba7f18352ce532405e60fca7d64fd99b705c28b928be7` |
+| Decoder | `w-sent-bos.5f` |
+| Committed output SHA-256 | `3b1cac571629157d99c7438066cbc786590e7325d3c838c500561b7cbc899ec3` |
+| Hugging Face | [vynly/mica-flame-w-0.3.1](https://huggingface.co/vynly/mica-flame-w-0.3.1) |
+
+```bash
+python flame/replay/replay_flamew_031.py --check
+```
+
+`--check` reruns every prompt and exits 0 only when the UTF-8 file matches `flame/replay/out.jsonl` byte for byte. Same prompt, same continuation bytes. The weights are in this repository. The Hugging Face model card is the public download of the same checkpoint.
+
+One recorded miss in that file: "I lost my keys and" → " I don't know how to fix it." One recorded continuation that stays on the prompt: "I was thinking about" → " how it would affect you."
+
+The older automaton-only sentence command, without the 0.3.1 memory, is:
 
 ```bash
 echo '{"id":"1","prompt":"I went to the"}' > prompts.jsonl
@@ -91,16 +131,16 @@ python r1/runs/claude_flame_word_20260928/word_decode.py sentence \
   --vocab r1/data/word/vocab.json --prompts prompts.jsonl --tag demo --out out.jsonl
 ```
 
-The command above runs the automaton alone. With the 0.3.1 memory readout, as on the website:
+With the 0.3.1 memory readout, as on the website:
 
 ```bash
 python flame/runs/claude_flamew_031_20261004/generate.py "I went to the"
 python flame/runs/claude_flamew_031_20261004/run_tom.py     # Tiny Theory-of-Mind, 31.25% / 31.45%
 ```
 
-`sentence` writes a full sentence ("I went to the" → " movies with you.").
+On that older checkpoint, `sentence` writes a full sentence ("I went to the" → " movies with you.").
 `suggest` gives a 2–3 word next-words suggestion ("Can you help me" → " find my").
-Each output line in `out.jsonl` has the prompt and its `continuation`.
+Each line of that command's output file has the prompt and its `continuation`. It is separate from `flame/replay/out.jsonl`.
 
 Try Ember v0.3a word suggestions:
 
@@ -125,7 +165,7 @@ It is a learned integer-rule cellular automaton. Its reference implementation fo
 - How it works: each word (Flame-W) or byte (Ember) is written onto a ring of 768 cells × 112 integer channels. 16 phases of learned local rules run, and 240 probes read the result to score the next symbol. The same prompt always gives the same output, on any machine.
 - Where it stands: Flame-W's rules see about the last 4 words.
   - Since v0.3, an integer memory readout lets it use the last 64. 0.3.1 refits it on 7 times more text.
-  - It scores 31.25% on Tiny Theory-of-Mind (31.45% per character), above 6–7 of the 36 models on that leaderboard, and 5.21 bits per word on validation text.
+  - It scores 31.25% on Tiny Theory-of-Mind (31.45% per character), above 6–7 of the 36 models on that leaderboard, and 5.21 bits per word on validation text. Bluffing and communication failure are 16%; diverse beliefs and white lie are 18%.
   - These are research models, not assistants.
 
 ## Test website

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MICA Playground</title>
-<meta name="description" content="Try MICA Flame-W for sentences and Ember v0.3a for next-word suggestions and word completion. Both use learned integer cellular-automaton rules.">
+<meta name="description" content="Not a small transformer. Learned integer rules on a ring of cells. Same prompt, same output on any CPU. Research only.">
 <meta property="og:title" content="MICA Playground">
-<meta property="og:description" content="A one-of-a-kind language model: an integer cellular automaton that writes language. Not a transformer and not a neural network. Try it and rate what it writes.">
+<meta property="og:description" content="Not a small transformer. Learned integer rules on a ring of cells. Same prompt, same output on any CPU. Research only.">
 <meta property="og:image" content="https://mica-ai-ten.vercel.app/social-preview.png">
 <meta property="og:url" content="https://mica-ai-ten.vercel.app/">
 <meta property="og:type" content="website">
@@ -36,10 +36,28 @@
 body { margin: 0; background: var(--bg); color: var(--text);
   font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
-header { display: flex; gap: 16px; align-items: center; }
-header img { height: 64px; width: auto; flex: none; }
+header { display: flex; gap: 16px; align-items: flex-start; }
+header img { height: 64px; width: auto; flex: none; margin-top: 4px; }
 header h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -0.02em; }
 header p { margin: 0; color: var(--muted); }
+.kicker { font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+.lead { margin: 8px 0 0; color: var(--text); font-size: 17px; }
+.cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+a.btn { display: inline-block; text-decoration: none; border: 1px solid var(--border); background: transparent;
+  color: var(--text); font: inherit; font-size: 14px; font-weight: 600; padding: 10px 14px; border-radius: 10px; }
+.sub { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.split h2 { font-size: 15px; }
+.split ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.pair div { border-radius: 10px; padding: 12px 14px; }
+.pair .win { background: color-mix(in srgb, var(--ok) 12%, var(--surface-2)); }
+.pair .fail { background: color-mix(in srgb, var(--bad) 10%, var(--surface-2)); }
+.pair b { display: block; font-size: 22px; letter-spacing: -0.02em; }
+.pair span, .fine { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+.rate-label { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
+.rate-label b { color: var(--text); }
+.chip[aria-pressed="true"] { color: var(--text); border-color: var(--accent); background: var(--accent-soft); }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   box-shadow: var(--shadow); padding: 20px; margin-top: 20px; }
 .tabs { display: flex; gap: 6px; background: var(--surface-2); padding: 4px; border-radius: 10px; }
@@ -114,7 +132,10 @@ footer a, .card a { color: var(--accent); }
 @keyframes in { from { opacity: 0; transform: translateY(3px); } }
 @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
 @media (prefers-reduced-motion: reduce) { .think .steps li, .think .steps li.now::after { animation: none; } }
-@media (max-width: 560px) { .models { grid-template-columns: 1fr; } .tab { font-size: 12px; } .tab b { font-size: 14px; } }
+@media (max-width: 560px) {
+  .models, .split, .pair { grid-template-columns: 1fr; }
+  .tab { font-size: 12px; } .tab b { font-size: 14px; }
+}
 </style>
 </head>
 <body>
@@ -122,12 +143,56 @@ footer a, .card a { color: var(--accent); }
   <header>
     <img src="/logo.svg" alt="" width="56" height="72">
     <div>
-    <h1>MICA Playground</h1>
-    <p>Learned integer rules in a cellular automaton. Try Flame-W for sentences and Ember v0.3a for word suggestions, then rate the results.</p>
+      <p class="kicker">Integer cellular automaton · research · non-commercial</p>
+      <h1>MICA Playground</h1>
+      <p class="lead">Not a small transformer. Learned integer rules on a ring of cells. Same prompt → same output on any CPU. Research only.</p>
+      <div class="cta">
+        <button class="primary" id="tryFlame" type="button">Try Flame-W</button>
+        <button class="ghost" id="tryEmber" type="button">Try Ember</button>
+        <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
+        <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
+      </div>
+      <p class="sub">Model cards: <a href="https://huggingface.co/vynly/mica-flame-w-0.3.1">Flame-W 0.3.1</a> · <a href="https://huggingface.co/vynly/mica-ember-0.3a">Ember v0.3a</a> · <a href="https://mica-ai-ten.vercel.app">Live demo</a></p>
     </div>
   </header>
 
-  <section class="card" aria-label="Try a model">
+  <section class="card" aria-label="What MICA is">
+    <div class="split">
+      <div>
+        <h2>What it is not</h2>
+        <ul>
+          <li>Not a neural network and not a transformer</li>
+          <li>No attention</li>
+          <li>No floating point at inference</li>
+          <li>Not a production assistant</li>
+        </ul>
+      </div>
+      <div>
+        <h2>What it is</h2>
+        <ul>
+          <li>Learned integer rules on a ring of cells</li>
+          <li>Deterministic: same prompt, same output</li>
+          <li>Flame-W writes sentences; Ember suggests words</li>
+          <li>Free for personal and research use only</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pair">
+      <div class="win">
+        <b>31.25%</b>
+        Tiny Theory-of-Mind, per word token
+        <span>2,000 items, chance 25%. Above 6 of 36 models on that list. Strongest recorded topic: recursive belief, 50%.</span>
+      </div>
+      <div class="fail">
+        <b>16–18%</b>
+        Weakest topics, below chance
+        <span>Bluffing and communication failure 16%. Diverse beliefs and white lie 18%.</span>
+      </div>
+    </div>
+    <p class="fine">The 31.25% figure uses answer mode, a multiple-choice bonus. Sentence mode below does not. On that decoder, “I was thinking about” continues “ how it would affect you.” and “I lost my keys and” continues “ I don't know how to fix it.” Both lines are in the replay file.</p>
+  </section>
+
+  <section class="card" id="try" aria-label="Try a model">
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-m="flame-sentence" aria-selected="true"><b>Flame-W</b>sentence</button>
       <button class="tab" role="tab" data-m="flame-suggest" aria-selected="false"><b>Flame-W</b>next words</button>
@@ -138,6 +203,11 @@ footer a, .card a { color: var(--accent); }
 
     <textarea id="prompt" maxlength="300" placeholder="Start a sentence, e.g. “I was thinking about”"></textarea>
     <div class="chips" id="chips"></div>
+    <p class="rate-label"><b>Fixed rating set.</b> Ten locked prompts. Ratings use the same signed log as free text.</p>
+    <p class="rate-label">Flame-W sentences</p>
+    <div class="chips" id="rateFlame"></div>
+    <p class="rate-label">Ember next word</p>
+    <div class="chips" id="rateEmber"></div>
     <div class="row">
       <span class="grow"></span>
       <span class="count" id="count">0 / 300</span>
@@ -180,14 +250,16 @@ footer a, .card a { color: var(--accent); }
   <section class="card">
     <h2>The models</h2>
     <div class="models">
-      <div><b>Flame-W 0.3.1 (4 Oct 2026)</b><br>Predicts whole words (16,384-word vocabulary). An integer memory lets it use the last 64 words instead of about 4; 0.3.1 retrained it on 7 times more text. It scores 31.25% on Tiny Theory-of-Mind (chance 25%), above 6 of the 36 models on that leaderboard.</div>
+      <div><b>Flame-W 0.3.1 (4 Oct 2026)</b><br>Predicts whole words (16,384-word vocabulary). An integer memory lets it use the last 64 words instead of about 4; 0.3.1 retrained it on 7 times more text. Tiny Theory-of-Mind is 31.25% per word token (chance 25%; above 6 of 36 models). The same run is below chance on bluffing and communication failure (16%) and on diverse beliefs and white lie (18%).</div>
       <div><b>Ember v0.3a (4 Oct 2026)</b><br>The original 4.5 MB byte-level cellular model now has 1.23 MB of integer word readouts. It suggests a next word or completes one after two typed letters. On independent clean prompts, next-word top-1 improved from 6.75% to 14.25% versus v0.2A. Its cellular byte loss is unchanged.</div>
     </div>
     <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
   </section>
 
   <footer>
-    MICA by Vladimir Lavrik · <a href="https://github.com/Vovala14/Mica-Ai">Code and models</a> ·
+    MICA by Vladimir Lavrik · <a href="https://github.com/Vovala14/Mica-Ai">GitHub</a> ·
+    <a href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face collection</a> ·
+    <a href="https://github.com/Vovala14/Mica-Ai/blob/main/flame/replay/replay_flamew_031.py">Same prompt, same bytes</a><br>
     Personal and research use only; commercial use is forbidden (<a href="https://github.com/Vovala14/Mica-Ai/blob/main/LICENSE">license</a>)
   </footer>
 </div>
@@ -209,8 +281,20 @@ const EXAMPLES = {
   'ember-next': ['Thank you for', 'The weather today is', 'I would like to', 'Can you help me'],
   'ember-complete': ['Thank you for be', 'The weather today is su', 'I would like to kn', 'Can you help me fi'],
 };
+const RATE = [
+  { id: 's1', mode: 'flame-sentence', prompt: 'I was thinking about' },
+  { id: 's2', mode: 'flame-sentence', prompt: 'Can you help me' },
+  { id: 's3', mode: 'flame-sentence', prompt: 'The best thing about summer is' },
+  { id: 's4', mode: 'flame-sentence', prompt: 'I lost my keys and' },
+  { id: 's5', mode: 'flame-sentence', prompt: 'She opened the box and' },
+  { id: 'e1', mode: 'ember-next', prompt: 'Thank you for' },
+  { id: 'e2', mode: 'ember-next', prompt: 'The weather today is' },
+  { id: 'e3', mode: 'ember-next', prompt: 'I would like to' },
+  { id: 'e4', mode: 'ember-next', prompt: 'Can you help me' },
+  { id: 'e5', mode: 'ember-next', prompt: 'Yesterday I went to the' },
+];
 const $ = id => document.getElementById(id);
-let mode = 'flame-sentence', last = null, rating = null;
+let mode = 'flame-sentence', last = null, rating = null, locked = null;
 let session = '';
 try { session = localStorage.getItem('mica-session') || ''; } catch {}
 if (!session) {
@@ -229,13 +313,42 @@ function setMode(m) {
   $('better').placeholder = m === 'ember-complete' ? 'Optional: type the missing letters (e.g. “ing”)'
     : m === 'ember-next' ? 'Optional: which next word fits better?' : 'Optional: how should it continue?';
   $('chips').replaceChildren();
-  EXAMPLES[m].forEach(e => { const b = document.createElement('button'); b.className = 'chip'; b.textContent = e;
-    b.onclick = () => { $('prompt').value = e; updCount(); $('prompt').focus(); }; $('chips').append(b); });
+  EXAMPLES[m].forEach(e => { const b = document.createElement('button'); b.className = 'chip'; b.type = 'button'; b.textContent = e;
+    b.onclick = () => { locked = null; markRate(); $('prompt').value = e; updCount(); $('prompt').focus(); }; $('chips').append(b); });
   $('result').classList.add('hidden'); last = null;
 }
-document.querySelectorAll('.tab').forEach(t => t.onclick = () => setMode(t.dataset.m));
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => { locked = null; markRate(); setMode(t.dataset.m); });
 function updCount() { $('count').textContent = `${$('prompt').value.length} / 300`; }
-$('prompt').addEventListener('input', updCount);
+function markRate() {
+  document.querySelectorAll('#rateFlame button, #rateEmber button').forEach(b => {
+    b.setAttribute('aria-pressed', String(!!locked && b.dataset.id === locked.id));
+  });
+}
+function fillRate(box, items) {
+  items.forEach(item => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.dataset.id = item.id; b.textContent = item.prompt;
+    b.onclick = () => {
+      if ($('go').disabled) return;
+      setMode(item.mode); locked = item; markRate();
+      $('prompt').value = item.prompt; updCount(); generate();
+    };
+    box.append(b);
+  });
+}
+fillRate($('rateFlame'), RATE.filter(x => x.mode === 'flame-sentence'));
+fillRate($('rateEmber'), RATE.filter(x => x.mode === 'ember-next'));
+function jumpTry(next) {
+  locked = null; markRate(); setMode(next);
+  $('try').scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  $('prompt').focus();
+}
+$('tryFlame').onclick = () => jumpTry('flame-sentence');
+$('tryEmber').onclick = () => jumpTry('ember-next');
+$('prompt').addEventListener('input', () => {
+  if (locked && $('prompt').value !== locked.prompt) { locked = null; markRate(); }
+  updCount();
+});
 $('prompt').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) generate(); });
 $('go').onclick = generate;
 
@@ -405,7 +518,7 @@ async function generate() {
     if (fb && fb.getBoundingClientRect().bottom > innerHeight)
       fb.scrollIntoView({ block: 'end', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     const settings = { decoder: d.decoder, word_heads_sha256: d.word_heads_sha256 };
-    log({ kind: 'generation', ...pick(d), ms: d.ms, settings, model_sha256: d.model_sha256 }).catch(() => {});
+    log({ kind: 'generation', ...pick(d), ms: d.ms, settings, model_sha256: d.model_sha256, ...promptMeta() }).catch(() => {});
   } catch (e) {
     $('err').textContent = e.message; $('err').hidden = false;
   } finally {
@@ -414,6 +527,9 @@ async function generate() {
   }
 }
 function pick(d) { return { id: d.id, model: d.model, mode: d.mode, prompt: d.prompt, output: d.output, sig: d.sig }; }
+function promptMeta() {
+  return locked && $('prompt').value === locked.prompt ? { prompt_id: locked.id } : {};
+}
 
 function show(d) {
   last = d; rating = null;
@@ -447,7 +563,7 @@ async function sendFeedback() {
   if (!last) return;
   const correction = $('better').value.trim();
   if (!rating && !correction) { $('fbStatus').textContent = 'Pick 👍/👎 or write a better suggestion.'; return; }
-  const ok = await log({ kind: 'feedback', ...pick(last), rating, correction }).catch(() => false);
+  const ok = await log({ kind: 'feedback', ...pick(last), rating, correction, ...promptMeta() }).catch(() => false);
   $('fbStatus').textContent = ok ? 'Thanks! Saved for training.' : 'Could not save feedback.';
   $('fbStatus').className = 'status grow ' + (ok ? 'ok' : 'err');
 }
