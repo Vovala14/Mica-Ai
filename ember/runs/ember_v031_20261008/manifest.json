@@ -1,0 +1,16 @@
+{
+  "version": "Ember v0.3.1",
+  "role": "byte-level compression scoring plus next-word suggestions and two-letter completion",
+  "architecture": "Minimal Inference Cellular Automaton with learned integer rewrite rules, quantized integer readout, an integer memory sidecar, and integer word readouts over the existing 240 cellular probes",
+  "source_model": "model.mica",
+  "source_sha256": "e35bad48e1db529ccc07f7bfbd5070ba01ec1d0dfbaeafaf07398c7bae63cedd",
+  "memory": "memory.npz",
+  "memory_sha256": "5ac91b7a9e110a22546083a9279b06725f48aeb7b1de441c80d1ef92b2c2f44a",
+  "word_heads": "word_heads.npz",
+  "word_heads_sha256": "cc8e0135ac38d8afcb11bce34d226e96372b8bd2fe377cae9c6a51dadadaa5d5",
+  "word_vocabulary": 4339,
+  "training": "R2 selected joint_ep7_avg; 119,823 train-only records, 8 epochs; selection on disjoint development data",
+  "confirmation": "exact integer clean chat and everyday val1000; separate dev last500 confirmation",
+  "sealed_test": "never accessed",
+  "word_head_result": "unchanged from v0.3a: next-word top1 14.25%, two-letter completion top1 48.00%; identical top-5 lists on 400/400 held-out prompts"
+}
