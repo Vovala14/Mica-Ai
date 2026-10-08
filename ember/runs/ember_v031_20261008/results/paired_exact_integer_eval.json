@@ -1,0 +1,17 @@
+{
+  "checkpoint_sha256": "e35bad48e1db529ccc07f7bfbd5070ba01ec1d0dfbaeafaf07398c7bae63cedd",
+  "memory_sha256": "5ac91b7a9e110a22546083a9279b06725f48aeb7b1de441c80d1ef92b2c2f44a",
+  "source_checkpoint_sha256": "3b2a94e203fc6b0cd20365e4d5c46085035722f578161a2213b8cf148a126e72",
+  "clean": {
+    "chat": {"source_bits_per_target": 1.8609072698439337, "candidate_bits_per_target": 1.8274618886707663, "paired_delta": -0.033445381173167206, "ci95": [-0.036188928832777086, -0.0308132553662236], "targets": 94901},
+    "everyday": {"source_bits_per_target": 1.8757358901908656, "candidate_bits_per_target": 1.836078176512571, "paired_delta": -0.03965771367829461, "ci95": [-0.04302593140746861, -0.03636842859135007], "targets": 44795},
+    "equal_domain_mean": {"candidate_delta": -0.03655154742573091, "ci95": [-0.0387213113612393, -0.034441769515306864]}
+  },
+  "independent_dev_confirmation": {
+    "split": "last 500 records per domain, after model selection on first 500 per domain",
+    "equal_domain_delta": -0.036589119648768036,
+    "ci95": [-0.03984081828686599, -0.03332873741136101]
+  },
+  "word_heads": {"next_top1": 0.1425, "prefix2_top1": 0.48, "top5_same_prompts": 400},
+  "sealed_test_accessed": false
+}
