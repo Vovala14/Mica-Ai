@@ -11,9 +11,10 @@ Which text becomes training data, per generation, using its latest feedback:
   1. a correction:     prompt + correction  (a person wrote how it should go on)
   2. a thumbs-up:      prompt + model output
   3. otherwise:        the prompt alone     (text people typed; --no-prompts drops it)
-A thumbs-down output is never used. Texts are deduplicated (casefolded,
-whitespace squashed) and split train/val by a hash of the text, so a text
-always lands on the same side.
+A thumbs-down output is never used. Fixed rating-set prompts (prompt_id) are
+excluded from training to preserve that evaluation set. Texts are deduplicated
+(casefolded, whitespace squashed) and split train/val by a hash of the prompt,
+so corrections to the same prompt always land on the same side.
 
 Outputs under --out:
   ember/train.jsonl, ember/val.jsonl    UTF-8 bytes, hex, <= 256 bytes a record
@@ -53,35 +54,36 @@ def join(prompt: str, cont: str) -> str:
 
 
 def completed_word(prompt: str, correction: str) -> str:
-    """The v0.3a completion UI asks for missing letters, not a new word."""
+    """The Ember completion UI asks for missing letters, not a new word."""
     if correction[:2].casefold() == prompt[-2:].casefold():
         correction = correction[2:]  # also accept a user who typed the full word
     return prompt + correction
 
 
-def texts(rows: list[dict], with_prompts: bool) -> list[tuple[str, str]]:
+def texts(rows: list[dict], with_prompts: bool) -> list[tuple[str, str, str]]:
     gens = {r["id"]: r for r in rows if r.get("kind") == "generation"}
     fb: dict[str, dict] = {}
     for r in sorted((r for r in rows if r.get("kind") == "feedback"), key=lambda r: r.get("time", "")):
-        prev = fb.get(r["id"], {})
-        fb[r["id"]] = {"rating": r.get("rating") or prev.get("rating"),
-                       "correction": r.get("correction") or prev.get("correction"),
-                       "row": r}
+        # A later vote can explicitly replace an earlier correction. Do not
+        # resurrect stale text from the previous feedback event.
+        fb[r["id"]] = {"rating": r.get("rating"), "correction": r.get("correction"), "row": r}
     out = []
     for gid in list(gens) + [i for i in fb if i not in gens]:
         g = gens.get(gid) or fb[gid]["row"]
         f = fb.get(gid, {})
         prompt, output = g.get("prompt", ""), g.get("output", "")
+        if not isinstance(prompt, str) or not prompt or g.get("prompt_id") or f.get("row", {}).get("prompt_id"):
+            continue
         if f.get("correction"):
             correction = f["correction"].strip()
-            if g.get("model") == "ember-v0.3a" and g.get("mode") == "complete-word":
-                out.append(("correction", completed_word(prompt, correction)))
+            if g.get("model", "").startswith("ember-") and g.get("mode") == "complete-word":
+                out.append(("correction", completed_word(prompt, correction), prompt))
             else:
-                out.append(("correction", join(prompt, correction)))
+                out.append(("correction", join(prompt, correction), prompt))
         elif f.get("rating") == "up":
-            out.append(("thumbs_up", prompt + output))
+            out.append(("thumbs_up", prompt + output, prompt))
         elif with_prompts:
-            out.append(("prompt", prompt))
+            out.append(("prompt", prompt, prompt))
     return out
 
 
@@ -99,18 +101,18 @@ def main() -> int:
 
     rows = [json.loads(l) for l in a.export.read_text(encoding="utf-8").splitlines() if l.strip()]
     seen, kept = set(), []
-    for source, text in texts(rows, not a.no_prompts):
+    for source, text, prompt in texts(rows, not a.no_prompts):
         text = text.strip()
         if len(text) < 3 or key(text) in seen:
             continue
         seen.add(key(text))
-        kept.append((source, text))
+        kept.append((source, text, prompt))
 
     vocab = W.Vocab.load(VOCAB)
     files = {f"{m}/{s}": [] for m in ("ember", "flamew") for s in ("train", "val")}
     counts = {"train": {}, "val": {}}
-    for source, text in kept:
-        split = "val" if int(hashlib.sha256(key(text).encode()).hexdigest(), 16) % 100 < a.val_percent else "train"
+    for source, text, prompt in kept:
+        split = "val" if int(hashlib.sha256(key(prompt).encode()).hexdigest(), 16) % 100 < a.val_percent else "train"
         counts[split][source] = counts[split].get(source, 0) + 1
         raw = text.encode("utf-8")
         files[f"ember/{split}"].append(raw[:utf8_safe_cut(raw, MAX_BYTES)].hex())
