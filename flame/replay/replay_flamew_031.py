@@ -60,13 +60,17 @@ def generate(prompts: list[dict]) -> list[dict]:
     mem = sha256(MEMORY)
     if auto != AUTOMATON_SHA256 or mem != MEMORY_SHA256:
         raise SystemExit(f"checkpoint mismatch\nautomaton {auto}\nmemory {mem}")
-    sys.path.insert(0, str(ROOT))
-    from webapp.flame_backend import MODEL as site_model  # noqa: E402
-    from webapp.flame_backend import SHA, decoder
-
-    if site_model != MODEL or SHA != AUTOMATON_SHA256:
-        raise SystemExit("webapp.flame_backend identity does not match this replay")
-    dec = decoder("sentence")
+    # Pin the historical route directly so a newer playground release cannot
+    # silently change the 0.3.1 replay.
+    sys.path.insert(0, str(ROOT / "r1/runs/claude_flame_word_20260928"))
+    import word_eval as E  # noqa: E402
+    sys.path.insert(0, str(ROOT / "r1/runs/claude_flamew_night_20261001"))
+    import decode_bos as B  # noqa: E402
+    sys.path.insert(0, str(ROOT / "flame/runs/claude_flamew_031_20261004"))
+    from memory import Memory, MemoryMicaWord  # noqa: E402
+    model = MemoryMicaWord(E.load_model(f"mica:{AUTOMATON.parent}"), Memory(MEMORY))
+    vocab = E.W.Vocab.load(ROOT / "r1/data/word/vocab.json")
+    dec = B.BosDecoder(model, vocab, **B.BOS5F)
     if dec.name != DECODER:
         raise SystemExit(f"decoder is {dec.name}, expected {DECODER}")
     out = []

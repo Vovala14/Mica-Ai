@@ -12,7 +12,7 @@ from http.server import BaseHTTPRequestHandler
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MAX_PROMPT = 300
+MAX_PROMPT = 1000
 
 
 def sign(gen_id: str, model: str, mode: str, prompt: str, output: str) -> str:
