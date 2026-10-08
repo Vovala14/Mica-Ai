@@ -17,7 +17,20 @@ The paired combined improvement is +6.375 percentage points [95% CI +4.0,
 model hashes, prompt counts, domain scores and limitations.
 
 Ember owns word suggestions and typed-word completion. Flame-W owns sentence
-continuation and generation. The website exposes Ember v0.3a in two word modes.
+continuation and generation. The first website word interface used the v0.3a
+heads; the current site runs the v0.3.1 checkpoint described below.
+
+## Latest byte/readout release: v0.3.1
+
+[Ember v0.3.1](runs/ember_v031_20261008/) keeps the learned integer-rule cellular
+architecture and the existing word heads, while updating the byte checkpoint
+and adding a compact integer memory sidecar for byte scoring. On the exact
+integer clean byte+EOS evaluation, its equal-domain mean is 1.831770 bits/target,
+an improvement of 0.036552 bits/target over v0.2A [paired change -0.036552,
+95% CI -0.038721 to -0.034442]. The word-assistance metrics are unchanged from v0.3a: 14.25%
+next-word top-1 and 48.00% two-letter completion top-1. The website uses the
+v0.3.1 checkpoint and word readouts for its interactive word modes; the memory
+sidecar is for the byte-scoring runtime.
 
 ## Cellular base: v0.2 balanced mix A
 

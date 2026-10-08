@@ -152,7 +152,7 @@ footer a, .card a { color: var(--accent); }
         <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
         <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
       </div>
-      <p class="sub">Model cards: <a href="https://huggingface.co/vynly/mica-flame-w-0.3.1">Flame-W 0.3.1</a> · <a href="https://huggingface.co/vynly/mica-ember-0.3a">Ember v0.3a</a> · <a href="https://mica-ai-ten.vercel.app">Live demo</a></p>
+      <p class="sub">Model packages: <a href="https://huggingface.co/vynly/mica-flame-w-0.3.1">Flame-W 0.3.1</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="https://mica-ai-ten.vercel.app">Live demo</a></p>
     </div>
   </header>
 
@@ -251,7 +251,7 @@ footer a, .card a { color: var(--accent); }
     <h2>The models</h2>
     <div class="models">
       <div><b>Flame-W 0.3.1 (4 Oct 2026)</b><br>Predicts whole words (16,384-word vocabulary). An integer memory lets it use the last 64 words instead of about 4; 0.3.1 retrained it on 7 times more text. Tiny Theory-of-Mind is 31.25% per word token (chance 25%; above 6 of 36 models). The same run is below chance on bluffing and communication failure (16%) and on diverse beliefs and white lie (18%).</div>
-      <div><b>Ember v0.3a (4 Oct 2026)</b><br>The original 4.5 MB byte-level cellular model now has 1.23 MB of integer word readouts. It suggests a next word or completes one after two typed letters. On independent clean prompts, next-word top-1 improved from 6.75% to 14.25% versus v0.2A. Its cellular byte loss is unchanged.</div>
+      <div><b>Ember v0.3.1 (8 Oct 2026)</b><br>The same integer-rule cellular model, with an updated byte readout and integer memory sidecar. Exact integer clean byte+EOS equal-domain loss falls from 1.868322 to 1.831770 bits/target versus v0.2A (paired change −0.036552; 95% CI −0.038721 to −0.034442). The site's v0.3a word heads remain unchanged: next-word top-1 14.25% and two-letter completion 48.00%, with no word-score gain. The memory sidecar is packaged for byte scoring; the demo uses the word decoder.</div>
     </div>
     <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
   </section>
@@ -271,9 +271,9 @@ const MODES = {
   'flame-suggest': { api: '/api/flame', body: p => ({ prompt: p, mode: 'suggest' }), action: 'Suggest',
     desc: 'Flame-W suggests the next two or three words, like a phone keyboard.' },
   'ember-next': { api: '/api/ember', body: p => ({ prompt: p, mode: 'next-word' }), action: 'Suggest',
-    desc: 'Ember v0.3a suggests one next word. Type a complete phrase; a final space is optional.' },
+    desc: 'Ember v0.3.1 suggests one next word. Type a complete phrase; a final space is optional.' },
   'ember-complete': { api: '/api/ember', body: p => ({ prompt: p, mode: 'complete-word' }), action: 'Complete',
-    desc: 'Ember v0.3a finishes a word after exactly two typed letters, such as “Thank you for be”.' },
+    desc: 'Ember v0.3.1 finishes a word after exactly two typed letters, such as “Thank you for be”.' },
 };
 const EXAMPLES = {
   'flame-sentence': ['I was thinking about', 'The weather today is', 'Can you help me', 'My favorite food is'],
@@ -539,7 +539,7 @@ function show(d) {
   $('text').innerHTML = `<span class="p">${esc(d.prompt)}</span><span class="o">${out ? esc(out) : '…'}</span>`;
   const name = d.model.startsWith('flame') ? 'Flame-W' : 'Ember';
   $('meta').textContent = `${name} · ${d.mode} · ${(d.ms / 1000).toFixed(2)} s` +
-    (out ? '' : d.model === 'ember-v0.3a' ? ' · no known-word suggestion' : ' · no continuation found');
+    (out ? '' : d.model === 'ember-v0.3.1' ? ' · no known-word suggestion' : ' · no continuation found');
   $('next').innerHTML = Array.isArray(d.suggestions) && d.suggestions.length > 1
     ? 'Other word suggestions: ' + d.suggestions.slice(1).map(w => `<span>${esc(w)}</span>`).join('') : '';
   $('result').classList.remove('hidden');

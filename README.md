@@ -24,7 +24,7 @@ Not a transformer, not a neural network: just learned integer rules on a ring of
 | | |
 |---|---|
 | Try it | [Live demo](https://mica-ai-ten.vercel.app) |
-| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.1](https://huggingface.co/vynly/mica-flame-w-0.3.1) · [Ember v0.3a](https://huggingface.co/vynly/mica-ember-0.3a) |
+| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.1](https://huggingface.co/vynly/mica-flame-w-0.3.1) · [Ember v0.3.1 package](https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008) |
 | Clone | `git clone https://github.com/Vovala14/Mica-Ai.git` |
 
 It is an integer cellular automaton: no attention, no floating point, no neural network. It is not a production assistant. Commercial use is forbidden.
@@ -54,7 +54,7 @@ The answer appears to be: yes, in a research setting.
 
 - Flame-W reaches about 31.25% on Tiny Theory-of-Mind
 - The 0.3.1 memory refit improves context use and validation loss
-- Ember v0.3a improves next-word prediction and typed-word completion
+- Ember v0.3.1 improves byte-level loss; its word-suggestion scores remain unchanged from v0.3a
 - The model is small, inspectable, and intentionally different from mainstream transformer stacks
 
 ## Published model cards
@@ -62,7 +62,8 @@ The answer appears to be: yes, in a research setting.
 MICA models are also published on Hugging Face in the [vynly collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton):
 
 - [vynly/mica-flame-w-0.3.1](https://huggingface.co/vynly/mica-flame-w-0.3.1) — the sentence model
-- [vynly/mica-ember-0.3a](https://huggingface.co/vynly/mica-ember-0.3a) — the byte-level assistant model
+- [vynly/mica-ember-0.3a](https://huggingface.co/vynly/mica-ember-0.3a) — the previous word-assistance card
+- [Ember v0.3.1 GitHub package](https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008) — updated byte checkpoint and integer memory
 
 These model cards mirror the research work in this repository and provide a public point of access alongside the GitHub project.
 
@@ -72,13 +73,13 @@ These model cards mirror the research work in this repository and provide a publ
 |---|---|
 | Flame-W 0.3.1 | Better validation loss with the memory readout; research-only sentence generation |
 | Flame-W v0.3 | Improved context use with a learned memory readout |
-| Ember v0.3a | Better next-word suggestion and typed-word completion over the v0.2A base |
+| Ember v0.3.1 | Better exact integer byte loss; same next-word and two-letter completion heads as v0.3a |
 
 Highlights from the repo:
 
 - Flame-W: 31.25% on Tiny Theory-of-Mind (31.45% per character)
 - Word validation: about 5.21 bits/word on the held-out set
-- Ember v0.3a: next-word top-1 improved from 6.75% to 14.25% under the reported protocol
+- Ember v0.3.1: clean equal-domain byte loss 1.831770 bits/target vs 1.868322 for v0.2A (paired change −0.036552; 95% CI −0.038721 to −0.034442); word top-1 remains 14.25% and two-letter completion remains 48.00%
 
 This is not a production assistant. It is a research model that explores a different architecture and a different training setup.
 
@@ -88,7 +89,7 @@ This is not a production assistant. It is a research model that explores a diffe
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
 | MICA Flame-W (sentence model) | [`flame/`](flame/) | B-740 + memory (0.3.1); sentence continuation and generation |
-| MICA Ember (word assistance on a byte engine) | [`ember/`](ember/) | v0.3a integer word readouts on the v0.2A cellular checkpoint |
+| MICA Ember (word assistance on a byte engine) | [`ember/`](ember/) | v0.3.1 byte/readout checkpoint with v0.3a integer word heads |
 
 ## Quick start
 
@@ -142,11 +143,12 @@ On that older checkpoint, `sentence` writes a full sentence ("I went to the" →
 `suggest` gives a 2–3 word next-words suggestion ("Can you help me" → " find my").
 Each line of that command's output file has the prompt and its `continuation`. It is separate from `flame/replay/out.jsonl`.
 
-Try Ember v0.3a word suggestions:
+Try Ember v0.3.1 word suggestions:
 
 ```bash
-python ember/runs/ember_v03a_20261004/test_word_model.py
-python ember/runs/ember_v03a_20261004/word_model.py
+python ember/runs/ember_v031_20261008/test_word_model.py
+python ember/runs/ember_v031_20261008/test_memory.py
+python ember/runs/ember_v031_20261008/word_model.py
 ```
 
 The original v0.2A byte generator is also available:
@@ -155,7 +157,7 @@ The original v0.2A byte generator is also available:
 python r1/generate_bytes.py ember/runs/codex_ember_balanced_v02a_20260928/train "I don't know"
 ```
 
-These are research models. Ember's measured role is next-word suggestion and typed-word completion; Flame-W handles sentences. The website offers both Ember v0.3a word actions alongside Flame-W's sentence actions.
+These are research models. Ember's measured role is next-word suggestion and typed-word completion; Flame-W handles sentences. The website offers Ember v0.3.1 word actions alongside Flame-W's sentence actions. The browser uses the integer word readouts; the separate integer memory sidecar is used by the byte-scoring runtime.
 
 ## How it works
 
@@ -174,7 +176,7 @@ It is a learned integer-rule cellular automaton. Its reference implementation fo
 
 | Path | What it does |
 |------|--------------|
-| `public/index.html` | The page: Flame-W sentence / next words, Ember v0.3a next word / finish word, feedback and corrections |
+| `public/index.html` | The page: Flame-W sentence / next words, Ember v0.3.1 next word / finish word, fixed rating prompts, replay link and corrections |
 | `api/flame.py`, `api/ember.py` | Run the official checkpoints with the exact integer engine (`webapp/`) and sign each output |
 | `api/log.js` | Saves signed generations and feedback to a private Vercel Blob store |
 | `api/export.js` | Owner download of all logs: `curl -H "Authorization: Bearer ADMIN_KEY" <site>/api/export -o logs.jsonl` (`?summary=1` for counts, `?check=1` for a storage check) |
