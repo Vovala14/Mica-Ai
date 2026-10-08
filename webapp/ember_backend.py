@@ -1,4 +1,4 @@
-"""Ember v0.3a word suggestions from the unchanged integer cellular engine."""
+"""Ember v0.3.1 word suggestions from the native integer cellular engine."""
 from __future__ import annotations
 
 import re
@@ -7,11 +7,11 @@ import time
 
 from .common import ROOT, clean_prompt, result
 
-sys.path.insert(0, str(ROOT / "ember/runs/ember_v03a_20261004"))
+sys.path.insert(0, str(ROOT / "ember/runs/ember_v031_20261008"))
 from word_model import EmberWord  # noqa: E402
 
-MODEL = "ember-v0.3a"
-SOURCE_SHA = "3b2a94e203fc6b0cd20365e4d5c46085035722f578161a2213b8cf148a126e72"
+MODEL = "ember-v0.3.1"
+SOURCE_SHA = "e35bad48e1db529ccc07f7bfbd5070ba01ec1d0dfbaeafaf07398c7bae63cedd"
 HEAD_SHA = "cc8e0135ac38d8afcb11bce34d226e96372b8bd2fe377cae9c6a51dadadaa5d5"
 
 _model: EmberWord | None = None
@@ -42,5 +42,5 @@ def run(body: dict) -> dict:
         output = ("" if prompt[-1].isspace() else " ") + words[0] if words else ""
 
     return result(MODEL, mode, prompt, output, t0,
-                  suggestions=words, decoder="integer-word-readout-v0.3a",
+                  suggestions=words, decoder="integer-word-readout-v0.3.1",
                   model_sha256=SOURCE_SHA, word_heads_sha256=HEAD_SHA)

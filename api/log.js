@@ -3,7 +3,7 @@
 import { save } from '../lib/blob.js';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
-const MODELS = new Set(['flame-w-0.3.1', 'flame-w-memory-20261003', 'flame-w-b-20261001', 'flame-w-full40', 'ember-v02a', 'ember-v0.3a']);
+const MODELS = new Set(['flame-w-0.3.1', 'flame-w-memory-20261003', 'flame-w-b-20261001', 'flame-w-full40', 'ember-v02a', 'ember-v0.3a', 'ember-v0.3.1']);
 const str = (v, max) => (typeof v === 'string' ? v.slice(0, max) : '');
 
 function validSig(r) {
@@ -26,9 +26,11 @@ export async function POST(request) {
     return Response.json({ error: 'Not a signed MICA output.' }, { status: 403 });
   }
   const now = new Date();
+  const promptId = typeof r.prompt_id === 'string' && /^[a-z][a-z0-9-]{0,23}$/.test(r.prompt_id) ? r.prompt_id : '';
   const base = {
     id: r.id, time: now.toISOString(), model: r.model, mode: str(r.mode, 40),
     prompt: r.prompt, output: r.output, session: str(r.session, 40),
+    ...(promptId ? { prompt_id: promptId } : {}),
   };
   let path, record;
   if (r.kind === 'feedback') {

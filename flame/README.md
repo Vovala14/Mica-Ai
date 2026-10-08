@@ -21,6 +21,8 @@ It is not the byte-level Flame. The byte/letter-level model is [MICA Ember](../e
 | Context use use_w(8), chat / everyday | 0.0006 / 0.0004 | 0.0209 / 0.0407 | 0.0183 / 0.0483 |
 | Tiny Theory-of-Mind, per word token / per character | 28.15% / 26.15% | 30.95% / 29.90% | **31.25% / 31.45%** |
 
+A five-prompt byte replay of the playground sentence decoder (memory on, answer mode off) is in [`replay/`](replay/): `python flame/replay/replay_flamew_031.py --check`.
+
 The refit improves text prediction. On Tiny Theory-of-Mind, 0.3.1 is not significantly different
 from v0.3 with answer mode (32.20% / 31.40%; p = 0.17), and on the held-out half the two are
 within 0.2 points. Details and every file are in [`runs/claude_flamew_031_20261004/`](runs/claude_flamew_031_20261004/).

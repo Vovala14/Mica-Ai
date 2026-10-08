@@ -3,6 +3,19 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## Site: how to find it, and a byte replay (2026-10-07)
+
+- The playground leads with what MICA is not (no attention, no floating point, not a neural network, not a production assistant), then Tiny Theory-of-Mind at 31.25% beside the weak topics (bluffing and communication failure 16%, diverse beliefs and white lie 18%).
+- GitHub, the [vynly collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton), and the Flame-W and Ember model cards are linked from the top of the page.
+- Ten locked rating prompts (five Flame-W sentences, five Ember next-word) use the existing signed log. Free-text prompts still work. A locked prompt stores an optional `prompt_id` (`s1`–`s5` match the replay file; Ember is `e1`–`e5`).
+- `flame/replay/` replays five Flame-W 0.3.1 sentences. `replay_flamew_031.py --check` matches `out.jsonl` byte for byte.
+
+## Ember v0.3.1 and playground update (2026-10-08)
+
+- The public Vercel playground now runs the Ember v0.3.1 byte checkpoint for its next-word and two-letter completion modes. The existing learned integer-rule cellular architecture is retained.
+- Exact integer clean byte+EOS equal-domain loss is 1.831770 bits/target versus 1.868322 for v0.2A (paired change -0.036552; 95% CI -0.038721 to -0.034442). The word heads are unchanged from v0.3a: 14.25% next-word top-1 and 48.00% two-letter completion top-1.
+- The site now includes the copied landing, fixed ten-prompt rating set, and deterministic Flame-W replay from draft PR #22; Ember v0.3.1 links to its public GitHub package.
+
 ## Ember v0.3a: word assistance (2026-10-04)
 
 - The unchanged v0.2A byte cellular automaton now has two learned integer
