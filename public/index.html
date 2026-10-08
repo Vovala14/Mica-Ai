@@ -152,7 +152,7 @@ footer a, .card a { color: var(--accent); }
         <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
         <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
       </div>
-      <p class="sub">Model packages: <a href="https://huggingface.co/vynly/mica-flame-w-0.3.1">Flame-W 0.3.1</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="https://mica-ai-ten.vercel.app">Live demo</a></p>
+      <p class="sub">Model packages: <a href="https://huggingface.co/vynly/mica-flame-w-0.3.2">Flame-W 0.3.2</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="https://mica-ai-ten.vercel.app">Live demo</a></p>
     </div>
   </header>
 
@@ -189,7 +189,7 @@ footer a, .card a { color: var(--accent); }
         <span>Bluffing and communication failure 16%. Diverse beliefs and white lie 18%.</span>
       </div>
     </div>
-    <p class="fine">The 31.25% figure uses answer mode, a multiple-choice bonus. Sentence mode below does not. On that decoder, “I was thinking about” continues “ how it would affect you.” and “I lost my keys and” continues “ I don't know how to fix it.” Both lines are in the replay file.</p>
+    <p class="fine">The 31.25% figure belongs to Flame-W 0.3.1's answer mode; 0.3.2 has not been tested on Tiny Theory-of-Mind. Sentence mode does not use answer mode. Many sentence outputs remain incoherent.</p>
   </section>
 
   <section class="card" id="try" aria-label="Try a model">
@@ -201,7 +201,7 @@ footer a, .card a { color: var(--accent); }
     </div>
     <p class="desc" id="desc"></p>
 
-    <textarea id="prompt" maxlength="300" placeholder="Start a sentence, e.g. “I was thinking about”"></textarea>
+    <textarea id="prompt" maxlength="1000" placeholder="Start a sentence, e.g. “I was thinking about”"></textarea>
     <div class="chips" id="chips"></div>
     <p class="rate-label"><b>Fixed rating set.</b> Ten locked prompts. Ratings use the same signed log as free text.</p>
     <p class="rate-label">Flame-W sentences</p>
@@ -210,7 +210,7 @@ footer a, .card a { color: var(--accent); }
     <div class="chips" id="rateEmber"></div>
     <div class="row">
       <span class="grow"></span>
-      <span class="count" id="count">0 / 300</span>
+      <span class="count" id="count">0 / 1000</span>
       <button class="primary" id="go">Generate</button>
     </div>
     <div class="error" id="err" hidden></div>
@@ -250,7 +250,7 @@ footer a, .card a { color: var(--accent); }
   <section class="card">
     <h2>The models</h2>
     <div class="models">
-      <div><b>Flame-W 0.3.1 (4 Oct 2026)</b><br>Predicts whole words (16,384-word vocabulary). An integer memory lets it use the last 64 words instead of about 4; 0.3.1 retrained it on 7 times more text. Tiny Theory-of-Mind is 31.25% per word token (chance 25%; above 6 of 36 models). The same run is below chance on bluffing and communication failure (16%) and on diverse beliefs and white lie (18%).</div>
+      <div><b>Flame-W 0.3.2 (8 Oct 2026)</b><br>The same learned integer-rule cellular automaton as 0.3.1, with a second integer memory bank after 64 word symbols and a lighter long-prompt sentence-decoding penalty. Exact integer long clean loss improved from 8.305251 to 8.082371 bits/word+EOS; the short route is unchanged. A single-rater blind check on 20 new long prompts found 5 better continuations, 0 worse, and 15 ties. Most long outputs remain incoherent. Tiny Theory-of-Mind has not been rerun for 0.3.2.</div>
       <div><b>Ember v0.3.1 (8 Oct 2026)</b><br>The same integer-rule cellular model, with an updated byte readout and integer memory sidecar. Exact integer clean byte+EOS equal-domain loss falls from 1.868322 to 1.831770 bits/target versus v0.2A (paired change −0.036552; 95% CI −0.038721 to −0.034442). The site's v0.3a word heads remain unchanged: next-word top-1 14.25% and two-letter completion 48.00%, with no word-score gain. The memory sidecar is packaged for byte scoring; the demo uses the word decoder.</div>
     </div>
     <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
@@ -318,7 +318,7 @@ function setMode(m) {
   $('result').classList.add('hidden'); last = null;
 }
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => { locked = null; markRate(); setMode(t.dataset.m); });
-function updCount() { $('count').textContent = `${$('prompt').value.length} / 300`; }
+function updCount() { $('count').textContent = `${$('prompt').value.length} / 1000`; }
 function markRate() {
   document.querySelectorAll('#rateFlame button, #rateEmber button').forEach(b => {
     b.setAttribute('aria-pressed', String(!!locked && b.dataset.id === locked.id));
