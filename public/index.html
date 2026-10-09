@@ -152,7 +152,7 @@ footer a, .card a { color: var(--accent); }
         <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
         <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
       </div>
-      <p class="sub">Model packages: <a href="https://huggingface.co/vynly/mica-flame-w-0.3.2">Flame-W 0.3.2</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="https://mica-ai-ten.vercel.app">Live demo</a></p>
+      <p class="sub">Model packages: <a href="https://huggingface.co/vynly/mica-flame-w-0.3.3">Flame-W 0.3.3</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="https://mica-ai-ten.vercel.app">Live demo</a></p>
     </div>
   </header>
 
@@ -250,7 +250,7 @@ footer a, .card a { color: var(--accent); }
   <section class="card">
     <h2>The models</h2>
     <div class="models">
-      <div><b>Flame-W 0.3.2 (8 Oct 2026)</b><br>The same learned integer-rule cellular automaton as 0.3.1, with a second integer memory bank after 64 word symbols and a lighter long-prompt sentence-decoding penalty. Exact integer long clean loss improved from 8.305251 to 8.082371 bits/word+EOS; the short route is unchanged. A single-rater blind check on 20 new long prompts found 5 better continuations, 0 worse, and 15 ties. Most long outputs remain incoherent. Tiny Theory-of-Mind has not been rerun for 0.3.2.</div>
+      <div><b>Flame-W 0.3.3 (9 Oct 2026)</b><br>The original learned integer-rule cellular automaton is unchanged. A conservative integer short-memory blend improves exact clean short-record loss from 5.208428 to 5.189430 bits/word+EOS; long-record loss rises from 8.082371 to 8.086188. The equal-weight short/long score improves by 0.007590 bits. A single-rater blind sentence check found 1 better, 1 worse and 38 tied continuations, so sentence quality is not established as better. Public Tiny Theory-of-Mind was 636/2,000 versus 632/2,000 for 0.3.2; that difference is uncertain. Many outputs remain incoherent.</div>
       <div><b>Ember v0.3.1 (8 Oct 2026)</b><br>The same integer-rule cellular model, with an updated byte readout and integer memory sidecar. Exact integer clean byte+EOS equal-domain loss falls from 1.868322 to 1.831770 bits/target versus v0.2A (paired change −0.036552; 95% CI −0.038721 to −0.034442). The site's v0.3a word heads remain unchanged: next-word top-1 14.25% and two-letter completion 48.00%, with no word-score gain. The memory sidecar is packaged for byte scoring; the demo uses the word decoder.</div>
     </div>
     <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
