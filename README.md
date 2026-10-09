@@ -214,6 +214,11 @@ See [`r1/README.md`](r1/README.md) for the engine layout and training commands.
 - [`flame/README.md`](flame/README.md): Flame-W model details and checkpoints
 - [`ember/README.md`](ember/README.md): Ember byte/word model details and scores
 
+## Project credits
+
+MICA is led by Vladimir Lavrik, with AI-assisted development from Cursor Agent,
+Claude, Codex, Spark (Muse Spark), and Grok.
+
 ## License
 
 Free for personal use and research use.
