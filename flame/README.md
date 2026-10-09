@@ -4,7 +4,19 @@ Flame-W is the word-level MICA model: the same integer cellular automaton, with
 one symbol per word (16,384-symbol vocabulary, `r1/data/word/vocab.json`).
 It is not the byte-level Flame. The byte/letter-level model is [MICA Ember](../ember/).
 
-## Official model: 0.3.1 (2026-10-04)
+## Current model: 0.3.3 (2026-10-09)
+
+The [public 0.3.3 package](https://huggingface.co/vynly/mica-flame-w-0.3.3) keeps the B-740 learned integer-rule automaton (SHA-256 `1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d`) and the 0.3.2 decoder. For the first 64 fed word symbols, its memory bonus is `floor((3 * original_short + fitted_short + 2) / 4)`; after 64 symbols it uses the unchanged long bank. The three packed memory files and checkpoint total 36,132,566 bytes. The fitted bank adds 673,650 bytes over 0.3.2. Implementation, exact hashes and frozen gates are in [`runs/codex_flamew_033_20261009/EVALUATION.md`](runs/codex_flamew_033_20261009/EVALUATION.md).
+
+| Exact integer score | 0.3.2 | 0.3.3 | Paired change, 95% interval |
+|---|---:|---:|---:|
+| Clean short500 bits/word symbol + EOS | 5.208428 | 5.189430 | −0.018998 [−0.021376,−0.016611] |
+| Clean long500 bits/word symbol + EOS | 8.082371 | 8.086188 | +0.003818 [+0.002786,+0.004814] |
+| Public Tiny ToM, word-normalized answer mode | 632/2,000 (31.60%) | 636/2,000 (31.80%) | +0.20 percentage points [−0.25,+0.65] |
+
+The short-record loss gain is measured; the long-record loss regression is also measured. The ToM interval includes zero. A blinded single-rater check of 40 previously unused sentence prompts found 1 win, 1 loss and 38 ties, so there is no demonstrated sentence-quality gain. The five-task leaderboard was not rerun. No sealed test was used.
+
+## Historical official model: 0.3.1 (2026-10-04)
 
 - **Automaton:** `runs/claude_flamew_b740_20261001/train/best.mica`, SHA-256
   `1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d`, 34,111,616 bytes.

@@ -84,7 +84,9 @@ All numbers come from the exact integer engine. "Dev" sets were used for selecti
 | | | bits per word, clean chat / everyday | 6.8414 / 6.9972 |
 | Ember v0.2A (bytes) | `3b2a94e2…` | bits per byte, clean chat / everyday | 1.8609 / 1.8757 |
 
-**Official since 0.3.1 (2026-10-04): B-740 + refitted memory.** The automaton is checkpoint B
+**Current release: Flame-W 0.3.3 (2026-10-09).** The B-740 automaton SHA `1f4d5503…` is unchanged. A second integer short-memory bank is blended with the original through 64 fed word symbols; after that, the 0.3.2 long bank is unchanged. Exact exported-integer clean short500 loss is 5.208428 → 5.189430 bits/word symbol plus EOS, paired −0.018998 [−0.021376,−0.016611]; long500 is 8.082371 → 8.086188, paired +0.003818 [+0.002786,+0.004814]. This is a real long-record cost below the predeclared +0.005 cap. A blind 40-prompt sentence check found 1 win, 1 loss and 38 ties, with no demonstrated quality gain. Public Tiny ToM word-normalized answer mode is 632/2,000 → 636/2,000 (31.60% → 31.80%), paired +0.20 percentage points [−0.25,+0.65]; the difference is uncertain. See [`flame/runs/codex_flamew_033_20261009/EVALUATION.md`](flame/runs/codex_flamew_033_20261009/EVALUATION.md). The five-task leaderboard was not rerun.
+
+**Historical 0.3.1 release (2026-10-04): B-740 + refitted memory.** The automaton is checkpoint B
 continued to round 740 (SHA `1f4d5503…`). An integer memory readout runs over the last 64 words.
 It was introduced in v0.3, and 0.3.1 refits it on 7 times more text.
 

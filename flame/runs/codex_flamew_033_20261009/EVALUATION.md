@@ -69,3 +69,20 @@ no-point-regression >0.5-point gate, but does not prove improved ToM.
 The release should state these limits explicitly. The sealed test set was
 never accessed. Full model and memory hashes, exact records, blind samples,
 ratings, ToM per-item rows and conformance are retained in this run folder.
+
+## Independent packaged ToM rerun (2026-10-09)
+
+The distributed 0.3.3 package's `run_tom.py` was run again on all 2,000 public
+Tiny Theory of Mind records (dataset SHA-256
+`58827a0361597ae4d5ffa79ddbab0936d1509cafcfc02cbb731e4d7a7f3584b8`).
+The loaded `model.mica` SHA-256 was
+`1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d`;
+all three memory-file hashes match those above. The rerun returned **636/2,000
+(31.80%) word-normalized** and **633/2,000 (31.65%) character-normalized**.
+Every item ID, label and both predictions matched the prior 0.3.3 evaluation;
+all four ending log-likelihoods per item matched exactly (maximum difference
+zero). The rerun output SHA-256 is
+`ceecf482a8c88e444717cc14d324bde25d2a41bd0a70ffea0cdd4d0825065830`.
+The packaged script has a stale `model` string of `MICA Flame-W 0.3.2` in its
+output JSON; its loaded 0.3.3 `package.json` and checkpoint/memory hashes
+identify the evaluated model. This metadata typo does not affect scoring.

@@ -3,6 +3,16 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## Flame-W 0.3.3: conservative short-memory blend (2026-10-09)
+
+- Released on [Hugging Face](https://huggingface.co/vynly/mica-flame-w-0.3.3) and the live playground. The B-740 learned integer-rule cellular automaton SHA `1f4d5503…`, tokenizer, long-memory bank, sentence decoder and answer mode are unchanged. An additional fitted integer short bank is blended 1:4 with the original for the first 64 fed word symbols. Model and three memory files total 36,132,566 bytes, 673,650 bytes above 0.3.2.
+- Fresh disjoint development selection passed the frozen equal-domain gate. Exact integer clean short500 loss improved 5.208428 → 5.189430 bits/word symbol plus EOS (paired −0.018998 [−0.021376,−0.016611]); clean long500 worsened 8.082371 → 8.086188 (+0.003818 [+0.002786,+0.004814]). The long-record cost is real and below the predeclared cap.
+- Public Tiny ToM, unchanged answer mode and 2,000 items: word-normalized 632 → 636 correct (31.60% → 31.80%), paired +0.20 percentage points [−0.25,+0.65]; character-normalized 629 → 633 (31.45% → 31.65%). The ToM gain is uncertain. Blind sentence40 was 1 win, 1 loss, 38 ties with one new unusable output; no sentence-quality gain is established. The five-task leaderboard was not rerun. Full [evaluation and limitations](flame/runs/codex_flamew_033_20261009/EVALUATION.md).
+
+## Flame-W 0.3.2: gated long memory and decoder (2026-10-08)
+
+- Kept the B-740 automaton and original short-memory bank through 64 symbols, then used a trained long integer memory bank. Clean long500 loss improved 8.305251 → 8.082371 bits/word symbol plus EOS, paired −0.222880 [−0.241879,−0.203769]; clean short500 was unchanged. A gated decoder adjustment passed its small single-rater blind check. See the [0.3.2 report](flame/runs/codex_flamew_032_20261008/EVALUATION.md) where available; historical details remain in the research runs.
+
 ## Site: how to find it, and a byte replay (2026-10-07)
 
 - The playground leads with what MICA is not (no attention, no floating point, not a neural network, not a production assistant), then Tiny Theory-of-Mind at 31.25% beside the weak topics (bluffing and communication failure 16%, diverse beliefs and white lie 18%).
