@@ -1,1 +1,3 @@
 flame/replay/*.jsonl text eol=lf
+# Release manifests identify exact bytes, including the frozen learned JSON rules.
+flame/runs/codex_flamew_034_20261010/** -text

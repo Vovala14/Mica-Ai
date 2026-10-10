@@ -1,0 +1,143 @@
+{
+  "passed": true,
+  "memory_examples": 2,
+  "fallback_examples": 1,
+  "unchanged_generation_checks": 2,
+  "invalid_request_checks": 6,
+  "results": [
+    {
+      "kind": "memory",
+      "result": {
+        "id": "8dff0a0ab9904f309dc3d1c9305a4cb1",
+        "model": "flame-w-0.3.4",
+        "mode": "answer",
+        "prompt": "Before lunch, Ludovic placed the buckle by the silk pouch. Oriana later told Ludovic the buckle was in the purple trunk. Then Oriana carried the buckle over to a cotton bag.\nQuestion: Ludovic thinks the buckle is currently at\nA. Ludovic would look for the buckle at the cotton bag.\nB. Ludovic would look for the buckle at the purple trunk.\nC. Ludovic would look for the buckle at the pink box.\nD. Ludovic would look for the buckle at the silk pouch.",
+        "output": "Ludovic would look for the buckle at the purple trunk.",
+        "ms": 2,
+        "sig": "",
+        "answer_index": 1,
+        "choices": [
+          "Ludovic would look for the buckle at the cotton bag.",
+          "Ludovic would look for the buckle at the purple trunk.",
+          "Ludovic would look for the buckle at the pink box.",
+          "Ludovic would look for the buckle at the silk pouch."
+        ],
+        "route": "cellular-belief-memory",
+        "decoder": "cellular-belief-memory-or-mean-word",
+        "model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+        "belief_rule_sha256": "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c",
+        "grounding_rule_sha256": "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c"
+      }
+    },
+    {
+      "kind": "memory",
+      "result": {
+        "id": "268aef62ca774251b3da225c13769d2b",
+        "model": "flame-w-0.3.4",
+        "mode": "answer",
+        "prompt": "At the outset, Nestor had stored the kettle inside the hallway locker. Later, Oriana informed Nestor that the buckle could be found at silk pouch. Afterward, Oriana moved the kettle inside silk pouch.\nQuestion: Nestor thinks the kettle is currently at\nA. Nestor would look for the kettle at the cotton bag.\nB. Nestor would look for the kettle at the copper drawer.\nC. Nestor would look for the kettle at the silk pouch.\nD. Nestor would look for the kettle at the hallway locker.",
+        "output": "Nestor would look for the kettle at the hallway locker.",
+        "ms": 1,
+        "sig": "",
+        "answer_index": 3,
+        "choices": [
+          "Nestor would look for the kettle at the cotton bag.",
+          "Nestor would look for the kettle at the copper drawer.",
+          "Nestor would look for the kettle at the silk pouch.",
+          "Nestor would look for the kettle at the hallway locker."
+        ],
+        "route": "cellular-belief-memory",
+        "decoder": "cellular-belief-memory-or-mean-word",
+        "model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+        "belief_rule_sha256": "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c",
+        "grounding_rule_sha256": "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c"
+      }
+    },
+    {
+      "kind": "fallback",
+      "result": {
+        "id": "e330ff10723745f99f4d5648b0e85b9a",
+        "model": "flame-w-0.3.4",
+        "mode": "answer",
+        "prompt": "The weather today is\nA. warm.\nB. cold.\nC. sunny.\nD. rainy.",
+        "output": "cold.",
+        "ms": 164,
+        "sig": "",
+        "answer_index": 1,
+        "choices": [
+          "warm.",
+          "cold.",
+          "sunny.",
+          "rainy."
+        ],
+        "route": "word-model-fallback",
+        "decoder": "cellular-belief-memory-or-mean-word",
+        "model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+        "belief_rule_sha256": "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c",
+        "grounding_rule_sha256": "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c"
+      }
+    },
+    {
+      "kind": "unchanged_generation",
+      "old": {
+        "id": "3c50bd5e9a634eeb89c323590a51ea21",
+        "model": "flame-w-0.3.3",
+        "mode": "sentence",
+        "prompt": "I was thinking about",
+        "output": " how it would affect you.",
+        "ms": 4179,
+        "sig": "",
+        "decoder": "w-sent-bos.5f",
+        "model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+        "memory_sha256": "5fda5a6c744749932bfba7f18352ce532405e60fca7d64fd99b705c28b928be7",
+        "memory_fitted_sha256": "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac",
+        "bits_per_token": 1.6060966415948463
+      },
+      "new": {
+        "id": "ed23a39804ba4b1db63255b43420ef04",
+        "model": "flame-w-0.3.4",
+        "mode": "sentence",
+        "prompt": "I was thinking about",
+        "output": " how it would affect you.",
+        "ms": 5081,
+        "sig": "",
+        "decoder": "w-sent-bos.5f",
+        "model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+        "memory_sha256": "5fda5a6c744749932bfba7f18352ce532405e60fca7d64fd99b705c28b928be7",
+        "memory_fitted_sha256": "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac",
+        "bits_per_token": 1.6060966415948463
+      }
+    },
+    {
+      "kind": "unchanged_generation",
+      "old": {
+        "id": "7f6971af70e4497c930cb14ac317eb17",
+        "model": "flame-w-0.3.3",
+        "mode": "suggest",
+        "prompt": "I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden.",
+        "output": " Remember old",
+        "ms": 797,
+        "sig": "",
+        "decoder": "w6-mmi.5",
+        "model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+        "memory_sha256": "f2abb7913dd626fb75cfeb96dd97c17c7d7ecbaed88f54c95fdb986734469f3b",
+        "memory_fitted_sha256": "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac",
+        "bits_per_token": 2.1499133599970617
+      },
+      "new": {
+        "id": "835461217a9742c79226ba5d3d82f265",
+        "model": "flame-w-0.3.4",
+        "mode": "suggest",
+        "prompt": "I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden. I remember the old house and the garden.",
+        "output": " Remember old",
+        "ms": 747,
+        "sig": "",
+        "decoder": "w6-mmi.5",
+        "model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+        "memory_sha256": "f2abb7913dd626fb75cfeb96dd97c17c7d7ecbaed88f54c95fdb986734469f3b",
+        "memory_fitted_sha256": "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac",
+        "bits_per_token": 2.1499133599970617
+      }
+    }
+  ]
+}

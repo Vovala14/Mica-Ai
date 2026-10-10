@@ -7,6 +7,25 @@ Everything below runs from a fresh clone on a CPU.
 
 Free for personal and research use; commercial use is forbidden ([LICENSE](LICENSE)).
 
+## Flame-W 0.3.4 architecture boundary and measurement
+
+The original B-740 native automaton and language scoring path remain unchanged.
+0.3.4 adds a separate radius-one integer-rule belief-memory plane (32 rings of
+256 sites) with an external deterministic English/choice binding adapter.
+It is not compiled into the native rule VM. Same-name release numbering must
+not be interpreted as a new B-740 checkpoint or a sentence-quality gain.
+
+Controlled development: 899→965/1,000 supported answers versus the previous
+private prototype; zero losses, paired scenario CI [+5.1,+8.2] points. Public
+Tiny ToM: 638/2,000 word / 635/2,000 character, unchanged from that prototype.
+Against published 0.3.3, word +0.10 pp [−0.10,+0.30]; not significant. Public
+inputs/labels were excluded from training and no sealed test was accessed.
+All frozen public predictions and the eight source-engine cache audits are
+documented in the [0.3.4 package](flame/runs/codex_flamew_034_20261010/README.md).
+
+Cellular updates use integer arithmetic. Log-probability normalization and
+decoder search use floating-point scoring; the English adapter is external.
+
 ## 1. How it works, in one screen
 
 - **The field.** A ring of 768 cells × 112 integer channels (int8).

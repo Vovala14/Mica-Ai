@@ -3,7 +3,7 @@
 import { save } from '../lib/blob.js';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
-const MODELS = new Set(['flame-w-0.3.3', 'flame-w-0.3.2', 'flame-w-0.3.1', 'flame-w-memory-20261003', 'flame-w-b-20261001', 'flame-w-full40', 'ember-v02a', 'ember-v0.3a', 'ember-v0.3.1']);
+const MODELS = new Set(['flame-w-0.3.4', 'flame-w-0.3.3', 'flame-w-0.3.2', 'flame-w-0.3.1', 'flame-w-memory-20261003', 'flame-w-b-20261001', 'flame-w-full40', 'ember-v02a', 'ember-v0.3a', 'ember-v0.3.1']);
 const str = (v, max) => (typeof v === 'string' ? v.slice(0, max) : '');
 
 function validSig(r) {

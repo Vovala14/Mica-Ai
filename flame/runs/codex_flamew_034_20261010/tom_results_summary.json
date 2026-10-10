@@ -1,0 +1,121 @@
+{
+  "n": 2000,
+  "benchmark_sha256": "58827a0361597ae4d5ffa79ddbab0936d1509cafcfc02cbb731e4d7a7f3584b8",
+  "source_cache_sha256": "ceecf482a8c88e444717cc14d324bde25d2a41bd0a70ffea0cdd4d0825065830",
+  "prior_prototype_sha256": "2af6f37b9d09adca9812c22740af54a4d53930b91d828d10d21d08de44769192",
+  "new_frozen": {
+    "training_stories": 24000,
+    "training_links": 72000,
+    "integer_training_accuracy": 1.0,
+    "elapsed_seconds": 1.4690000000409782,
+    "cpu_only": true,
+    "frozen_v5_rules_sha256": "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c",
+    "hashes": {
+      "grounding.py": "633f40ecae3afa2f24f4af2b1434d26737f5ccc91f4c14f406d757733aeb092d",
+      "grounding_rules.json": "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c",
+      "train.jsonl": "1e7f7e3818246fc6e2acdfc360c4c008e1e4f526cc275b8b7d42380cd9a1f0ed"
+    }
+  },
+  "source_package_hashes": {
+    "model.mica": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+    "vocab.json": "af1c6d47b1d3c412ab1e131044d8d197df494b51534eff25b3afcb3733b9a2ca",
+    "memory.npz": "5fda5a6c744749932bfba7f18352ce532405e60fca7d64fd99b705c28b928be7",
+    "memory_fitted.npz": "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac",
+    "memory_long.npz": "f2abb7913dd626fb75cfeb96dd97c17c7d7ecbaed88f54c95fdb986734469f3b",
+    "answer_mode.npz": "ea1538c7e431903c69c1cd6ec575b2c7c804feffc839332d376ef51e26d9ad7d",
+    "blend_memory.py": "9d484fd2b3c9b8262de438d90085db787d3df107177c198a1ef40302713a9761",
+    "memory.py": "a59e0732a6ae6c9ba5950c1a53cd28123e4c8aaf4b7d93b1ee6b034736b81775"
+  },
+  "source_exact_audits": [
+    {
+      "index": 0,
+      "max_abs_nats": 0.0
+    },
+    {
+      "index": 250,
+      "max_abs_nats": 0.0
+    },
+    {
+      "index": 500,
+      "max_abs_nats": 0.0
+    },
+    {
+      "index": 750,
+      "max_abs_nats": 0.0
+    },
+    {
+      "index": 1000,
+      "max_abs_nats": 0.0
+    },
+    {
+      "index": 1250,
+      "max_abs_nats": 0.0
+    },
+    {
+      "index": 1500,
+      "max_abs_nats": 0.0
+    },
+    {
+      "index": 1750,
+      "max_abs_nats": 0.0
+    }
+  ],
+  "definite_memory_answers": 12,
+  "grounding_routes": {
+    "insufficient_distinct_places": 1891,
+    "no_memory_answer": 55,
+    "original": 12,
+    "abstain": 30,
+    "ambiguous_ending": 12
+  },
+  "memory_correct": 5,
+  "protocol": "Unmodified full ctx and original endings; frozen integer CA memory, exact integer packaged 0.3.3 fallback; word/char mean ending likelihood, no EOS",
+  "scope": "Private CA-memory extension and external text binding, not native B-740 integration, release, or sentence quality",
+  "uncertainty_unit": "Public item bootstrap; descriptive repeated benchmark, not fresh model selection",
+  "word": {
+    "new_correct": 638,
+    "versus_source": {
+      "correct": 636,
+      "gains": 3,
+      "losses": 1,
+      "changed": 5,
+      "paired_delta_ci95": [
+        -0.001,
+        0.003
+      ]
+    },
+    "versus_old": {
+      "correct": 638,
+      "gains": 0,
+      "losses": 0,
+      "changed": 0,
+      "paired_delta_ci95": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "char": {
+    "new_correct": 635,
+    "versus_source": {
+      "correct": 633,
+      "gains": 4,
+      "losses": 2,
+      "changed": 8,
+      "paired_delta_ci95": [
+        -0.0015,
+        0.0035
+      ]
+    },
+    "versus_old": {
+      "correct": 635,
+      "gains": 0,
+      "losses": 0,
+      "changed": 0,
+      "paired_delta_ci95": [
+        0.0,
+        0.0
+      ]
+    }
+  }
+}

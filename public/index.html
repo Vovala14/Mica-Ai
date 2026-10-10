@@ -152,7 +152,7 @@ footer a, .card a { color: var(--accent); }
         <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
         <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
       </div>
-      <p class="sub">Model packages: <a href="https://huggingface.co/vynly/mica-flame-w-0.3.3">Flame-W 0.3.3</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="https://mica-ai-ten.vercel.app">Live demo</a></p>
+      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.4">Flame-W 0.3.4</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="#belief">Try belief memory</a></p>
     </div>
   </header>
 
@@ -163,7 +163,7 @@ footer a, .card a { color: var(--accent); }
         <ul>
           <li>Not a neural network and not a transformer</li>
           <li>No attention</li>
-          <li>No floating point at inference</li>
+          <li>No floating point in cellular updates</li>
           <li>Not a production assistant</li>
         </ul>
       </div>
@@ -179,17 +179,17 @@ footer a, .card a { color: var(--accent); }
     </div>
     <div class="pair">
       <div class="win">
-        <b>31.25%</b>
+        <b>31.90%</b>
         Tiny Theory-of-Mind, per word token
-        <span>2,000 items, chance 25%. Above 6 of 36 models on that list. Strongest recorded topic: recursive belief, 50%.</span>
+        <span>Flame-W 0.3.4, 638 correct out of 2,000. Chance is 25%. Version 0.3.3: 636/2,000 (31.80%).</span>
       </div>
       <div class="fail">
-        <b>16–18%</b>
-        Weakest topics, below chance
-        <span>Bluffing and communication failure 16%. Diverse beliefs and white lie 18%.</span>
+        <b>No proven ToM gain</b>
+        Small public difference, uncertain
+        <span>The paired 95% interval versus 0.3.3 is −0.10 to +0.30 percentage points. The previous private prototype also scored 31.90%.</span>
       </div>
     </div>
-    <p class="fine">The 31.25% figure belongs to Flame-W 0.3.1's answer mode; 0.3.2 has not been tested on Tiny Theory-of-Mind. Sentence mode does not use answer mode. Many sentence outputs remain incoherent.</p>
+    <p class="fine">0.3.4 adds experimental cellular belief memory for four-choice questions. On controlled development, supported accuracy improved from 89.9% to 96.5%; that is not a public ToM score. Sentence generation is unchanged from 0.3.3 and many outputs remain incoherent.</p>
   </section>
 
   <section class="card" id="try" aria-label="Try a model">
@@ -242,6 +242,26 @@ footer a, .card a { color: var(--accent); }
     </div>
   </section>
 
+  <section class="card" id="belief" aria-labelledby="beliefTitle">
+    <h2 id="beliefTitle">Flame-W 0.3.4 · belief memory</h2>
+    <p class="desc">Give it a story, a question and four possible answers. It tracks limited agent–object–place beliefs; unsupported cases fall back to the word model. This is an experimental capability, not general reasoning.</p>
+    <form id="beliefForm">
+      <label for="beliefStory">Story</label>
+      <textarea id="beliefStory" maxlength="1000" required></textarea>
+      <label for="beliefQuestion">Question or unfinished answer prompt</label>
+      <textarea id="beliefQuestion" maxlength="400" required style="min-height:60px"></textarea>
+      <div id="beliefChoices" class="models">
+        <label>A<input class="better" id="beliefA" maxlength="200" required></label>
+        <label>B<input class="better" id="beliefB" maxlength="200" required></label>
+        <label>C<input class="better" id="beliefC" maxlength="200" required></label>
+        <label>D<input class="better" id="beliefD" maxlength="200" required></label>
+      </div>
+      <div class="row"><button class="ghost" type="button" id="beliefExample">Load example</button><span class="grow"></span><button class="primary" id="beliefGo" type="submit">Answer</button></div>
+    </form>
+    <div id="beliefOutput" aria-live="polite" class="notice" hidden></div>
+    <p class="fine">The example is a controlled development case, not a benchmark question. Prompts, choices and answers are saved under the same research-use policy as the playground.</p>
+  </section>
+
   <section class="card history" id="historyCard" hidden>
     <h2>This session</h2>
     <div id="history"></div>
@@ -250,7 +270,7 @@ footer a, .card a { color: var(--accent); }
   <section class="card">
     <h2>The models</h2>
     <div class="models">
-      <div><b>Flame-W 0.3.3 (9 Oct 2026)</b><br>The original learned integer-rule cellular automaton is unchanged. A conservative integer short-memory blend improves exact clean short-record loss from 5.208428 to 5.189430 bits/word+EOS; long-record loss rises from 8.082371 to 8.086188. The equal-weight short/long score improves by 0.007590 bits. A single-rater blind sentence check found 1 better, 1 worse and 38 tied continuations, so sentence quality is not established as better. Public Tiny Theory-of-Mind was 636/2,000 versus 632/2,000 for 0.3.2; that difference is uncertain. Many outputs remain incoherent.</div>
+      <div><b>Flame-W 0.3.4 (10 Oct 2026)</b><br>Adds a separate radius-one cellular belief-memory plane with 8,192 cells, learned integer COPY/SKIP rules and an external English binding adapter. The original B-740 automaton, vocabulary, three language-memory banks and sentence decoder stay unchanged from 0.3.3. Controlled supported development: 899 → 965/1,000 correct, no prior-correct losses; paired 95% interval +5.1 to +8.2 percentage points. Public Tiny ToM: 638/2,000 (31.90%), unchanged from the private prototype and not a significant gain over 0.3.3. No new sentence-quality or five-task leaderboard claim. <a href="https://github.com/Vovala14/Mica-Ai/tree/main/flame/runs/codex_flamew_034_20261010">Package, hashes and limitations</a>.</div>
       <div><b>Ember v0.3.1 (8 Oct 2026)</b><br>The same integer-rule cellular model, with an updated byte readout and integer memory sidecar. Exact integer clean byte+EOS equal-domain loss falls from 1.868322 to 1.831770 bits/target versus v0.2A (paired change −0.036552; 95% CI −0.038721 to −0.034442). The site's v0.3a word heads remain unchanged: next-word top-1 14.25% and two-letter completion 48.00%, with no word-score gain. The memory sidecar is packaged for byte scoring; the demo uses the word decoder.</div>
     </div>
     <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
@@ -402,7 +422,7 @@ const STEPS = {
     'Keeping only words that begin with your two letters',
   ],
 };
-const MORE = ['No floating point anywhere: every step is integer math', 'Still weighing the candidates',
+const MORE = ['The cellular update rules use integer math', 'Still weighing the candidates',
   'Same prompt, same answer: the engine is fully deterministic', 'All of this runs on a plain CPU, no GPU'];
 const STEP_MS = { 'flame-sentence': 1500, 'flame-suggest': 450, 'ember-next': 600, 'ember-complete': 600 };
 let thinking = null;
@@ -567,6 +587,38 @@ async function sendFeedback() {
   $('fbStatus').textContent = ok ? 'Thanks! Saved for training.' : 'Could not save feedback.';
   $('fbStatus').className = 'status grow ' + (ok ? 'ok' : 'err');
 }
+const beliefExample = {
+  prompt: 'Before lunch, Ludovic placed the buckle by the silk pouch. Oriana later told Ludovic the buckle was in the purple trunk. Then Oriana carried the buckle over to a cotton bag.',
+  question: 'Ludovic thinks the buckle is currently at',
+  choices: ['Ludovic would look for the buckle at the cotton bag.', 'Ludovic would look for the buckle at the purple trunk.', 'Ludovic would look for the buckle at the pink box.', 'Ludovic would look for the buckle at the silk pouch.']
+};
+function loadBeliefExample() {
+  $('beliefStory').value = beliefExample.prompt;
+  $('beliefQuestion').value = beliefExample.question;
+  ['A','B','C','D'].forEach((c,i) => $('belief'+c).value = beliefExample.choices[i]);
+  $('beliefOutput').hidden = true;
+}
+$('beliefExample').onclick = loadBeliefExample;
+$('beliefForm').onsubmit = async event => {
+  event.preventDefault();
+  $('beliefGo').disabled = true;
+  $('beliefGo').textContent = 'Checking…';
+  $('beliefOutput').hidden = false;
+  $('beliefOutput').textContent = 'Reading the story and comparing the answers…';
+  try {
+    const payload = { mode: 'answer', prompt: $('beliefStory').value, question: $('beliefQuestion').value,
+      choices: ['A','B','C','D'].map(c => $('belief'+c).value) };
+    const response = await fetch('/api/flame', { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify(payload) });
+    const data = await response.json();
+    if (!response.ok || data.error) throw new Error(data.error || 'Could not answer.');
+    const route = data.route === 'cellular-belief-memory' ? 'Belief-memory answer' : 'Word-model fallback; the memory could not resolve this story';
+    $('beliefOutput').textContent = `${String.fromCharCode(65+data.answer_index)}. ${data.output}\n${route} · ${(data.ms/1000).toFixed(2)} s`;
+    log({ kind:'generation', ...pick(data), ms:data.ms, model_sha256:data.model_sha256,
+      settings:{ decoder:data.decoder, route:data.route, belief_rule_sha256:data.belief_rule_sha256, grounding_rule_sha256:data.grounding_rule_sha256 } }).catch(() => {});
+  } catch (error) { $('beliefOutput').textContent = error.message; }
+  finally { $('beliefGo').disabled = false; $('beliefGo').textContent = 'Answer'; }
+};
+loadBeliefExample();
 setMode(mode);
 </script>
 </body>

@@ -1,0 +1,8 @@
+{
+  "pytest": "r1/tests",
+  "passed": 147,
+  "subtests_passed": 11,
+  "public_runner_fallback_smoke_items": 20,
+  "public_runner_memory_smoke_items": 2,
+  "packaged_frozen_parity_items": 3200
+}

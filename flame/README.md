@@ -4,7 +4,26 @@ Flame-W is the word-level MICA model: the same integer cellular automaton, with
 one symbol per word (16,384-symbol vocabulary, `r1/data/word/vocab.json`).
 It is not the byte-level Flame. The byte/letter-level model is [MICA Ember](../ember/).
 
-## Current model: 0.3.3 (2026-10-09)
+## Current release: 0.3.4 (2026-10-10)
+
+An experimental cellular belief-memory extension: original B-740 plus unchanged
+0.3.3 language memories and sentence decoder, with a separate 32×256-site
+radius-one integer COPY/SKIP memory and external English binding for four-choice
+QA. This is not a rewritten native B-740 checkpoint. Sentence generation and
+loss are unchanged.
+
+Controlled supported development: previous private prototype 899→965/1,000,
+66 gains/zero losses, paired 95% CI [+5.1,+8.2] percentage points. Public Tiny
+ToM: 638/2,000 (31.90%) word and 635/2,000 (31.75%) character. Public answers
+are unchanged versus that private prototype; the +2 word answers against
+published 0.3.3 are uncertain (95% CI [−0.10,+0.30] points). No new sentence
+or leaderboard quality claim. The controlled grammar is not unrestricted English.
+
+[Download 0.3.4](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.4) ·
+[Package and full protocol](runs/codex_flamew_034_20261010/README.md) ·
+[Live belief-memory demo](https://mica-ai-ten.vercel.app/#belief).
+
+## Previous release: 0.3.3 (2026-10-09)
 
 The [public 0.3.3 package](https://huggingface.co/vynly/mica-flame-w-0.3.3) keeps the B-740 learned integer-rule automaton (SHA-256 `1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d`) and the 0.3.2 decoder. For the first 64 fed word symbols, its memory bonus is `floor((3 * original_short + fitted_short + 2) / 4)`; after 64 symbols it uses the unchanged long bank. The three packed memory files and checkpoint total 36,132,566 bytes. The fitted bank adds 673,650 bytes over 0.3.2. Implementation, exact hashes and frozen gates are in [`runs/codex_flamew_033_20261009/EVALUATION.md`](runs/codex_flamew_033_20261009/EVALUATION.md).
 

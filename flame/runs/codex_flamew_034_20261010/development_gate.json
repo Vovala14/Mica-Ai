@@ -1,0 +1,10 @@
+{
+  "accepted": true,
+  "checks": {
+    "component": true,
+    "net_gain_6": true,
+    "paired_lower_positive": true,
+    "old_correct_lost_5pct": true,
+    "negative_fallback_same": true
+  }
+}

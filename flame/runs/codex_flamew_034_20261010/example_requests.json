@@ -1,0 +1,26 @@
+[
+  {
+    "context": "Before lunch, Ludovic placed the buckle by the silk pouch. Oriana later told Ludovic the buckle was in the purple trunk. Then Oriana carried the buckle over to a cotton bag.",
+    "prompt": "Ludovic thinks the buckle is currently at",
+    "choices": [
+      "Ludovic would look for the buckle at the cotton bag.",
+      "Ludovic would look for the buckle at the purple trunk.",
+      "Ludovic would look for the buckle at the pink box.",
+      "Ludovic would look for the buckle at the silk pouch."
+    ],
+    "gold": 1,
+    "selected_answer": "Ludovic would look for the buckle at the purple trunk."
+  },
+  {
+    "context": "At the outset, Nestor had stored the kettle inside the hallway locker. Later, Oriana informed Nestor that the buckle could be found at silk pouch. Afterward, Oriana moved the kettle inside silk pouch.",
+    "prompt": "Nestor thinks the kettle is currently at",
+    "choices": [
+      "Nestor would look for the kettle at the cotton bag.",
+      "Nestor would look for the kettle at the copper drawer.",
+      "Nestor would look for the kettle at the silk pouch.",
+      "Nestor would look for the kettle at the hallway locker."
+    ],
+    "gold": 3,
+    "selected_answer": "Nestor would look for the kettle at the hallway locker."
+  }
+]

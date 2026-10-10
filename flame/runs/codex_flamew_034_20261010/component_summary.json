@@ -1,0 +1,62 @@
+{
+  "supported_n": 1000,
+  "old_memory_correct": 835,
+  "new_memory_correct": 965,
+  "pairs_n": 500,
+  "new_complete_pairs": 465,
+  "negative_n": 200,
+  "negative_definite": 0,
+  "paired_gain_ci95": [
+    0.11,
+    0.15
+  ],
+  "checks": {
+    "supported_85": true,
+    "pairs_70": true,
+    "negative_definite_2": true,
+    "positive_paired_gain": true,
+    "permutation": true
+  },
+  "accepted": true,
+  "data_sha256": "d038373f4c082b1f5e9298c5c1ee85714b94be4335707b1d5d7aaf59e64816f8",
+  "frozen": {
+    "training_stories": 24000,
+    "training_links": 72000,
+    "integer_training_accuracy": 1.0,
+    "elapsed_seconds": 1.4690000000409782,
+    "cpu_only": true,
+    "frozen_v5_rules_sha256": "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c",
+    "hashes": {
+      "grounding.py": "633f40ecae3afa2f24f4af2b1434d26737f5ccc91f4c14f406d757733aeb092d",
+      "grounding_rules.json": "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c",
+      "train.jsonl": "1e7f7e3818246fc6e2acdfc360c4c008e1e4f526cc275b8b7d42380cd9a1f0ed"
+    }
+  },
+  "per_family": {
+    "message": {
+      "n": 400,
+      "old": 347,
+      "new": 400
+    },
+    "negative": {
+      "n": 200,
+      "old": 0,
+      "new": 0
+    },
+    "observation": {
+      "n": 200,
+      "old": 138,
+      "new": 165
+    },
+    "other_object": {
+      "n": 200,
+      "old": 173,
+      "new": 200
+    },
+    "other_recipient": {
+      "n": 200,
+      "old": 177,
+      "new": 200
+    }
+  }
+}

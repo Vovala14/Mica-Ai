@@ -1,0 +1,9 @@
+{
+  "article_identity_checks": 3,
+  "negative_link_checks": 3,
+  "prior_retention_items": 600,
+  "prior_definite_decisions_preserved": 500,
+  "new_option_permutation_checks": 1200,
+  "ca_rule_sha256": "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c",
+  "grounding_rule_sha256": "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c"
+}
