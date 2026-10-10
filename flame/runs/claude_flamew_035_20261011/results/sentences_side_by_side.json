@@ -1,0 +1,58 @@
+[
+ {
+  "prompt": "I was thinking about",
+  "0.3.4": "I was thinking about how it would affect you.",
+  "0.3.5": "I was thinking about starting my own business.",
+  "0.3.4_suggest": "I was thinking about getting a",
+  "0.3.5_suggest": "I was thinking about getting a"
+ },
+ {
+  "prompt": "The weather today is",
+  "0.3.4": "The weather today is a good place.",
+  "0.3.5": "The weather today is a good place.",
+  "0.3.4_suggest": "The weather today is a good",
+  "0.3.5_suggest": "The weather today is a good job"
+ },
+ {
+  "prompt": "My favorite thing to do on weekends is",
+  "0.3.4": "My favorite thing to do on weekends is going to happen.",
+  "0.3.5": "My favorite thing to do on weekends is going to happen.",
+  "0.3.4_suggest": "My favorite thing to do on weekends is a lot of",
+  "0.3.5_suggest": "My favorite thing to do on weekends is going to happen"
+ },
+ {
+  "prompt": "Can you send me",
+  "0.3.4": "Can you send me for a while now.",
+  "0.3.5": "Can you send me a couple of hours.",
+  "0.3.4_suggest": "Can you send me to a",
+  "0.3.5_suggest": "Can you send me the address"
+ },
+ {
+  "prompt": "The little girl opened the box and",
+  "0.3.4": "The little girl opened the box and then went home.",
+  "0.3.5": "The little girl opened the box and then went home.",
+  "0.3.4_suggest": "The little girl opened the box and it was",
+  "0.3.5_suggest": "The little girl opened the box and it was"
+ },
+ {
+  "prompt": "When I got home from work,",
+  "0.3.4": "When I got home from work, but it was worth it.",
+  "0.3.5": "When I got home from work, but it's been worth it.",
+  "0.3.4_suggest": "When I got home from work, but I",
+  "0.3.5_suggest": "When I got home from work, but I"
+ },
+ {
+  "prompt": "Scientists have discovered that",
+  "0.3.4": "Scientists have discovered that one day at a time.",
+  "0.3.5": "Scientists have discovered that one day at a time.",
+  "0.3.4_suggest": "Scientists have discovered that the team",
+  "0.3.5_suggest": "Scientists have discovered that the story"
+ },
+ {
+  "prompt": "The best way to learn a new language is",
+  "0.3.4": "The best way to learn a new language is too much for me.",
+  "0.3.5": "The best way to learn a new language is a lot of fun.",
+  "0.3.4_suggest": "The best way to learn a new language is too short",
+  "0.3.5_suggest": "The best way to learn a new language is so well"
+ }
+]
