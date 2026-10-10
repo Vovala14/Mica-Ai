@@ -152,7 +152,7 @@ footer a, .card a { color: var(--accent); }
         <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
         <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
       </div>
-      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.4">Flame-W 0.3.4</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="#belief">Try belief memory</a></p>
+      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5">Flame-W 0.3.5</a> · <a href="https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008">Ember v0.3.1</a> · <a href="#belief">Try belief memory</a></p>
     </div>
   </header>
 
@@ -179,17 +179,17 @@ footer a, .card a { color: var(--accent); }
     </div>
     <div class="pair">
       <div class="win">
-        <b>31.90%</b>
+        <b>32.25%</b>
         Tiny Theory-of-Mind, per word token
-        <span>Flame-W 0.3.4, 638 correct out of 2,000. Chance is 25%. Version 0.3.3: 636/2,000 (31.80%).</span>
+        <span>Flame-W 0.3.5, 645 correct out of 2,000. Chance is 25%. Version 0.3.4: 638/2,000 (31.90%).</span>
       </div>
       <div class="fail">
         <b>No proven ToM gain</b>
         Small public difference, uncertain
-        <span>The paired 95% interval versus 0.3.3 is −0.10 to +0.30 percentage points. The previous private prototype also scored 31.90%.</span>
+        <span>Versus 0.3.4: 54 questions gained and 47 lost (McNemar p = 0.55). The 33% goal is not reached.</span>
       </div>
     </div>
-    <p class="fine">0.3.4 adds experimental cellular belief memory for four-choice questions. On controlled development, supported accuracy improved from 89.9% to 96.5%; that is not a public ToM score. Sentence generation is unchanged from 0.3.3 and many outputs remain incoherent.</p>
+    <p class="fine">0.3.5 averages the automaton’s learned integer rule values and readout over 40 training rounds. With the same memories and decoders it predicts text better (short text 5.189 → 5.162, long text 8.086 → 8.074 bits per word) and scores higher on HellaSwag (27.30 → 27.70). 0.3.4 added experimental cellular belief memory for four-choice questions (controlled development 89.9% → 96.5%; not a public ToM score). Many generated sentences remain incoherent.</p>
   </section>
 
   <section class="card" id="try" aria-label="Try a model">
@@ -243,7 +243,7 @@ footer a, .card a { color: var(--accent); }
   </section>
 
   <section class="card" id="belief" aria-labelledby="beliefTitle">
-    <h2 id="beliefTitle">Flame-W 0.3.4 · belief memory</h2>
+    <h2 id="beliefTitle">Flame-W 0.3.5 · belief memory</h2>
     <p class="desc">Give it a story, a question and four possible answers. It tracks limited agent–object–place beliefs; unsupported cases fall back to the word model. This is an experimental capability, not general reasoning.</p>
     <form id="beliefForm">
       <label for="beliefStory">Story</label>
@@ -270,6 +270,7 @@ footer a, .card a { color: var(--accent); }
   <section class="card">
     <h2>The models</h2>
     <div class="models">
+      <div><b>Flame-W 0.3.5 (11 Oct 2026)</b><br>The same B-740 geometry with its learned integer rule values and readout averaged over 40 training rounds (stochastic weight averaging); memories, belief memory and decoders are unchanged from 0.3.4. Exact integer bits per word: short text 5.189 → 5.162, long text 8.086 → 8.074 (both paired 95% intervals exclude zero). Tiny ToM 638 → 645/2,000 (not significant); HellaSwag 27.30 → 27.70 (p = 0.03); ARC-Easy 25.80 → 26.18; ARC-Challenge 19.80 → 20.73; PIQA 51.41 → 51.31; ArithMark-3 26.9 → 27.0.</div>
       <div><b>Flame-W 0.3.4 (10 Oct 2026)</b><br>Adds a separate radius-one cellular belief-memory plane with 8,192 cells, learned integer COPY/SKIP rules and an external English binding adapter. The original B-740 automaton, vocabulary, three language-memory banks and sentence decoder stay unchanged from 0.3.3. Controlled supported development: 899 → 965/1,000 correct, no prior-correct losses; paired 95% interval +5.1 to +8.2 percentage points. Public Tiny ToM: 638/2,000 (31.90%), unchanged from the private prototype and not a significant gain over 0.3.3. No new sentence-quality or five-task leaderboard claim. <a href="https://github.com/Vovala14/Mica-Ai/tree/main/flame/runs/codex_flamew_034_20261010">Package, hashes and limitations</a>.</div>
       <div><b>Ember v0.3.1 (8 Oct 2026)</b><br>The same integer-rule cellular model, with an updated byte readout and integer memory sidecar. Exact integer clean byte+EOS equal-domain loss falls from 1.868322 to 1.831770 bits/target versus v0.2A (paired change −0.036552; 95% CI −0.038721 to −0.034442). The site's v0.3a word heads remain unchanged: next-word top-1 14.25% and two-letter completion 48.00%, with no word-score gain. The memory sidecar is packaged for byte scoring; the demo uses the word decoder.</div>
     </div>

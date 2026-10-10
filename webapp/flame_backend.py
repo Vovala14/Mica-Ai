@@ -1,4 +1,4 @@
-"""MICA Flame-W 0.3.4: B-740 plus experimental cellular belief-memory QA.
+"""MICA Flame-W 0.3.5: weight-averaged B-740 (B_swa) plus experimental cellular belief-memory QA.
 
 Long-context sentences use w-sent-bos.25-long; short sentences keep w-sent-bos.5f."""
 from __future__ import annotations
@@ -8,16 +8,16 @@ import time
 
 from .common import ROOT, clean_prompt, result
 
-RUN = ROOT / "flame/runs/claude_flamew_b740_20261001/train"
+RUN = ROOT / "flame/runs/claude_flamew_035_20261011"
 MEMORY = ROOT / "flame/runs/codex_flamew_033_20261009/memory.npz"
 MEMORY_FITTED = ROOT / "flame/runs/codex_flamew_033_20261009/memory_fitted.npz"
 MEMORY_LONG = ROOT / "flame/runs/codex_flamew_033_20261009/memory_long.npz"
 VOCAB = ROOT / "r1/data/word/vocab.json"
-SHA = "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d"
+SHA = "eca9faee6f44e3b2e4c10399ec99d202fa941a10ef78e64fb2094b0de70a4616"
 MEMORY_SHA = "5fda5a6c744749932bfba7f18352ce532405e60fca7d64fd99b705c28b928be7"
 MEMORY_FITTED_SHA = "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac"
 MEMORY_LONG_SHA = "f2abb7913dd626fb75cfeb96dd97c17c7d7ecbaed88f54c95fdb986734469f3b"
-MODEL = "flame-w-0.3.4"
+MODEL = "flame-w-0.3.5"
 BELIEF_RUN = ROOT / "flame/runs/codex_flamew_034_20261010"
 BELIEF_RULE_SHA = "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c"
 GROUNDING_RULE_SHA = "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c"

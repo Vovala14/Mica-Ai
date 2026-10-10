@@ -1,0 +1,30 @@
+{
+ "code_dir": "../../../r1",
+ "model": "best.mica",
+ "model_sha256": "eca9faee6f44e3b2e4c10399ec99d202fa941a10ef78e64fb2094b0de70a4616",
+ "geometry_env": {
+  "MICA_CANDIDATES": "1024",
+  "MICA_CELLS": "768",
+  "MICA_CHANNELS": "112",
+  "MICA_INJECT": "24",
+  "MICA_LOGIT_DIVISOR": "1024",
+  "MICA_OFFSETS": "-1,-2,-3,-4,-6,-8",
+  "MICA_PHASES": "16",
+  "MICA_PROBE": "240",
+  "MICA_PROBE_COEF": "int8",
+  "MICA_PROBE_WINDOW": "64",
+  "MICA_ROLLING_READOUT": "1",
+  "MICA_ROUTING": "pairdiff",
+  "MICA_ROUTING_CHANNELS": "0,1,2,3,4",
+  "MICA_SYMBOLS": "16384",
+  "MICA_TAPE": "16",
+  "MICA_TICKS": "16",
+  "MICA_VSET": "6",
+  "MICA_WINDOW": "1"
+ },
+ "version": "0.3.5",
+ "name": "MICA Flame-W 0.3.5 (B_swa)",
+ "source_model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+ "change": "B-740 with its learned integer rule immediates and readout averaged over 40 live fit rounds (stochastic weight averaging); same geometry and file size",
+ "memories": "unchanged 0.3.3/0.3.4 banks in flame/runs/codex_flamew_033_20261009; answer mode and belief memory unchanged"
+}

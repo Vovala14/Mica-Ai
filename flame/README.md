@@ -4,7 +4,19 @@ Flame-W is the word-level MICA model: the same integer cellular automaton, with
 one symbol per word (16,384-symbol vocabulary, `r1/data/word/vocab.json`).
 It is not the byte-level Flame. The byte/letter-level model is [MICA Ember](../ember/).
 
-## Current release: 0.3.4 (2026-10-10)
+## Current release: 0.3.5 (2026-10-11)
+
+Weight-averaged automaton. The B-740 geometry with its learned integer rule
+immediates and readout averaged over 40 training rounds (stochastic weight
+averaging); everything else is byte-identical to 0.3.4. Exact integer bits per
+word: short text 5.189 → 5.162, long text 8.086 → 8.074 (paired intervals exclude
+zero). Tiny ToM 638 → 645/2,000; HellaSwag 27.30 → 27.70; ARC-Easy 25.80 → 26.18;
+ARC-Challenge 19.80 → 20.73; PIQA 51.41 → 51.31; ArithMark-3 26.9 → 27.0.
+[Release notes and evidence](runs/claude_flamew_035_20261011/README.md) ·
+[Download 0.3.5](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5) ·
+[Hugging Face](https://huggingface.co/vynly/mica-flame-w-0.3.5)
+
+## Previous release: 0.3.4 (2026-10-10)
 
 An experimental cellular belief-memory extension: original B-740 plus unchanged
 0.3.3 language memories and sentence decoder, with a separate 32×256-site
@@ -23,7 +35,7 @@ or leaderboard quality claim. The controlled grammar is not unrestricted English
 [Package and full protocol](runs/codex_flamew_034_20261010/README.md) ·
 [Live belief-memory demo](https://mica-ai-ten.vercel.app/#belief).
 
-## Previous release: 0.3.3 (2026-10-09)
+## Earlier release: 0.3.3 (2026-10-09)
 
 The [public 0.3.3 package](https://huggingface.co/vynly/mica-flame-w-0.3.3) keeps the B-740 learned integer-rule automaton (SHA-256 `1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d`) and the 0.3.2 decoder. For the first 64 fed word symbols, its memory bonus is `floor((3 * original_short + fitted_short + 2) / 4)`; after 64 symbols it uses the unchanged long bank. The three packed memory files and checkpoint total 36,132,566 bytes. The fitted bank adds 673,650 bytes over 0.3.2. Implementation, exact hashes and frozen gates are in [`runs/codex_flamew_033_20261009/EVALUATION.md`](runs/codex_flamew_033_20261009/EVALUATION.md).
 

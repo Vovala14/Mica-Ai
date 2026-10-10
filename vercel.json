@@ -2,7 +2,7 @@
   "framework": null,
   "outputDirectory": "public",
   "functions": {
-    "api/flame.py": { "maxDuration": 60, "excludeFiles": "{ember/**,node_modules/**,public/**,flame/runs/codex_flame_word_full40_20260928/**,flame/runs/claude_flamew_b_20261001/**}" },
+    "api/flame.py": { "maxDuration": 60, "excludeFiles": "{ember/**,node_modules/**,public/**,flame/runs/codex_flame_word_full40_20260928/**,flame/runs/claude_flamew_b_20261001/**,flame/runs/claude_flamew_b740_20261001/**}" },
     "api/ember.py": { "maxDuration": 30, "excludeFiles": "{flame/**,r1/data/word/**,node_modules/**,public/**}" },
     "api/log.js": { "maxDuration": 15 },
     "api/export.js": { "maxDuration": 300 }

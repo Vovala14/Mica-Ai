@@ -3,6 +3,12 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## Flame-W 0.3.5: weight-averaged automaton (2026-10-11)
+
+- Owner-authorized release on GitHub, Hugging Face and the website. One file changes: the automaton. B_swa SHA `eca9faee…` is B-740 with its learned integer rule immediates and readout averaged over 40 live fit rounds (40,000 training records per round, round-lr 0.01). Geometry, file size, memories, answer mode, belief memory, tokenizer and decoders are byte-identical to 0.3.4.
+- Exact integer bits per word symbol plus EOS with the released memories, paired against 0.3.4: short500 5.189430 → 5.162197 (−0.0272 [−0.0387, −0.0147]); long500 8.086188 → 8.073772 (−0.0124 [−0.0161, −0.0086]). Automaton alone −0.048 short, −0.035 long.
+- Public Tiny ToM word 638 → 645/2,000 (32.25%; +54/−47, p = 0.55), character 635 → 637. HellaSwag 27.30 → 27.70 (+188/−147, p = 0.03); ARC-Easy 25.80 → 26.18; ARC-Challenge 19.80 → 20.73; PIQA 51.41 → 51.31; ArithMark-3 26.9 → 27.0 (frozen 0.3.4 five-task protocol). Nothing was tuned on any benchmark. [Release, hashes and evidence](flame/runs/claude_flamew_035_20261011/README.md).
+
 ## Flame-W 0.3.4: experimental cellular belief memory (2026-10-10)
 
 - Owner-authorized prototype release on GitHub and the website. Adds a separate radius-one 32×256-cell integer memory with learned COPY/SKIP rules and external English binding. Native B-740 SHA `1f4d5503…`, all language-memory banks and sentence decoder remain unchanged.
