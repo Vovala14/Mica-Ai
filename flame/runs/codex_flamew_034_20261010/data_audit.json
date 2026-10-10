@@ -1,0 +1,6 @@
+{
+  "train_n": 24000,
+  "dev_n": 1200,
+  "normalized_story_overlap": 0,
+  "limitation": "Independently generated names, entities and surface variants within a related authored finite semantic grammar; not unrestricted English."
+}

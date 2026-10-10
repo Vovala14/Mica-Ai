@@ -1,0 +1,9 @@
+{
+  "packaged_vs_frozen_dev_predictions": 1200,
+  "option_permutations": 1200,
+  "packaged_vs_frozen_public_predictions": 2000,
+  "memory_cli_examples": 2,
+  "native_fallback_cli_examples": 1,
+  "native_model_and_all_memory_hashes_unchanged": true,
+  "elapsed_seconds": 2.077999999979511
+}

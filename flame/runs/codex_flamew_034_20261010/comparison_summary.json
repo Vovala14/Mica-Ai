@@ -1,0 +1,33 @@
+{
+  "supported_n": 1000,
+  "old_hybrid_correct": 899,
+  "new_hybrid_correct": 965,
+  "old_correct_lost": 0,
+  "new_correct_gains": 66,
+  "paired_delta": 0.066,
+  "paired_delta_ci95": [
+    0.051,
+    0.082
+  ],
+  "checks": {
+    "component": true,
+    "net_gain_6": true,
+    "paired_lower_positive": true,
+    "old_correct_lost_5pct": true,
+    "negative_fallback_same": true
+  },
+  "accepted": true,
+  "source_package_hashes": {
+    "model.mica": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+    "vocab.json": "af1c6d47b1d3c412ab1e131044d8d197df494b51534eff25b3afcb3733b9a2ca",
+    "memory.npz": "5fda5a6c744749932bfba7f18352ce532405e60fca7d64fd99b705c28b928be7",
+    "memory_fitted.npz": "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac",
+    "memory_long.npz": "f2abb7913dd626fb75cfeb96dd97c17c7d7ecbaed88f54c95fdb986734469f3b",
+    "answer_mode.npz": "ea1538c7e431903c69c1cd6ec575b2c7c804feffc839332d376ef51e26d9ad7d",
+    "blend_memory.py": "9d484fd2b3c9b8262de438d90085db787d3df107177c198a1ef40302713a9761",
+    "memory.py": "a59e0732a6ae6c9ba5950c1a53cd28123e4c8aaf4b7d93b1ee6b034736b81775"
+  },
+  "development_sha256": "d038373f4c082b1f5e9298c5c1ee85714b94be4335707b1d5d7aaf59e64816f8",
+  "protocol": "identical full raw context+prompt and raw ending mean word likelihood; exact integer packaged source + released memories fallback",
+  "scope": "Two private CA-memory prototypes; native B-740/released package unchanged"
+}

@@ -3,6 +3,13 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## Flame-W 0.3.4: experimental cellular belief memory (2026-10-10)
+
+- Owner-authorized prototype release on GitHub and the website. Adds a separate radius-one 32×256-cell integer memory with learned COPY/SKIP rules and external English binding. Native B-740 SHA `1f4d5503…`, all language-memory banks and sentence decoder remain unchanged.
+- Fresh controlled supported development versus the previous private prototype: 899→965/1,000, 66 gains/zero losses; paired scenario interval +5.1 to +8.2 percentage points. Memory-only complete pairs 465/500; unsupported definite answers 0/200. Related finite authored grammar limits transfer claims.
+- Public Tiny ToM word 638/2,000 (31.90%), character 635/2,000 (31.75%). Unchanged versus the prior private prototype. Against published 0.3.3 the word difference is +0.10 percentage points [−0.10,+0.30], not statistically established. No new sentence-quality or five-task leaderboard claim; no sealed data.
+- Adds a live story/question/four-choice demo with explicit memory-versus-language-model fallback reporting. [Release, hashes and limits](flame/runs/codex_flamew_034_20261010/README.md).
+
 ## Flame-W 0.3.3: conservative short-memory blend (2026-10-09)
 
 - Released on [Hugging Face](https://huggingface.co/vynly/mica-flame-w-0.3.3) and the live playground. The B-740 learned integer-rule cellular automaton SHA `1f4d5503…`, tokenizer, long-memory bank, sentence decoder and answer mode are unchanged. An additional fitted integer short bank is blended 1:4 with the original for the first 64 fed word symbols. Model and three memory files total 36,132,566 bytes, 673,650 bytes above 0.3.2.

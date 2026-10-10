@@ -1,0 +1,62 @@
+{
+  "code_dir": "../../../r1",
+  "model": "../claude_flamew_b740_20261001/train/best.mica",
+  "model_sha256": "1f4d550386930c8485534368033532301f2db9a49a14a69fd35b702d9e1a1f6d",
+  "geometry_env": {
+    "MICA_CANDIDATES": "1024",
+    "MICA_CELLS": "768",
+    "MICA_CHANNELS": "112",
+    "MICA_INJECT": "24",
+    "MICA_LOGIT_DIVISOR": "1024",
+    "MICA_OFFSETS": "-1,-2,-3,-4,-6,-8",
+    "MICA_PHASES": "16",
+    "MICA_PROBE": "240",
+    "MICA_PROBE_COEF": "int8",
+    "MICA_PROBE_WINDOW": "64",
+    "MICA_ROLLING_READOUT": "1",
+    "MICA_ROUTING": "pairdiff",
+    "MICA_ROUTING_CHANNELS": "0,1,2,3,4",
+    "MICA_SYMBOLS": "16384",
+    "MICA_TAPE": "16",
+    "MICA_TICKS": "16",
+    "MICA_VSET": "6",
+    "MICA_WINDOW": "1"
+  },
+  "version": "0.3.4",
+  "architecture": "Minimal Inference Cellular Automaton (learned integer rules)",
+  "memory_short": "../codex_flamew_033_20261009/memory.npz",
+  "memory_short_sha256": "5fda5a6c744749932bfba7f18352ce532405e60fca7d64fd99b705c28b928be7",
+  "memory_long": "../codex_flamew_033_20261009/memory_long.npz",
+  "memory_long_sha256": "f2abb7913dd626fb75cfeb96dd97c17c7d7ecbaed88f54c95fdb986734469f3b",
+  "memory_switch_after_fed_symbols": 64,
+  "sentence_decoder_short": "w-sent-bos.5f",
+  "sentence_decoder_long": "w-sent-bos.25-long",
+  "memory_fitted": "../codex_flamew_033_20261009/memory_fitted.npz",
+  "memory_fitted_sha256": "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac",
+  "short_memory_blend": "floor((3*released + fitted + 2)/4)",
+  "short_memory_blend_until_fed_symbols": 64,
+  "release_kind": "experimental cellular belief-memory extension",
+  "belief_memory": "belief_memory",
+  "belief_cells": {
+    "topics": 32,
+    "sites_per_topic": 256,
+    "radius": 1
+  },
+  "belief_integer_rules_sha256": "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c",
+  "grounding_rules_sha256": "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c",
+  "english_adapter": "External deterministic binding; not compiled into the native B-740 VM",
+  "sentence_generation": "Identical to 0.3.3; belief memory applies only to four-choice answer mode",
+  "public_tiny_tom": {
+    "items": 2000,
+    "word_correct": 638,
+    "char_correct": 635,
+    "prior_private_word_correct": 638,
+    "published_033_word_correct": 636,
+    "paired_word_gain_vs_033_pp": 0.1,
+    "paired_word_ci95_pp": [
+      -0.1,
+      0.3
+    ],
+    "statistically_established_gain": false
+  }
+}

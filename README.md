@@ -24,12 +24,23 @@ Not a transformer, not a neural network: just learned integer rules on a ring of
 | | |
 |---|---|
 | Try it | [Live demo](https://mica-ai-ten.vercel.app) |
-| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.3](https://huggingface.co/vynly/mica-flame-w-0.3.3) · [Ember v0.3.1 package](https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008) |
+| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.4](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.4) · [Ember v0.3.1 package](https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008) |
 | Clone | `git clone https://github.com/Vovala14/Mica-Ai.git` |
 
-It is an integer cellular automaton: no attention, no floating point, no neural network. It is not a production assistant. Commercial use is forbidden.
+The cellular core uses integer updates, without attention or a neural network. Python scoring converts logits to floating-point log probabilities; 0.3.4 also has an external English binding adapter. It is not a production assistant. Commercial use is forbidden.
 
-On public Tiny Theory-of-Mind (2,000 items, chance 25%), Flame-W 0.3.3 scores **636/2,000 (31.80%)** with word-normalized answer mode. Version 0.3.2 scored 632/2,000 (31.60%); the paired +0.20 percentage-point difference has a 95% interval of −0.25 to +0.65 points, so a ToM improvement is not established. The demo and historical replay below do not use answer mode.
+**Flame-W 0.3.4 is an experimental cellular belief-memory release.** It adds a
+separate 8,192-cell radius-one integer memory and external English binding for
+four-choice questions. The original B-740 engine, language memories and sentence
+decoder stay unchanged from 0.3.3. [Try belief memory](https://mica-ai-ten.vercel.app/#belief).
+
+Public Tiny Theory-of-Mind: **638/2,000 (31.90%)** word-normalized versus
+0.3.3's 636/2,000 (31.80%); paired 95% interval −0.10 to +0.30 percentage
+points, so no established public ToM gain. This is unchanged from the previous
+private prototype. Controlled supported development improves 899→965/1,000
+against that prototype, with no prior-correct losses; paired interval +5.1 to
++8.2 points. Controlled grammar accuracy is not general-English accuracy.
+Sentence quality is unchanged. [Package, exact results and limits](flame/runs/codex_flamew_034_20261010/README.md).
 
 ## What is MICA?
 
@@ -52,7 +63,7 @@ Can a compact, fully integer, local-rule system model language well enough to be
 
 The answer appears to be: yes, in a research setting.
 
-- Flame-W 0.3.3 reaches 31.80% on public Tiny Theory-of-Mind with answer mode; its small change from 0.3.2 is uncertain
+- Flame-W 0.3.4 reaches 31.90% on public Tiny Theory-of-Mind; its difference from 0.3.3 is uncertain
 - Its integer short-memory blend lowers short-record word loss, with a measured small long-record regression
 - Ember v0.3.1 improves byte-level loss; its word-suggestion scores remain unchanged from v0.3a
 - The model is small, inspectable, and intentionally different from mainstream transformer stacks
@@ -61,7 +72,8 @@ The answer appears to be: yes, in a research setting.
 
 MICA models are also published on Hugging Face in the [vynly collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton):
 
-- [vynly/mica-flame-w-0.3.3](https://huggingface.co/vynly/mica-flame-w-0.3.3) — the current sentence model
+- [Flame-W 0.3.4 GitHub release](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.4) — experimental cellular belief-memory extension; sentence model unchanged
+- [vynly/mica-flame-w-0.3.3](https://huggingface.co/vynly/mica-flame-w-0.3.3) — previous language package; the 0.3.4 release is currently on GitHub
 - [vynly/mica-ember-0.3a](https://huggingface.co/vynly/mica-ember-0.3a) — the previous word-assistance card
 - [Ember v0.3.1 GitHub package](https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008) — updated byte checkpoint and integer memory
 
@@ -71,13 +83,13 @@ These model cards mirror the research work in this repository and provide a publ
 
 | Model | Snapshot |
 |---|---|
-| Flame-W 0.3.3 | Same B-740 cellular rules; short-memory blend improves short word loss, with a small long-record cost; research-only sentence generation |
+| Flame-W 0.3.4 | Same B-740 and sentence path; adds experimental integer cellular belief-memory QA; public ToM 31.90%, gain uncertain |
 | Flame-W v0.3 | Improved context use with a learned memory readout |
 | Ember v0.3.1 | Better exact integer byte loss; same next-word and two-letter completion heads as v0.3a |
 
 Highlights from the repo:
 
-- Flame-W 0.3.3: 31.80% word-normalized and 31.65% character-normalized on public Tiny Theory-of-Mind, with unchanged answer mode; no established ToM gain over 0.3.2
+- Flame-W 0.3.4: 31.90% word-normalized and 31.75% character-normalized on public Tiny ToM. Controlled supported development: 96.5%. No established public ToM or sentence-quality gain
 - Exact integer short500 loss: 5.208428 → 5.189430 bits/word symbol plus EOS; long500: 8.082371 → 8.086188 (0.3.2 → 0.3.3). Blind sentence check: 1 win, 1 loss, 38 ties
 - Ember v0.3.1: clean equal-domain byte loss 1.831770 bits/target vs 1.868322 for v0.2A (paired change −0.036552; 95% CI −0.038721 to −0.034442); word top-1 remains 14.25% and two-letter completion remains 48.00%
 
@@ -88,7 +100,7 @@ This is not a production assistant. It is a research model that explores a diffe
 | Part | Where | Status |
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
-| MICA Flame-W (sentence model) | [`flame/`](flame/) | B-740 + three integer memory banks (0.3.3); sentence continuation and generation |
+| MICA Flame-W (sentence model) | [`flame/`](flame/) | B-740 + three language-memory banks and experimental cellular belief memory (0.3.4); sentence path unchanged |
 | MICA Ember (word assistance on a byte engine) | [`ember/`](ember/) | v0.3.1 byte/readout checkpoint with v0.3a integer word heads |
 
 ## Quick start
