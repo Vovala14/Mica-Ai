@@ -1,0 +1,5 @@
+Ember v0.3.7 candidate choice, written 2026-10-11 11:58 UTC (14:58 IDT), before job_041's result is known:
+Candidates on R2+r3add+r4add: (A) probe-state rule ticks T16 (job_037, passed its rule), (B) exact-word rule ticks T16 (job_041).
+Take the candidate with the higher dev2 selection-set score (prompts 1-600 per domain) among those that passed their own
+pre-declared rule; tie -> (B). It replaces v0.3.6's word part only through the release the owner approves. Clean val1000 is
+reported once, never used for the choice.

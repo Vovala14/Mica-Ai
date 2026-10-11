@@ -3,3 +3,4 @@ flame/replay/*.jsonl text eol=lf
 flame/runs/codex_flamew_034_20261010/** -text
 flame/runs/claude_flamew_035_20261011/** -text
 ember/runs/ember_v035_20261011/** -text
+ember/runs/ember_v037_20261011/** -text

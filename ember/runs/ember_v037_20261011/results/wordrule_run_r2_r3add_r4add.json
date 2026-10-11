@@ -1,0 +1,1339 @@
+{
+ "protocol": "arms     control (v0.3.6 recipe, no rule ticks), T8 and T16 rule ticks; vocabulary 32,768 (= v0.3.6),\n           K = 2 word-start inputs to the readout; same seed and example order in every arm; avg2-5.\n  select   dev2 word prompts 1-600 per domain (v0.3.6's selection set): the better of T8/T16 by score\n           (mean of next-word and two-letter top-1); ties go to T8.\n  adopt if (a) its selection score is at least +1.0 point above the control and (b) on the held-back\n           dev2 prompts 601+ per domain (never used for any choice) the paired 95% CI of its score gain\n           over the control is above zero.\n  report   clean val1000, 200 prompts per domain, once. The sealed test is never opened.\n\nWords mode (--words, owner: \"if it keeps the original mica and not make anything neurons\"): the same rule\nticks, but their terms read a fixed 16-value code of each of the previous three words (a hash of the exact\nword, like the byte tape's 16 channels per byte) and the current probe state, so a rule hashes exact word\ncombinations. The automaton is untouched. Arms: control and T16. Pass mark, fixed before running: selection\ngain >= +2.0 points AND held-back dev2 paired 95% CI above zero.",
+ "tag": "run_r2_r3add_r4add",
+ "device": "cuda",
+ "args": {
+  "cmd": "all",
+  "ticks": "0,8,16",
+  "sets": "r2,r3add,r4add",
+  "words": false,
+  "epochs": 5,
+  "batch": 2048,
+  "lr": 0.006,
+  "amp": true,
+  "threads": 6,
+  "vocab": 32768,
+  "balance_rows": 262144,
+  "balance_rounds": 40
+ },
+ "arms": {
+  "control": {
+   "T": 0,
+   "dev600_by_snapshot": {
+    "ep1": {
+     "next": 0.1917,
+     "next_top5": 0.3617,
+     "prefix1": 0.455,
+     "prefix1_top5": 0.675,
+     "prefix2": 0.5975,
+     "prefix2_top5": 0.8025,
+     "prefix3": 0.7608,
+     "prefix3_top5": 0.92,
+     "score": 0.3946
+    },
+    "ep2": {
+     "next": 0.1908,
+     "next_top5": 0.3825,
+     "prefix1": 0.47,
+     "prefix1_top5": 0.6883,
+     "prefix2": 0.615,
+     "prefix2_top5": 0.8133,
+     "prefix3": 0.7758,
+     "prefix3_top5": 0.9342,
+     "score": 0.4029
+    },
+    "ep3": {
+     "next": 0.185,
+     "next_top5": 0.3708,
+     "prefix1": 0.4583,
+     "prefix1_top5": 0.6825,
+     "prefix2": 0.615,
+     "prefix2_top5": 0.825,
+     "prefix3": 0.7925,
+     "prefix3_top5": 0.9342,
+     "score": 0.4
+    },
+    "avg2-3": {
+     "next": 0.2058,
+     "next_top5": 0.3983,
+     "prefix1": 0.485,
+     "prefix1_top5": 0.7,
+     "prefix2": 0.6367,
+     "prefix2_top5": 0.8325,
+     "prefix3": 0.8017,
+     "prefix3_top5": 0.9375,
+     "score": 0.4213
+    },
+    "ep4": {
+     "next": 0.185,
+     "next_top5": 0.3833,
+     "prefix1": 0.4608,
+     "prefix1_top5": 0.6775,
+     "prefix2": 0.6075,
+     "prefix2_top5": 0.8075,
+     "prefix3": 0.7667,
+     "prefix3_top5": 0.9325,
+     "score": 0.3962
+    },
+    "avg2-4": {
+     "next": 0.2183,
+     "next_top5": 0.3992,
+     "prefix1": 0.4908,
+     "prefix1_top5": 0.7042,
+     "prefix2": 0.6467,
+     "prefix2_top5": 0.84,
+     "prefix3": 0.8008,
+     "prefix3_top5": 0.9383,
+     "score": 0.4325
+    },
+    "ep5": {
+     "next": 0.1542,
+     "next_top5": 0.3658,
+     "prefix1": 0.46,
+     "prefix1_top5": 0.6658,
+     "prefix2": 0.5883,
+     "prefix2_top5": 0.805,
+     "prefix3": 0.7508,
+     "prefix3_top5": 0.935,
+     "score": 0.3713
+    },
+    "avg2-5": {
+     "next": 0.2225,
+     "next_top5": 0.41,
+     "prefix1": 0.4967,
+     "prefix1_top5": 0.7033,
+     "prefix2": 0.6417,
+     "prefix2_top5": 0.8383,
+     "prefix3": 0.7983,
+     "prefix3_top5": 0.9408,
+     "score": 0.4321
+    }
+   },
+   "sel_summary": {
+    "next": 0.2225,
+    "next_top5": 0.41,
+    "prefix1": 0.4967,
+    "prefix1_top5": 0.7033,
+    "prefix2": 0.6417,
+    "prefix2_top5": 0.8383,
+    "prefix3": 0.7983,
+    "prefix3_top5": 0.9408,
+    "score": 0.4321
+   },
+   "conf_summary": {
+    "next": 0.2151,
+    "next_top5": 0.4072,
+    "prefix1": 0.4888,
+    "prefix1_top5": 0.7189,
+    "prefix2": 0.6316,
+    "prefix2_top5": 0.849,
+    "prefix3": 0.7939,
+    "prefix3_top5": 0.9423,
+    "score": 0.4234
+   },
+   "clean_summary": {
+    "next": 0.2125,
+    "next_top5": 0.4125,
+    "prefix1": 0.4675,
+    "prefix1_top5": 0.66,
+    "prefix2": 0.6175,
+    "prefix2_top5": 0.785,
+    "prefix3": 0.7625,
+    "prefix3_top5": 0.915,
+    "score": 0.415
+   }
+  },
+  "T8": {
+   "T": 8,
+   "dev600_by_snapshot": {
+    "ep1": {
+     "next": 0.2033,
+     "next_top5": 0.3858,
+     "prefix1": 0.4817,
+     "prefix1_top5": 0.6817,
+     "prefix2": 0.6017,
+     "prefix2_top5": 0.8,
+     "prefix3": 0.77,
+     "prefix3_top5": 0.9208,
+     "score": 0.4025
+    },
+    "ep2": {
+     "next": 0.1975,
+     "next_top5": 0.4,
+     "prefix1": 0.4908,
+     "prefix1_top5": 0.6967,
+     "prefix2": 0.6167,
+     "prefix2_top5": 0.815,
+     "prefix3": 0.7742,
+     "prefix3_top5": 0.935,
+     "score": 0.4071
+    },
+    "ep3": {
+     "next": 0.2008,
+     "next_top5": 0.3908,
+     "prefix1": 0.4825,
+     "prefix1_top5": 0.6917,
+     "prefix2": 0.6183,
+     "prefix2_top5": 0.8233,
+     "prefix3": 0.79,
+     "prefix3_top5": 0.935,
+     "score": 0.4096
+    },
+    "avg2-3": {
+     "next": 0.2158,
+     "next_top5": 0.4283,
+     "prefix1": 0.5133,
+     "prefix1_top5": 0.7158,
+     "prefix2": 0.6442,
+     "prefix2_top5": 0.8325,
+     "prefix3": 0.7992,
+     "prefix3_top5": 0.94,
+     "score": 0.43
+    },
+    "ep4": {
+     "next": 0.2025,
+     "next_top5": 0.3975,
+     "prefix1": 0.4725,
+     "prefix1_top5": 0.69,
+     "prefix2": 0.6233,
+     "prefix2_top5": 0.8092,
+     "prefix3": 0.7767,
+     "prefix3_top5": 0.9333,
+     "score": 0.4129
+    },
+    "avg2-4": {
+     "next": 0.225,
+     "next_top5": 0.4333,
+     "prefix1": 0.5117,
+     "prefix1_top5": 0.7133,
+     "prefix2": 0.6542,
+     "prefix2_top5": 0.8367,
+     "prefix3": 0.8008,
+     "prefix3_top5": 0.9358,
+     "score": 0.4396
+    },
+    "ep5": {
+     "next": 0.1917,
+     "next_top5": 0.3925,
+     "prefix1": 0.4842,
+     "prefix1_top5": 0.6858,
+     "prefix2": 0.6092,
+     "prefix2_top5": 0.8142,
+     "prefix3": 0.7633,
+     "prefix3_top5": 0.935,
+     "score": 0.4004
+    },
+    "avg2-5": {
+     "next": 0.2233,
+     "next_top5": 0.4375,
+     "prefix1": 0.5217,
+     "prefix1_top5": 0.7192,
+     "prefix2": 0.6558,
+     "prefix2_top5": 0.8383,
+     "prefix3": 0.7992,
+     "prefix3_top5": 0.9417,
+     "score": 0.4396
+    }
+   },
+   "sel_summary": {
+    "next": 0.2233,
+    "next_top5": 0.4375,
+    "prefix1": 0.5217,
+    "prefix1_top5": 0.7192,
+    "prefix2": 0.6558,
+    "prefix2_top5": 0.8383,
+    "prefix3": 0.7992,
+    "prefix3_top5": 0.9417,
+    "score": 0.4396
+   },
+   "conf_summary": {
+    "next": 0.2402,
+    "next_top5": 0.4341,
+    "prefix1": 0.4966,
+    "prefix1_top5": 0.733,
+    "prefix2": 0.6355,
+    "prefix2_top5": 0.856,
+    "prefix3": 0.798,
+    "prefix3_top5": 0.9383,
+    "score": 0.4378
+   },
+   "clean_summary": {
+    "next": 0.2425,
+    "next_top5": 0.42,
+    "prefix1": 0.4875,
+    "prefix1_top5": 0.6675,
+    "prefix2": 0.625,
+    "prefix2_top5": 0.7925,
+    "prefix3": 0.77,
+    "prefix3_top5": 0.9175,
+    "score": 0.4337
+   }
+  },
+  "T16": {
+   "T": 16,
+   "dev600_by_snapshot": {
+    "ep1": {
+     "next": 0.2058,
+     "next_top5": 0.3967,
+     "prefix1": 0.4892,
+     "prefix1_top5": 0.69,
+     "prefix2": 0.6075,
+     "prefix2_top5": 0.8058,
+     "prefix3": 0.7717,
+     "prefix3_top5": 0.9225,
+     "score": 0.4067
+    },
+    "ep2": {
+     "next": 0.2058,
+     "next_top5": 0.4108,
+     "prefix1": 0.4908,
+     "prefix1_top5": 0.7008,
+     "prefix2": 0.6133,
+     "prefix2_top5": 0.8108,
+     "prefix3": 0.7858,
+     "prefix3_top5": 0.9308,
+     "score": 0.4096
+    },
+    "ep3": {
+     "next": 0.2058,
+     "next_top5": 0.4075,
+     "prefix1": 0.5042,
+     "prefix1_top5": 0.7,
+     "prefix2": 0.6167,
+     "prefix2_top5": 0.8275,
+     "prefix3": 0.7858,
+     "prefix3_top5": 0.9267,
+     "score": 0.4113
+    },
+    "avg2-3": {
+     "next": 0.225,
+     "next_top5": 0.4383,
+     "prefix1": 0.5258,
+     "prefix1_top5": 0.7175,
+     "prefix2": 0.6483,
+     "prefix2_top5": 0.8317,
+     "prefix3": 0.8025,
+     "prefix3_top5": 0.9283,
+     "score": 0.4367
+    },
+    "ep4": {
+     "next": 0.2142,
+     "next_top5": 0.4133,
+     "prefix1": 0.4942,
+     "prefix1_top5": 0.6983,
+     "prefix2": 0.6158,
+     "prefix2_top5": 0.8142,
+     "prefix3": 0.7783,
+     "prefix3_top5": 0.9317,
+     "score": 0.415
+    },
+    "avg2-4": {
+     "next": 0.2375,
+     "next_top5": 0.4367,
+     "prefix1": 0.5333,
+     "prefix1_top5": 0.7208,
+     "prefix2": 0.6542,
+     "prefix2_top5": 0.8333,
+     "prefix3": 0.8067,
+     "prefix3_top5": 0.9308,
+     "score": 0.4458
+    },
+    "ep5": {
+     "next": 0.1875,
+     "next_top5": 0.4,
+     "prefix1": 0.4925,
+     "prefix1_top5": 0.6917,
+     "prefix2": 0.6117,
+     "prefix2_top5": 0.8225,
+     "prefix3": 0.775,
+     "prefix3_top5": 0.9342,
+     "score": 0.3996
+    },
+    "avg2-5": {
+     "next": 0.2367,
+     "next_top5": 0.4417,
+     "prefix1": 0.53,
+     "prefix1_top5": 0.7242,
+     "prefix2": 0.6567,
+     "prefix2_top5": 0.8408,
+     "prefix3": 0.805,
+     "prefix3_top5": 0.9333,
+     "score": 0.4467
+    }
+   },
+   "sel_summary": {
+    "next": 0.2367,
+    "next_top5": 0.4417,
+    "prefix1": 0.53,
+    "prefix1_top5": 0.7242,
+    "prefix2": 0.6567,
+    "prefix2_top5": 0.8408,
+    "prefix3": 0.805,
+    "prefix3_top5": 0.9333,
+    "score": 0.4467
+   },
+   "conf_summary": {
+    "next": 0.2512,
+    "next_top5": 0.4335,
+    "prefix1": 0.5146,
+    "prefix1_top5": 0.7385,
+    "prefix2": 0.6412,
+    "prefix2_top5": 0.8502,
+    "prefix3": 0.8033,
+    "prefix3_top5": 0.9396,
+    "score": 0.4462
+   },
+   "clean_summary": {
+    "next": 0.2425,
+    "next_top5": 0.435,
+    "prefix1": 0.5,
+    "prefix1_top5": 0.665,
+    "prefix2": 0.6175,
+    "prefix2_top5": 0.78,
+    "prefix3": 0.77,
+    "prefix3_top5": 0.9075,
+    "score": 0.43
+   }
+  }
+ },
+ "prompts": {
+  "chat_dev": {
+   "prompts": 989,
+   "selection": 600,
+   "held_back": 389,
+   "skipped": 0
+  },
+  "everyday_dev": {
+   "prompts": 950,
+   "selection": 600,
+   "held_back": 350,
+   "skipped": 0
+  },
+  "chat_clean": {
+   "prompts": 200,
+   "skipped": 0
+  },
+  "everyday_clean": {
+   "prompts": 200,
+   "skipped": 0
+  }
+ },
+ "cache": {
+  "examples": 5460445,
+  "vocab": 32768,
+  "anchors": 3,
+  "sets": [
+   "r2",
+   "r3add",
+   "r4add"
+  ],
+  "seconds": 59
+ },
+ "balance": {
+  "next": [
+   {
+    "tick": 0,
+    "pages_used": 32,
+    "effective_candidates": 195.72216518808182,
+    "candidates_winning": 255.21875,
+    "page_share_max": 0.089813232421875
+   },
+   {
+    "tick": 1,
+    "pages_used": 32,
+    "effective_candidates": 221.5258297615547,
+    "candidates_winning": 255.90625,
+    "page_share_max": 0.08929443359375
+   },
+   {
+    "tick": 2,
+    "pages_used": 32,
+    "effective_candidates": 196.91996411535908,
+    "candidates_winning": 254.9375,
+    "page_share_max": 0.10810470581054688
+   },
+   {
+    "tick": 3,
+    "pages_used": 32,
+    "effective_candidates": 221.35505464104043,
+    "candidates_winning": 255.90625,
+    "page_share_max": 0.09881591796875
+   },
+   {
+    "tick": 4,
+    "pages_used": 32,
+    "effective_candidates": 194.00517034265778,
+    "candidates_winning": 255.1875,
+    "page_share_max": 0.08833694458007812
+   },
+   {
+    "tick": 5,
+    "pages_used": 32,
+    "effective_candidates": 198.69376718344876,
+    "candidates_winning": 254.15625,
+    "page_share_max": 0.07082366943359375
+   },
+   {
+    "tick": 6,
+    "pages_used": 32,
+    "effective_candidates": 190.54735971073427,
+    "candidates_winning": 254.21875,
+    "page_share_max": 0.08764266967773438
+   },
+   {
+    "tick": 7,
+    "pages_used": 32,
+    "effective_candidates": 212.7096414310078,
+    "candidates_winning": 255.8125,
+    "page_share_max": 0.0679779052734375
+   },
+   {
+    "tick": 8,
+    "pages_used": 32,
+    "effective_candidates": 195.1434308140755,
+    "candidates_winning": 255.3125,
+    "page_share_max": 0.08453750610351562
+   },
+   {
+    "tick": 9,
+    "pages_used": 32,
+    "effective_candidates": 215.60970965094367,
+    "candidates_winning": 255.71875,
+    "page_share_max": 0.10906600952148438
+   },
+   {
+    "tick": 10,
+    "pages_used": 32,
+    "effective_candidates": 181.5486330566824,
+    "candidates_winning": 254.34375,
+    "page_share_max": 0.0764617919921875
+   },
+   {
+    "tick": 11,
+    "pages_used": 32,
+    "effective_candidates": 218.15463462967557,
+    "candidates_winning": 255.75,
+    "page_share_max": 0.0897979736328125
+   },
+   {
+    "tick": 12,
+    "pages_used": 32,
+    "effective_candidates": 195.92721810344247,
+    "candidates_winning": 255.34375,
+    "page_share_max": 0.06919479370117188
+   },
+   {
+    "tick": 13,
+    "pages_used": 32,
+    "effective_candidates": 215.4581060676208,
+    "candidates_winning": 255.75,
+    "page_share_max": 0.07881546020507812
+   },
+   {
+    "tick": 14,
+    "pages_used": 32,
+    "effective_candidates": 197.81776597095694,
+    "candidates_winning": 244.40625,
+    "page_share_max": 0.1797027587890625
+   },
+   {
+    "tick": 15,
+    "pages_used": 32,
+    "effective_candidates": 190.00590377882037,
+    "candidates_winning": 223.5625,
+    "page_share_max": 0.11722564697265625
+   }
+  ],
+  "prefix2": [
+   {
+    "tick": 0,
+    "pages_used": 32,
+    "effective_candidates": 230.25449172112704,
+    "candidates_winning": 255.75,
+    "page_share_max": 0.07627105712890625
+   },
+   {
+    "tick": 1,
+    "pages_used": 32,
+    "effective_candidates": 233.3968694572585,
+    "candidates_winning": 255.90625,
+    "page_share_max": 0.05843353271484375
+   },
+   {
+    "tick": 2,
+    "pages_used": 32,
+    "effective_candidates": 223.4969086616358,
+    "candidates_winning": 254.875,
+    "page_share_max": 0.07373046875
+   },
+   {
+    "tick": 3,
+    "pages_used": 32,
+    "effective_candidates": 225.889369326402,
+    "candidates_winning": 255.90625,
+    "page_share_max": 0.0711212158203125
+   },
+   {
+    "tick": 4,
+    "pages_used": 32,
+    "effective_candidates": 224.58693072220632,
+    "candidates_winning": 255.375,
+    "page_share_max": 0.09199142456054688
+   },
+   {
+    "tick": 5,
+    "pages_used": 32,
+    "effective_candidates": 234.5991003321073,
+    "candidates_winning": 255.875,
+    "page_share_max": 0.060001373291015625
+   },
+   {
+    "tick": 6,
+    "pages_used": 32,
+    "effective_candidates": 224.55771786532776,
+    "candidates_winning": 255.875,
+    "page_share_max": 0.0665740966796875
+   },
+   {
+    "tick": 7,
+    "pages_used": 32,
+    "effective_candidates": 222.3614422887215,
+    "candidates_winning": 255.375,
+    "page_share_max": 0.09585189819335938
+   },
+   {
+    "tick": 8,
+    "pages_used": 32,
+    "effective_candidates": 229.23053410932374,
+    "candidates_winning": 255.65625,
+    "page_share_max": 0.0669403076171875
+   },
+   {
+    "tick": 9,
+    "pages_used": 32,
+    "effective_candidates": 225.66845831076085,
+    "candidates_winning": 255.375,
+    "page_share_max": 0.09825897216796875
+   },
+   {
+    "tick": 10,
+    "pages_used": 32,
+    "effective_candidates": 240.95478624404092,
+    "candidates_winning": 255.90625,
+    "page_share_max": 0.10133743286132812
+   },
+   {
+    "tick": 11,
+    "pages_used": 32,
+    "effective_candidates": 232.57605763979404,
+    "candidates_winning": 255.96875,
+    "page_share_max": 0.07184600830078125
+   },
+   {
+    "tick": 12,
+    "pages_used": 32,
+    "effective_candidates": 235.1484189845258,
+    "candidates_winning": 255.96875,
+    "page_share_max": 0.06443023681640625
+   },
+   {
+    "tick": 13,
+    "pages_used": 32,
+    "effective_candidates": 231.81626623764387,
+    "candidates_winning": 255.90625,
+    "page_share_max": 0.05104827880859375
+   },
+   {
+    "tick": 14,
+    "pages_used": 32,
+    "effective_candidates": 226.3738408343084,
+    "candidates_winning": 255.84375,
+    "page_share_max": 0.06616592407226562
+   },
+   {
+    "tick": 15,
+    "pages_used": 32,
+    "effective_candidates": 235.03522929434087,
+    "candidates_winning": 256.0,
+    "page_share_max": 0.0534210205078125
+   }
+  ]
+ },
+ "v036": {
+  "sel_summary": {
+   "next": 0.2225,
+   "next_top5": 0.395,
+   "prefix1": 0.4883,
+   "prefix1_top5": 0.69,
+   "prefix2": 0.6225,
+   "prefix2_top5": 0.8092,
+   "prefix3": 0.7733,
+   "prefix3_top5": 0.93,
+   "score": 0.4225
+  },
+  "conf_summary": {
+   "next": 0.2268,
+   "next_top5": 0.4058,
+   "prefix1": 0.4972,
+   "prefix1_top5": 0.699,
+   "prefix2": 0.6159,
+   "prefix2_top5": 0.8194,
+   "prefix3": 0.7712,
+   "prefix3_top5": 0.9269,
+   "score": 0.4214
+  },
+  "clean_summary": {
+   "next": 0.2075,
+   "next_top5": 0.3775,
+   "prefix1": 0.45,
+   "prefix1_top5": 0.645,
+   "prefix2": 0.59,
+   "prefix2_top5": 0.75,
+   "prefix3": 0.7375,
+   "prefix3_top5": 0.91,
+   "score": 0.3987
+  }
+ },
+ "v035": {
+  "sel_summary": {
+   "next": 0.1567,
+   "next_top5": 0.3283,
+   "prefix1": 0.4258,
+   "prefix1_top5": 0.6558,
+   "prefix2": 0.565,
+   "prefix2_top5": 0.79,
+   "prefix3": 0.7467,
+   "prefix3_top5": 0.9108,
+   "score": 0.3608
+  },
+  "conf_summary": {
+   "next": 0.1601,
+   "next_top5": 0.3135,
+   "prefix1": 0.4065,
+   "prefix1_top5": 0.6286,
+   "prefix2": 0.5263,
+   "prefix2_top5": 0.776,
+   "prefix3": 0.721,
+   "prefix3_top5": 0.9077,
+   "score": 0.3432
+  },
+  "clean_summary": {
+   "next": 0.1525,
+   "next_top5": 0.3475,
+   "prefix1": 0.435,
+   "prefix1_top5": 0.6175,
+   "prefix2": 0.545,
+   "prefix2_top5": 0.7775,
+   "prefix3": 0.73,
+   "prefix3_top5": 0.87,
+   "score": 0.3487
+  }
+ },
+ "decision": {
+  "chosen": "T16",
+  "selection_gain": 0.014583333333333393,
+  "held_back_score_gain": {
+   "gain": 0.022853470437017995,
+   "ci95": [
+    0.008000321336760926,
+    0.0373521391847227
+   ]
+  },
+  "adopt": true,
+  "vs_control": {
+   "sel": {
+    "next": {
+     "gain": 0.014166666666666668,
+     "ci95": [
+      -0.0016666666666666668,
+      0.03083333333333333
+     ]
+    },
+    "next_top5": {
+     "gain": 0.03166666666666666,
+     "ci95": [
+      0.015,
+      0.04833333333333333
+     ]
+    },
+    "prefix1": {
+     "gain": 0.03333333333333333,
+     "ci95": [
+      0.016666666666666666,
+      0.050833333333333335
+     ]
+    },
+    "prefix1_top5": {
+     "gain": 0.020833333333333336,
+     "ci95": [
+      0.007500000000000001,
+      0.034166666666666665
+     ]
+    },
+    "prefix2": {
+     "gain": 0.015,
+     "ci95": [
+      0.0,
+      0.03
+     ]
+    },
+    "prefix2_top5": {
+     "gain": 0.0025,
+     "ci95": [
+      -0.0075,
+      0.013333333333333332
+     ]
+    },
+    "prefix3": {
+     "gain": 0.006666666666666666,
+     "ci95": [
+      -0.006666666666666666,
+      0.02
+     ]
+    },
+    "prefix3_top5": {
+     "gain": -0.007500000000000001,
+     "ci95": [
+      -0.015000000000000001,
+      0.0
+     ]
+    },
+    "score": {
+     "gain": 0.014583333333333334,
+     "ci95": [
+      0.0033333333333333335,
+      0.025833333333333333
+     ]
+    }
+   },
+   "conf": {
+    "next": {
+     "gain": 0.036136614028644876,
+     "ci95": [
+      0.015710613294160854,
+      0.05756867425633487
+     ]
+    },
+    "next_top5": {
+     "gain": 0.026279838413514504,
+     "ci95": [
+      0.005710613294160853,
+      0.04699228791773779
+     ]
+    },
+    "prefix1": {
+     "gain": 0.025853837679030482,
+     "ci95": [
+      0.005001744399559309,
+      0.04727873668747705
+     ]
+    },
+    "prefix1_top5": {
+     "gain": 0.019570326845391114,
+     "ci95": [
+      0.0030003672420124868,
+      0.03685989717223645
+     ]
+    },
+    "prefix2": {
+     "gain": 0.009570326845391112,
+     "ci95": [
+      -0.01113854204921043,
+      0.029999816378993707
+     ]
+    },
+    "prefix2_top5": {
+     "gain": 0.0011421226588321702,
+     "ci95": [
+      -0.01114212265883217,
+      0.01342636797649651
+     ]
+    },
+    "prefix3": {
+     "gain": 0.009427102460521483,
+     "ci95": [
+      -0.0058575100991553435,
+      0.02570703268453911
+     ]
+    },
+    "prefix3_top5": {
+     "gain": -0.002713918472273228,
+     "ci95": [
+      -0.008284979801689313,
+      0.00242746970253397
+     ]
+    },
+    "score": {
+     "gain": 0.022853470437017995,
+     "ci95": [
+      0.008000321336760926,
+      0.0373521391847227
+     ]
+    }
+   },
+   "clean": {
+    "next": {
+     "gain": 0.03,
+     "ci95": [
+      0.0025000000000000022,
+      0.057499999999999996
+     ]
+    },
+    "next_top5": {
+     "gain": 0.0225,
+     "ci95": [
+      -0.0075,
+      0.0525
+     ]
+    },
+    "prefix1": {
+     "gain": 0.0325,
+     "ci95": [
+      0.0075,
+      0.06
+     ]
+    },
+    "prefix1_top5": {
+     "gain": 0.005,
+     "ci95": [
+      -0.012499999999999999,
+      0.0225
+     ]
+    },
+    "prefix2": {
+     "gain": 0.0,
+     "ci95": [
+      -0.0275,
+      0.0275
+     ]
+    },
+    "prefix2_top5": {
+     "gain": -0.005,
+     "ci95": [
+      -0.0275,
+      0.017499999999999998
+     ]
+    },
+    "prefix3": {
+     "gain": 0.0075,
+     "ci95": [
+      -0.017499999999999998,
+      0.0325
+     ]
+    },
+    "prefix3_top5": {
+     "gain": -0.0075,
+     "ci95": [
+      -0.0225,
+      0.005
+     ]
+    },
+    "score": {
+     "gain": 0.015,
+     "ci95": [
+      -0.005031249999999991,
+      0.035
+     ]
+    }
+   }
+  },
+  "vs_v036": {
+   "conf": {
+    "next": {
+     "gain": 0.02442526625045905,
+     "ci95": [
+      0.0018546639735585763,
+      0.048993756885787734
+     ]
+    },
+    "next_top5": {
+     "gain": 0.027708409842085932,
+     "ci95": [
+      0.0012816746235769366,
+      0.055137715754682334
+     ]
+    },
+    "prefix1": {
+     "gain": 0.01742563349247154,
+     "ci95": [
+      -0.009001101726037459,
+      0.043279562982005144
+     ]
+    },
+    "prefix1_top5": {
+     "gain": 0.03942710246052149,
+     "ci95": [
+      0.01870749173705472,
+      0.06128167462357694
+     ]
+    },
+    "prefix2": {
+     "gain": 0.025284612559676827,
+     "ci95": [
+      0.0012853470437017994,
+      0.04999990818949683
+     ]
+    },
+    "prefix2_top5": {
+     "gain": 0.030712449504223284,
+     "ci95": [
+      0.014998163789937569,
+      0.0477120822622108
+     ]
+    },
+    "prefix3": {
+     "gain": 0.03214102093279471,
+     "ci95": [
+      0.010286448769739259,
+      0.054285714285714284
+     ]
+    },
+    "prefix3_top5": {
+     "gain": 0.012713918472273229,
+     "ci95": [
+      0.001424990818949689,
+      0.024285714285714285
+     ]
+    },
+    "score": {
+     "gain": 0.02485493940506794,
+     "ci95": [
+      0.007713918472273228,
+      0.041711347778185824
+     ]
+    }
+   },
+   "clean": {
+    "next": {
+     "gain": 0.035,
+     "ci95": [
+      0.004999999999999999,
+      0.065
+     ]
+    },
+    "next_top5": {
+     "gain": 0.057499999999999996,
+     "ci95": [
+      0.0275,
+      0.0875
+     ]
+    },
+    "prefix1": {
+     "gain": 0.05,
+     "ci95": [
+      0.017499999999999998,
+      0.08499999999999999
+     ]
+    },
+    "prefix1_top5": {
+     "gain": 0.02,
+     "ci95": [
+      -0.004999999999999999,
+      0.0475
+     ]
+    },
+    "prefix2": {
+     "gain": 0.027500000000000004,
+     "ci95": [
+      -0.0024999999999999988,
+      0.055
+     ]
+    },
+    "prefix2_top5": {
+     "gain": 0.030000000000000002,
+     "ci95": [
+      0.0024999999999999988,
+      0.06
+     ]
+    },
+    "prefix3": {
+     "gain": 0.0325,
+     "ci95": [
+      0.0024999999999999996,
+      0.0625
+     ]
+    },
+    "prefix3_top5": {
+     "gain": -0.0025000000000000005,
+     "ci95": [
+      -0.02,
+      0.015
+     ]
+    },
+    "score": {
+     "gain": 0.03125,
+     "ci95": [
+      0.009999999999999998,
+      0.052500000000000005
+     ]
+    }
+   }
+  },
+  "control_vs_v036": {
+   "conf": {
+    "next": {
+     "gain": -0.011711347778185823,
+     "ci95": [
+      -0.029992655159750276,
+      0.0065736320235034885
+     ]
+    },
+    "next_top5": {
+     "gain": 0.0014285714285714286,
+     "ci95": [
+      -0.01999632757987514,
+      0.02328672420124857
+     ]
+    },
+    "prefix1": {
+     "gain": -0.008428204186558942,
+     "ci95": [
+      -0.03185806096217408,
+      0.014854939405067939
+     ]
+    },
+    "prefix1_top5": {
+     "gain": 0.01985677561513037,
+     "ci95": [
+      0.00042967315460888753,
+      0.03999641939037826
+     ]
+    },
+    "prefix2": {
+     "gain": 0.015714285714285715,
+     "ci95": [
+      -0.005714285714285714,
+      0.03771557106132936
+     ]
+    },
+    "prefix2_top5": {
+     "gain": 0.029570326845391112,
+     "ci95": [
+      0.012857142857142857,
+      0.047715571061329363
+     ]
+    },
+    "prefix3": {
+     "gain": 0.022713918472273227,
+     "ci95": [
+      0.00271042967315461,
+      0.0435660117517444
+     ]
+    },
+    "prefix3_top5": {
+     "gain": 0.015427836944546455,
+     "ci95": [
+      0.004428938670583915,
+      0.026569959603378625
+     ]
+    },
+    "score": {
+     "gain": 0.002001468968049945,
+     "ci95": [
+      -0.012570602276900477,
+      0.016140332354021302
+     ]
+    }
+   },
+   "clean": {
+    "next": {
+     "gain": 0.004999999999999999,
+     "ci95": [
+      -0.02,
+      0.030000000000000002
+     ]
+    },
+    "next_top5": {
+     "gain": 0.035,
+     "ci95": [
+      0.01,
+      0.060062499999999096
+     ]
+    },
+    "prefix1": {
+     "gain": 0.0175,
+     "ci95": [
+      -0.010062499999999981,
+      0.0475
+     ]
+    },
+    "prefix1_top5": {
+     "gain": 0.015,
+     "ci95": [
+      -0.005000000000000001,
+      0.0375
+     ]
+    },
+    "prefix2": {
+     "gain": 0.0275,
+     "ci95": [
+      0.0024999999999999988,
+      0.055
+     ]
+    },
+    "prefix2_top5": {
+     "gain": 0.034999999999999996,
+     "ci95": [
+      0.009999999999999998,
+      0.0625
+     ]
+    },
+    "prefix3": {
+     "gain": 0.025,
+     "ci95": [
+      0.0,
+      0.05
+     ]
+    },
+    "prefix3_top5": {
+     "gain": 0.005,
+     "ci95": [
+      -0.012499999999999999,
+      0.0225
+     ]
+    },
+    "score": {
+     "gain": 0.01625,
+     "ci95": [
+      -0.0012500000000000002,
+      0.035
+     ]
+    }
+   }
+  }
+ },
+ "more_text": {
+  "dev_all_vs_v036": {
+   "next": {
+    "gain": -0.004591559789260817,
+    "ci95": [
+     -0.016469041030280452,
+     0.007389694534617629
+    ]
+   },
+   "next_top5": {
+    "gain": 0.009709435367995317,
+    "ci95": [
+     -0.0026523335639401843,
+     0.022217005481347446
+    ]
+   },
+   "prefix1": {
+    "gain": 0.0019807354584641585,
+    "ci95": [
+     -0.011581022830078228,
+     0.015922489489649284
+    ]
+   },
+   "prefix1_top5": {
+    "gain": 0.015602682135064657,
+    "ci95": [
+     0.004549531690702996,
+     0.02709861103719866
+    ]
+   },
+   "prefix2": {
+    "gain": 0.017687190676387632,
+    "ci95": [
+     0.0036836916609014956,
+     0.03160767122558671
+    ]
+   },
+   "prefix2_top5": {
+    "gain": 0.02910010111223458,
+    "ci95": [
+     0.018192751849289552,
+     0.040131978074610185
+    ]
+   },
+   "prefix3": {
+    "gain": 0.023878452450641265,
+    "ci95": [
+     0.010606739928689268,
+     0.03699587568516842
+    ]
+   },
+   "prefix3_top5": {
+    "gain": 0.01254856048108137,
+    "ci95": [
+     0.005768719067638763,
+     0.019813727316268417
+    ]
+   },
+   "score": {
+    "gain": 0.0065478154435634085,
+    "ci95": [
+     -0.00276009126709595,
+     0.015741738066095464
+    ]
+   }
+  },
+  "adopt": false,
+  "clean_vs_v036": {
+   "next": {
+    "gain": 0.004999999999999999,
+    "ci95": [
+     -0.02,
+     0.030000000000000002
+    ]
+   },
+   "next_top5": {
+    "gain": 0.035,
+    "ci95": [
+     0.01,
+     0.060062499999999096
+    ]
+   },
+   "prefix1": {
+    "gain": 0.0175,
+    "ci95": [
+     -0.010062499999999981,
+     0.0475
+    ]
+   },
+   "prefix1_top5": {
+    "gain": 0.015,
+    "ci95": [
+     -0.005000000000000001,
+     0.0375
+    ]
+   },
+   "prefix2": {
+    "gain": 0.0275,
+    "ci95": [
+     0.0024999999999999988,
+     0.055
+    ]
+   },
+   "prefix2_top5": {
+    "gain": 0.034999999999999996,
+    "ci95": [
+     0.009999999999999998,
+     0.0625
+    ]
+   },
+   "prefix3": {
+    "gain": 0.025,
+    "ci95": [
+     0.0,
+     0.05
+    ]
+   },
+   "prefix3_top5": {
+    "gain": 0.005,
+    "ci95": [
+     -0.012499999999999999,
+     0.0225
+    ]
+   },
+   "score": {
+    "gain": 0.01625,
+    "ci95": [
+     -0.0012500000000000002,
+     0.035
+    ]
+   }
+  }
+ },
+ "seconds": 9737
+}

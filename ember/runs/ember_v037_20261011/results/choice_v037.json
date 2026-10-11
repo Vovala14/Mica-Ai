@@ -1,0 +1,13 @@
+{
+ "mode": "words",
+ "arm": "T16",
+ "selection_scores": {
+  "probes": 0.4467,
+  "words": 0.4562
+ },
+ "heads": "heads/run_r2_r3add_r4add_words_T16_avg2-5.npz",
+ "rules": "heads/run_r2_r3add_r4add_words_rules.npz",
+ "rule": "Ember v0.3.7 candidate choice, written 2026-10-11 11:58 UTC (14:58 IDT), before job_041's result is known:\nCandidates on R2+r3add+r4add: (A) probe-state rule ticks T16 (job_037, passed its rule), (B) exact-word rule ticks T16 (job_041).\nTake the candidate with the higher dev2 selection-set score (prompts 1-600 per domain) among those that passed their own\npre-declared rule; tie -> (B). It replaces v0.3.6's word part only through the release the owner approves. Clean val1000 is\nreported once, never used for the choice.\n",
+ "heads_sha256": "68ece920679c0acafdd30218517b6b363e04d97f7a078b4181299f26efdeae24",
+ "rules_sha256": "1812206d96b71e423c45e958708e8de13461e9584e1f52dae24894f23e8df2cb"
+}

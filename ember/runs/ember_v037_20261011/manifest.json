@@ -1,0 +1,21 @@
+{
+  "version": "Ember v0.3.7",
+  "role": "next-word suggestions and word completion after any number of typed letters, plus byte-level scoring",
+  "architecture": "Minimal Inference Cellular Automaton with learned integer rewrite rules, quantized integer readout, an integer byte-memory sidecar (64-byte window), and integer word readouts over the 240 cellular probes at the current position and at the starts of the previous 2 words, plus 16 MICA rule ticks per word readout (32 pages x 256 candidates, six +-1 scoring terms, VSET of six learned integers) whose terms read a fixed 16-value code of each of the previous three words (a hash of the word) and the current probes",
+  "source_model": "model.mica",
+  "source_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+  "automaton_sha256": "381fbf71e0cc61129ad9b61d92a16fd68accba515a2dbdd68ca0ca99ccaf7345",
+  "memory": "memory.npz",
+  "memory_sha256": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8",
+  "byte_part": "unchanged from v0.3.5",
+  "word_heads": "word_heads.npz",
+  "word_heads_sha256": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67",
+  "word_vocabulary": 32768,
+  "word_memory_anchors": 2,
+  "word_rule_ticks": 16,
+  "word_rule_mode": "words",
+  "training": "automaton, byte readout and memory unchanged from v0.3.5 (E_swa, weight-averaged); word readouts and rule-tick immediates fitted jointly with the rule selection fixed, on the exact integer probe states of 697,070 train-only records (R2 119,823, r3add 179,404, r4add 397,843)",
+  "selection": "dev2 word prompts 1-600 per domain; pre-declared pass marks confirmed on held-back dev2 prompts 601+; candidate choice by results/CHOICE_RULE.txt; never the clean sets",
+  "confirmation": "held-back dev2 word prompts; after the choice, 1,920 older development prompts that no choice used (chat dev1000, everyday dev_fresh1000); clean chat/everyday val1000 word benchmark for reporting only",
+  "sealed_test": "never accessed"
+}

@@ -152,7 +152,7 @@ footer a, .card a { color: var(--accent); }
         <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
         <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
       </div>
-      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5">Flame-W 0.3.5</a> · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.5">Ember v0.3.5</a> · <a href="#belief">Try belief memory</a></p>
+      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5">Flame-W 0.3.5</a> · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">Ember v0.3.7</a> · <a href="#belief">Try belief memory</a></p>
     </div>
   </header>
 
@@ -271,7 +271,7 @@ footer a, .card a { color: var(--accent); }
     <h2>The models</h2>
     <div class="models">
       <div><b>Flame-W 0.3.5 (11 Oct 2026)</b><br>The same B-740 geometry with its learned integer rule values and readout averaged over 40 training rounds (stochastic weight averaging); memories, belief memory and decoders are unchanged. Exact integer bits per word: short text 5.189 → 5.162, long text 8.086 → 8.074 (both paired 95% intervals exclude zero). Tiny ToM 638 → 645/2,000 (not significant); HellaSwag 27.30 → 27.70 (p = 0.03); ARC-Easy 25.80 → 26.18; ARC-Challenge 19.80 → 20.73; PIQA 51.41 → 51.31; ArithMark-3 26.9 → 27.0.</div>
-      <div><b>Ember v0.3.5 (11 Oct 2026)</b><br>The same byte-level cellular geometry. Its learned integer rule values and readout were averaged over 60 training rounds (the Flame-W 0.3.5 method), then the byte readout, the 14 KB integer memory and the word readouts were refit on 119,823 training records. Clean word benchmark: two-letter completion 48.00% → 54.50% (95% CI +3.0 to +10.0 points); next-word top-1 14.25% → 15.25%, within noise. Clean byte loss 1.831770 → 1.810055 bits/target (paired change −0.021715; 95% CI −0.023154 to −0.020275). <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.5">Release and evidence</a>.</div>
+      <div><b>Ember v0.3.7 (11 Oct 2026)</b><br>Word rules over the previous words: before each suggestion, 16 learned integer rule steps read fixed codes of the last three words. A 32,768-word vocabulary and a word memory (the readouts also read the automaton at the starts of the last 2 words); finish word works after any number of letters. Trained on 697,070 texts; the automaton and byte memory are unchanged. Clean word benchmark: next-word top-1 15.25% → 21.50% (95% CI +2.5 to +10.0 points), two-letter completion 54.50% → 63.75% (+5.25 to +13.0). <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">Release and evidence</a>.</div>
     </div>
     <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
   </section>
@@ -291,15 +291,15 @@ const MODES = {
   'flame-suggest': { api: '/api/flame', body: p => ({ prompt: p, mode: 'suggest' }), action: 'Suggest',
     desc: 'Flame-W suggests the next two or three words, like a phone keyboard.' },
   'ember-next': { api: '/api/ember', body: p => ({ prompt: p, mode: 'next-word' }), action: 'Suggest',
-    desc: 'Ember v0.3.5 suggests one next word. Type a complete phrase; a final space is optional.' },
+    desc: 'Ember v0.3.7 suggests one next word from what you wrote so far. A final space is optional.' },
   'ember-complete': { api: '/api/ember', body: p => ({ prompt: p, mode: 'complete-word' }), action: 'Complete',
-    desc: 'Ember v0.3.5 finishes a word after exactly two typed letters, such as “Thank you for be”.' },
+    desc: 'Ember v0.3.7 finishes the word you are typing, after one or more letters, such as “Thank you for b”.' },
 };
 const EXAMPLES = {
   'flame-sentence': ['I was thinking about', 'The weather today is', 'Can you help me', 'My favorite food is'],
   'flame-suggest': ['I was thinking about', 'The weather today is', 'Can you help me', 'Yesterday I went to the'],
   'ember-next': ['Thank you for', 'The weather today is', 'I would like to', 'Can you help me'],
-  'ember-complete': ['Thank you for be', 'The weather today is su', 'I would like to kn', 'Can you help me fi'],
+  'ember-complete': ['Thank you for b', 'The weather today is su', 'I would like to kno', 'Can you help me fi'],
 };
 const RATE = [
   { id: 's1', mode: 'flame-sentence', prompt: 'I was thinking about' },
@@ -328,7 +328,7 @@ function setMode(m) {
   document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.m === m));
   $('desc').textContent = MODES[m].desc;
   $('go').textContent = MODES[m].action;
-  $('prompt').placeholder = m === 'ember-complete' ? 'End with two letters, e.g. “Thank you for be”' : 'Start a phrase, e.g. “I was thinking about”';
+  $('prompt').placeholder = m === 'ember-complete' ? 'End with the first letters of a word, e.g. “Thank you for b”' : 'Start a phrase, e.g. “I was thinking about”';
   $('fbQuestion').textContent = m.startsWith('ember') ? 'Was this word useful?' : 'Did it make sense?';
   $('better').placeholder = m === 'ember-complete' ? 'Optional: type the missing letters (e.g. “ing”)'
     : m === 'ember-next' ? 'Optional: which next word fits better?' : 'Optional: how should it continue?';
@@ -413,13 +413,16 @@ const STEPS = {
     'Running 16 rule phases across 768 cells × 112 channels',
     'Each cell picks one of 256 learned integer rules',
     'Reading 240 cellular probes through the learned integer word readout',
-    'Ranking 8,192 known words for the next position',
+    'Reading the automaton at the starts of the last 2 words too (word memory)',
+    'Running 16 integer word rules over the last three words',
+    'Ranking 32,768 known words for the next position',
   ],
   'ember-complete': p => [
-    'Writing your text and two typed letters onto the byte tape',
+    'Writing your text and the typed letters onto the byte tape',
     'Running 16 phases of learned integer cellular rules',
+    'Running 16 integer word rules over the last three words',
     'Scoring known words with the completion readout',
-    'Keeping only words that begin with your two letters',
+    'Keeping only words that begin with your letters',
   ],
 };
 const MORE = ['The cellular update rules use integer math', 'Still weighing the candidates',

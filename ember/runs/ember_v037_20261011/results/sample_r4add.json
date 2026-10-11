@@ -1,0 +1,9 @@
+{
+ "records": 397843,
+ "eligible": 4151092,
+ "seed": 20261011,
+ "train_sha256": "345087044fb16487e53c82af3ed7b564abf2323d16a74d89911e93362376abd5",
+ "sample_sha256": "273bce386ea6b2d738ec3a14203d1dd780a8f39f0a34a5d93d04200bdce0cf24",
+ "free_gb": 240,
+ "seconds": 10
+}

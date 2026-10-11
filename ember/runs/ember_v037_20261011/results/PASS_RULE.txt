@@ -1,0 +1,20 @@
+Ember: both rule kinds in one model - pass mark
+Written 2026-10-11 13:03 UTC (16:03 IDT), before the run started. No result of the combined model exists yet.
+
+Owner, 2026-10-11: "Yes" to testing one model with both rule kinds before releasing v0.3.7.
+
+Known when this was written: v0.3.7 (16 word-code rule ticks) and the probe-state candidate (16 probe-state
+rule ticks) on every prompt set, clean included (next word 21.50% vs 24.25%, two-letter 63.75% vs 61.75%).
+
+Candidate C: the 16 word-code ticks of v0.3.7 plus the 16 probe-state ticks of the probe-state candidate, with
+their wiring and balanced biases unchanged. The readouts and the 32 ticks' immediates are refitted jointly with
+v0.3.7's recipe on the same 697,070 training records (5 epochs, batch 2048, lr 0.006, bf16, average of epochs
+2-5). No other choice is made. Pure MICA integer rules, no neural layers.
+
+C replaces v0.3.7 only if both:
+ (a) on the 1,200 dev2 selection prompts (1-600 per domain), C's score (mean of next-word and two-letter
+     top-1) is at least +1.0 point above v0.3.7's, and
+ (b) on the 739 held-back dev2 prompts (601+ per domain), C's paired score gain over v0.3.7 is above zero.
+Otherwise v0.3.7 stays as packaged.
+
+Clean val1000 (200 prompts per domain) is reported only. The sealed test is never opened.
