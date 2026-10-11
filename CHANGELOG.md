@@ -3,6 +3,21 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## Ember v0.3.5: weight-averaged automaton and new word readouts (2026-10-11)
+
+- Owner-authorized release on GitHub, Hugging Face and the website (Ember next word and finish word now run v0.3.5).
+  Model `c2bef375…`, memory `3827c2a3…`, word heads `1f73aa85…` (8,192 words).
+- Automaton: the 097b native refit plus 60 live training rounds with the learned integer rule values and readout
+  averaged (the Flame-W 0.3.5 method). Byte readout and 14 KB memory refit jointly on 119,823 training records;
+  word readouts retrained on the same records.
+- Clean byte+EOS bits/target versus v0.3.1: chat 1.827462 → 1.807137, everyday 1.836078 → 1.812973;
+  equal-domain paired change -0.021715 [-0.023154, -0.020275]. Development confirmation -0.020635 [-0.022641, -0.018629].
+- Clean word benchmark: two-letter completion 48.00% → 54.50% (+6.50 points [+3.00, +10.00]);
+  next-word top-1 14.25% → 15.25% (+1.00 points [-1.75, +3.75], within noise; development
+  +3.08 points [+1.67, +4.58]).
+  Selection used development data only; no sealed data. [Package and evidence](ember/runs/ember_v035_20261011/README.md).
+- The website no longer lists Flame-W 0.3.4 separately; Flame-W 0.3.5 includes its belief memory.
+
 ## Flame-W 0.3.5: weight-averaged automaton (2026-10-11)
 
 - Owner-authorized release on GitHub, Hugging Face and the website. One file changes: the automaton. B_swa SHA `eca9faee…` is B-740 with its learned integer rule immediates and readout averaged over 40 live fit rounds (40,000 training records per round, round-lr 0.01). Geometry, file size, memories, answer mode, belief memory, tokenizer and decoders are byte-identical to 0.3.4.

@@ -1,0 +1,17 @@
+{
+  "version": "Ember v0.3.5",
+  "role": "next-word suggestions and two-letter completion, plus byte-level scoring",
+  "architecture": "Minimal Inference Cellular Automaton with learned integer rewrite rules, quantized integer readout, an integer memory sidecar, and integer word readouts over the existing 240 cellular probes",
+  "source_model": "model.mica",
+  "source_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+  "automaton_sha256": "381fbf71e0cc61129ad9b61d92a16fd68accba515a2dbdd68ca0ca99ccaf7345",
+  "memory": "memory.npz",
+  "memory_sha256": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8",
+  "word_heads": "word_heads.npz",
+  "word_heads_sha256": "1f73aa859fa9b141bdeb5a87c867cdb639a2d885166e3fd124d72989a05ee9ba",
+  "word_vocabulary": 8192,
+  "training": "automaton: Codex native refit 097b3acc + 60 live fit rounds with readout and rule immediates averaged (stochastic weight averaging); then joint readout + memory refit on exact integer probe states of 119,823 train-only records (eswa_joint_ep4_avg); word heads trained on the same records (v8192_avg2-4)",
+  "selection": "dev2 first 500 records per domain (bytes) and dev2 word prompts (words); never the clean sets",
+  "confirmation": "dev2 last 500 records per domain once; clean chat/everyday val1000 reported once",
+  "sealed_test": "never accessed"
+}
