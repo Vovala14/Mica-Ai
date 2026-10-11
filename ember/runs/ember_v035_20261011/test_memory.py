@@ -26,7 +26,7 @@ def main():
     assert scalar.dtype.kind in 'iu'
     np.testing.assert_array_equal(scalar, batched)
     assert np.all(mem.bonus(np.empty(0, dtype=np.int64)) == 0)
-    print('Ember v0.3.1 integer memory hash and scalar/batch conformance: OK')
+    print('Ember v0.3.5 integer memory hash and scalar/batch conformance: OK')
 
 if __name__ == '__main__':
     main()

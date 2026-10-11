@@ -17,7 +17,7 @@
   "results/final_eswa_joint.json": "50f00d3bceed69782ed6e56e4dd5862f4f2ed7d336e9b252817a58a4b670c950",
   "results/rawcmp_eswa.json": "fef26aeac4eae4631b7b57b3022fdf4e4917d3a20b724dfe52a1efb07e0d877f",
   "results/words_results_eswa.json": "84ce9595efb14bcad000a8c3144228f16866f43a07941b381cda9074b19bd6e6",
-  "test_memory.py": "a56999bfafda30280e17630805b3a972eeec377611a2294ecd8b08625b0b4d96",
+  "test_memory.py": "02f33af130c47b591d46211859f73a0d210d8afdde2d337125b39abdfc77aa24",
   "test_word_model.py": "b745eb65a72aa6197c3e16490d141e969a298d3c86e9cf058777276d13051c15",
   "word_heads.npz": "1f73aa859fa9b141bdeb5a87c867cdb639a2d885166e3fd124d72989a05ee9ba",
   "word_model.py": "47215003494d48854616c31e0daddbab0bfae205c504f5237729c726b83f75e4"
