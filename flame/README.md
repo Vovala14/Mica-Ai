@@ -4,7 +4,21 @@ Flame-W is the word-level MICA model: the same integer cellular automaton, with
 one symbol per word (16,384-symbol vocabulary, `r1/data/word/vocab.json`).
 It is not the byte-level Flame. The byte/letter-level model is [MICA Ember](../ember/).
 
-## Current release: 0.3.5 (2026-10-11)
+## Current release: 0.3.6 (2026-10-12)
+
+Previous-word bank and phrase copy. 0.3.5's automaton, language memories, answer
+mode, belief memory and decoders are unchanged; two integer readouts of the recent
+words are added: a previous-word bank (16 int8 values per word) and a 210-integer
+table that reuses phrases from earlier in the text. Exact integer bits per word:
+long text 8.074 → 7.724, short text 5.162 → 5.121 (paired intervals exclude zero).
+Tiny ToM 645 → 664/2,000 (33.20%; p = 0.17, not significant); ARC-Easy 26.18 → 27.27
+(p = 0.013); HellaSwag 27.70 → 27.64; ARC-Challenge 20.73 → 20.22; PIQA 51.31 → 52.18;
+ArithMark-3 27.0 → 27.1.
+[Release notes and evidence](runs/claude_flamew_036_20261012/README.md) ·
+[Download 0.3.6](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.6) ·
+[Hugging Face](https://huggingface.co/vynly/mica-flame-w-0.3.6)
+
+## Previous release: 0.3.5 (2026-10-11)
 
 Weight-averaged automaton. The B-740 geometry with its learned integer rule
 immediates and readout averaged over 40 training rounds (stochastic weight
@@ -16,7 +30,7 @@ ARC-Challenge 19.80 → 20.73; PIQA 51.41 → 51.31; ArithMark-3 26.9 → 27.0.
 [Download 0.3.5](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5) ·
 [Hugging Face](https://huggingface.co/vynly/mica-flame-w-0.3.5)
 
-## Previous release: 0.3.4 (2026-10-10)
+## Earlier release: 0.3.4 (2026-10-10)
 
 An experimental cellular belief-memory extension: original B-740 plus unchanged
 0.3.3 language memories and sentence decoder, with a separate 32×256-site

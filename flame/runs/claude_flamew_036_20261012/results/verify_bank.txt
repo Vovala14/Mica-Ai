@@ -1,0 +1,59 @@
+Cloud re-check of prevword_report.json, 2026-10-11 22:09 UTC (verify_prevword.py, independent code)
+Note: the first evaluation pass (00:42-00:44 IDT) failed its built-in 0.3.5 reproduction check: one of the 12 CPU worker processes returned corrupted numbers partway through (375 short500 and 7,896 long500 targets, up to 3,000,000 bits on a target) - consistent with a transient computation error on the PC. The evaluation was re-run unchanged at 00:49 (job_069); the results below are from the re-run, whose base matches the gap run's exact 0.3.5 arrays target by target.
+
+== per-target integrity of the base (vs the gap run's exact 0.3.5 arrays)
+short500 auto: max |difference| 0.0e+00 ok
+short500 base: max |difference| 0.0e+00 ok
+long500 auto: max |difference| 0.0e+00 ok
+long500 base: max |difference| 0.0e+00 ok
+short500: largest per-target bits 24.6 ok
+long500: largest per-target bits 55.2 ok
+fresh_short: largest per-target bits 26.5 ok
+== totals and paired differences
+short500 auto: 5.260571 ok
+short500 base: 5.162197 ok
+short500 bank: 5.120440 ok
+long500 auto: 9.031313 ok
+long500 base: 8.073772 ok
+long500 bank: 7.807176 ok
+fresh_short auto: 5.391905 ok
+fresh_short base: 5.280852 ok
+fresh_short bank: 5.242313 ok
+P_mix_vs_v035/short500/0+            -0.0418 [-0.0517, -0.0313] ok
+P_mix_vs_v035/long500/0+             -0.2666 [-0.2844, -0.2490] ok
+P_mix_vs_v035/fresh_short/0+         -0.0385 [-0.0464, -0.0309] ok
+P_mix_vs_v035/long500/8+             -0.2729 [-0.2912, -0.2550] ok
+P_mix_vs_v035/long500/64+            -0.3184 [-0.3410, -0.2963] ok
+P_mix_vs_latch_L_prev/short500/0+    -0.0435 [-0.0522, -0.0346] ok
+P_mix_vs_latch_L_prev/long500/0+     +0.0945 [+0.0883, +0.1006] ok
+== exact spot check of the integer bank (own code)
+short500 records [0, 220, 499]: max |difference| 1.8e-15 ok
+long500 records [5]: max |difference| 3.6e-15 ok
+fresh_short records [0, 333, 999]: max |difference| 0.0e+00 ok
+== Tiny ToM
+base rows identical to 0.3.5's published rows: True
+pred_word: 642 vs 645, +53/-56, p = 0.8482 ok
+pred_char: 652 vs 637, +57/-42, p = 0.1591 ok
+== verdict
+1_long500: True ok
+2_short500_no_harm: True ok
+3_fresh_short_no_harm: True ok
+4_tom: True ok
+candidate: True ok
+== five tasks (re-computed from the raw items)
+0.3.5 per-item answer sums vs published: max |difference| 4.5e-13 ok
+hellaswag (acc_norm): 0.3.5 27.70 -> 27.65, +178/-183, p = 0.8333 ok
+arc_easy (acc_norm): 0.3.5 26.18 -> 27.10, +62/-40, p = 0.0371 ok
+arc_challenge (acc_norm): 0.3.5 20.73 -> 20.39, +22/-26, p = 0.6655 ok
+piqa (acc_norm): 0.3.5 51.31 -> 52.07, +53/-39, p = 0.1750 ok
+arithmark3 (acc_tok): 0.3.5 27.00 -> 26.60, +16/-20, p = 0.6177 ok
+== sentences: 0.3.5 strings reproduced: True
+  I was thinking about starting my own business. | I was thinking about starting my
+  The weather today is a good place. | The weather today is really important
+  My favorite thing to do on weekends is going to happen. | My favorite thing to do on weekends is going to happen
+  Can you send me the address of the case? | Can you send me the address
+  The little girl opened the box and then came home. | The little girl opened the box and it was
+  When I got home from work, but it's been worth it. | When I got home from work, but I
+  Scientists have discovered that you had a lot of fun. | Scientists have discovered that the story
+  The best way to learn a new language is a lot of fun. | The best way to learn a new language is so well
+MISMATCHES: 0

@@ -1,0 +1,125 @@
+{
+ "reproduced_035_sums_max_diff": 4.547473508864641e-13,
+ "reproduced_bank_candidate_sums_max_diff": 0.0,
+ "seconds": 868,
+ "hellaswag": {
+  "metric": "acc_norm",
+  "0.3.5": 27.7,
+  "bank": 27.65,
+  "bank_table": 27.64,
+  "n": 10042,
+  "vs_035": {
+   "new": 2776,
+   "old": 2782,
+   "n": 10042,
+   "wins": 307,
+   "losses": 313,
+   "mcnemar_p": 0.8409
+  },
+  "vs_bank": {
+   "new": 2776,
+   "old": 2777,
+   "n": 10042,
+   "wins": 229,
+   "losses": 230,
+   "mcnemar_p": 1.0
+  },
+  "flag_drop": false
+ },
+ "arc_easy": {
+  "metric": "acc_norm",
+  "0.3.5": 26.18,
+  "bank": 27.1,
+  "bank_table": 27.27,
+  "n": 2376,
+  "vs_035": {
+   "new": 648,
+   "old": 622,
+   "n": 2376,
+   "wins": 64,
+   "losses": 38,
+   "mcnemar_p": 0.0129
+  },
+  "vs_bank": {
+   "new": 648,
+   "old": 644,
+   "n": 2376,
+   "wins": 10,
+   "losses": 6,
+   "mcnemar_p": 0.4545
+  },
+  "flag_drop": false
+ },
+ "arc_challenge": {
+  "metric": "acc_norm",
+  "0.3.5": 20.73,
+  "bank": 20.39,
+  "bank_table": 20.22,
+  "n": 1172,
+  "vs_035": {
+   "new": 237,
+   "old": 243,
+   "n": 1172,
+   "wins": 22,
+   "losses": 28,
+   "mcnemar_p": 0.4799
+  },
+  "vs_bank": {
+   "new": 237,
+   "old": 239,
+   "n": 1172,
+   "wins": 5,
+   "losses": 7,
+   "mcnemar_p": 0.7744
+  },
+  "flag_drop": false
+ },
+ "piqa": {
+  "metric": "acc_norm",
+  "0.3.5": 51.31,
+  "bank": 52.07,
+  "bank_table": 52.18,
+  "n": 1838,
+  "vs_035": {
+   "new": 959,
+   "old": 943,
+   "n": 1838,
+   "wins": 58,
+   "losses": 42,
+   "mcnemar_p": 0.1332
+  },
+  "vs_bank": {
+   "new": 959,
+   "old": 957,
+   "n": 1838,
+   "wins": 12,
+   "losses": 10,
+   "mcnemar_p": 0.8318
+  },
+  "flag_drop": false
+ },
+ "arithmark3": {
+  "metric": "acc_tok",
+  "0.3.5": 27.0,
+  "bank": 26.6,
+  "bank_table": 27.1,
+  "n": 1000,
+  "vs_035": {
+   "new": 271,
+   "old": 270,
+   "n": 1000,
+   "wins": 19,
+   "losses": 18,
+   "mcnemar_p": 1.0
+  },
+  "vs_bank": {
+   "new": 271,
+   "old": 266,
+   "n": 1000,
+   "wins": 12,
+   "losses": 7,
+   "mcnemar_p": 0.3593
+  },
+  "flag_drop": false
+ }
+}

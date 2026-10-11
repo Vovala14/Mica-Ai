@@ -1,0 +1,57 @@
+Flame-W 0.3.6 candidate, ToM step: phrase-copy (induction) table on top of the previous-word bank - pass mark
+Written 2026-10-11 22:45 UTC (01:45 IDT on 2026-10-12), before anything was built or trained. No result of it exists.
+
+Owner, 2026-10-12 about 01:30 IDT: "אנחנו צריכים לאמן את המועמד להיות טוב יותר בTOM מהגרסה הקודמת אפילו אם זה
+בקצת, ורק אחר כך יש אישור לשחרר את הגרסה." (we need to train the candidate to be better at ToM than the previous
+version, even if only a little; only then is there approval to release the version).
+
+Known when this was written: the 0.3.6 candidate P_mix (0.3.5 + previous-word integer bank, bank.npz sha 8f9d3655,
+r1/runs/claude_prevword_20261011) passed its rule: long500 -0.267, short500 -0.042, fresh_short -0.039 bits/word;
+Tiny ToM per word token 642 vs 0.3.5's 645 of 2,000 (+53/-56, p = 0.85), per character 652 vs 637. The Tiny ToM
+dataset card names token-normalized accuracy as its reported metric, i.e. our per-word number; 0.3.5 published 645
+(32.25%). Tiny ToM has been scored many times in this project and is not a selection set: answer-mode calibrations
+that moved it by about 10 items did not hold on independent synthetic sets (codex_flamew_033_tom_gain_20261009).
+
+Mechanism (pure MICA integer readout, no neural layers). 0.3.5 copies single words from the text (memory recall,
+answer mode) but not phrases: its rules see 4 words back, its memory is a bag of the last 64 words, the bank sees
+only the previous word. New: if the last fed token q1 (not <sep>/BOS/EOS) occurred earlier among the last 256 fed
+tokens, at lag L (2..256), the token f that followed that occurrence (not <sep>/BOS/EOS) gets
+  I1[class(q1)][class(f)][bucket(L)]
+and, if the token before q1 (not <sep>/BOS/EOS) also matches the token before that occurrence (two-word match,
+L + 1 <= 256), additionally I2[class(f)][bucket(L)]. Every occurrence counts. Classes: the 5 word classes of
+memory.npz. Buckets of L: 2-3, 4-7, 8-15, 16-31, 32-63, 64-127, 128-256. 210 integers in 1/1024-nat units, added
+to P_mix's integer scores. The automaton, released memories, answer mode, belief memory and bank are unchanged.
+
+Training: the table only, starting from zero (= P_mix), on the same data as the bank (every batch half the 0.3.5
+features of the 60,000 short training records extracted in claude_prevword_20261011, half the 2.0M v05_long
+training positions of claude_swa_20261010/memfit_B_swa), one 10-minute fit, early stopping on the memory-fit
+selection sets (64 long v05_long val records, 1,000 short v02a_nostories val records 500-1499), integer export.
+No ToM data, no benchmark item, nothing selected on any evaluation set below.
+
+Evaluation as in claude_prevword_20261011: exact integer engine; bits per word symbol + EOS on short500 (v02a_nostories
+val 1-500), long500 (v05_long eval_long500), fresh_short (v02a_nostories val 1501-2500); Tiny ToM 2,000 items with
+the released full config (belief memory, else answer mode) + bank + table. Paired bootstrap over records, 10,000
+resamples, seed 20261011, 95% percentile interval; McNemar exact for Tiny ToM.
+Integrity, else no verdict: the base must reproduce 0.3.5's published short500/long500 bits (|difference| < 1e-6)
+and its published Tiny ToM rows item by item, and the bank-only arm must reproduce P_mix's saved per-target bits and
+Tiny ToM rows exactly.
+
+P_ind (0.3.5 + bank + table) replaces P_mix as the 0.3.6 release candidate only if ALL of:
+  (1) Tiny ToM per word token (the official metric): more items correct than 0.3.5's 645 of 2,000;
+  (2) Tiny ToM per character: not significantly worse than 0.3.5 (if it loses more items than it wins, McNemar
+      p >= 0.05);
+  (3) P_mix's text rule still holds vs 0.3.5: long500 95% CI entirely below 0 and a gain of at least 0.05
+      bits/word; short500 and fresh_short not significantly worse (95% CI not entirely above 0);
+  (4) vs P_mix: short500, long500 and fresh_short not significantly worse (95% CI not entirely above 0).
+If (1) fails, that is the result, reported as it is. No second attempt is scored on Tiny ToM without the owner's
+decision: repeated tries on the same 2,000 items would turn the benchmark into a selection set. A gain of a few
+items is within noise and is reported with its McNemar p.
+
+Only if it passes, release evidence is run and reported (it does not change the verdict): the five leaderboard
+tasks with the frozen 0.3.4 protocol (0.3.5's published per-item sums reproduced first; a task that drops
+significantly vs 0.3.5, McNemar p < 0.05, is flagged), and the 8 fixed prompts of 0.3.5's sentence side-by-side
+(0.3.5's published strings reproduced first; not a blind evaluation).
+
+Reported only, never the candidate: D_ind = 0.3.5 + table without the bank (bits and Tiny ToM); long500 at
+targets with >= 64 earlier words; P_ind vs P_mix on Tiny ToM. Publishing is the owner's call; nothing is published
+from this run. The sealed test set is never opened.

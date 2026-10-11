@@ -3,6 +3,21 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## Flame-W 0.3.6: previous-word bank and phrase copy (2026-10-12)
+
+- Owner-authorized release on GitHub, Hugging Face and the website, after the owner's condition that the candidate
+  beat 0.3.5 on Tiny ToM. 0.3.5's automaton (`eca9faee…`), language memories, answer mode, belief memory and
+  decoders are unchanged; two integer readouts of the recent words are added: a previous-word bank (`bank.npz`
+  `8f9d3655…`, 16 int8 values per word) and a 210-integer phrase-copy table (`ind.npz` `a72434c7…`).
+- Versus 0.3.5 (exact integer engine, paired): long500 8.0738 → 7.7236 bits/word+EOS (−0.350 [−0.370, −0.331]);
+  short500 5.1622 → 5.1207 (−0.042 [−0.051, −0.031]); 1,000 more short records −0.039 [−0.048, −0.031];
+  Tiny ToM per word token 645 → 664/2,000 (33.20%; +97/−78, p = 0.17, not significant), per character 637 → 654;
+  ARC-Easy 26.18 → 27.27 (p = 0.013); HellaSwag 27.70 → 27.64; ARC-Challenge 20.73 → 20.22; PIQA 51.31 → 52.18;
+  ArithMark-3 27.0 → 27.1. No significant drop.
+- Both readouts were trained on text only, with pass marks written before each run; the bank alone scored 642 on
+  Tiny ToM, and the phrase-copy table was trained once with the pre-declared requirement to beat 645. Nothing was
+  selected on Tiny ToM; no sealed data. [Package and evidence](flame/runs/claude_flamew_036_20261012/README.md).
+
 ## Ember v0.3.7: word rules over the previous words, bigger vocabulary, word memory (2026-10-11)
 
 - Owner-authorized release on GitHub, Hugging Face and the website. Word readouts with 32,768 words (v0.3.5: 8,192)

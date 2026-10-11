@@ -1,0 +1,267 @@
+{
+ "pass_rule_sha256": "dc9cdee70543d218a31eb9882c1425363103b789f4b44027a40645f3f9af38ad",
+ "bits": {
+  "bank_sha256": "8f9d3655ccafb7091cf929b473afe1fb338468eca327372d986c8c1f36c95585",
+  "short500": {
+   "auto": 5.260571314252742,
+   "base": 5.162196596291557,
+   "bank": 5.12043964093502,
+   "targets": 7320
+  },
+  "long500": {
+   "auto": 9.031313389886787,
+   "base": 8.073772447223998,
+   "bank": 7.807176055605694,
+   "targets": 100618
+  },
+  "fresh_short": {
+   "auto": 5.391905045244329,
+   "base": 5.280851645577219,
+   "bank": 5.242312874541929,
+   "targets": 14414
+  },
+  "reproduces_published": {
+   "short500": {
+    "auto": 8.881784197001252e-16,
+    "mem": 1.7763568394002505e-15
+   },
+   "long500": {
+    "auto": 3.552713678800501e-15,
+    "mem": 1.0658141036401503e-14
+   }
+  },
+  "reproduced": true
+ },
+ "comparisons": {
+  "P_mix_vs_v035/short500/0+": {
+   "set": "short500",
+   "min_earlier_words": 0,
+   "targets": 7320,
+   "delta": -0.04175695535653715,
+   "ci95": [
+    -0.05165245935708549,
+    -0.031332364381912135
+   ]
+  },
+  "P_mix_vs_v035/long500/0+": {
+   "set": "long500",
+   "min_earlier_words": 0,
+   "targets": 100618,
+   "delta": -0.2665963916183047,
+   "ci95": [
+    -0.28442058403839493,
+    -0.24902443613731373
+   ]
+  },
+  "P_mix_vs_v035/fresh_short/0+": {
+   "set": "fresh_short",
+   "min_earlier_words": 0,
+   "targets": 14414,
+   "delta": -0.038538771035289694,
+   "ci95": [
+    -0.04638661741343174,
+    -0.030858765942753344
+   ]
+  },
+  "P_mix_vs_v035/long500/8+": {
+   "set": "long500",
+   "min_earlier_words": 8,
+   "targets": 96618,
+   "delta": -0.27289498251950706,
+   "ci95": [
+    -0.29123137664042287,
+    -0.25497684664267334
+   ]
+  },
+  "P_mix_vs_v035/long500/64+": {
+   "set": "long500",
+   "min_earlier_words": 64,
+   "targets": 68618,
+   "delta": -0.3183635249475026,
+   "ci95": [
+    -0.3409649613416866,
+    -0.29627346652133907
+   ]
+  },
+  "P_mix_vs_latch_L_prev/short500/0+": {
+   "set": "short500",
+   "min_earlier_words": 0,
+   "targets": 7320,
+   "delta": -0.04348577247393075,
+   "ci95": [
+    -0.052227133512422086,
+    -0.034606481131480675
+   ]
+  },
+  "P_mix_vs_latch_L_prev/long500/0+": {
+   "set": "long500",
+   "min_earlier_words": 0,
+   "targets": 100618,
+   "delta": 0.09445437651691586,
+   "ci95": [
+    0.08830920856320201,
+    0.10063275906081716
+   ]
+  },
+  "P_mix_vs_v035/tom_word": {
+   "new": 642,
+   "old": 645,
+   "n": 2000,
+   "wins": 53,
+   "losses": 56,
+   "mcnemar_p": 0.8482
+  },
+  "P_mix_vs_v035/tom_char": {
+   "new": 652,
+   "old": 637,
+   "n": 2000,
+   "wins": 57,
+   "losses": 42,
+   "mcnemar_p": 0.1591
+  }
+ },
+ "tom": {
+  "reproduced_035": true,
+  "seconds": 53.1,
+  "base": {
+   "word": 645,
+   "char": 637,
+   "n": 2000
+  },
+  "bank": {
+   "word": 642,
+   "char": 652,
+   "n": 2000
+  }
+ },
+ "verdict": {
+  "reproduced_035_bits": true,
+  "reproduced_035_tom": true,
+  "1_long500": true,
+  "2_short500_no_harm": true,
+  "3_fresh_short_no_harm": true,
+  "4_tom": true,
+  "candidate": true,
+  "decision": "P_mix is a Flame-W 0.3.6 candidate (publishing is the owner's call)"
+ },
+ "five_summary": {
+  "reproduced_035_sums_max_diff": 4.547473508864641e-13,
+  "seconds": 879,
+  "hellaswag": {
+   "metric": "acc_norm",
+   "0.3.5": 27.7,
+   "candidate": 27.65,
+   "0.3.5_published_rows": 27.7,
+   "n": 10042,
+   "wins": 178,
+   "losses": 183,
+   "mcnemar_p": 0.8333,
+   "flag_drop": false
+  },
+  "arc_easy": {
+   "metric": "acc_norm",
+   "0.3.5": 26.18,
+   "candidate": 27.1,
+   "0.3.5_published_rows": 26.18,
+   "n": 2376,
+   "wins": 62,
+   "losses": 40,
+   "mcnemar_p": 0.0371,
+   "flag_drop": false
+  },
+  "arc_challenge": {
+   "metric": "acc_norm",
+   "0.3.5": 20.73,
+   "candidate": 20.39,
+   "0.3.5_published_rows": 20.73,
+   "n": 1172,
+   "wins": 22,
+   "losses": 26,
+   "mcnemar_p": 0.6655,
+   "flag_drop": false
+  },
+  "piqa": {
+   "metric": "acc_norm",
+   "0.3.5": 51.31,
+   "candidate": 52.07,
+   "0.3.5_published_rows": 51.31,
+   "n": 1838,
+   "wins": 53,
+   "losses": 39,
+   "mcnemar_p": 0.175,
+   "flag_drop": false
+  },
+  "arithmark3": {
+   "metric": "acc_tok",
+   "0.3.5": 27.0,
+   "candidate": 26.6,
+   "0.3.5_published_rows": 27.0,
+   "n": 1000,
+   "wins": 16,
+   "losses": 20,
+   "mcnemar_p": 0.6177,
+   "flag_drop": false
+  }
+ },
+ "sentences_side_by_side": {
+  "reproduced_035": true,
+  "rows": [
+   {
+    "prompt": "I was thinking about",
+    "0.3.5": "I was thinking about starting my own business.",
+    "0.3.5_suggest": "I was thinking about getting a",
+    "candidate": "I was thinking about starting my own business.",
+    "candidate_suggest": "I was thinking about starting my"
+   },
+   {
+    "prompt": "The weather today is",
+    "0.3.5": "The weather today is a good place.",
+    "0.3.5_suggest": "The weather today is a good job",
+    "candidate": "The weather today is a good place.",
+    "candidate_suggest": "The weather today is really important"
+   },
+   {
+    "prompt": "My favorite thing to do on weekends is",
+    "0.3.5": "My favorite thing to do on weekends is going to happen.",
+    "0.3.5_suggest": "My favorite thing to do on weekends is going to happen",
+    "candidate": "My favorite thing to do on weekends is going to happen.",
+    "candidate_suggest": "My favorite thing to do on weekends is going to happen"
+   },
+   {
+    "prompt": "Can you send me",
+    "0.3.5": "Can you send me a couple of hours.",
+    "0.3.5_suggest": "Can you send me the address",
+    "candidate": "Can you send me the address of the case?",
+    "candidate_suggest": "Can you send me the address"
+   },
+   {
+    "prompt": "The little girl opened the box and",
+    "0.3.5": "The little girl opened the box and then went home.",
+    "0.3.5_suggest": "The little girl opened the box and it was",
+    "candidate": "The little girl opened the box and then came home.",
+    "candidate_suggest": "The little girl opened the box and it was"
+   },
+   {
+    "prompt": "When I got home from work,",
+    "0.3.5": "When I got home from work, but it's been worth it.",
+    "0.3.5_suggest": "When I got home from work, but I",
+    "candidate": "When I got home from work, but it's been worth it.",
+    "candidate_suggest": "When I got home from work, but I"
+   },
+   {
+    "prompt": "Scientists have discovered that",
+    "0.3.5": "Scientists have discovered that one day at a time.",
+    "0.3.5_suggest": "Scientists have discovered that the story",
+    "candidate": "Scientists have discovered that you had a lot of fun.",
+    "candidate_suggest": "Scientists have discovered that the story"
+   },
+   {
+    "prompt": "The best way to learn a new language is",
+    "0.3.5": "The best way to learn a new language is a lot of fun.",
+    "0.3.5_suggest": "The best way to learn a new language is so well",
+    "candidate": "The best way to learn a new language is a lot of fun.",
+    "candidate_suggest": "The best way to learn a new language is so well"
+   }
+  ]
+ }
+}

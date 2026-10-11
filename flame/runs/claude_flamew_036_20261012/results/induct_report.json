@@ -1,0 +1,467 @@
+{
+ "pass_rule_sha256": "2d5030ed16a8a7c6769034e909af71a20b2ddc24535e8dbf84702706e717ada7",
+ "ind_sha256": "a72434c715d1ad57ada2a74e9658b61960f978c1b09ed025fa6c6a0d31c2bb7b",
+ "bits": {
+  "bank_sha256": "8f9d3655ccafb7091cf929b473afe1fb338468eca327372d986c8c1f36c95585",
+  "ind_sha256": "a72434c715d1ad57ada2a74e9658b61960f978c1b09ed025fa6c6a0d31c2bb7b",
+  "short500": {
+   "auto": 5.260571314252742,
+   "base": 5.162196596291557,
+   "bank": 5.12043964093502,
+   "ind": 5.120729404576679,
+   "dind": 5.162353064393723,
+   "targets": 7320,
+   "bank_vs_prevword_max_abs": 0.0,
+   "base_vs_prevword_max_abs": 0.0
+  },
+  "long500": {
+   "auto": 9.031313389886787,
+   "base": 8.073772447223998,
+   "bank": 7.807176055605694,
+   "ind": 7.723589080468983,
+   "dind": 7.986607463660549,
+   "targets": 100618,
+   "bank_vs_prevword_max_abs": 0.0,
+   "base_vs_prevword_max_abs": 0.0
+  },
+  "fresh_short": {
+   "auto": 5.391905045244329,
+   "base": 5.280851645577219,
+   "bank": 5.242312874541929,
+   "ind": 5.241613159089748,
+   "dind": 5.28005468321362,
+   "targets": 14414,
+   "bank_vs_prevword_max_abs": 0.0,
+   "base_vs_prevword_max_abs": 0.0
+  },
+  "reproduces_published": {
+   "short500": {
+    "auto": 8.881784197001252e-16,
+    "mem": 1.7763568394002505e-15
+   },
+   "long500": {
+    "auto": 3.552713678800501e-15,
+    "mem": 1.0658141036401503e-14
+   }
+  },
+  "reproduced": true
+ },
+ "comparisons": {
+  "P_ind_vs_v035/short500/0+": {
+   "set": "short500",
+   "min_earlier_words": 0,
+   "targets": 7320,
+   "delta": -0.04146719171487747,
+   "ci95": [
+    -0.05138045672432367,
+    -0.030918314700747164
+   ]
+  },
+  "P_ind_vs_v035/long500/0+": {
+   "set": "long500",
+   "min_earlier_words": 0,
+   "targets": 100618,
+   "delta": -0.350183366755016,
+   "ci95": [
+    -0.37009558381618185,
+    -0.3308049953809137
+   ]
+  },
+  "P_ind_vs_v035/fresh_short/0+": {
+   "set": "fresh_short",
+   "min_earlier_words": 0,
+   "targets": 14414,
+   "delta": -0.03923848648747105,
+   "ci95": [
+    -0.047813525486861935,
+    -0.030987114733386795
+   ]
+  },
+  "P_ind_vs_v035/long500/64+": {
+   "set": "long500",
+   "min_earlier_words": 64,
+   "targets": 68618,
+   "delta": -0.42639222804063753,
+   "ci95": [
+    -0.45141531977431587,
+    -0.40179637776901095
+   ]
+  },
+  "P_ind_vs_P_mix/short500/0+": {
+   "set": "short500",
+   "min_earlier_words": 0,
+   "targets": 7320,
+   "delta": 0.000289763641659687,
+   "ci95": [
+    -0.0009015901258555381,
+    0.001313213825685533
+   ]
+  },
+  "P_mix_vs_v035/short500/0+": {
+   "set": "short500",
+   "min_earlier_words": 0,
+   "targets": 7320,
+   "delta": -0.04175695535653715,
+   "ci95": [
+    -0.05165245935708549,
+    -0.031332364381912135
+   ]
+  },
+  "D_ind_vs_v035/short500/0+": {
+   "set": "short500",
+   "min_earlier_words": 0,
+   "targets": 7320,
+   "delta": 0.00015646810216629966,
+   "ci95": [
+    -0.0011183144795405876,
+    0.0012497725394519225
+   ]
+  },
+  "P_ind_vs_P_mix/long500/0+": {
+   "set": "long500",
+   "min_earlier_words": 0,
+   "targets": 100618,
+   "delta": -0.08358697513671134,
+   "ci95": [
+    -0.09377115945414152,
+    -0.07379070867515183
+   ]
+  },
+  "P_mix_vs_v035/long500/0+": {
+   "set": "long500",
+   "min_earlier_words": 0,
+   "targets": 100618,
+   "delta": -0.2665963916183047,
+   "ci95": [
+    -0.28442058403839493,
+    -0.24902443613731373
+   ]
+  },
+  "D_ind_vs_v035/long500/0+": {
+   "set": "long500",
+   "min_earlier_words": 0,
+   "targets": 100618,
+   "delta": -0.08716498356345047,
+   "ci95": [
+    -0.09758956474125907,
+    -0.07722354631404972
+   ]
+  },
+  "P_ind_vs_P_mix/fresh_short/0+": {
+   "set": "fresh_short",
+   "min_earlier_words": 0,
+   "targets": 14414,
+   "delta": -0.0006997154521813431,
+   "ci95": [
+    -0.003464609241294623,
+    0.0013367644681954072
+   ]
+  },
+  "P_mix_vs_v035/fresh_short/0+": {
+   "set": "fresh_short",
+   "min_earlier_words": 0,
+   "targets": 14414,
+   "delta": -0.038538771035289694,
+   "ci95": [
+    -0.04638661741343174,
+    -0.030858765942753344
+   ]
+  },
+  "D_ind_vs_v035/fresh_short/0+": {
+   "set": "fresh_short",
+   "min_earlier_words": 0,
+   "targets": 14414,
+   "delta": -0.0007969623635990667,
+   "ci95": [
+    -0.003582537378462952,
+    0.0012851248118008376
+   ]
+  },
+  "P_ind_vs_v035/tom_word": {
+   "new": 664,
+   "old": 645,
+   "n": 2000,
+   "wins": 97,
+   "losses": 78,
+   "mcnemar_p": 0.1734
+  },
+  "P_ind_vs_P_mix/tom_word": {
+   "new": 664,
+   "old": 642,
+   "n": 2000,
+   "wins": 74,
+   "losses": 52,
+   "mcnemar_p": 0.0609
+  },
+  "D_ind_vs_v035/tom_word": {
+   "new": 658,
+   "old": 645,
+   "n": 2000,
+   "wins": 62,
+   "losses": 49,
+   "mcnemar_p": 0.2546
+  },
+  "P_ind_vs_v035/tom_char": {
+   "new": 654,
+   "old": 637,
+   "n": 2000,
+   "wins": 94,
+   "losses": 77,
+   "mcnemar_p": 0.221
+  },
+  "P_ind_vs_P_mix/tom_char": {
+   "new": 654,
+   "old": 652,
+   "n": 2000,
+   "wins": 59,
+   "losses": 57,
+   "mcnemar_p": 0.9261
+  },
+  "D_ind_vs_v035/tom_char": {
+   "new": 651,
+   "old": 637,
+   "n": 2000,
+   "wins": 68,
+   "losses": 54,
+   "mcnemar_p": 0.2391
+  }
+ },
+ "tom": {
+  "reproduced_035": true,
+  "reproduced_bank_candidate": true,
+  "seconds": 54.0,
+  "base": {
+   "word": 645,
+   "char": 637,
+   "n": 2000
+  },
+  "bank": {
+   "word": 642,
+   "char": 652,
+   "n": 2000
+  },
+  "ind": {
+   "word": 664,
+   "char": 654,
+   "n": 2000
+  },
+  "dind": {
+   "word": 658,
+   "char": 651,
+   "n": 2000
+  }
+ },
+ "verdict": {
+  "reproduced_bits": true,
+  "reproduced_tom": true,
+  "1_tom_word_above_645": true,
+  "2_tom_char_no_harm": true,
+  "3_text_vs_035": true,
+  "4_text_vs_P_mix": true,
+  "candidate": true,
+  "decision": "P_ind replaces P_mix as the Flame-W 0.3.6 candidate (publishing is the owner's call)"
+ },
+ "five_summary": {
+  "reproduced_035_sums_max_diff": 4.547473508864641e-13,
+  "reproduced_bank_candidate_sums_max_diff": 0.0,
+  "seconds": 868,
+  "hellaswag": {
+   "metric": "acc_norm",
+   "0.3.5": 27.7,
+   "bank": 27.65,
+   "bank_table": 27.64,
+   "n": 10042,
+   "vs_035": {
+    "new": 2776,
+    "old": 2782,
+    "n": 10042,
+    "wins": 307,
+    "losses": 313,
+    "mcnemar_p": 0.8409
+   },
+   "vs_bank": {
+    "new": 2776,
+    "old": 2777,
+    "n": 10042,
+    "wins": 229,
+    "losses": 230,
+    "mcnemar_p": 1.0
+   },
+   "flag_drop": false
+  },
+  "arc_easy": {
+   "metric": "acc_norm",
+   "0.3.5": 26.18,
+   "bank": 27.1,
+   "bank_table": 27.27,
+   "n": 2376,
+   "vs_035": {
+    "new": 648,
+    "old": 622,
+    "n": 2376,
+    "wins": 64,
+    "losses": 38,
+    "mcnemar_p": 0.0129
+   },
+   "vs_bank": {
+    "new": 648,
+    "old": 644,
+    "n": 2376,
+    "wins": 10,
+    "losses": 6,
+    "mcnemar_p": 0.4545
+   },
+   "flag_drop": false
+  },
+  "arc_challenge": {
+   "metric": "acc_norm",
+   "0.3.5": 20.73,
+   "bank": 20.39,
+   "bank_table": 20.22,
+   "n": 1172,
+   "vs_035": {
+    "new": 237,
+    "old": 243,
+    "n": 1172,
+    "wins": 22,
+    "losses": 28,
+    "mcnemar_p": 0.4799
+   },
+   "vs_bank": {
+    "new": 237,
+    "old": 239,
+    "n": 1172,
+    "wins": 5,
+    "losses": 7,
+    "mcnemar_p": 0.7744
+   },
+   "flag_drop": false
+  },
+  "piqa": {
+   "metric": "acc_norm",
+   "0.3.5": 51.31,
+   "bank": 52.07,
+   "bank_table": 52.18,
+   "n": 1838,
+   "vs_035": {
+    "new": 959,
+    "old": 943,
+    "n": 1838,
+    "wins": 58,
+    "losses": 42,
+    "mcnemar_p": 0.1332
+   },
+   "vs_bank": {
+    "new": 959,
+    "old": 957,
+    "n": 1838,
+    "wins": 12,
+    "losses": 10,
+    "mcnemar_p": 0.8318
+   },
+   "flag_drop": false
+  },
+  "arithmark3": {
+   "metric": "acc_tok",
+   "0.3.5": 27.0,
+   "bank": 26.6,
+   "bank_table": 27.1,
+   "n": 1000,
+   "vs_035": {
+    "new": 271,
+    "old": 270,
+    "n": 1000,
+    "wins": 19,
+    "losses": 18,
+    "mcnemar_p": 1.0
+   },
+   "vs_bank": {
+    "new": 271,
+    "old": 266,
+    "n": 1000,
+    "wins": 12,
+    "losses": 7,
+    "mcnemar_p": 0.3593
+   },
+   "flag_drop": false
+  }
+ },
+ "sentences_side_by_side": {
+  "reproduced_035": true,
+  "reproduced_bank_candidate": true,
+  "rows": [
+   {
+    "prompt": "I was thinking about",
+    "0.3.5": "I was thinking about starting my own business.",
+    "0.3.5_suggest": "I was thinking about getting a",
+    "bank": "I was thinking about starting my own business.",
+    "bank_suggest": "I was thinking about starting my",
+    "bank_table": "I was thinking about starting my own business.",
+    "bank_table_suggest": "I was thinking about starting my"
+   },
+   {
+    "prompt": "The weather today is",
+    "0.3.5": "The weather today is a good place.",
+    "0.3.5_suggest": "The weather today is a good job",
+    "bank": "The weather today is a good place.",
+    "bank_suggest": "The weather today is really important",
+    "bank_table": "The weather today is a good place.",
+    "bank_table_suggest": "The weather today is really important"
+   },
+   {
+    "prompt": "My favorite thing to do on weekends is",
+    "0.3.5": "My favorite thing to do on weekends is going to happen.",
+    "0.3.5_suggest": "My favorite thing to do on weekends is going to happen",
+    "bank": "My favorite thing to do on weekends is going to happen.",
+    "bank_suggest": "My favorite thing to do on weekends is going to happen",
+    "bank_table": "My favorite thing to do on weekends is going to happen.",
+    "bank_table_suggest": "My favorite thing to do on weekends is going to happen"
+   },
+   {
+    "prompt": "Can you send me",
+    "0.3.5": "Can you send me a couple of hours.",
+    "0.3.5_suggest": "Can you send me the address",
+    "bank": "Can you send me the address of the case?",
+    "bank_suggest": "Can you send me the address",
+    "bank_table": "Can you send me the address of the case?",
+    "bank_table_suggest": "Can you send me the address"
+   },
+   {
+    "prompt": "The little girl opened the box and",
+    "0.3.5": "The little girl opened the box and then went home.",
+    "0.3.5_suggest": "The little girl opened the box and it was",
+    "bank": "The little girl opened the box and then came home.",
+    "bank_suggest": "The little girl opened the box and it was",
+    "bank_table": "The little girl opened the box and then came home.",
+    "bank_table_suggest": "The little girl opened the box and it was"
+   },
+   {
+    "prompt": "When I got home from work,",
+    "0.3.5": "When I got home from work, but it's been worth it.",
+    "0.3.5_suggest": "When I got home from work, but I",
+    "bank": "When I got home from work, but it's been worth it.",
+    "bank_suggest": "When I got home from work, but I",
+    "bank_table": "When I got home from work, but it's been worth it.",
+    "bank_table_suggest": "When I got home from work, but I"
+   },
+   {
+    "prompt": "Scientists have discovered that",
+    "0.3.5": "Scientists have discovered that one day at a time.",
+    "0.3.5_suggest": "Scientists have discovered that the story",
+    "bank": "Scientists have discovered that you had a lot of fun.",
+    "bank_suggest": "Scientists have discovered that the story",
+    "bank_table": "Scientists have discovered that you had a lot of fun.",
+    "bank_table_suggest": "Scientists have discovered that the story"
+   },
+   {
+    "prompt": "The best way to learn a new language is",
+    "0.3.5": "The best way to learn a new language is a lot of fun.",
+    "0.3.5_suggest": "The best way to learn a new language is so well",
+    "bank": "The best way to learn a new language is a lot of fun.",
+    "bank_suggest": "The best way to learn a new language is so well",
+    "bank_table": "The best way to learn a new language is a lot of fun.",
+    "bank_table_suggest": "The best way to learn a new language is so well"
+   }
+  ]
+ }
+}

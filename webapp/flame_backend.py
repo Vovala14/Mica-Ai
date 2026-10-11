@@ -1,4 +1,5 @@
-"""MICA Flame-W 0.3.5: weight-averaged B-740 (B_swa) plus experimental cellular belief-memory QA.
+"""MICA Flame-W 0.3.6: 0.3.5 (weight-averaged B-740) plus a previous-word bank and a phrase-copy table,
+with experimental cellular belief-memory QA.
 
 Long-context sentences use w-sent-bos.25-long; short sentences keep w-sent-bos.5f."""
 from __future__ import annotations
@@ -8,7 +9,7 @@ import time
 
 from .common import ROOT, clean_prompt, result
 
-RUN = ROOT / "flame/runs/claude_flamew_035_20261011"
+RUN = ROOT / "flame/runs/claude_flamew_036_20261012"
 MEMORY = ROOT / "flame/runs/codex_flamew_033_20261009/memory.npz"
 MEMORY_FITTED = ROOT / "flame/runs/codex_flamew_033_20261009/memory_fitted.npz"
 MEMORY_LONG = ROOT / "flame/runs/codex_flamew_033_20261009/memory_long.npz"
@@ -17,7 +18,9 @@ SHA = "eca9faee6f44e3b2e4c10399ec99d202fa941a10ef78e64fb2094b0de70a4616"
 MEMORY_SHA = "5fda5a6c744749932bfba7f18352ce532405e60fca7d64fd99b705c28b928be7"
 MEMORY_FITTED_SHA = "5564ba558e7c1a6e594e324575333a626df16cc8605c9a23534d880acebab4ac"
 MEMORY_LONG_SHA = "f2abb7913dd626fb75cfeb96dd97c17c7d7ecbaed88f54c95fdb986734469f3b"
-MODEL = "flame-w-0.3.5"
+MODEL = "flame-w-0.3.6"
+BANK_SHA = "8f9d3655ccafb7091cf929b473afe1fb338468eca327372d986c8c1f36c95585"
+PHRASE_SHA = "a72434c715d1ad57ada2a74e9658b61960f978c1b09ed025fa6c6a0d31c2bb7b"
 BELIEF_RUN = ROOT / "flame/runs/codex_flamew_034_20261010"
 BELIEF_RULE_SHA = "9a0ad7b1cc0c607176092d333f29f1ce4b993f460fde1a57fab338aca1400a9c"
 GROUNDING_RULE_SHA = "0a2edf02857ca8a021aadb4a0e1f9d7b4cc918957e2ff32cfaabdb6b4e981c0c"
@@ -32,6 +35,8 @@ from memory import Memory  # noqa: E402
 from blend_memory import QuarterBlendMicaWord  # noqa: E402
 sys.path.insert(0, str(BELIEF_RUN))
 from belief_memory import Adapter as BeliefAdapter  # noqa: E402
+sys.path.insert(0, str(RUN))
+from context_banks import ContextBlendMicaWord, PhraseCopy, PrevWordBank  # noqa: E402
 
 _model = None
 _vocab = None
@@ -60,8 +65,9 @@ def answer(body: dict, prompt: str, t0: float) -> dict:
         route = "word-model-fallback"
         if _answer_model is None:
             mode_path = ROOT / "flame/runs/claude_flamew_031_20261004/answer_mode.npz"
-            _answer_model = QuarterBlendMicaWord(E.load_model(f"mica:{RUN}"),
-                Memory(MEMORY, mode_path), Memory(MEMORY_FITTED, mode_path), Memory(MEMORY_LONG, mode_path))
+            _answer_model = ContextBlendMicaWord(E.load_model(f"mica:{RUN}"),
+                Memory(MEMORY, mode_path), Memory(MEMORY_FITTED, mode_path), Memory(MEMORY_LONG, mode_path),
+                PrevWordBank(RUN / "bank.npz"), PhraseCopy(RUN / "ind.npz"))
         if _vocab is None:
             _vocab = E.W.Vocab.load(VOCAB)
         ids = lambda s: [E.W.SEP if t == "<sep>" else _vocab.index.get(t, E.W.oov_id(t)) for t in E.W.tokenize(s)]
@@ -85,7 +91,8 @@ def answer(body: dict, prompt: str, t0: float) -> dict:
         f"{chr(65+i)}. {choice}" for i, choice in enumerate(choices))
     return result(MODEL, "answer", logged, choices[index], t0,
         answer_index=int(index), choices=choices, route=route, decoder="cellular-belief-memory-or-mean-word",
-        model_sha256=SHA, belief_rule_sha256=BELIEF_RULE_SHA, grounding_rule_sha256=GROUNDING_RULE_SHA)
+        model_sha256=SHA, belief_rule_sha256=BELIEF_RULE_SHA, grounding_rule_sha256=GROUNDING_RULE_SHA,
+        bank_sha256=BANK_SHA, phrase_copy_sha256=PHRASE_SHA)
 
 
 def decoder(mode: str, prompt: str = ""):
@@ -93,8 +100,9 @@ def decoder(mode: str, prompt: str = ""):
     if mode not in ("sentence", "suggest"):
         raise ValueError("Unknown mode.")
     if _model is None:
-        _model = QuarterBlendMicaWord(E.load_model(f"mica:{RUN}"),  # original integer CA
-                                      Memory(MEMORY), Memory(MEMORY_FITTED), Memory(MEMORY_LONG))
+        _model = ContextBlendMicaWord(E.load_model(f"mica:{RUN}"),  # original integer CA
+                                      Memory(MEMORY), Memory(MEMORY_FITTED), Memory(MEMORY_LONG),
+                                      PrevWordBank(RUN / "bank.npz"), PhraseCopy(RUN / "ind.npz"))
         _vocab = E.W.Vocab.load(VOCAB)
     long_prompt = len(E.prefix_ids(_vocab, prompt.encode("utf-8"))) > 64
     key = (mode, long_prompt if mode == "sentence" else False)
@@ -120,5 +128,5 @@ def run(body: dict) -> dict:
                   decoder=dec.name, model_sha256=SHA,
                   memory_sha256=(MEMORY_LONG_SHA if len(E.prefix_ids(_vocab, prompt.encode("utf-8"))) > 64
                                  else MEMORY_SHA),
-                  memory_fitted_sha256=MEMORY_FITTED_SHA,
+                  memory_fitted_sha256=MEMORY_FITTED_SHA, bank_sha256=BANK_SHA, phrase_copy_sha256=PHRASE_SHA,
                   bits_per_token=r.get("bits_per_token"))

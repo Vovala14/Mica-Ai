@@ -1,0 +1,78 @@
+{
+ "reproduced_035": true,
+ "reproduced_bank_candidate": true,
+ "rows": [
+  {
+   "prompt": "I was thinking about",
+   "0.3.5": "I was thinking about starting my own business.",
+   "0.3.5_suggest": "I was thinking about getting a",
+   "bank": "I was thinking about starting my own business.",
+   "bank_suggest": "I was thinking about starting my",
+   "bank_table": "I was thinking about starting my own business.",
+   "bank_table_suggest": "I was thinking about starting my"
+  },
+  {
+   "prompt": "The weather today is",
+   "0.3.5": "The weather today is a good place.",
+   "0.3.5_suggest": "The weather today is a good job",
+   "bank": "The weather today is a good place.",
+   "bank_suggest": "The weather today is really important",
+   "bank_table": "The weather today is a good place.",
+   "bank_table_suggest": "The weather today is really important"
+  },
+  {
+   "prompt": "My favorite thing to do on weekends is",
+   "0.3.5": "My favorite thing to do on weekends is going to happen.",
+   "0.3.5_suggest": "My favorite thing to do on weekends is going to happen",
+   "bank": "My favorite thing to do on weekends is going to happen.",
+   "bank_suggest": "My favorite thing to do on weekends is going to happen",
+   "bank_table": "My favorite thing to do on weekends is going to happen.",
+   "bank_table_suggest": "My favorite thing to do on weekends is going to happen"
+  },
+  {
+   "prompt": "Can you send me",
+   "0.3.5": "Can you send me a couple of hours.",
+   "0.3.5_suggest": "Can you send me the address",
+   "bank": "Can you send me the address of the case?",
+   "bank_suggest": "Can you send me the address",
+   "bank_table": "Can you send me the address of the case?",
+   "bank_table_suggest": "Can you send me the address"
+  },
+  {
+   "prompt": "The little girl opened the box and",
+   "0.3.5": "The little girl opened the box and then went home.",
+   "0.3.5_suggest": "The little girl opened the box and it was",
+   "bank": "The little girl opened the box and then came home.",
+   "bank_suggest": "The little girl opened the box and it was",
+   "bank_table": "The little girl opened the box and then came home.",
+   "bank_table_suggest": "The little girl opened the box and it was"
+  },
+  {
+   "prompt": "When I got home from work,",
+   "0.3.5": "When I got home from work, but it's been worth it.",
+   "0.3.5_suggest": "When I got home from work, but I",
+   "bank": "When I got home from work, but it's been worth it.",
+   "bank_suggest": "When I got home from work, but I",
+   "bank_table": "When I got home from work, but it's been worth it.",
+   "bank_table_suggest": "When I got home from work, but I"
+  },
+  {
+   "prompt": "Scientists have discovered that",
+   "0.3.5": "Scientists have discovered that one day at a time.",
+   "0.3.5_suggest": "Scientists have discovered that the story",
+   "bank": "Scientists have discovered that you had a lot of fun.",
+   "bank_suggest": "Scientists have discovered that the story",
+   "bank_table": "Scientists have discovered that you had a lot of fun.",
+   "bank_table_suggest": "Scientists have discovered that the story"
+  },
+  {
+   "prompt": "The best way to learn a new language is",
+   "0.3.5": "The best way to learn a new language is a lot of fun.",
+   "0.3.5_suggest": "The best way to learn a new language is so well",
+   "bank": "The best way to learn a new language is a lot of fun.",
+   "bank_suggest": "The best way to learn a new language is so well",
+   "bank_table": "The best way to learn a new language is a lot of fun.",
+   "bank_table_suggest": "The best way to learn a new language is so well"
+  }
+ ]
+}

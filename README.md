@@ -24,10 +24,17 @@ Not a transformer, not a neural network: just learned integer rules on a ring of
 | | |
 |---|---|
 | Try it | [Live demo](https://mica-ai-ten.vercel.app) |
-| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.5](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5) · [Ember v0.3.7](https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7) |
+| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.6](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.6) · [Ember v0.3.7](https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7) |
 | Clone | `git clone https://github.com/Vovala14/Mica-Ai.git` |
 
 The cellular core uses integer updates, without attention or a neural network. Python scoring converts logits to floating-point log probabilities; 0.3.4 also has an external English binding adapter. It is not a production assistant. Commercial use is forbidden.
+
+**Flame-W 0.3.6 adds a previous-word bank and phrase copy.** Two small integer readouts of the
+recent words on top of 0.3.5 (automaton, memories, belief memory and decoders unchanged): a
+previous-word bank and a 210-integer table that reuses phrases from earlier in the text. Exact
+integer bits per word: long text 8.074 → 7.724, short text 5.162 → 5.121 (both paired intervals
+exclude zero); Tiny ToM 645 → 664/2,000 (33.20%; p = 0.17, not significant); ARC-Easy 26.18 → 27.27.
+[Release and evidence](flame/runs/claude_flamew_036_20261012/README.md).
 
 **Flame-W 0.3.5 is a weight-averaged automaton.** Same geometry, size, memories,
 belief memory and decoders as 0.3.4; the automaton's learned integer rule values
@@ -70,6 +77,7 @@ Can a compact, fully integer, local-rule system model language well enough to be
 
 The answer appears to be: yes, in a research setting.
 
+- Flame-W 0.3.6 reaches 33.20% on public Tiny Theory-of-Mind (0.3.5: 32.25%; within noise) and lowers long-text word loss by 0.35 bits with a previous-word bank and phrase copy
 - Flame-W 0.3.5 reaches 32.25% on public Tiny Theory-of-Mind (0.3.4: 31.90%); the difference is within noise
 - Flame-W 0.3.5 lowers short- and long-text word loss versus 0.3.4 by averaging the automaton over training rounds
 - Its integer short-memory blend lowers short-record word loss, with a measured small long-record regression
@@ -81,6 +89,7 @@ The answer appears to be: yes, in a research setting.
 
 MICA models are also published on Hugging Face in the [vynly collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton):
 
+- [vynly/mica-flame-w-0.3.6](https://huggingface.co/vynly/mica-flame-w-0.3.6) and the [Flame-W 0.3.6 GitHub release](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.6) — previous-word bank and phrase copy
 - [vynly/mica-flame-w-0.3.5](https://huggingface.co/vynly/mica-flame-w-0.3.5) and the [Flame-W 0.3.5 GitHub release](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5) — weight-averaged automaton
 - [Flame-W 0.3.4 GitHub release](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.4) — experimental cellular belief-memory extension; sentence model unchanged
 - [vynly/mica-flame-w-0.3.3](https://huggingface.co/vynly/mica-flame-w-0.3.3) — previous language package; the 0.3.4 release is currently on GitHub
@@ -95,6 +104,7 @@ These model cards mirror the research work in this repository and provide a publ
 
 | Model | Snapshot |
 |---|---|
+| Flame-W 0.3.6 | Previous-word bank and phrase copy: long-text word loss 8.074 → 7.724; public ToM 33.20% (within noise); ARC-Easy 27.27 |
 | Flame-W 0.3.5 | Weight-averaged automaton: lower short/long word loss than 0.3.4; public ToM 32.25%; HellaSwag 27.70 |
 | Flame-W 0.3.4 | Same B-740 and sentence path; adds experimental integer cellular belief-memory QA; public ToM 31.90%, gain uncertain |
 | Flame-W v0.3 | Improved context use with a learned memory readout |
@@ -114,7 +124,7 @@ This is not a production assistant. It is a research model that explores a diffe
 | Part | Where | Status |
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
-| MICA Flame-W (sentence model) | [`flame/`](flame/) | weight-averaged B-740 (0.3.5) + three language-memory banks and experimental cellular belief memory |
+| MICA Flame-W (sentence model) | [`flame/`](flame/) | 0.3.6: weight-averaged B-740 + three language-memory banks, a previous-word bank and phrase copy, and experimental cellular belief memory |
 | MICA Ember (word assistance on a byte engine) | [`ember/`](ember/) | v0.3.7: word rules over the previous words and 32,768-word readouts with a word memory on the v0.3.5 automaton |
 
 ## Quick start
