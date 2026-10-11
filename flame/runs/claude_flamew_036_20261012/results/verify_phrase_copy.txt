@@ -1,0 +1,81 @@
+== per-target integrity
+short500 auto vs the gap run's exact 0.3.5: max |difference| 0.0e+00 ok
+short500 base vs the gap run's exact 0.3.5: max |difference| 0.0e+00 ok
+long500 auto vs the gap run's exact 0.3.5: max |difference| 0.0e+00 ok
+long500 base vs the gap run's exact 0.3.5: max |difference| 0.0e+00 ok
+short500 base vs the bank candidate's run: max |difference| 0.0e+00 ok
+short500 bank vs the bank candidate's run: max |difference| 0.0e+00 ok
+short500: largest per-target bits 24.6 ok
+long500 base vs the bank candidate's run: max |difference| 0.0e+00 ok
+long500 bank vs the bank candidate's run: max |difference| 0.0e+00 ok
+long500: largest per-target bits 55.2 ok
+fresh_short base vs the bank candidate's run: max |difference| 0.0e+00 ok
+fresh_short bank vs the bank candidate's run: max |difference| 0.0e+00 ok
+fresh_short: largest per-target bits 26.5 ok
+== totals and paired differences
+short500 auto: 5.260571 ok
+short500 base: 5.162197 ok
+short500 bank: 5.120440 ok
+short500 ind: 5.120729 ok
+short500 dind: 5.162353 ok
+long500 auto: 9.031313 ok
+long500 base: 8.073772 ok
+long500 bank: 7.807176 ok
+long500 ind: 7.723589 ok
+long500 dind: 7.986607 ok
+fresh_short auto: 5.391905 ok
+fresh_short base: 5.280852 ok
+fresh_short bank: 5.242313 ok
+fresh_short ind: 5.241613 ok
+fresh_short dind: 5.280055 ok
+P_ind_vs_v035/short500/0+          -0.0415 [-0.0514, -0.0309] ok
+P_ind_vs_v035/long500/0+           -0.3502 [-0.3701, -0.3308] ok
+P_ind_vs_v035/fresh_short/0+       -0.0392 [-0.0478, -0.0310] ok
+P_ind_vs_v035/long500/64+          -0.4264 [-0.4514, -0.4018] ok
+P_ind_vs_P_mix/short500/0+         +0.0003 [-0.0009, +0.0013] ok
+P_mix_vs_v035/short500/0+          -0.0418 [-0.0517, -0.0313] ok
+D_ind_vs_v035/short500/0+          +0.0002 [-0.0011, +0.0012] ok
+P_ind_vs_P_mix/long500/0+          -0.0836 [-0.0938, -0.0738] ok
+P_mix_vs_v035/long500/0+           -0.2666 [-0.2844, -0.2490] ok
+D_ind_vs_v035/long500/0+           -0.0872 [-0.0976, -0.0772] ok
+P_ind_vs_P_mix/fresh_short/0+      -0.0007 [-0.0035, +0.0013] ok
+P_mix_vs_v035/fresh_short/0+       -0.0385 [-0.0464, -0.0309] ok
+D_ind_vs_v035/fresh_short/0+       -0.0008 [-0.0036, +0.0013] ok
+== exact spot check of the table with own plain-loop code
+table I2 (1/1024 nat): [[3114, 1094, 1987, 2172, 2868, 2904, 3317], [-3237, 285, 525, 720, 765, 588, 221], [2759, 499, 1173, 1004, 892, 949, 724], [2767, 591, 1074, 1305, 1470, 1429, 1519], [3527, 2400, 1952, 2756, 3018, 3254, 4223]]
+short500 records [0, 220, 499]: max |difference| 1.8e-15 (6 positions with a table bonus) ok
+long500 records [5, 300]: max |difference| 8.9e-16 (305 positions with a table bonus) ok
+fresh_short records [0, 333, 999]: max |difference| 0.0e+00 (0 positions with a table bonus) ok
+== Tiny ToM
+base rows identical to 0.3.5 published: True
+bank rows identical to the bank candidate: True
+Tiny ToM items 0, 1, 777, 1500, 1999 (bank + table, own code): max |difference| 0.0e+00 ok
+P_ind vs v035 pred_word: 664 vs 645, +97/-78, p = 0.1734 ok
+P_ind vs v035 pred_char: 654 vs 637, +94/-77, p = 0.2210 ok
+P_ind vs P_mix pred_word: 664 vs 642, +74/-52, p = 0.0609 ok
+P_ind vs P_mix pred_char: 654 vs 652, +59/-57, p = 0.9261 ok
+D_ind vs v035 pred_word: 658 vs 645, +62/-49, p = 0.2546 ok
+D_ind vs v035 pred_char: 651 vs 637, +68/-54, p = 0.2391 ok
+== verdict
+1_tom_word_above_645: True ok
+2_tom_char_no_harm: True ok
+3_text_vs_035: True ok
+4_text_vs_P_mix: True ok
+candidate: True ok
+== five tasks (re-computed from the raw items)
+0.3.5 sums vs published 4.5e-13, bank sums vs the bank candidate 0.0e+00 ok
+hellaswag (acc_norm): 0.3.5 27.70 -> 27.64, +307/-313, p = 0.8409 ok
+arc_easy (acc_norm): 0.3.5 26.18 -> 27.27, +64/-38, p = 0.0129 ok
+arc_challenge (acc_norm): 0.3.5 20.73 -> 20.22, +22/-28, p = 0.4799 ok
+piqa (acc_norm): 0.3.5 51.31 -> 52.18, +58/-42, p = 0.1332 ok
+arithmark3 (acc_tok): 0.3.5 27.00 -> 27.10, +19/-18, p = 1.0000 ok
+== sentences: 0.3.5 strings reproduced: True | bank candidate's: True
+  I was thinking about starting my own business. | I was thinking about starting my
+  The weather today is a good place. | The weather today is really important
+  My favorite thing to do on weekends is going to happen. | My favorite thing to do on weekends is going to happen
+  Can you send me the address of the case? | Can you send me the address
+  The little girl opened the box and then came home. | The little girl opened the box and it was
+  When I got home from work, but it's been worth it. | When I got home from work, but I
+  Scientists have discovered that you had a lot of fun. | Scientists have discovered that the story
+  The best way to learn a new language is a lot of fun. | The best way to learn a new language is so well
+MISMATCHES: 0

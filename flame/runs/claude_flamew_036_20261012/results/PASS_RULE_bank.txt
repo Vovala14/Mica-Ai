@@ -1,0 +1,44 @@
+Flame-W 0.3.6 candidate: previous-word association bank - pass mark
+Written 2026-10-11 21:15 UTC (00:15 IDT on 2026-10-12), before anything was built or trained. No result of the
+candidate exists yet.
+
+Owner, 2026-10-12 00:0x IDT: "מעולה תעשה" (great, do it) - to preparing a 0.3.6 candidate test of the side finding from
+the keep/update latch test, with a pass mark fixed first.
+
+Known when this was written: in the latch test (r1/runs/claude_latch_20261011) the control arm L_prev - a one-word
+register that always holds the previous word, read by an integer readout built like the released memory (copy
+R[class] + association (Bm[y] . A[word]) * MUL[y] >> 30, int8, 16 values), added to 0.3.5's scores, trained on
+2.0M v05_long positions only - gave long500 -0.361 [-0.383,-0.339], short500 +0.002 [-0.010,+0.014], Tiny ToM 637 vs
+645 (n.s.). That arm was a control, not a candidate, and was evaluated once on short500/long500.
+
+Candidate P_mix (pure MICA integer readout, no neural layers): the same bank (the previous fed word other than
+<sep>/BOS/EOS; copy + 16-value association), 0.3.5's automaton and released memories unchanged, trained on short
+AND long text: every batch is half 0.3.5 automaton features of 60,000 random v02a_nostories training records
+(extracted in this run, seed 20261011) and half the 2.0M v05_long training positions already extracted for 0.3.5
+(claude_swa_20261010/memfit_B_swa, checked to be 0.3.5's model eca9faee). One fit of 15 minutes, early stopping on
+the memory-fit selection sets (64 long v05_long val records, 1,000 short v02a_nostories val records 500-1499),
+integer export as the released memory is exported. Nothing is selected on any evaluation set below.
+
+Evaluation: exact integer engine, bits per word symbol + EOS, 0.3.5's package with its released memories plus the
+bank, on
+  short500     v02a_nostories val records 1-500 (7,320 targets), 0.3.5's published release metric
+  long500      v05_long eval_long500 (100,618 targets), 0.3.5's published release metric
+  fresh_short  v02a_nostories val records 1501-2500 (14,414 targets), not used by any earlier Claude run
+The base (no bank) must first reproduce 0.3.5's published short500/long500 numbers (|difference| < 1e-6) and its
+published Tiny ToM rows item by item; otherwise no verdict. Paired difference: bootstrap over records, 10,000
+resamples, seed 20261011, 95% percentile interval. Tiny ToM: the released full config (belief memory, else answer
+mode) plus the bank, 2,000 items, per word token, paired McNemar against 0.3.5's published per-item results.
+
+P_mix becomes a Flame-W 0.3.6 candidate only if ALL of:
+  (1) long500 vs 0.3.5: 95% CI entirely below 0 AND a gain of at least 0.05 bits/word;
+  (2) short500 vs 0.3.5: not significantly worse (95% CI not entirely above 0);
+  (3) fresh_short vs 0.3.5: not significantly worse (95% CI not entirely above 0);
+  (4) Tiny ToM per word not significantly worse than 0.3.5 (if it loses more items than it wins, McNemar p >= 0.05).
+Only if it passes, release evidence is run and reported (it does not change the verdict): the five leaderboard tasks
+with the frozen 0.3.4 protocol (0.3.5's published per-item results reproduced first; a task that drops significantly,
+McNemar p < 0.05, is flagged), and the 8 fixed prompts of 0.3.5's sentence side-by-side (0.3.5's published strings
+reproduced first; not a blind evaluation). Publishing it as 0.3.6 is the owner's call; nothing is published from this
+run.
+
+Reported only: long500 at targets with >= 64 earlier words; P_mix vs the latch test's L_prev on short500/long500. The
+sealed test set is never opened.
