@@ -1,0 +1,23 @@
+{
+  "model": "model.mica",
+  "model_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+  "geometry_env": {
+    "MICA_CANDIDATES": "256",
+    "MICA_CELLS": "768",
+    "MICA_CHANNELS": "112",
+    "MICA_INJECT": "24",
+    "MICA_LOGIT_DIVISOR": "1024",
+    "MICA_OFFSETS": "-1,-2,-3,-4,-6,-8",
+    "MICA_PHASES": "16",
+    "MICA_PROBE": "240",
+    "MICA_PROBE_COEF": "int8",
+    "MICA_PROBE_WINDOW": "64",
+    "MICA_ROLLING_READOUT": "1",
+    "MICA_ROUTING": "pairdiff",
+    "MICA_ROUTING_CHANNELS": "0,1,2,3,4",
+    "MICA_TAPE": "16",
+    "MICA_TICKS": "16",
+    "MICA_VSET": "6",
+    "MICA_WINDOW": "1"
+  }
+}

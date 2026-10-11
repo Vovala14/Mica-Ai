@@ -1,0 +1,25 @@
+{
+ "version": "0.3.5",
+ "files": {
+  "LICENSE": "8b8b2ef841c5c4e2f97af90ffcfe87b47da4ffb3e386dbe50bb694d10a8d0103",
+  "README.md": "8af63ef9b91eece62c99884ee7e2046f945e4cc4575e941f49e6dba299cc7ef3",
+  "manifest.json": "6d635cc306cc93a7e95086d99f2a2a5a67ea9a12e2ea3f1fe546b61ffb3169b7",
+  "memory.npz": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8",
+  "memory.py": "29683f655d3b10913a24a0102e575d5c1bb4e543a57d522d98875df57afa29b0",
+  "mica_r1/engine.py": "72c7d24e08da770d717360d264a9c175c6510d00fc93a44e41eaabd665866ebb",
+  "mica_r1/serialize.py": "eedc480683e0660aeb900c1ab2b38b635e572fb9c8beb8100402e6d0d5acb8e4",
+  "mica_r1/spec.py": "2f018ab72cb3e64c0fdcd9ab8f599604832d21b9344030371a0a197ba35d8064",
+  "model.mica": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+  "package.json": "35c74862b4868c18c40c4c3f96bf28492f41cffb1f33d55e205163d6cb1a2bfe",
+  "requirements.txt": "10c15aac265c81bc342ff09fc08510682971c81a4f24ff649cc0f7ae4f9bb278",
+  "results/eswa_freeze.json": "94b2f17f50747450ea47e436757be3bc076e6e370d49d37d27d9f515bc27c2b5",
+  "results/eswa_rounds.json": "42546e6ee21abc9c96aee9820bf58983ce9f96fa9567b5e5e9d4ac74e92f15b3",
+  "results/final_eswa_joint.json": "50f00d3bceed69782ed6e56e4dd5862f4f2ed7d336e9b252817a58a4b670c950",
+  "results/rawcmp_eswa.json": "fef26aeac4eae4631b7b57b3022fdf4e4917d3a20b724dfe52a1efb07e0d877f",
+  "results/words_results_eswa.json": "84ce9595efb14bcad000a8c3144228f16866f43a07941b381cda9074b19bd6e6",
+  "test_memory.py": "02f33af130c47b591d46211859f73a0d210d8afdde2d337125b39abdfc77aa24",
+  "test_word_model.py": "b745eb65a72aa6197c3e16490d141e969a298d3c86e9cf058777276d13051c15",
+  "word_heads.npz": "1f73aa859fa9b141bdeb5a87c867cdb639a2d885166e3fd124d72989a05ee9ba",
+  "word_model.py": "47215003494d48854616c31e0daddbab0bfae205c504f5237729c726b83f75e4"
+ }
+}

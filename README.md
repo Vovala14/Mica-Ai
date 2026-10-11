@@ -24,7 +24,7 @@ Not a transformer, not a neural network: just learned integer rules on a ring of
 | | |
 |---|---|
 | Try it | [Live demo](https://mica-ai-ten.vercel.app) |
-| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.5](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5) · [Ember v0.3.1 package](https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008) |
+| Download | [Hugging Face collection](https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton) · [Flame-W 0.3.5](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5) · [Ember v0.3.5](https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.5) |
 | Clone | `git clone https://github.com/Vovala14/Mica-Ai.git` |
 
 The cellular core uses integer updates, without attention or a neural network. Python scoring converts logits to floating-point log probabilities; 0.3.4 also has an external English binding adapter. It is not a production assistant. Commercial use is forbidden.
@@ -73,7 +73,7 @@ The answer appears to be: yes, in a research setting.
 - Flame-W 0.3.5 reaches 32.25% on public Tiny Theory-of-Mind (0.3.4: 31.90%); the difference is within noise
 - Flame-W 0.3.5 lowers short- and long-text word loss versus 0.3.4 by averaging the automaton over training rounds
 - Its integer short-memory blend lowers short-record word loss, with a measured small long-record regression
-- Ember v0.3.1 improves byte-level loss; its word-suggestion scores remain unchanged from v0.3a
+- Ember v0.3.5 averages its automaton the same way and retrains its word readouts: two-letter completion 48.00% → 54.50%, lower byte loss (−0.022 bits per byte), next-word top-1 14.25% → 15.25% (within noise)
 - The model is small, inspectable, and intentionally different from mainstream transformer stacks
 
 ## Published model cards
@@ -83,6 +83,7 @@ MICA models are also published on Hugging Face in the [vynly collection](https:/
 - [vynly/mica-flame-w-0.3.5](https://huggingface.co/vynly/mica-flame-w-0.3.5) and the [Flame-W 0.3.5 GitHub release](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5) — weight-averaged automaton
 - [Flame-W 0.3.4 GitHub release](https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.4) — experimental cellular belief-memory extension; sentence model unchanged
 - [vynly/mica-flame-w-0.3.3](https://huggingface.co/vynly/mica-flame-w-0.3.3) — previous language package; the 0.3.4 release is currently on GitHub
+- [vynly/mica-ember-0.3.5](https://huggingface.co/vynly/mica-ember-0.3.5) and the [Ember v0.3.5 GitHub release](https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.5) — current word assistance
 - [vynly/mica-ember-0.3a](https://huggingface.co/vynly/mica-ember-0.3a) — the previous word-assistance card
 - [Ember v0.3.1 GitHub package](https://github.com/Vovala14/Mica-Ai/tree/main/ember/runs/ember_v031_20261008) — updated byte checkpoint and integer memory
 
@@ -95,7 +96,7 @@ These model cards mirror the research work in this repository and provide a publ
 | Flame-W 0.3.5 | Weight-averaged automaton: lower short/long word loss than 0.3.4; public ToM 32.25%; HellaSwag 27.70 |
 | Flame-W 0.3.4 | Same B-740 and sentence path; adds experimental integer cellular belief-memory QA; public ToM 31.90%, gain uncertain |
 | Flame-W v0.3 | Improved context use with a learned memory readout |
-| Ember v0.3.1 | Better exact integer byte loss; same next-word and two-letter completion heads as v0.3a |
+| Ember v0.3.5 | Weight-averaged automaton and new word readouts: next word 15.25%, completion 54.50% (v0.3.1: 14.25% / 48.00%) |
 
 Highlights from the repo:
 
@@ -111,7 +112,7 @@ This is not a production assistant. It is a research model that explores a diffe
 |------|-------|--------|
 | Engine and training code (R1) | [`r1/`](r1/) | added |
 | MICA Flame-W (sentence model) | [`flame/`](flame/) | weight-averaged B-740 (0.3.5) + three language-memory banks and experimental cellular belief memory |
-| MICA Ember (word assistance on a byte engine) | [`ember/`](ember/) | v0.3.1 byte/readout checkpoint with v0.3a integer word heads |
+| MICA Ember (word assistance on a byte engine) | [`ember/`](ember/) | v0.3.5: weight-averaged automaton, refit memory and new integer word readouts |
 
 ## Quick start
 
@@ -173,12 +174,12 @@ On that older checkpoint, `sentence` writes a full sentence ("I went to the" →
 `suggest` gives a 2–3 word next-words suggestion ("Can you help me" → " find my").
 Each line of that command's output file has the prompt and its `continuation`. It is separate from `flame/replay/out.jsonl`.
 
-Try Ember v0.3.1 word suggestions:
+Try Ember v0.3.5 word suggestions:
 
 ```bash
-python ember/runs/ember_v031_20261008/test_word_model.py
-python ember/runs/ember_v031_20261008/test_memory.py
-python ember/runs/ember_v031_20261008/word_model.py
+python ember/runs/ember_v035_20261011/test_word_model.py
+python ember/runs/ember_v035_20261011/test_memory.py
+python ember/runs/ember_v035_20261011/word_model.py
 ```
 
 The original v0.2A byte generator is also available:
@@ -187,7 +188,7 @@ The original v0.2A byte generator is also available:
 python r1/generate_bytes.py ember/runs/codex_ember_balanced_v02a_20260928/train "I don't know"
 ```
 
-These are research models. Ember's measured role is next-word suggestion and typed-word completion; Flame-W handles sentences. The website offers Ember v0.3.1 word actions alongside Flame-W's sentence actions. The browser uses the integer word readouts; the separate integer memory sidecar is used by the byte-scoring runtime.
+These are research models. Ember's measured role is next-word suggestion and typed-word completion; Flame-W handles sentences. The website offers Ember v0.3.5 word actions alongside Flame-W's sentence actions. The browser uses the integer word readouts; the separate integer memory sidecar is used by the byte-scoring runtime.
 
 ## How it works
 
@@ -206,7 +207,7 @@ It is a learned integer-rule cellular automaton. Its reference implementation fo
 
 | Path | What it does |
 |------|--------------|
-| `public/index.html` | The page: Flame-W sentence / next words, Ember v0.3.1 next word / finish word, fixed rating prompts, replay link and corrections |
+| `public/index.html` | The page: Flame-W sentence / next words, Ember v0.3.5 next word / finish word, fixed rating prompts, replay link and corrections |
 | `api/flame.py`, `api/ember.py` | Run the official checkpoints with the exact integer engine (`webapp/`) and sign each output |
 | `api/log.js` | Saves signed generations and feedback to a private Vercel Blob store |
 | `api/export.js` | Owner download of all logs: `curl -H "Authorization: Bearer ADMIN_KEY" <site>/api/export -o logs.jsonl` (`?summary=1` for counts, `?check=1` for a storage check) |

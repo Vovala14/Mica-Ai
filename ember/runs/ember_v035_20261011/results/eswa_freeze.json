@@ -1,0 +1,22 @@
+{
+ "sha256": "381fbf71e0cc61129ad9b61d92a16fd68accba515a2dbdd68ca0ca99ccaf7345",
+ "source": "C:\\Users\\vlavrik\\PycharmProjects\\mica\\r1\\runs\\claude_swa_20261010\\E_swa\\avg.mica",
+ "changed_vs_097b": {
+  "op_a": 0,
+  "op_b": 55710,
+  "op_c": 0,
+  "op_d": 0,
+  "op_v": 278704,
+  "op_u": 0,
+  "op_n": 0,
+  "op_code": 0,
+  "sc_co": 0,
+  "sc_bias": 0,
+  "pr_cell": 0,
+  "pr_chan": 0,
+  "inj_delta": 0,
+  "pr_co": 33181,
+  "pr_bias": 208
+ },
+ "frozen": "2026-10-11 01:42:32"
+}
