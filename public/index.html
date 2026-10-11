@@ -112,6 +112,29 @@ h2 { font-size: 18px; margin: 0 0 10px; }
 .models { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .models div { font-size: 14px; color: var(--muted); }
 .models b { color: var(--text); font-size: 15px; }
+.notes ol { margin: 8px 0 0; padding-left: 20px; font-size: 14px; color: var(--muted); }
+.notes li { margin-top: 6px; }
+.notes p { font-size: 14px; color: var(--muted); margin: 12px 0 0; }
+.notes p.fine { font-size: 13px; }
+.notes b { color: var(--text); }
+.tablewrap { overflow-x: auto; margin-top: 14px; }
+.notes table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.notes caption { text-align: left; font-size: 13px; color: var(--muted); padding-bottom: 6px; }
+.notes th, .notes td { padding: 6px 8px; border-top: 1px solid var(--border); text-align: right; white-space: nowrap;
+  font-variant-numeric: tabular-nums; }
+.notes thead th { border-top: 0; font-size: 13px; color: var(--muted); font-weight: 600; }
+.notes th[scope="row"], .notes thead th:first-child { text-align: left; white-space: normal; font-weight: 500; }
+.notes th[scope="row"] { color: var(--text); }
+.notes .ci { white-space: nowrap; }
+@media (max-width: 560px) {
+  .notes table, .notes tbody, .notes tr, .notes caption { display: block; width: 100%; }
+  .notes thead { display: none; }
+  .notes tr { border-top: 1px solid var(--border); padding: 8px 0; }
+  .notes th[scope="row"], .notes td { display: inline; border: 0; padding: 0; white-space: normal; text-align: left; }
+  .notes th[scope="row"] { display: block; margin-bottom: 2px; }
+  .notes td:nth-of-type(2)::before { content: " → "; color: var(--muted); }
+  .notes td:nth-of-type(3)::before { content: " · "; color: var(--muted); }
+}
 footer { margin-top: 28px; font-size: 13px; color: var(--muted); text-align: center; }
 footer a, .card a { color: var(--accent); }
 .spin { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent;
@@ -152,7 +175,7 @@ footer a, .card a { color: var(--accent); }
         <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
         <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
       </div>
-      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5">Flame-W 0.3.5</a> · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">Ember v0.3.7</a> · <a href="#belief">Try belief memory</a></p>
+      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.5">Flame-W 0.3.5</a> · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">Ember v0.3.7</a> (<a href="#release-notes">release notes</a>) · <a href="#belief">Try belief memory</a></p>
     </div>
   </header>
 
@@ -271,9 +294,37 @@ footer a, .card a { color: var(--accent); }
     <h2>The models</h2>
     <div class="models">
       <div><b>Flame-W 0.3.5 (11 Oct 2026)</b><br>The same B-740 geometry with its learned integer rule values and readout averaged over 40 training rounds (stochastic weight averaging); memories, belief memory and decoders are unchanged. Exact integer bits per word: short text 5.189 → 5.162, long text 8.086 → 8.074 (both paired 95% intervals exclude zero). Tiny ToM 638 → 645/2,000 (not significant); HellaSwag 27.30 → 27.70 (p = 0.03); ARC-Easy 25.80 → 26.18; ARC-Challenge 19.80 → 20.73; PIQA 51.41 → 51.31; ArithMark-3 26.9 → 27.0.</div>
-      <div><b>Ember v0.3.7 (11 Oct 2026)</b><br>Word rules over the previous words: before each suggestion, 16 learned integer rule steps read fixed codes of the last three words. A 32,768-word vocabulary and a word memory (the readouts also read the automaton at the starts of the last 2 words); finish word works after any number of letters. Trained on 697,070 texts; the automaton and byte memory are unchanged. Clean word benchmark: next-word top-1 15.25% → 21.50% (95% CI +2.5 to +10.0 points), two-letter completion 54.50% → 63.75% (+5.25 to +13.0). <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">Release and evidence</a>.</div>
+      <div><b>Ember v0.3.7 (11 Oct 2026)</b><br>Word rules over the previous words: before each suggestion, 16 learned integer rule steps read fixed codes of the last three words. A 32,768-word vocabulary and a word memory (the readouts also read the automaton at the starts of the last 2 words); finish word works after any number of letters. Trained on 697,070 texts; the automaton and byte memory are unchanged. Clean word benchmark: next-word top-1 15.25% → 21.50% (95% CI +2.5 to +10.0 points), two-letter completion 54.50% → 63.75% (+5.25 to +13.0). <a href="#release-notes">Release notes</a> · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">Release and evidence</a>.</div>
     </div>
     <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
+  </section>
+
+  <section class="card notes" id="release-notes" aria-labelledby="notesTitle">
+    <h2 id="notesTitle">Release notes · Ember v0.3.7 (11 Oct 2026)</h2>
+    <p style="margin-top:0">Word rules over the previous words, a 4× bigger vocabulary, a word memory and completion after any number of letters, trained on 5.8× more text. It is not a transformer and not a neural network.</p>
+    <ol>
+      <li><b>Word rules over the previous words.</b> Before each suggestion, 16 extra MICA rule ticks run. Their terms read fixed 16-value integer codes of the previous three words and the automaton's probes, with the same integer rule mechanism the automaton uses, so a rule can combine “weather” + “today” + “is”.</li>
+      <li><b>A word memory.</b> Each word readout reads the automaton's 240 probes at the current position and at the starts of the previous 2 words.</li>
+      <li><b>A bigger vocabulary.</b> 32,768 words (v0.3.5: 8,192), all learned from training text.</li>
+      <li><b>Completion after any number of letters</b>, with prefix indexes and exact float32 products of the integer weights.</li>
+      <li><b>More training.</b> The word readouts and the rules' values were fitted together on the exact integer probe states of 697,070 training texts (v0.3.5: 119,823). The automaton, its byte readout and its 14 KB byte memory are unchanged.</li>
+    </ol>
+    <div class="tablewrap">
+      <table>
+        <caption>Clean word benchmark, 400 prompts (200 per domain): v0.3.5 → v0.3.7, change in points (95% CI)</caption>
+        <thead><tr><th scope="col">Word assistance</th><th scope="col">v0.3.5</th><th scope="col">v0.3.7</th><th scope="col">Change, points (95% CI)</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Next word, top-1</th><td>15.25%</td><td>21.50%</td><td>+6.25 <span class="ci">[+2.50, +10.00]</span></td></tr>
+          <tr><th scope="row">Next word, in top 5</th><td>34.75%</td><td>43.25%</td><td>+8.50 <span class="ci">[+4.50, +12.75]</span></td></tr>
+          <tr><th scope="row">Finish a word after 1 letter, top-1</th><td>43.50%</td><td>50.75%</td><td>+7.25 <span class="ci">[+3.25, +11.25]</span></td></tr>
+          <tr><th scope="row">Finish a word after 2 letters, top-1</th><td>54.50%</td><td>63.75%</td><td>+9.25 <span class="ci">[+5.25, +13.00]</span></td></tr>
+          <tr><th scope="row">Finish a word after 3 letters, top-1</th><td>73.00%</td><td>77.25%</td><td>+4.25 <span class="ci">[+0.25, +8.00]</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>On 1,920 older development prompts that no choice used: next word 13.92% → 22.65%, two-letter completion 53.06% → 66.03% (mean of the two +10.86 [+9.48, +12.22] points).</p>
+    <p><b>Tried and not kept:</b> rules over the automaton's states at earlier word starts (lower on the selection prompts and on the older prompts); one model with both rule kinds (not clearly better: +0.17 [−0.56, +0.90] points on the older prompts); more text without the rules; a bigger 256-byte byte memory. v0.3.6 (vocabulary and word memory without the rules) was an internal step and was not released.</p>
+    <p class="fine">Selection used development data only; the sealed test set was not accessed. The same notes are on <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">GitHub</a> and <a href="https://huggingface.co/vynly/mica-ember-0.3.7/blob/main/RELEASE_NOTES.md">Hugging Face</a>. Personal and research use only.</p>
   </section>
 
   <footer>
