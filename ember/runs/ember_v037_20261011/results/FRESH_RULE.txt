@@ -1,0 +1,26 @@
+Ember fresh confirmation: combined model vs v0.3.7 - pass mark
+Written 2026-10-11 13:49 UTC (16:49 IDT), before any model was scored on these prompts in this test.
+
+Owner, 2026-10-11: "Fresh test first", after the combined model (C: v0.3.7's 16 word-code ticks + the 16
+probe-state ticks) missed its selection margin (+0.42 of the +1.0 points needed) but was ahead of v0.3.7 on
+the held-back dev2 prompts (+1.38 [+0.21, +2.57]) and on clean (+1.25 [0.00, +2.50]).
+
+Fresh prompts: the published word-benchmark protocol (the first eligible word of 4+ letters per record,
+starting after byte 12; next word, and completion after 2 typed letters) on the two older development sets
+that no v0.3.5, v0.3.6 or v0.3.7 choice used:
+  chat      r1/data/chat/dev1000.jsonl                                   sha256 34de6dad9c09c5750e29df4a9052d355aab49bb3fefb1adac3ed46fa8e7ed64d
+  everyday  r1/runs/codex_flame_scaling_20260928/dev_fresh1000.jsonl     sha256 19166643727556c67fbb1cc4fbc52bc3b5ac356f8c1d81d3fa5ff7131f8bb585
+All eligible prompts are used (up to 1,000 per domain). A prompt is dropped, and counted, if its record also
+appears (lower-cased, whitespace-normalised, first 256 bytes) in any training record (R2, r3add, r4add), dev2
+record or clean record. Probe states: exact E_swa states from the v0.3.6 extractor, checked against the
+scalar engine.
+
+Models, nothing refitted: v0.3.7 exactly as packaged (word_heads.npz 40f3bfa6...) and C exactly as tested
+(heads/run_both_T32_avg2-5.npz from job_047).
+
+C replaces v0.3.7 only if C's paired score gain over v0.3.7 on the fresh prompts has a 95% CI above zero
+(score = mean of next-word and two-letter top-1; the two domains weighted equally; paired bootstrap, 5,000
+draws, seed 20261011, as in every earlier comparison). Otherwise v0.3.7 stays as packaged.
+
+Also reported, not used for the decision: the probe-state candidate, the control, v0.3.6, and every metric.
+The clean set is not used again for this choice. The sealed test is never opened.

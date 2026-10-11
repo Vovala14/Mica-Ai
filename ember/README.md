@@ -4,7 +4,15 @@ Ember is the byte/letter-level MICA model: an integer cellular automaton that
 reads and writes one UTF-8 byte at a time (258 symbols, original c256 lag64
 geometry).
 
-## Latest release: v0.3.5
+## Latest release: v0.3.7
+
+[Ember v0.3.7](runs/ember_v037_20261011/) keeps the v0.3.5 automaton and adds word rules over the previous words
+(16 MICA rule ticks per word readout whose terms read fixed codes of the last three words), a 32,768-word
+vocabulary, a word memory (the word readouts also read the automaton at the starts of the previous 2 words) and
+completion after any number of typed letters, trained on 697,070 texts. Clean word benchmark: next-word top-1
+15.25% → 21.50%, two-letter completion 54.50% → 63.75%. The byte model is unchanged. The website runs v0.3.7.
+
+## v0.3.5
 
 [Ember v0.3.5](runs/ember_v035_20261011/) averages the automaton's learned integer rule values and readout
 over 60 live training rounds (the Flame-W 0.3.5 method), refits the byte readout and the 14 KB integer

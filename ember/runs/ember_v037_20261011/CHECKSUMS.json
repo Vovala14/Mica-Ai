@@ -1,0 +1,33 @@
+{
+ "version": "0.3.7",
+ "files": {
+  "LICENSE": "8b8b2ef841c5c4e2f97af90ffcfe87b47da4ffb3e386dbe50bb694d10a8d0103",
+  "README.md": "23baa6fea6c7f22efed08d60e781af9092ef1cad48297ae75f79a1abf033e35f",
+  "manifest.json": "d517b62b22f81960a00ee81948911a971e2298a5f2618d0f23396c4cd41dc45e",
+  "memory.npz": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8",
+  "memory.py": "29683f655d3b10913a24a0102e575d5c1bb4e543a57d522d98875df57afa29b0",
+  "mica_r1/engine.py": "72c7d24e08da770d717360d264a9c175c6510d00fc93a44e41eaabd665866ebb",
+  "mica_r1/serialize.py": "eedc480683e0660aeb900c1ab2b38b635e572fb9c8beb8100402e6d0d5acb8e4",
+  "mica_r1/spec.py": "2f018ab72cb3e64c0fdcd9ab8f599604832d21b9344030371a0a197ba35d8064",
+  "model.mica": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+  "package.json": "35c74862b4868c18c40c4c3f96bf28492f41cffb1f33d55e205163d6cb1a2bfe",
+  "requirements.txt": "10c15aac265c81bc342ff09fc08510682971c81a4f24ff649cc0f7ae4f9bb278",
+  "results/CHOICE_RULE.txt": "862ad6fc413a5bcf65c13597c6c6bbdcfd678688ed14d23d5413fa9db21ea163",
+  "results/FRESH_RULE.txt": "0a79083ecb9e381b8938583ede6d3cd348815ad88f2f042c8c74dc1ca21ea6bf",
+  "results/PASS_RULE.txt": "18bff7f69e7cfd39e7883e91f8fbe3049ea01e47207719128c41df12756ea994",
+  "results/bothrule_run.json": "5e2725e333cc622447702c8d5a97121c84010eb1f68f3a7e945ffde79b8f5a91",
+  "results/choice_v037.json": "1062fa0545f01acde28f620c64c2d1380124051fb9ed744cec4fbc28aff60a71",
+  "results/eval_v037_all_sets.json": "f8f547df28f0699cbea9c07b590b806e46bd3e1c912e075ee62204a505747f9e",
+  "results/extract_r4add.json": "bcb68736e834a83d41cacea69a28ddb521031f7827ec33b5c3c217ee731fbfa5",
+  "results/freshtest_run.json": "9cc8ac65eca4e091df218153661a29a66c1b19b391430c5bc89bbdbbd1142700",
+  "results/sample_r4add.json": "7bbdb203aaff8134fce22679d7036ce0765eee1c2bcb16e72697286caf898bf9",
+  "results/wordrule_run.json": "0d073fd4d6f2f8d1e666ef7077e1f1a544d3e3914180c67075551bb60be4a5ee",
+  "results/wordrule_run_r2_r3add_r4add.json": "081987fd830243546e81e29c1f7834444edcc7be777d2d38eb65786fc57cf6fe",
+  "results/wordrule_run_r2_r3add_r4add_words.json": "069d832ea72027a66e12dc5f5903857b118c8e7d2bcac800f5669b4e410b7931",
+  "results/wordrule_run_words.json": "a2b06bd859864020701d7736425a6737b1fd862490f69ee26bb38569a05db217",
+  "test_memory.py": "28c49d37aa5b1525fc4904441e206fd51d31797295b70c7827003fe0cc0411bb",
+  "test_word_model.py": "0f9a597be25e65cbde4d9d87996cfbe9fe313c508b2fa23f7509b5d570224270",
+  "word_heads.npz": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67",
+  "word_model.py": "c4cea3e279ead1185cf94f2b8bb1aaa9fa11e36204bba3204bf9122906657407"
+ }
+}

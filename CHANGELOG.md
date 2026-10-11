@@ -3,6 +3,24 @@
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 
+## Ember v0.3.7: word rules over the previous words, bigger vocabulary, word memory (2026-10-11)
+
+- Owner-authorized release on GitHub, Hugging Face and the website. Word readouts with 32,768 words (v0.3.5: 8,192)
+  that also read the automaton's probes at the starts of the previous 2 words, plus 16 MICA rule ticks per readout
+  whose terms read fixed 16-value codes of the previous three words; finish word after any number of letters.
+  Readouts and rule values trained on 697,070 records (v0.3.5: 119,823). Word heads `40f3bfa6…`; the automaton,
+  byte readout and byte memory are unchanged (model `c2bef375…`).
+- Clean word benchmark versus v0.3.5: next-word top-1 15.25% → 21.50% (+6.25 points [+2.50, +10.00]); two-letter
+  completion 54.50% → 63.75% (+9.25 [+5.25, +13.00]); one-letter 43.50% → 50.75%; three-letter 73.00% → 77.25%;
+  next word in the top 5 34.75% → 43.25%.
+- 1,920 older development prompts that no choice used: next word 13.92% → 22.65%, two-letter completion
+  53.06% → 66.03% (mean of the two +10.86 points [+9.48, +12.22]).
+- Not kept: rules over the automaton's states at earlier word starts (lower on the selection and older prompts), one
+  model with both rule kinds (not clearly better: +0.17 [−0.56, +0.90] on the older prompts), more text without the
+  rules, and a bigger 256-byte byte memory. v0.3.6 (vocabulary and word memory, no rules) was an internal step and
+  was not released. Selection on development data only; no sealed data.
+  [Package and evidence](ember/runs/ember_v037_20261011/README.md).
+
 ## Ember v0.3.5: weight-averaged automaton and new word readouts (2026-10-11)
 
 - Owner-authorized release on GitHub, Hugging Face and the website (Ember next word and finish word now run v0.3.5).

@@ -1,0 +1,509 @@
+{
+ "pass_mark": "C replaces v0.3.7 only if C's paired score gain over v0.3.7\non the fresh prompts has a 95% CI above zero (score = mean of next-word and two-letter top-1; the two domains\nweighted equally; paired bootstrap, 5,000 draws, seed 20261011). Otherwise v0.3.7 stays as packaged.",
+ "tag": "run",
+ "args": {
+  "cmd": "all",
+  "workers": 20,
+  "pkg37": "r1\\runs\\claude_ember_037_20261011\\package\\word_heads.npz",
+  "c_heads": "r1\\runs\\claude_ember_bothrule_20261011\\heads\\run_both_T32_avg2-5.npz",
+  "a_heads": "r1\\runs\\claude_ember_wordrule_20261011\\heads\\run_r2_r3add_r4add_T16_avg2-5.npz",
+  "a_rules": "r1\\runs\\claude_ember_wordrule_20261011\\heads\\run_r2_r3add_r4add_rules.npz",
+  "control": "r1\\runs\\claude_ember_wordrule_20261011\\heads\\run_r2_r3add_r4add_words_control_avg2-5.npz",
+  "prev": "r1\\runs\\claude_ember_bothrule_20261011\\bothrule_run.json"
+ },
+ "sets": {
+  "chat_fresh": {
+   "path": "r1\\data\\chat\\dev1000.jsonl",
+   "sha256": "34de6dad9c09c5750e29df4a9052d355aab49bb3fefb1adac3ed46fa8e7ed64d",
+   "records": 1000,
+   "records_overlapping": 0,
+   "prompts": 971,
+   "skipped_short": 0,
+   "dropped_overlap": 0
+  },
+  "everyday_fresh": {
+   "path": "r1\\runs\\codex_flame_scaling_20260928\\dev_fresh1000.jsonl",
+   "sha256": "19166643727556c67fbb1cc4fbc52bc3b5ac356f8c1d81d3fa5ff7131f8bb585",
+   "records": 1000,
+   "records_overlapping": 0,
+   "prompts": 949,
+   "skipped_short": 0,
+   "dropped_overlap": 0
+  }
+ },
+ "inputs": {
+  "pkg37": {
+   "path": "r1\\runs\\claude_ember_037_20261011\\package\\word_heads.npz",
+   "sha256": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67"
+  },
+  "c_heads": {
+   "path": "r1\\runs\\claude_ember_bothrule_20261011\\heads\\run_both_T32_avg2-5.npz",
+   "sha256": "882c3ef6bfcccf9703fda4f789bc43e86f3aa4eb4db83aa72d5e1fca4edbb5a8"
+  },
+  "a_heads": {
+   "path": "r1\\runs\\claude_ember_wordrule_20261011\\heads\\run_r2_r3add_r4add_T16_avg2-5.npz",
+   "sha256": "b9b5a51bb56ed3c0dc212956ced4c65a0a7a5fa2d233323e30001992be31fbf3"
+  },
+  "a_rules": {
+   "path": "r1\\runs\\claude_ember_wordrule_20261011\\heads\\run_r2_r3add_r4add_rules.npz",
+   "sha256": "bd1c2e2d57818194cdf01efccfd375995cba58fa6a4b78954dd2d3a503ed9832"
+  },
+  "control": {
+   "path": "r1\\runs\\claude_ember_wordrule_20261011\\heads\\run_r2_r3add_r4add_words_control_avg2-5.npz",
+   "sha256": "37c94f58948fb0e504d204a5fc115e54904b71f025e46771451c32663fbaaacb"
+  }
+ },
+ "summary": {
+  "v037": {
+   "next": 0.2265,
+   "next_top5": 0.4204,
+   "prefix1": 0.4939,
+   "prefix1_top5": 0.7201,
+   "prefix2": 0.6603,
+   "prefix2_top5": 0.8518,
+   "prefix3": 0.8137,
+   "prefix3_top5": 0.9416,
+   "score": 0.4434
+  },
+  "both": {
+   "next": 0.2326,
+   "next_top5": 0.422,
+   "prefix1": 0.498,
+   "prefix1_top5": 0.717,
+   "prefix2": 0.6576,
+   "prefix2_top5": 0.8456,
+   "prefix3": 0.8079,
+   "prefix3_top5": 0.94,
+   "score": 0.4451
+  },
+  "probe16": {
+   "next": 0.214,
+   "next_top5": 0.3985,
+   "prefix1": 0.4823,
+   "prefix1_top5": 0.6986,
+   "prefix2": 0.6242,
+   "prefix2_top5": 0.8225,
+   "prefix3": 0.777,
+   "prefix3_top5": 0.9327,
+   "score": 0.4191
+  },
+  "v036": {
+   "next": 0.1931,
+   "next_top5": 0.3662,
+   "prefix1": 0.4438,
+   "prefix1_top5": 0.6709,
+   "prefix2": 0.6012,
+   "prefix2_top5": 0.8057,
+   "prefix3": 0.7666,
+   "prefix3_top5": 0.9249,
+   "score": 0.3972
+  },
+  "control": {
+   "next": 0.1946,
+   "next_top5": 0.3683,
+   "prefix1": 0.4563,
+   "prefix1_top5": 0.683,
+   "prefix2": 0.6165,
+   "prefix2_top5": 0.8241,
+   "prefix3": 0.7828,
+   "prefix3_top5": 0.9369,
+   "score": 0.4056
+  }
+ },
+ "by_domain": {
+  "v037": {
+   "chat_fresh": {
+    "next": 0.275,
+    "next_top5": 0.5015,
+    "prefix1": 0.5747,
+    "prefix1_top5": 0.7837,
+    "prefix2": 0.7127,
+    "prefix2_top5": 0.8754,
+    "prefix3": 0.8455,
+    "prefix3_top5": 0.9506,
+    "score": 0.4938
+   },
+   "everyday_fresh": {
+    "next": 0.1781,
+    "next_top5": 0.3393,
+    "prefix1": 0.4131,
+    "prefix1_top5": 0.6565,
+    "prefix2": 0.608,
+    "prefix2_top5": 0.8282,
+    "prefix3": 0.7819,
+    "prefix3_top5": 0.9326,
+    "score": 0.393
+   }
+  },
+  "both": {
+   "chat_fresh": {
+    "next": 0.2925,
+    "next_top5": 0.5005,
+    "prefix1": 0.5808,
+    "prefix1_top5": 0.7765,
+    "prefix2": 0.7178,
+    "prefix2_top5": 0.8692,
+    "prefix3": 0.8496,
+    "prefix3_top5": 0.9464,
+    "score": 0.5051
+   },
+   "everyday_fresh": {
+    "next": 0.1728,
+    "next_top5": 0.3435,
+    "prefix1": 0.4152,
+    "prefix1_top5": 0.6575,
+    "prefix2": 0.5975,
+    "prefix2_top5": 0.8219,
+    "prefix3": 0.7661,
+    "prefix3_top5": 0.9336,
+    "score": 0.3851
+   }
+  },
+  "probe16": {
+   "chat_fresh": {
+    "next": 0.2688,
+    "next_top5": 0.4861,
+    "prefix1": 0.5685,
+    "prefix1_top5": 0.7734,
+    "prefix2": 0.69,
+    "prefix2_top5": 0.861,
+    "prefix3": 0.827,
+    "prefix3_top5": 0.9464,
+    "score": 0.4794
+   },
+   "everyday_fresh": {
+    "next": 0.1591,
+    "next_top5": 0.3109,
+    "prefix1": 0.3962,
+    "prefix1_top5": 0.6238,
+    "prefix2": 0.5585,
+    "prefix2_top5": 0.784,
+    "prefix3": 0.7271,
+    "prefix3_top5": 0.9189,
+    "score": 0.3588
+   }
+  },
+  "v036": {
+   "chat_fresh": {
+    "next": 0.2482,
+    "next_top5": 0.4562,
+    "prefix1": 0.5294,
+    "prefix1_top5": 0.7559,
+    "prefix2": 0.6756,
+    "prefix2_top5": 0.8507,
+    "prefix3": 0.8167,
+    "prefix3_top5": 0.9341,
+    "score": 0.4619
+   },
+   "everyday_fresh": {
+    "next": 0.138,
+    "next_top5": 0.2761,
+    "prefix1": 0.3583,
+    "prefix1_top5": 0.5859,
+    "prefix2": 0.5269,
+    "prefix2_top5": 0.7608,
+    "prefix3": 0.7165,
+    "prefix3_top5": 0.9157,
+    "score": 0.3325
+   }
+  },
+  "control": {
+   "chat_fresh": {
+    "next": 0.2544,
+    "next_top5": 0.4511,
+    "prefix1": 0.5427,
+    "prefix1_top5": 0.7611,
+    "prefix2": 0.6766,
+    "prefix2_top5": 0.8548,
+    "prefix3": 0.827,
+    "prefix3_top5": 0.9475,
+    "score": 0.4655
+   },
+   "everyday_fresh": {
+    "next": 0.1349,
+    "next_top5": 0.2856,
+    "prefix1": 0.3699,
+    "prefix1_top5": 0.6048,
+    "prefix2": 0.5564,
+    "prefix2_top5": 0.7935,
+    "prefix3": 0.7387,
+    "prefix3_top5": 0.9262,
+    "score": 0.3456
+   }
+  }
+ },
+ "paired_both_vs": {
+  "v037": {
+   "next": {
+    "gain": 0.006119510048519826,
+    "ci95": [
+     -0.004274649774981307,
+     0.016969214708094267
+    ]
+   },
+   "next_top5": {
+    "gain": 0.0015925485008339852,
+    "ci95": [
+     -0.00880190975594669,
+     0.01145983793445103
+    ]
+   },
+   "prefix1": {
+    "gain": 0.004143339131982389,
+    "ci95": [
+     -0.006310507347427343,
+     0.014657170700580258
+    ]
+   },
+   "prefix1_top5": {
+    "gain": -0.0030776610210324924,
+    "ci95": [
+     -0.011975069426432942,
+     0.005867198275815293
+    ]
+   },
+   "prefix2": {
+    "gain": -0.0026940386053290414,
+    "ci95": [
+     -0.012632952026036403,
+     0.006754413285598469
+    ]
+   },
+   "prefix2_top5": {
+    "gain": -0.006250820691518743,
+    "ci95": [
+     -0.013638943481077703,
+     0.001113427435676776
+    ]
+   },
+   "prefix3": {
+    "gain": -0.005843323613451854,
+    "ci95": [
+     -0.01519567998836653,
+     0.003568719417371422
+    ]
+   },
+   "prefix3_top5": {
+    "gain": -0.0015328618449253861,
+    "ci95": [
+     -0.006741879087857672,
+     0.0031850970016679705
+    ]
+   },
+   "score": {
+    "gain": 0.001712735721595391,
+    "ci95": [
+     -0.00559794363192216,
+     0.009017595626161851
+    ]
+   }
+  },
+  "probe16": {
+   "next": {
+    "gain": 0.018692775418647632,
+    "ci95": [
+     0.006741580654578129,
+     0.03026154150013183
+    ]
+   },
+   "next_top5": {
+    "gain": 0.023542044908239905,
+    "ci95": [
+     0.01099265420047554,
+     0.03649893269407116
+    ]
+   },
+   "prefix1": {
+    "gain": 0.01566286372234202,
+    "ci95": [
+     0.002003884516087727,
+     0.02920630855396596
+    ]
+   },
+   "prefix1_top5": {
+    "gain": 0.01840465165239794,
+    "ci95": [
+     0.006488970448594053,
+     0.029900600013673666
+    ]
+   },
+   "prefix2": {
+    "gain": 0.033397397010675234,
+    "ci95": [
+     0.01921964580853172,
+     0.04712382213810618
+    ]
+   },
+   "prefix2_top5": {
+    "gain": 0.023086798505446135,
+    "ci95": [
+     0.012704576013126724,
+     0.03354094341813541
+    ]
+   },
+   "prefix3": {
+    "gain": 0.030822731717163387,
+    "ci95": [
+     0.017734234855053668,
+     0.044319322523899064
+    ]
+   },
+   "prefix3_top5": {
+    "gain": 0.007376185458377239,
+    "ci95": [
+     0.0006343063705195667,
+     0.013698928570265839
+    ]
+   },
+   "score": {
+    "gain": 0.02604508621466143,
+    "ci95": [
+     0.01647689475289182,
+     0.03546906657666642
+    ]
+   }
+  },
+  "v036": {
+   "next": {
+    "gain": 0.03952884439037677,
+    "ci95": [
+     0.02454743949672212,
+     0.054652900391652985
+    ]
+   },
+   "next_top5": {
+    "gain": 0.05586182647678352,
+    "ci95": [
+     0.04072553471104605,
+     0.07157363325697058
+    ]
+   },
+   "prefix1": {
+    "gain": 0.054197653988859215,
+    "ci95": [
+     0.037456577957826497,
+     0.0704877023784589
+    ]
+   },
+   "prefix1_top5": {
+    "gain": 0.04612584768616539,
+    "ci95": [
+     0.03156417563503889,
+     0.06039939597104221
+    ]
+   },
+   "prefix2": {
+    "gain": 0.05641257152903105,
+    "ci95": [
+     0.039169096637036764,
+     0.0733234967915709
+    ]
+   },
+   "prefix2_top5": {
+    "gain": 0.039827277669919774,
+    "ci95": [
+     0.02774477226285135,
+     0.05277312342440792
+    ]
+   },
+   "prefix3": {
+    "gain": 0.041240766203027954,
+    "ci95": [
+     0.02653614461100036,
+     0.05682036704037748
+    ]
+   },
+   "prefix3_top5": {
+    "gain": 0.01513599333245793,
+    "ci95": [
+     0.006813503074947991,
+     0.02345878202324741
+    ]
+   },
+   "score": {
+    "gain": 0.047970707959703915,
+    "ci95": [
+     0.036354423161027,
+     0.06018503948543591
+    ]
+   }
+  },
+  "control": {
+   "next": {
+    "gain": 0.038019857207814825,
+    "ci95": [
+     0.02299070298943329,
+     0.0529770890058265
+    ]
+   },
+   "next_top5": {
+    "gain": 0.05369465826133857,
+    "ci95": [
+     0.04063033449487183,
+     0.06728644928424847
+    ]
+   },
+   "prefix1": {
+    "gain": 0.04170794993700345,
+    "ci95": [
+     0.025965960700135328,
+     0.057181308526835645
+    ]
+   },
+   "prefix1_top5": {
+    "gain": 0.034067515374739954,
+    "ci95": [
+     0.021122266486810877,
+     0.047024403160571215
+    ]
+   },
+   "prefix2": {
+    "gain": 0.0411452675535742,
+    "ci95": [
+     0.02597346222757111,
+     0.056357402067762734
+    ]
+   },
+   "prefix2_top5": {
+    "gain": 0.021434563348703552,
+    "ci95": [
+     0.010932669111287397,
+     0.03230873953720051
+    ]
+   },
+   "prefix3": {
+    "gain": 0.02502715742843841,
+    "ci95": [
+     0.012513280280939662,
+     0.038092078061464224
+    ]
+   },
+   "prefix3_top5": {
+    "gain": 0.0031731596704862508,
+    "ci95": [
+     -0.0026343519494204425,
+     0.009423980362004994
+    ]
+   },
+   "score": {
+    "gain": 0.03958256238069452,
+    "ci95": [
+     0.02835034764764037,
+     0.05070152168416209
+    ]
+   }
+  }
+ },
+ "decision": {
+  "score_gain_vs_v037": {
+   "gain": 0.001712735721595391,
+   "ci95": [
+    -0.00559794363192216,
+    0.009017595626161851
+   ]
+  },
+  "adopt": false,
+  "rule": "paired 95% CI of the score gain over v0.3.7 above zero"
+ },
+ "seconds": 80
+}
