@@ -1,0 +1,5 @@
+data/
+Glint-protocol/
+__pycache__/
+*_status.json
+*.log

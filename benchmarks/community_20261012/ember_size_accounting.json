@@ -1,0 +1,39 @@
+{
+  "automaton_arrays": {
+    "inj_cell": 6192,
+    "inj_chan": 6192,
+    "inj_delta": 6192,
+    "sc_nb": 786432,
+    "sc_ch": 786432,
+    "sc_co": 786432,
+    "sc_bias": 131072,
+    "op_code": 131072,
+    "op_d": 131072,
+    "op_n": 131072,
+    "op_c": 131072,
+    "op_a": 131072,
+    "op_b": 131072,
+    "op_u": 131072,
+    "pr_cell": 61920,
+    "pr_chan": 61920,
+    "pr_co": 61920,
+    "pr_bias": 258,
+    "op_v": 655360
+  },
+  "byte_memory_arrays": {
+    "window": 1,
+    "shift": 1,
+    "version": 1,
+    "divisor": 1,
+    "R_int": 42,
+    "class_of_id": 258,
+    "never_read": 2,
+    "A_int": 4128,
+    "Bm_int": 4128,
+    "lam_int": 7,
+    "MUL": 258
+  },
+  "active_byte_stored_scalars": 4276653,
+  "word_heads_inactive_stored_numeric_scalars": 58523970,
+  "explanation": "Conservative count includes wiring/metadata, not an assertion of neural trainable parameter equivalence."
+}

@@ -1,0 +1,116 @@
+{
+  "results": {
+    "arc_easy": {
+      "name": "arc_easy",
+      "alias": "arc_easy",
+      "sample_len": 2376,
+      "acc,none": 0.25841750841750843,
+      "acc_stderr,none": 0.008982741341291388,
+      "acc_norm,none": 0.2727272727272727,
+      "acc_norm_stderr,none": 0.009138630726364266
+    },
+    "arc_challenge": {
+      "name": "arc_challenge",
+      "alias": "arc_challenge",
+      "sample_len": 1172,
+      "acc,none": 0.1825938566552901,
+      "acc_stderr,none": 0.011289730684564906,
+      "acc_norm,none": 0.2022184300341297,
+      "acc_norm_stderr,none": 0.011737454431872123
+    },
+    "hellaswag": {
+      "name": "hellaswag",
+      "alias": "hellaswag",
+      "sample_len": 10042,
+      "acc,none": 0.26379207329217286,
+      "acc_stderr,none": 0.004397872471854581,
+      "acc_norm,none": 0.2764389563831906,
+      "acc_norm_stderr,none": 0.004463224445470858
+    },
+    "piqa": {
+      "name": "piqa",
+      "alias": "piqa",
+      "sample_len": 1838,
+      "acc,none": 0.5348204570184983,
+      "acc_stderr,none": 0.011637500993816005,
+      "acc_norm,none": 0.5217627856365615,
+      "acc_norm_stderr,none": 0.011654768618559977
+    },
+    "arithmark3": {
+      "name": "arithmark3",
+      "alias": "arithmark3",
+      "sample_len": 1000,
+      "acc,none": 0.271,
+      "acc_stderr,none": 0.014062601350986125,
+      "acc_norm,none": 0.271,
+      "acc_norm_stderr,none": 0.014062601350986125
+    }
+  },
+  "group_subtasks": {},
+  "versions": {
+    "arc_challenge": 1.0,
+    "arc_easy": 1.0,
+    "arithmark3": "Yaml",
+    "hellaswag": 1.0,
+    "piqa": 1.0
+  },
+  "n-shot": {
+    "arc_challenge": 0,
+    "arc_easy": 0,
+    "arithmark3": 0,
+    "hellaswag": 0,
+    "piqa": 0
+  },
+  "higher_is_better": {
+    "arc_challenge": {
+      "acc": true,
+      "acc_norm": true
+    },
+    "arc_easy": {
+      "acc": true,
+      "acc_norm": true
+    },
+    "arithmark3": {
+      "acc": true,
+      "acc_norm": true
+    },
+    "hellaswag": {
+      "acc": true,
+      "acc_norm": true
+    },
+    "piqa": {
+      "acc": true,
+      "acc_norm": true
+    }
+  },
+  "n-samples": {
+    "arc_easy": {
+      "original": 2376,
+      "effective": 2376
+    },
+    "arc_challenge": {
+      "original": 1172,
+      "effective": 1172
+    },
+    "hellaswag": {
+      "original": 10042,
+      "effective": 10042
+    },
+    "piqa": {
+      "original": 1838,
+      "effective": 1838
+    },
+    "arithmark3": {
+      "original": 1000,
+      "effective": 1000
+    }
+  },
+  "native_mica": {
+    "package_manifest_sha256": "d7d4d950f1903cb29bbe08486d6b0850be4add36ca2d9c4f62fa322186189073",
+    "config": "word LM + frozen answer-mode calibration; NO belief adapter",
+    "live_likelihood_verifications": 67,
+    "cache_used": true,
+    "harness_version": "0.4.13",
+    "arith_label_fix": "int(doc[label]); full 1000-item ArithMark rerun; other four tasks unchanged"
+  }
+}
