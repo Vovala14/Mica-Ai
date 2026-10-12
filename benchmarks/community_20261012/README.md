@@ -59,7 +59,19 @@ unchanged. The final counts exactly reproduce the released evaluation.
 
 ## Tiny-ML: Ember 0.3.7 byte foundation
 
-Fresh full evaluation is being completed; no partial score is submitted.
+Fresh complete native CPU evaluation (1,170 seconds, 12 workers):
+
+| Task | Full count | Result |
+|---|---|---:|
+| BLiMP | 67,000 pairs | 52.5597% (35,215 correct) |
+| ARC-Easy | 2,376 questions | 25.9259% (616 correct) |
+| WikiText-2 raw test | 1,292,007 scored bytes | byte perplexity 7.87131116; 2.97660397 bits/byte |
+
+199 ARC items encounter the reference's 256-native-token input clipping.
+`ember_glint_summary.json` contains dataset/model hashes and the exact protocol;
+`ember_glint_evidence.json.gz` contains all per-item scores and outcomes.
+All 29 release checksum files verified. These are new public-benchmark measurements,
+not evidence of improvement over another model; no such comparison was run.
 
 This configuration uses the released byte automaton + byte memory, with no word
 suggestion/completion heads. It is labeled accordingly. For conservative size
@@ -87,7 +99,7 @@ exactly; prefix sharing matched independent sequence scoring exactly. See
 
 ## Submission status
 
-PR URLs and final Ember results will be recorded here once created. The board
+Open SLM submission: [PR #209](https://huggingface.co/spaces/AxiomicLabs/Open_SLM_Leaderboard/discussions/209). Tiny-ML PR link will be recorded after submission. Both require maintainer review. Reproduction code is in [GitHub PR #37](https://github.com/Vovala14/Mica-Ai/pull/37). The board
 maintenance snapshots show actual model merges on October 12 (Open SLM) and
 October 10 (Tiny-ML), with repeated additions on earlier days.
 
