@@ -99,7 +99,7 @@ exactly; prefix sharing matched independent sequence scoring exactly. See
 
 ## Submission status
 
-Open SLM submission: [PR #209](https://huggingface.co/spaces/AxiomicLabs/Open_SLM_Leaderboard/discussions/209). Tiny-ML PR link will be recorded after submission. Both require maintainer review. Reproduction code is in [GitHub PR #37](https://github.com/Vovala14/Mica-Ai/pull/37). The board
+Open SLM submission: [PR #209](https://huggingface.co/spaces/AxiomicLabs/Open_SLM_Leaderboard/discussions/209). Tiny-ML submission: [PR #97](https://huggingface.co/spaces/Glint-Research/Tiny-ML-Leaderboard/discussions/97). Both require maintainer review. Reproduction code is in [GitHub PR #37](https://github.com/Vovala14/Mica-Ai/pull/37). The board
 maintenance snapshots show actual model merges on October 12 (Open SLM) and
 October 10 (Tiny-ML), with repeated additions on earlier days.
 
