@@ -1,0 +1,25 @@
+{
+  "automaton_arrays": {
+    "inj_cell": 393216,
+    "inj_chan": 393216,
+    "inj_delta": 393216,
+    "sc_nb": 3145728,
+    "sc_ch": 3145728,
+    "sc_co": 3145728,
+    "sc_bias": 524288,
+    "op_code": 524288,
+    "op_d": 524288,
+    "op_n": 524288,
+    "op_c": 524288,
+    "op_a": 524288,
+    "op_b": 524288,
+    "op_u": 524288,
+    "pr_cell": 3932160,
+    "pr_chan": 3932160,
+    "pr_co": 3932160,
+    "pr_bias": 16384,
+    "op_v": 2621440
+  },
+  "conservative_numeric_scalar_count": 31523432,
+  "definition": "All stored numeric scalar entries in model + three memories + answer-mode + previous-word + phrase-copy, including fixed wiring/metadata; not neural trainable parameters."
+}

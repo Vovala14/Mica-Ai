@@ -1,0 +1,42 @@
+{
+  "hellaswag": {
+    "repo": "Rowan/hellaswag",
+    "file": "data/validation-00000-of-00001.parquet",
+    "rows": 10042,
+    "sha256": "899813071e1e95efafec90f856e1987d2150fa4d020fc005df6962c259f660cd",
+    "revision": "218ec52e09a7e7462a5400043bb9a69a41d06b76",
+    "export_jsonl_sha256": "9021cecfa4cc11bc32d405ce1f0f0a601182b12fc48a3784541c6426f8283834"
+  },
+  "arc_easy": {
+    "repo": "allenai/ai2_arc",
+    "file": "ARC-Easy/test-00000-of-00001.parquet",
+    "rows": 2376,
+    "sha256": "4160597d618ae851c7eb04e281574f3f654776216ac6b6641588d64527b47177",
+    "revision": "210d026faf9955653af8916fad021475a3f00453",
+    "export_jsonl_sha256": "8f0f1a901cb74596ad515853e3b9da179d46ca77eff29a0792d3cc740d7cab8b"
+  },
+  "arc_challenge": {
+    "repo": "allenai/ai2_arc",
+    "file": "ARC-Challenge/test-00000-of-00001.parquet",
+    "rows": 1172,
+    "sha256": "62f03257e737aed263f55c6abf87c7bb0028a44a6bdd2a26eb1279eb42c1d1e9",
+    "revision": "210d026faf9955653af8916fad021475a3f00453",
+    "export_jsonl_sha256": "b90e27562e002b9874dc38efc1d0a561e66266f6347ac82f4599e75dd4b604af"
+  },
+  "piqa": {
+    "repo": "baber/piqa",
+    "file": "piqa_validation.parquet",
+    "rows": 1838,
+    "sha256": "2b17ee1215b1ceb2ddabf4c90a05c5a8b833bef9d207960f57d111c43a2080f3",
+    "revision": "142f6d7367fd9877f0fb3b5734ea6a545f54cdd1",
+    "export_jsonl_sha256": "cb3f57113608cf022c51f8354c701a9b5f2e69fa85eaf383113065130ebdb7c1"
+  },
+  "arithmark3": {
+    "repo": "AxiomicLabs/ArithMark-3.0",
+    "file": "arithmark-3.jsonl",
+    "rows": 1000,
+    "sha256": "bf8ab1a5193d52cdf0e05ff0b3ca226bdfcf416cb6e75562dcbe72e7e4559435",
+    "revision": "6f6e59dd9b7e2c63455f7af7f838f9ecc3d0a746",
+    "export_jsonl_sha256": "24538571406eee8b48d6166f0503866731237f8842c00f32a651800a41c6c742"
+  }
+}
