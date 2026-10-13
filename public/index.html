@@ -175,7 +175,7 @@ footer a, .card a { color: var(--accent); }
         <a class="btn" href="https://github.com/Vovala14/Mica-Ai">GitHub</a>
         <a class="btn" href="https://huggingface.co/collections/vynly/mica-minimal-inference-cellular-automaton">Hugging Face</a>
       </div>
-      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.6">Flame-W 0.3.6</a> (<a href="#flame-release-notes">release notes</a>) · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">Ember v0.3.7</a> (<a href="#release-notes">release notes</a>) · <a href="#belief">Try belief memory</a></p>
+      <p class="sub">Model packages: <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.6">Flame-W 0.3.6</a> (<a href="#flame-release-notes">release notes</a>) · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.8">Ember v0.3.8</a> (<a href="#release-notes">release notes</a>) · <a href="#belief">Try belief memory</a></p>
     </div>
   </header>
 
@@ -294,7 +294,7 @@ footer a, .card a { color: var(--accent); }
     <h2>The models</h2>
     <div class="models">
       <div><b>Flame-W 0.3.6 (12 Oct 2026)</b><br>0.3.5 plus two small integer readouts of the recent words: a previous-word bank (16 values per word) and a 210-integer phrase-copy table that reuses phrases from earlier in the text; the automaton, memories, belief memory and decoders are unchanged. Exact integer bits per word: long text 8.074 → 7.724, short text 5.162 → 5.121 (both paired 95% intervals exclude zero). Tiny ToM 645 → 664/2,000 (33.20%; p = 0.17, not significant); ARC-Easy 26.18 → 27.27 (p = 0.013); HellaSwag 27.70 → 27.64; ARC-Challenge 20.73 → 20.22; PIQA 51.31 → 52.18; ArithMark-3 27.0 → 27.1. <a href="#flame-release-notes">Release notes</a> · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/flame-w-0.3.6">Release and evidence</a>.</div>
-      <div><b>Ember v0.3.7 (11 Oct 2026)</b><br>Word rules over the previous words: before each suggestion, 16 learned integer rule steps read fixed codes of the last three words. A 32,768-word vocabulary and a word memory (the readouts also read the automaton at the starts of the last 2 words); finish word works after any number of letters. Trained on 697,070 texts; the automaton and byte memory are unchanged. Clean word benchmark: next-word top-1 15.25% → 21.50% (95% CI +2.5 to +10.0 points), two-letter completion 54.50% → 63.75% (+5.25 to +13.0). <a href="#release-notes">Release notes</a> · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.7">Release and evidence</a>.</div>
+      <div><b>Ember v0.3.8 (13 Oct2026)</b><br>Better typed-word completion with the same learned integer-rule cellular automaton: bounded context readout refits, a blend of the two existing word heads, and calibrated conditional probabilities. On matched clean two-letter prompts, chat68.90%→70.56%, everyday60.73%→63.61%; equal-domain gain+2.27 points (95%CI+1.26 to+3.31). Next-word behavior, byte model/memory and ToM are unchanged. <a href="#release-notes">Release notes</a> · <a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.8">Release and evidence</a>.</div>
     </div>
     <p style="font-size:14px;color:var(--muted);margin:14px 0 0">These are early research models. Flame-W's sentences often don't make sense yet; Ember's word suggestions have a limited vocabulary. Your ratings and corrections help evaluate them.</p>
   </section>
@@ -329,7 +329,25 @@ footer a, .card a { color: var(--accent); }
   </section>
 
   <section class="card notes" id="release-notes" aria-labelledby="notesTitle">
-    <h2 id="notesTitle">Release notes · Ember v0.3.7 (11 Oct 2026)</h2>
+    <h2 id="notesTitle">Release notes · Ember v0.3.8 (13 Oct2026)</h2>
+    <p>Ember assists with words; Flame-W handles sentences. The cellular architecture stays the same. Existing completion context coefficients and biases were refit, the existing prefix and next-word heads combine9:7, and probabilities use a training-calibrated12/16 gain. No neural network or external model was added.</p>
+    <div class="tablewrap"><table>
+      <caption>Matched clean two-letter completion, full eligible sets; conditional bits per word (lower is better)</caption>
+      <thead><tr><th>Test</th><th>Published0.3.7</th><th>0.3.8</th></tr></thead>
+      <tbody><tr><th>Chat top1 (968 prompts)</th><td>68.90%</td><td>70.56%</td></tr>
+      <tr><th>Everyday top1 (937 prompts)</th><td>60.73%</td><td>63.61%</td></tr>
+      <tr><th>Chat conditional bits/word</th><td>3.228380</td><td>2.250338</td></tr>
+      <tr><th>Everyday conditional bits/word</th><td>4.302341</td><td>3.026711</td></tr></tbody>
+    </table></div>
+    <p>Equal-domain top1 gain+2.27 percentage points [95%CI+1.26,+3.31]; conditional loss difference−1.126836bits [−1.262410,−0.993176]. Top1 includes out-of-vocabulary targets; conditional loss excludes them and normalizes over matching prefix words. These numbers are not bits/byte and use different counts from the older400-prompt table.</p>
+    <p>Most gains come from the decoder. Against the original weights with the same improved decoder, refitting adds a small significant loss gain but no established additional accuracy gain; chat top1 falls0.72points and everyday rises1.17points on the clean sets. All domains improve against actual published0.3.7.</p>
+    <p>Existing frozen5999-prompt word-stage confirmation also improves: equal-domain+1.40points [0.85,1.93]. Those sets were reused transparently for this fixed public-version comparison; clean sets were for reporting, with no retuning. Historical byte-validation lineage is disclosed in the full report. Sealed completion test untouched.</p>
+    <p><b>Unchanged:</b> next-word/one-letter behavior, byte model and memory, native rules/geometry/vocabulary. Public Tiny ToM remains26.20% with byte/character normalization (524/2000; secondary word normalization27.25%). No sentence or reasoning improvement is claimed.</p>
+    <p><a href="https://github.com/Vovala14/Mica-Ai/releases/tag/ember-v0.3.8">GitHub release and full evidence</a> · <a href="https://huggingface.co/vynly/mica-ember-0.3.8">Hugging Face</a> · <a href="#ember-037-notes">Previous0.3.7 notes</a></p>
+  </section>
+
+  <section class="card notes" id="ember-037-notes" aria-labelledby="notes037Title">
+    <h2 id="notes037Title">Previous release · Ember v0.3.7 (11 Oct 2026)</h2>
     <p style="margin-top:0">Word rules over the previous words, a 4× bigger vocabulary, a word memory and completion after any number of letters, trained on 5.8× more text. It is not a transformer and not a neural network.</p>
     <ol>
       <li><b>Word rules over the previous words.</b> Before each suggestion, 16 extra MICA rule ticks run. Their terms read fixed 16-value integer codes of the previous three words and the automaton's probes, with the same integer rule mechanism the automaton uses, so a rule can combine “weather” + “today” + “is”.</li>
@@ -371,9 +389,9 @@ const MODES = {
   'flame-suggest': { api: '/api/flame', body: p => ({ prompt: p, mode: 'suggest' }), action: 'Suggest',
     desc: 'Flame-W suggests the next two or three words, like a phone keyboard.' },
   'ember-next': { api: '/api/ember', body: p => ({ prompt: p, mode: 'next-word' }), action: 'Suggest',
-    desc: 'Ember v0.3.7 suggests one next word from what you wrote so far. A final space is optional.' },
+    desc: 'Ember v0.3.8 suggests one next word from what you wrote so far. A final space is optional.' },
   'ember-complete': { api: '/api/ember', body: p => ({ prompt: p, mode: 'complete-word' }), action: 'Complete',
-    desc: 'Ember v0.3.7 finishes the word you are typing, after one or more letters, such as “Thank you for b”.' },
+    desc: 'Ember v0.3.8 finishes the word you are typing, after one or more letters, such as “Thank you for b”.' },
 };
 const EXAMPLES = {
   'flame-sentence': ['I was thinking about', 'The weather today is', 'Can you help me', 'My favorite food is'],
@@ -501,8 +519,8 @@ const STEPS = {
     'Writing your text and the typed letters onto the byte tape',
     'Running 16 phases of learned integer cellular rules',
     'Running 16 integer word rules over the last three words',
-    'Scoring known words with the completion readout',
-    'Keeping only words that begin with your letters',
+    'Scoring known words with the existing integer readouts',
+    'Keeping only words that begin with all your typed letters',
   ],
 };
 const MORE = ['The cellular update rules use integer math', 'Still weighing the candidates',

@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "source": {
+    "model_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+    "heads_sha256": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67",
+    "memory_sha256": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8"
+  },
+  "policy_sha256": "6fe8c1c518dd568ee915673772990d87a20c30f9953d9185fddf510dc35e338b",
+  "native_ranking_parity": 136,
+  "conditional_probability_parity": 136,
+  "typing_sessions": 8,
+  "unchanged_next_word_checks": 32,
+  "live_local_backend_demo": {
+    "model": "ember-v0.3.7",
+    "mode": "complete-word",
+    "prompt": "Please send me the add",
+    "output": "ress",
+    "suggestions": [
+      "address",
+      "added",
+      "addresses",
+      "additional",
+      "addition"
+    ],
+    "decoder": "integer-completion-a7-gain12-v1",
+    "suggestion_probabilities": [
+      0.9999778856712405,
+      1.5582800355257784e-05,
+      2.2932477269401515e-06,
+      1.4598583282100445e-06,
+      1.3010427465733066e-06
+    ],
+    "probability_scope": "conditional-on-typed-prefix",
+    "completion_alpha": 7,
+    "completion_probability_gain": 12,
+    "model_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+    "word_heads_sha256": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67"
+  },
+  "archived_candidates_executed": false,
+  "raw_corpora_or_candidate_weights_in_handoff": false,
+  "weights_unchanged": true,
+  "gpu_used": false,
+  "published": false,
+  "deployed": false
+}

@@ -4,13 +4,23 @@ Ember is the byte/letter-level MICA model: an integer cellular automaton that
 reads and writes one UTF-8 byte at a time (258 symbols, original c256 lag64
 geometry).
 
-## Latest release: v0.3.7
+## Latest release: v0.3.8
+
+[Ember0.3.8](runs/ember_v038_20261013/) improves two-letter word completion over
+published 0.3.7 using bounded existing-head context/bias fitting and a9:7 head
+blend with calibrated conditional probabilities. Clean conversation68.90→70.56%,
+everyday60.73→63.61%; paired equal-domain+2.27pp[+1.26,+3.31]. Same cellular
+rules/geometry/vocabulary/next-word head/byte memory; ToM unchanged. Most gains
+come from decoder changes. See [the full matched report](../docs/ember-0.3.8-release.md).
+The website uses0.3.8 for word actions; Flame-W handles sentences.
+
+## Previous release: v0.3.7
 
 [Ember v0.3.7](runs/ember_v037_20261011/) keeps the v0.3.5 automaton and adds word rules over the previous words
 (16 MICA rule ticks per word readout whose terms read fixed codes of the last three words), a 32,768-word
 vocabulary, a word memory (the word readouts also read the automaton at the starts of the previous 2 words) and
 completion after any number of typed letters, trained on 697,070 texts. Clean word benchmark: next-word top-1
-15.25% → 21.50%, two-letter completion 54.50% → 63.75%. The byte model is unchanged. The website runs v0.3.7.
+15.25% → 21.50%, two-letter completion 54.50% → 63.75%. The byte model is unchanged. The website now runs v0.3.8.
 
 ## v0.3.5
 
@@ -20,7 +30,7 @@ memory on 119,823 training records, and retrains both word readouts (8,192 words
 records. Clean word benchmark: two-letter completion 48.00% → 54.50% (paired 95% CI
 +3.0 to +10.0 points); next-word top-1 14.25% → 15.25% (within noise). Clean equal-domain byte+EOS loss
 1.831770 → 1.810055 bits/target (paired change -0.021715; 95% CI
--0.023154 to -0.020275). The website runs v0.3.5.
+-0.023154 to -0.020275). This is a previous release.
 
 ## Word-assistance version: v0.3a
 
@@ -36,7 +46,7 @@ model hashes, prompt counts, domain scores and limitations.
 
 Ember owns word suggestions and typed-word completion. Flame-W owns sentence
 continuation and generation. The first website word interface used the v0.3a
-heads; the current site runs the v0.3.1 checkpoint described below.
+heads; the current site runs v0.3.8.
 
 ## Latest byte/readout release: v0.3.1
 
@@ -46,7 +56,7 @@ and adding a compact integer memory sidecar for byte scoring. On the exact
 integer clean byte+EOS evaluation, its equal-domain mean is 1.831770 bits/target,
 an improvement of 0.036552 bits/target over v0.2A [paired change -0.036552,
 95% CI -0.038721 to -0.034442]. The word-assistance metrics are unchanged from v0.3a: 14.25%
-next-word top-1 and 48.00% two-letter completion top-1. The website uses the
+next-word top-1 and 48.00% two-letter completion top-1. That older release used the
 v0.3.1 checkpoint and word readouts for its interactive word modes; the memory
 sidecar is for the byte-scoring runtime.
 

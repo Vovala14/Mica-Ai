@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "native_features": 16,
+  "integer_score_checks": 265380,
+  "probability_prefix_checks": 40,
+  "unchanged_head_arrays": [
+    "words",
+    "anchors",
+    "ticks",
+    "rule_mode",
+    "next_W",
+    "next_B",
+    "next_I",
+    "next_flat",
+    "next_co",
+    "next_ra",
+    "next_rb",
+    "next_bias",
+    "prefix2_I",
+    "prefix2_flat",
+    "prefix2_co",
+    "prefix2_ra",
+    "prefix2_rb",
+    "prefix2_bias"
+  ],
+  "model_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+  "word_heads_sha256": "44c60a2e64a5d671a03dfc162fca0c9c435b75c2059ebca95eec47ab4a2a92ce",
+  "memory_sha256": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8",
+  "source_byte_memory_geometry_next_head_unchanged": true
+}

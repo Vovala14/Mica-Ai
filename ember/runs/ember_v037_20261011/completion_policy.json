@@ -1,0 +1,15 @@
+{
+  "gain": 12,
+  "scale_denominator": 16,
+  "alpha": 7,
+  "source": {
+    "model_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+    "heads_sha256": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67",
+    "memory_sha256": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8"
+  },
+  "scope": "Conditional probabilities over legal prefix candidates; ranking unchanged",
+  "weights_changed": false,
+  "cellular_architecture_changed": false,
+  "decoder_probability_policy_changed": true,
+  "deployed": false
+}

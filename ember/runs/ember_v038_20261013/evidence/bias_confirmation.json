@@ -1,0 +1,111 @@
+{
+  "accepted": true,
+  "parent_heads_path": "mica\\r1\\runs\\codex_ember038_tinystories_20261013\\context_bias_3000_heads.npz",
+  "parent_heads_sha256": "15bdfcc3bf1dc149aea303cfb1a5197b77a8ef5d52e385f1c42c4380f8380dfd",
+  "candidate_heads_path": "mica\\r1\\runs\\codex_ember038_story_bias_20261013\\rank_heads.npz",
+  "candidate_heads_sha256": "44c60a2e64a5d671a03dfc162fca0c9c435b75c2059ebca95eec47ab4a2a92ce",
+  "domains": {
+    "story": {
+      "parent": {
+        "records": 2000,
+        "correct": 1434,
+        "score": 0.717,
+        "conditional_bits": 1.8295937598924776,
+        "top5": 0.892
+      },
+      "candidate": {
+        "records": 2000,
+        "correct": 1435,
+        "score": 0.7175,
+        "conditional_bits": 1.826396190921357,
+        "top5": 0.8925
+      },
+      "paired_comparison": {
+        "delta_bits": -0.0031975689711206444,
+        "paired95_bits": [
+          -0.004397744892551774,
+          -0.002017446501173978
+        ],
+        "in_vocabulary_records": 1997,
+        "gain_points": 0.05,
+        "paired95_points": [
+          -0.35000000000000003,
+          0.44999999999999996
+        ],
+        "gains": 9,
+        "losses": 8
+      }
+    },
+    "chat": {
+      "parent": {
+        "records": 2000,
+        "correct": 1618,
+        "score": 0.809,
+        "conditional_bits": 1.2682690603330529,
+        "top5": 0.924
+      },
+      "candidate": {
+        "records": 2000,
+        "correct": 1621,
+        "score": 0.8105,
+        "conditional_bits": 1.268459384249831,
+        "top5": 0.9225
+      },
+      "paired_comparison": {
+        "delta_bits": 0.00019032391677807015,
+        "paired95_bits": [
+          -0.000701323847492953,
+          0.0010902524607774669
+        ],
+        "in_vocabulary_records": 1972,
+        "gain_points": 0.15,
+        "paired95_points": [
+          0.0,
+          0.35000000000000003
+        ],
+        "gains": 3,
+        "losses": 0
+      }
+    },
+    "everyday": {
+      "parent": {
+        "records": 1999,
+        "correct": 1262,
+        "score": 0.6313156578289144,
+        "conditional_bits": 2.9776797136004185,
+        "top5": 0.8259129564782391
+      },
+      "candidate": {
+        "records": 1999,
+        "correct": 1260,
+        "score": 0.6303151575787894,
+        "conditional_bits": 2.9774777702105824,
+        "top5": 0.8259129564782391
+      },
+      "paired_comparison": {
+        "delta_bits": -0.00020194338983643898,
+        "paired95_bits": [
+          -0.0013011903366572214,
+          0.0008818291157803226
+        ],
+        "in_vocabulary_records": 1982,
+        "gain_points": -0.10005002501250625,
+        "paired95_points": [
+          -0.3001500750375188,
+          0.10005002501250625
+        ],
+        "gains": 1,
+        "losses": 3
+      }
+    }
+  },
+  "legacy_field_clarification": "versus_rc1 in original score JSON is the comparison against current parent15bdfcc3, not older3858dd17; underlying outcomes were not modified.",
+  "weights_changed": "existing prefix2_B only, max128 integer units",
+  "architecture_changed": false,
+  "decoder_changed": false,
+  "all_other_arrays_frozen": true,
+  "accuracy_improvement_established": false,
+  "sealed_clean_scored": false,
+  "published": false,
+  "deployed": false
+}

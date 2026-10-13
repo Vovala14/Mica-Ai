@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "name": "taskmaster3.json",
+      "url": "https://raw.githubusercontent.com/google-research-datasets/Taskmaster/d8ca021f99f5ce6132cb4bc97802c27e1dcbdbb9/TM-3-2020/data/data_00.json",
+      "bytes": 15832328
+    },
+    {
+      "name": "brown.zip",
+      "url": "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/brown.zip",
+      "bytes": 3314357
+    }
+  ],
+  "source_hashes": {
+    "taskmaster3.json": "4edf97557e1aa7f654bf97994b5eae42653ef6d4f5e50136f7664d7e5cdff7b6",
+    "brown.zip": "9b275f9b3b95d7bd66ccfb7cd259f445a13bbe5d1f4107aba09fd3e8364bafa6"
+  },
+  "protocol_sha256": "515a285af8d33946014cd796edf5c595d5a3b04a2118815a3dda0e0e55e6005f",
+  "baseline_sha256": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67",
+  "records_sha256": "01e419c79cd7fac9dfaa0a184aa11e86a7d48cd98cad9be92819d727e3e319d2",
+  "counts": {
+    "conversation/train": 400,
+    "conversation/selection": 200,
+    "conversation/confirmation": 200,
+    "prose/train": 400,
+    "prose/selection": 200,
+    "prose/confirmation": 200
+  },
+  "features_sha256": "ce233bb888a68d26d5c8954b840f4f22c1c50a2e25f542aa553c39fa6933fd08",
+  "experiment_sha256": "ad952ccd7bc983a52bdb7f094fe73562931e4078876a3c33216677e99f1eff9e"
+}

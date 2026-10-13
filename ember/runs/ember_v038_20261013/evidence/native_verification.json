@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "native_features": 32,
+  "exact_integer_scores": 6472,
+  "prediction_probability_checks": 16,
+  "source_unchanged": true,
+  "parent_heads_sha256": "15bdfcc3bf1dc149aea303cfb1a5197b77a8ef5d52e385f1c42c4380f8380dfd",
+  "candidate_heads_sha256": "44c60a2e64a5d671a03dfc162fca0c9c435b75c2059ebca95eec47ab4a2a92ce"
+}

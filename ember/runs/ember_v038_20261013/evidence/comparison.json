@@ -1,0 +1,390 @@
+{
+  "source": {
+    "model.mica": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+    "memory.npz": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8",
+    "word_heads.npz": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67",
+    "candidate_word_heads.npz": "44c60a2e64a5d671a03dfc162fca0c9c435b75c2059ebca95eec47ab4a2a92ce"
+  },
+  "sets": {
+    "story_confirmation": {
+      "data": {
+        "path": "mica\\r1\\runs\\codex_ember038_story_bias_20261013\\story_confirmation.jsonl",
+        "sha256": "e2cbdc9995d90d34c88c0c494abee81d66d1fa4d668d2e30c335909ae1ad20ea",
+        "records": 2000
+      },
+      "cache_sha256": "16bd326bb7b1fc7c37c740803bdced34eccf1d3350e825da00411a072362d3df"
+    },
+    "chat_confirmation": {
+      "data": {
+        "path": "mica\\r1\\runs\\codex_ember038_story_bias_20261013\\chat_confirmation.jsonl",
+        "sha256": "9ba7947cc8d73ec84a88324a69dc8249efb3f95846692e6659e6d17652bed039",
+        "records": 2000
+      },
+      "cache_sha256": "ad656e2ba7630ce3a3d3561fc62a158a425e01a5d6b90657c4ece92e5b999c06"
+    },
+    "everyday_confirmation": {
+      "data": {
+        "path": "mica\\r1\\runs\\codex_ember038_story_bias_20261013\\everyday_confirmation.jsonl",
+        "sha256": "901fdb20c5f6c9473f8b714817de69a9c9f214bdc1633b28b97812e0ba55506b",
+        "records": 2000
+      },
+      "cache_sha256": "48af04b9b9978f5c0e5509d7a5ca8430e3d903400689fda652dba838fbd5aae5"
+    },
+    "chat_clean": {
+      "data": {
+        "path": "mica\\r1\\data\\eval_clean\\chat_val1000.jsonl",
+        "sha256": "a8eb6d3553656a2cf78e8a2f61c66a4b02a6dd1a124f5f2b8b938a1d3c77423e"
+      },
+      "cache_sha256": "0e5861b09ed5cc05b4eab19f0800b237b868a027615eddefbd34e3e07d034a3d"
+    },
+    "everyday_clean": {
+      "data": {
+        "path": "mica\\r1\\data\\eval_clean\\val1000.jsonl",
+        "sha256": "c6107c8e80f28156c0314db180576e7311ff3f7a9e2843d711709c9a7d2f4d26"
+      },
+      "cache_sha256": "fff1f606474136550bcc7c9cfe4bc6807dc0d5c83b4af217e7b443832568f86d"
+    }
+  },
+  "results": {
+    "confirmation": {
+      "summary": {
+        "story": {
+          "public037": {
+            "records": 2000,
+            "correct": 1413,
+            "top1_percent": 70.65,
+            "top5_percent": 88.35,
+            "conditional_bits": 2.530206537779972,
+            "loss_records": 1997
+          },
+          "decoder_only": {
+            "records": 2000,
+            "correct": 1433,
+            "top1_percent": 71.65,
+            "top5_percent": 89.14999999999999,
+            "conditional_bits": 1.8346985968000284,
+            "loss_records": 1997
+          },
+          "candidate": {
+            "records": 2000,
+            "correct": 1435,
+            "top1_percent": 71.75,
+            "top5_percent": 89.25,
+            "conditional_bits": 1.826396190921357,
+            "loss_records": 1997
+          }
+        },
+        "chat": {
+          "public037": {
+            "records": 2000,
+            "correct": 1608,
+            "top1_percent": 80.4,
+            "top5_percent": 92.10000000000001,
+            "conditional_bits": 1.7535804273646964,
+            "loss_records": 1972
+          },
+          "decoder_only": {
+            "records": 2000,
+            "correct": 1624,
+            "top1_percent": 81.2,
+            "top5_percent": 92.30000000000001,
+            "conditional_bits": 1.2826581496963139,
+            "loss_records": 1972
+          },
+          "candidate": {
+            "records": 2000,
+            "correct": 1621,
+            "top1_percent": 81.05,
+            "top5_percent": 92.25,
+            "conditional_bits": 1.268459384249831,
+            "loss_records": 1972
+          }
+        },
+        "everyday": {
+          "public037": {
+            "records": 1999,
+            "correct": 1211,
+            "top1_percent": 60.58029014507254,
+            "top5_percent": 82.04102051025512,
+            "conditional_bits": 4.240614500439001,
+            "loss_records": 1982
+          },
+          "decoder_only": {
+            "records": 1999,
+            "correct": 1249,
+            "top1_percent": 62.48124062031015,
+            "top5_percent": 82.59129564782391,
+            "conditional_bits": 3.001157214339464,
+            "loss_records": 1982
+          },
+          "candidate": {
+            "records": 1999,
+            "correct": 1260,
+            "top1_percent": 63.03151575787894,
+            "top5_percent": 82.59129564782391,
+            "conditional_bits": 2.9774777702105824,
+            "loss_records": 1982
+          }
+        }
+      },
+      "versus_public037": {
+        "equal_domain_delta_bits": -0.8173560400672999,
+        "paired95_bits": [
+          -0.8806968574759091,
+          -0.7571750189347609
+        ],
+        "equal_domain_gain_points": 1.4004085376021347,
+        "paired95_points": [
+          0.8502832666333165,
+          1.93450058362514
+        ],
+        "domains": {
+          "story": {
+            "delta_bits": -0.7038103468586144,
+            "paired95_bits": [
+              -0.8022519626407428,
+              -0.6111532547794944
+            ],
+            "gain_points": 1.1,
+            "paired95_points": [
+              0.15,
+              2.05
+            ],
+            "loss_records": 1997,
+            "records": 2000
+          },
+          "chat": {
+            "delta_bits": -0.48512104311486554,
+            "paired95_bits": [
+              -0.5774659098420876,
+              -0.3949946388342297
+            ],
+            "gain_points": 0.65,
+            "paired95_points": [
+              -0.1,
+              1.4
+            ],
+            "loss_records": 1972,
+            "records": 2000
+          },
+          "everyday": {
+            "delta_bits": -1.2631367302284198,
+            "paired95_bits": [
+              -1.4020963422700845,
+              -1.131172128008865
+            ],
+            "gain_points": 2.4512256128064034,
+            "paired95_points": [
+              1.4507253626813408,
+              3.5017508754377187
+            ],
+            "loss_records": 1982,
+            "records": 1999
+          }
+        }
+      },
+      "versus_decoder_only": {
+        "equal_domain_delta_bits": -0.015393538484678518,
+        "paired95_bits": [
+          -0.0228769777023602,
+          -0.008062346095155859
+        ],
+        "equal_domain_gain_points": 0.1667583791895948,
+        "paired95_points": [
+          -0.23325100050025016,
+          0.5502180256795065
+        ],
+        "domains": {
+          "story": {
+            "delta_bits": -0.00830240587867122,
+            "paired95_bits": [
+              -0.020659262050694353,
+              0.004008151491351695
+            ],
+            "gain_points": 0.1,
+            "paired95_points": [
+              -0.65,
+              0.85
+            ],
+            "loss_records": 1997,
+            "records": 2000
+          },
+          "chat": {
+            "delta_bits": -0.014198765446482998,
+            "paired95_bits": [
+              -0.02603460752824279,
+              -0.0037699595827646406
+            ],
+            "gain_points": -0.15,
+            "paired95_points": [
+              -0.7,
+              0.4
+            ],
+            "loss_records": 1972,
+            "records": 2000
+          },
+          "everyday": {
+            "delta_bits": -0.02367944412888134,
+            "paired95_bits": [
+              -0.03912859913352644,
+              -0.009007247576497691
+            ],
+            "gain_points": 0.5502751375687844,
+            "paired95_points": [
+              -0.2001000500250125,
+              1.3006503251625814
+            ],
+            "loss_records": 1982,
+            "records": 1999
+          }
+        }
+      },
+      "passed": true,
+      "clean_reporting_only": false
+    },
+    "clean": {
+      "summary": {
+        "chat": {
+          "public037": {
+            "records": 968,
+            "correct": 667,
+            "top1_percent": 68.90495867768594,
+            "top5_percent": 86.05371900826447,
+            "conditional_bits": 3.228379770913827,
+            "loss_records": 953
+          },
+          "decoder_only": {
+            "records": 968,
+            "correct": 690,
+            "top1_percent": 71.28099173553719,
+            "top5_percent": 87.19008264462809,
+            "conditional_bits": 2.260658575501754,
+            "loss_records": 953
+          },
+          "candidate": {
+            "records": 968,
+            "correct": 683,
+            "top1_percent": 70.55785123966942,
+            "top5_percent": 87.29338842975206,
+            "conditional_bits": 2.250337783098792,
+            "loss_records": 953
+          }
+        },
+        "everyday": {
+          "public037": {
+            "records": 937,
+            "correct": 569,
+            "top1_percent": 60.725720384204905,
+            "top5_percent": 81.32337246531483,
+            "conditional_bits": 4.302340883634005,
+            "loss_records": 926
+          },
+          "decoder_only": {
+            "records": 937,
+            "correct": 585,
+            "top1_percent": 62.4332977588047,
+            "top5_percent": 81.75026680896478,
+            "conditional_bits": 3.0616459281608033,
+            "loss_records": 926
+          },
+          "candidate": {
+            "records": 937,
+            "correct": 596,
+            "top1_percent": 63.607257203842046,
+            "top5_percent": 82.81750266808965,
+            "conditional_bits": 3.026710846721149,
+            "loss_records": 926
+          }
+        }
+      },
+      "versus_public037": {
+        "equal_domain_delta_bits": -1.1268360123639454,
+        "paired95_bits": [
+          -1.2624101275750694,
+          -0.9931760367307297
+        ],
+        "equal_domain_gain_points": 2.2672146908103055,
+        "paired95_points": [
+          1.2600907811990085,
+          3.305570133272178
+        ],
+        "domains": {
+          "chat": {
+            "delta_bits": -0.9780419878150344,
+            "paired95_bits": [
+              -1.1681305249792742,
+              -0.8034845660036957
+            ],
+            "gain_points": 1.6528925619834711,
+            "paired95_points": [
+              0.4132231404958678,
+              2.8925619834710745
+            ],
+            "loss_records": 953,
+            "records": 968
+          },
+          "everyday": {
+            "delta_bits": -1.2756300369128561,
+            "paired95_bits": [
+              -1.4712439080635853,
+              -1.090692578615775
+            ],
+            "gain_points": 2.8815368196371396,
+            "paired95_points": [
+              1.2806830309498398,
+              4.482390608324439
+            ],
+            "loss_records": 926,
+            "records": 937
+          }
+        }
+      },
+      "versus_decoder_only": {
+        "equal_domain_delta_bits": -0.02262793692130808,
+        "paired95_bits": [
+          -0.03721447480560438,
+          -0.008116021638110154
+        ],
+        "equal_domain_gain_points": 0.22540947458479227,
+        "paired95_points": [
+          -0.5046093453698721,
+          0.96051227321238
+        ],
+        "domains": {
+          "chat": {
+            "delta_bits": -0.01032079240296189,
+            "paired95_bits": [
+              -0.02805971567803588,
+              0.007974414253071873
+            ],
+            "gain_points": -0.7231404958677686,
+            "paired95_points": [
+              -1.6528925619834711,
+              0.2066115702479339
+            ],
+            "loss_records": 953,
+            "records": 968
+          },
+          "everyday": {
+            "delta_bits": -0.03493508143965427,
+            "paired95_bits": [
+              -0.05830592003702857,
+              -0.011066555664125455
+            ],
+            "gain_points": 1.1739594450373532,
+            "paired95_points": [
+              0.10672358591248667,
+              2.2411953041622197
+            ],
+            "loss_records": 926,
+            "records": 937
+          }
+        }
+      },
+      "passed": true,
+      "clean_reporting_only": true
+    }
+  },
+  "protocol_sha256": "4d1fbc1424d1d475a69048ff85426e9e68a823ab690bb5989f2c27dca5999448",
+  "sealed_accessed": false
+}

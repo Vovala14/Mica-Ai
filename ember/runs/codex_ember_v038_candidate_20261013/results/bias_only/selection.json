@@ -1,0 +1,210 @@
+{
+  "baseline_selection": {
+    "domains": {
+      "conversation": {
+        "primary": 0.27,
+        "next": 0.095,
+        "next_top5": 0.23,
+        "prefix1": 0.32,
+        "prefix1_top5": 0.54,
+        "prefix2": 0.445,
+        "prefix2_top5": 0.68,
+        "prefix3": 0.68,
+        "prefix3_top5": 0.875
+      },
+      "prose": {
+        "primary": 0.1225,
+        "next": 0.04,
+        "next_top5": 0.085,
+        "prefix1": 0.105,
+        "prefix1_top5": 0.285,
+        "prefix2": 0.205,
+        "prefix2_top5": 0.465,
+        "prefix3": 0.425,
+        "prefix3_top5": 0.745
+      }
+    },
+    "equal_domain": {
+      "primary": 0.19625,
+      "next": 0.0675,
+      "next_top5": 0.1575,
+      "prefix1": 0.2125,
+      "prefix1_top5": 0.4125,
+      "prefix2": 0.325,
+      "prefix2_top5": 0.5725,
+      "prefix3": 0.5525,
+      "prefix3_top5": 0.81
+    }
+  },
+  "candidates": [
+    {
+      "strength": 0.001,
+      "selection": {
+        "domains": {
+          "conversation": {
+            "primary": 0.31,
+            "next": 0.14,
+            "next_top5": 0.275,
+            "prefix1": 0.355,
+            "prefix1_top5": 0.565,
+            "prefix2": 0.48,
+            "prefix2_top5": 0.715,
+            "prefix3": 0.69,
+            "prefix3_top5": 0.89
+          },
+          "prose": {
+            "primary": 0.1125,
+            "next": 0.025,
+            "next_top5": 0.085,
+            "prefix1": 0.1,
+            "prefix1_top5": 0.295,
+            "prefix2": 0.2,
+            "prefix2_top5": 0.46,
+            "prefix3": 0.415,
+            "prefix3_top5": 0.745
+          }
+        },
+        "equal_domain": {
+          "primary": 0.21125,
+          "next": 0.0825,
+          "next_top5": 0.18000000000000002,
+          "prefix1": 0.22749999999999998,
+          "prefix1_top5": 0.42999999999999994,
+          "prefix2": 0.33999999999999997,
+          "prefix2_top5": 0.5875,
+          "prefix3": 0.5525,
+          "prefix3_top5": 0.8175
+        }
+      },
+      "fitting": {
+        "next": {
+          "strength": 0.001,
+          "iterations": 17,
+          "converged": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "objective": 8.956967703516053
+        },
+        "prefix2": {
+          "strength": 0.001,
+          "iterations": 10,
+          "converged": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "objective": 6.15982046182778
+        }
+      }
+    },
+    {
+      "strength": 0.01,
+      "selection": {
+        "domains": {
+          "conversation": {
+            "primary": 0.28,
+            "next": 0.115,
+            "next_top5": 0.25,
+            "prefix1": 0.34,
+            "prefix1_top5": 0.545,
+            "prefix2": 0.445,
+            "prefix2_top5": 0.685,
+            "prefix3": 0.68,
+            "prefix3_top5": 0.875
+          },
+          "prose": {
+            "primary": 0.1225,
+            "next": 0.035,
+            "next_top5": 0.09,
+            "prefix1": 0.095,
+            "prefix1_top5": 0.29,
+            "prefix2": 0.21,
+            "prefix2_top5": 0.46,
+            "prefix3": 0.42,
+            "prefix3_top5": 0.745
+          }
+        },
+        "equal_domain": {
+          "primary": 0.20125,
+          "next": 0.07500000000000001,
+          "next_top5": 0.16999999999999998,
+          "prefix1": 0.21750000000000003,
+          "prefix1_top5": 0.4175,
+          "prefix2": 0.3275,
+          "prefix2_top5": 0.5725,
+          "prefix3": 0.55,
+          "prefix3_top5": 0.81
+        }
+      },
+      "fitting": {
+        "next": {
+          "strength": 0.01,
+          "iterations": 7,
+          "converged": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "objective": 9.435922579835557
+        },
+        "prefix2": {
+          "strength": 0.01,
+          "iterations": 4,
+          "converged": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "objective": 6.664332649724785
+        }
+      }
+    },
+    {
+      "strength": 0.1,
+      "selection": {
+        "domains": {
+          "conversation": {
+            "primary": 0.27,
+            "next": 0.095,
+            "next_top5": 0.23,
+            "prefix1": 0.32,
+            "prefix1_top5": 0.54,
+            "prefix2": 0.445,
+            "prefix2_top5": 0.68,
+            "prefix3": 0.68,
+            "prefix3_top5": 0.875
+          },
+          "prose": {
+            "primary": 0.12,
+            "next": 0.035,
+            "next_top5": 0.09,
+            "prefix1": 0.1,
+            "prefix1_top5": 0.285,
+            "prefix2": 0.205,
+            "prefix2_top5": 0.465,
+            "prefix3": 0.42,
+            "prefix3_top5": 0.745
+          }
+        },
+        "equal_domain": {
+          "primary": 0.195,
+          "next": 0.065,
+          "next_top5": 0.16,
+          "prefix1": 0.21000000000000002,
+          "prefix1_top5": 0.4125,
+          "prefix2": 0.325,
+          "prefix2_top5": 0.5725,
+          "prefix3": 0.55,
+          "prefix3_top5": 0.81
+        }
+      },
+      "fitting": {
+        "next": {
+          "strength": 0.1,
+          "iterations": 3,
+          "converged": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "objective": 9.524434027621487
+        },
+        "prefix2": {
+          "strength": 0.1,
+          "iterations": 2,
+          "converged": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "objective": 6.730677569299196
+        }
+      }
+    }
+  ],
+  "selected_strength": 0.001
+}

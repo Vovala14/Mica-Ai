@@ -1,0 +1,63 @@
+{
+  "parity_checks": 1028,
+  "all_passed": true,
+  "typing_cache_invalidation": true,
+  "ttl_limit_independent_sessions_and_concurrent_access": true,
+  "benchmarks": [
+    {
+      "context": "The weather today is sun",
+      "suggestions": [
+        "sunny",
+        "sunset",
+        "sung",
+        "sunrise",
+        "sunglasses"
+      ],
+      "native_cold_median_ms": 61.93850003182888,
+      "optimized_cold_median_ms": 55.25449989363551,
+      "optimized_warm_median_ms": 0.06650015711784363
+    },
+    {
+      "context": "Please send me the add",
+      "suggestions": [
+        "address",
+        "added",
+        "addresses",
+        "addition",
+        "adding"
+      ],
+      "native_cold_median_ms": 54.55930018797517,
+      "optimized_cold_median_ms": 49.65330008417368,
+      "optimized_warm_median_ms": 0.047900015488266945
+    },
+    {
+      "context": "I need to finish this pro",
+      "suggestions": [
+        "project",
+        "problem",
+        "process",
+        "program",
+        "product"
+      ],
+      "native_cold_median_ms": 65.16320002265275,
+      "optimized_cold_median_ms": 59.851800091564655,
+      "optimized_warm_median_ms": 0.15539978630840778
+    },
+    {
+      "context": "Thank you for your hel",
+      "suggestions": [
+        "help",
+        "helping",
+        "helmet",
+        "helpful",
+        "helps"
+      ],
+      "native_cold_median_ms": 51.863000029698014,
+      "optimized_cold_median_ms": 43.32080017775297,
+      "optimized_warm_median_ms": 0.05719996988773346
+    }
+  ],
+  "warm_initialization_excluded": true,
+  "production_changed": false,
+  "runtime_sha256": "3bd39fd7633e3845c4832ea4833b0ab4876403f821c28eeb8e68958aa230ca8a"
+}

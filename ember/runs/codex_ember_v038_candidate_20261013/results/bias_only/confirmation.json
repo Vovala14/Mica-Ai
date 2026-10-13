@@ -1,0 +1,90 @@
+{
+  "baseline": {
+    "domains": {
+      "conversation": {
+        "primary": 0.2625,
+        "next": 0.095,
+        "next_top5": 0.225,
+        "prefix1": 0.255,
+        "prefix1_top5": 0.525,
+        "prefix2": 0.43,
+        "prefix2_top5": 0.665,
+        "prefix3": 0.645,
+        "prefix3_top5": 0.85
+      },
+      "prose": {
+        "primary": 0.21,
+        "next": 0.075,
+        "next_top5": 0.125,
+        "prefix1": 0.195,
+        "prefix1_top5": 0.335,
+        "prefix2": 0.345,
+        "prefix2_top5": 0.545,
+        "prefix3": 0.52,
+        "prefix3_top5": 0.73
+      }
+    },
+    "equal_domain": {
+      "primary": 0.23625000000000002,
+      "next": 0.08499999999999999,
+      "next_top5": 0.175,
+      "prefix1": 0.225,
+      "prefix1_top5": 0.43000000000000005,
+      "prefix2": 0.38749999999999996,
+      "prefix2_top5": 0.605,
+      "prefix3": 0.5825,
+      "prefix3_top5": 0.79
+    }
+  },
+  "candidate": {
+    "domains": {
+      "conversation": {
+        "primary": 0.2775,
+        "next": 0.115,
+        "next_top5": 0.27,
+        "prefix1": 0.31,
+        "prefix1_top5": 0.565,
+        "prefix2": 0.44,
+        "prefix2_top5": 0.685,
+        "prefix3": 0.63,
+        "prefix3_top5": 0.865
+      },
+      "prose": {
+        "primary": 0.2075,
+        "next": 0.07,
+        "next_top5": 0.13,
+        "prefix1": 0.195,
+        "prefix1_top5": 0.34,
+        "prefix2": 0.345,
+        "prefix2_top5": 0.545,
+        "prefix3": 0.52,
+        "prefix3_top5": 0.725
+      }
+    },
+    "equal_domain": {
+      "primary": 0.2425,
+      "next": 0.0925,
+      "next_top5": 0.2,
+      "prefix1": 0.2525,
+      "prefix1_top5": 0.4525,
+      "prefix2": 0.39249999999999996,
+      "prefix2_top5": 0.615,
+      "prefix3": 0.575,
+      "prefix3_top5": 0.7949999999999999
+    }
+  },
+  "primary_gain": 0.006249999999999978,
+  "paired_cluster_bootstrap_ci95": [
+    -0.00971484693609072,
+    0.02192060264670135
+  ],
+  "gates": {
+    "gain_at_least_one_point": false,
+    "paired_ci_positive": false,
+    "domain_no_regression": true,
+    "task_no_regression": true
+  },
+  "passed": false,
+  "selected_strength": 0.001,
+  "delta_sha256": "75b346604b64d8039fdf12b4a2b7dce901a915ea3f4037bd3d591050c315553e"
+}
