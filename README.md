@@ -203,6 +203,18 @@ python r1/generate_bytes.py ember/runs/codex_ember_balanced_v02a_20260928/train 
 
 These are research models. Ember's measured role is next-word suggestion and typed-word completion; Flame-W handles sentences. The website offers Ember v0.3.7 word actions alongside Flame-W's sentence actions. The browser uses the integer word readouts; the separate integer memory sidecar is used by the byte-scoring runtime.
 
+### Local completion decoder integration (unpublished)
+
+This checkout additionally integrates the verified9:7 existing-head completion
+decoder and training-calibrated conditional probabilities, plus exact prefix
+scoring, unique suggestions and an optional bounded typing session. The native
+Ember0.3.7 weights and cellular architecture remain unchanged. Published tables
+above retain their original release protocol; this is not an Ember0.3.8 release.
+See [decoder evidence and limits](docs/ember-completion-calibration.md),
+[exact runtime optimization](docs/ember-exact-completion.md), and
+[corrections-only training preparation](docs/site-correction-training.md).
+The failed cloud0.3.8 experiments are retained as research evidence only.
+
 ## How it works
 
 MICA is its own kind of language model, designed from scratch rather than adapted from a transformer.

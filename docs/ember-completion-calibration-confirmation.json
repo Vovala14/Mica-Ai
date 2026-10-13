@@ -1,0 +1,72 @@
+{
+  "stage": "confirmation",
+  "domains": {
+    "chat": {
+      "consensus7": {
+        "score": 0.8095,
+        "conditional_bits": 1.5973032619779666,
+        "top5": 0.922,
+        "records": 2000,
+        "correct": 1619
+      },
+      "candidate": {
+        "score": 0.8095,
+        "conditional_bits": 1.3576697439032288,
+        "top5": 0.922,
+        "records": 2000,
+        "correct": 1619
+      }
+    },
+    "everyday": {
+      "consensus7": {
+        "score": 0.603,
+        "conditional_bits": 3.8228472726617104,
+        "top5": 0.8175,
+        "records": 2000,
+        "correct": 1206
+      },
+      "candidate": {
+        "score": 0.603,
+        "conditional_bits": 3.1509738934533,
+        "top5": 0.8175,
+        "records": 2000,
+        "correct": 1206
+      }
+    }
+  },
+  "conditional_loss_vs_consensus7": {
+    "equal_domain_delta_bits": -0.4557534486415743,
+    "paired95_bits": [
+      -0.5021423882597001,
+      -0.41019350738038735
+    ],
+    "domains": {
+      "chat": {
+        "delta_bits": -0.23963351807473798,
+        "paired95_bits": [
+          -0.2911025667694051,
+          -0.19104835706081205
+        ],
+        "in_vocabulary_records": 1976
+      },
+      "everyday": {
+        "delta_bits": -0.6718733792084106,
+        "paired95_bits": [
+          -0.7526836798282861,
+          -0.5966213847060764
+        ],
+        "in_vocabulary_records": 1968
+      }
+    }
+  },
+  "accepted": true,
+  "source": {
+    "model_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+    "heads_sha256": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67",
+    "memory_sha256": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8"
+  },
+  "policy_sha256": "6fe8c1c518dd568ee915673772990d87a20c30f9953d9185fddf510dc35e338b",
+  "ranking_unchanged": true,
+  "clean_reporting_only": false,
+  "sealed_accessed": false
+}

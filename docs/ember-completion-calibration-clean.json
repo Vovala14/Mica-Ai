@@ -1,0 +1,72 @@
+{
+  "stage": "clean",
+  "domains": {
+    "chat": {
+      "consensus7": {
+        "score": 0.7128099173553719,
+        "conditional_bits": 2.729717550074328,
+        "top5": 0.871900826446281,
+        "records": 968,
+        "correct": 690
+      },
+      "candidate": {
+        "score": 0.7128099173553719,
+        "conditional_bits": 2.260658575501754,
+        "top5": 0.871900826446281,
+        "records": 968,
+        "correct": 690
+      }
+    },
+    "everyday": {
+      "consensus7": {
+        "score": 0.624332977588047,
+        "conditional_bits": 3.6951894330884794,
+        "top5": 0.8175026680896478,
+        "records": 937,
+        "correct": 585
+      },
+      "candidate": {
+        "score": 0.624332977588047,
+        "conditional_bits": 3.0616459281608033,
+        "top5": 0.8175026680896478,
+        "records": 937,
+        "correct": 585
+      }
+    }
+  },
+  "conditional_loss_vs_consensus7": {
+    "equal_domain_delta_bits": -0.5513012397501248,
+    "paired95_bits": [
+      -0.6271262461250549,
+      -0.481110131913993
+    ],
+    "domains": {
+      "chat": {
+        "delta_bits": -0.4690589745725743,
+        "paired95_bits": [
+          -0.5692628923671267,
+          -0.3752172980430145
+        ],
+        "in_vocabulary_records": 953
+      },
+      "everyday": {
+        "delta_bits": -0.6335435049276753,
+        "paired95_bits": [
+          -0.7416813542781767,
+          -0.5273294918259147
+        ],
+        "in_vocabulary_records": 926
+      }
+    }
+  },
+  "accepted": true,
+  "source": {
+    "model_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+    "heads_sha256": "40f3bfa6f9692f4424d05cc3666afdca7ecbd648244df059ce2d181f66561e67",
+    "memory_sha256": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8"
+  },
+  "policy_sha256": "6fe8c1c518dd568ee915673772990d87a20c30f9953d9185fddf510dc35e338b",
+  "ranking_unchanged": true,
+  "clean_reporting_only": true,
+  "sealed_accessed": false
+}

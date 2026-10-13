@@ -31,11 +31,20 @@ def run(body: dict) -> dict:
     if mode not in ("next-word", "complete-word"):
         raise ValueError("Unknown Ember mode.")
     t0 = time.perf_counter()
+    extra = {}
     if mode == "complete-word":
         typed = TYPED.search(prompt)
         if not typed:
             raise ValueError("End your prompt with the first letters of a word, such as 'be'.")
-        words = model().complete(prompt, top_k=5)
+        suggestions = model().complete_with_probabilities(prompt, top_k=5)
+        words = [word for word, probability in suggestions]
+        prefix_length = len(typed.group(1))
+        alpha = model().completion_alpha if prefix_length >= 2 else 0
+        gain = model().completion_probability_gain if prefix_length >= 2 else 16
+        extra = dict(suggestion_probabilities=[probability for word, probability in suggestions],
+                     probability_scope="conditional-on-typed-prefix",
+                     completion_alpha=alpha,
+                     completion_probability_gain=gain)
         output = words[0][len(typed.group(1)):] if words else ""
     else:
         context = prompt if prompt[-1].isspace() else prompt + " "
@@ -43,5 +52,7 @@ def run(body: dict) -> dict:
         output = ("" if prompt[-1].isspace() else " ") + words[0] if words else ""
 
     return result(MODEL, mode, prompt, output, t0,
-                  suggestions=words, decoder="integer-word-readout-v0.3.7",
+                  suggestions=words, decoder=(f"integer-completion-a{alpha}-gain{gain}-v1" if mode == "complete-word"
+                                             else "integer-word-readout-v0.3.7"),
+                  **extra,
                   model_sha256=SOURCE_SHA, word_heads_sha256=HEAD_SHA)

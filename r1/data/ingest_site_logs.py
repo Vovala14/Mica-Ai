@@ -55,8 +55,10 @@ def join(prompt: str, cont: str) -> str:
 
 def completed_word(prompt: str, correction: str) -> str:
     """The Ember completion UI asks for missing letters, not a new word."""
-    if correction[:2].casefold() == prompt[-2:].casefold():
-        correction = correction[2:]  # also accept a user who typed the full word
+    match = re.search(r"(?:^|\s)([A-Za-z]+)$", prompt)
+    prefix = match.group(1) if match else prompt[-2:]
+    if correction[:len(prefix)].casefold() == prefix.casefold():
+        correction = correction[len(prefix):]  # also accept the full word
     return prompt + correction
 
 
@@ -97,11 +99,16 @@ def main() -> int:
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--val-percent", type=int, default=5)
     ap.add_argument("--no-prompts", action="store_true", help="skip prompts that have no approved continuation")
+    ap.add_argument("--corrections-only", action="store_true", help="use only user-written corrections")
     a = ap.parse_args()
+    if not 0 <= a.val_percent <= 100:
+        ap.error("--val-percent must be between 0 and 100")
 
     rows = [json.loads(l) for l in a.export.read_text(encoding="utf-8").splitlines() if l.strip()]
     seen, kept = set(), []
     for source, text, prompt in texts(rows, not a.no_prompts):
+        if a.corrections_only and source != "correction":
+            continue
         text = text.strip()
         if len(text) < 3 or key(text) in seen:
             continue
@@ -121,7 +128,8 @@ def main() -> int:
             files[f"flamew/{split}"].append(W.pack(ids))
 
     manifest = {"source": str(a.export), "export_sha256": W.sha256_file(a.export),
-                "rows": len(rows), "texts": len(kept), "counts": counts, "files": {}}
+                "rows": len(rows), "texts": len(kept), "counts": counts, "files": {},
+                "corrections_only": a.corrections_only, "val_percent": a.val_percent}
     for name, lines in files.items():
         path = a.out / f"{name}.jsonl"
         path.parent.mkdir(parents=True, exist_ok=True)

@@ -72,3 +72,27 @@ def test_different_corrections_to_same_prompt_stay_in_one_split(tmp_path, monkey
     train = (tmp_path / "out/ember/train.jsonl").read_text(encoding="utf-8").splitlines()
     val = (tmp_path / "out/ember/val.jsonl").read_text(encoding="utf-8").splitlines()
     assert sorted((len(train), len(val))) == [0, 2]
+
+
+def test_corrections_only_excludes_model_outputs_and_deduplicates(tmp_path, monkeypatch):
+    rows = []
+    for gid, prompt, feedback in (
+        ("a", "Thank you for bei", {"correction": "ng"}),
+        ("b", "thank YOU for bei", {"correction": "ng"}),
+        ("c", "A liked output", {"rating": "up"}),
+        ("d", "An unreviewed prompt", {}),
+    ):
+        rows.append({"kind": "generation", "id": gid, "model": "ember-v0.3.1",
+                     "mode": "complete-word", "prompt": prompt, "output": "wrong"})
+        if feedback:
+            rows.append({"kind": "feedback", "id": gid, **feedback})
+    export = tmp_path / "export.jsonl"
+    export.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    out = tmp_path / "out"
+    monkeypatch.setattr(sys, "argv", ["ingest", str(export), "--out", str(out),
+                                     "--corrections-only", "--val-percent", "0"])
+    assert ingest.main() == 0
+    assert (out / "ember/train.jsonl").read_text().splitlines() == ["Thank you for being".encode().hex()]
+    manifest = json.loads((out / "manifest.json").read_text())
+    assert manifest["corrections_only"] is True
+    assert manifest["counts"] == {"train": {"correction": 1}, "val": {}}

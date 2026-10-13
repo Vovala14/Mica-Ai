@@ -1,0 +1,159 @@
+{
+  "baseline": {
+    "domains": {
+      "conversation": {
+        "primary": 0.3175,
+        "next": 0.13,
+        "next_top5": 0.275,
+        "prefix1": 0.32,
+        "prefix1_top5": 0.58,
+        "prefix2": 0.505,
+        "prefix2_top5": 0.785,
+        "prefix3": 0.725,
+        "prefix3_top5": 0.895
+      },
+      "prose": {
+        "primary": 0.1825,
+        "next": 0.065,
+        "next_top5": 0.145,
+        "prefix1": 0.17,
+        "prefix1_top5": 0.365,
+        "prefix2": 0.3,
+        "prefix2_top5": 0.52,
+        "prefix3": 0.505,
+        "prefix3_top5": 0.795
+      }
+    },
+    "equal_domain": {
+      "primary": 0.25,
+      "next": 0.0975,
+      "next_top5": 0.21000000000000002,
+      "prefix1": 0.245,
+      "prefix1_top5": 0.4725,
+      "prefix2": 0.40249999999999997,
+      "prefix2_top5": 0.6525000000000001,
+      "prefix3": 0.615,
+      "prefix3_top5": 0.845
+    }
+  },
+  "candidate": {
+    "domains": {
+      "conversation": {
+        "primary": 0.3375,
+        "next": 0.145,
+        "next_top5": 0.28,
+        "prefix1": 0.33,
+        "prefix1_top5": 0.59,
+        "prefix2": 0.53,
+        "prefix2_top5": 0.77,
+        "prefix3": 0.725,
+        "prefix3_top5": 0.9
+      },
+      "prose": {
+        "primary": 0.1825,
+        "next": 0.07,
+        "next_top5": 0.145,
+        "prefix1": 0.17,
+        "prefix1_top5": 0.355,
+        "prefix2": 0.295,
+        "prefix2_top5": 0.505,
+        "prefix3": 0.5,
+        "prefix3_top5": 0.79
+      }
+    },
+    "equal_domain": {
+      "primary": 0.26,
+      "next": 0.1075,
+      "next_top5": 0.21250000000000002,
+      "prefix1": 0.25,
+      "prefix1_top5": 0.4725,
+      "prefix2": 0.4125,
+      "prefix2_top5": 0.6375,
+      "prefix3": 0.6125,
+      "prefix3_top5": 0.845
+    }
+  },
+  "primary_gain": 0.010000000000000009,
+  "paired_cluster_bootstrap_ci95": [
+    -0.000137451752445064,
+    0.021399036428491797
+  ],
+  "gates": {
+    "gain_at_least_one_point": true,
+    "paired_ci_positive": false,
+    "domain_no_regression": true,
+    "task_no_regression": true
+  },
+  "passed": false,
+  "selected": {
+    "penalty": 1.0,
+    "gains": {
+      "next": [
+        0.5644514131548296,
+        0.5,
+        0.5,
+        0.7410512658419156,
+        0.6284772755038238
+      ],
+      "prefix2": [
+        0.5,
+        0.5,
+        0.5,
+        0.5253264739968801,
+        0.5348992341033753
+      ]
+    },
+    "fitting": {
+      "next": {
+        "converged": true,
+        "iterations": 6,
+        "objective": 8.180450276561013,
+        "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+      },
+      "prefix2": {
+        "converged": true,
+        "iterations": 5,
+        "objective": 4.613821140161726,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+      }
+    },
+    "selection": {
+      "domains": {
+        "conversation": {
+          "primary": 0.295,
+          "next": 0.105,
+          "next_top5": 0.26,
+          "prefix1": 0.345,
+          "prefix1_top5": 0.55,
+          "prefix2": 0.485,
+          "prefix2_top5": 0.7,
+          "prefix3": 0.685,
+          "prefix3_top5": 0.905
+        },
+        "prose": {
+          "primary": 0.195,
+          "next": 0.075,
+          "next_top5": 0.15,
+          "prefix1": 0.175,
+          "prefix1_top5": 0.305,
+          "prefix2": 0.315,
+          "prefix2_top5": 0.505,
+          "prefix3": 0.475,
+          "prefix3_top5": 0.74
+        }
+      },
+      "equal_domain": {
+        "primary": 0.245,
+        "next": 0.09,
+        "next_top5": 0.20500000000000002,
+        "prefix1": 0.26,
+        "prefix1_top5": 0.4275,
+        "prefix2": 0.4,
+        "prefix2_top5": 0.6025,
+        "prefix3": 0.5800000000000001,
+        "prefix3_top5": 0.8225
+      }
+    }
+  },
+  "word_heads_sha256": "e7d2ebf8ea770c8c76ff9509a6c7deeab53a544dd54e6985e93538c47ab241a7"
+}

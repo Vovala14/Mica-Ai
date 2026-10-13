@@ -1,0 +1,321 @@
+{
+  "baseline_selection": {
+    "domains": {
+      "conversation": {
+        "primary": 0.3,
+        "next": 0.11,
+        "next_top5": 0.265,
+        "prefix1": 0.345,
+        "prefix1_top5": 0.55,
+        "prefix2": 0.49,
+        "prefix2_top5": 0.7,
+        "prefix3": 0.69,
+        "prefix3_top5": 0.905
+      },
+      "prose": {
+        "primary": 0.1975,
+        "next": 0.075,
+        "next_top5": 0.14,
+        "prefix1": 0.2,
+        "prefix1_top5": 0.32,
+        "prefix2": 0.32,
+        "prefix2_top5": 0.505,
+        "prefix3": 0.47,
+        "prefix3_top5": 0.755
+      }
+    },
+    "equal_domain": {
+      "primary": 0.24875,
+      "next": 0.0925,
+      "next_top5": 0.2025,
+      "prefix1": 0.27249999999999996,
+      "prefix1_top5": 0.43500000000000005,
+      "prefix2": 0.405,
+      "prefix2_top5": 0.6025,
+      "prefix3": 0.58,
+      "prefix3_top5": 0.8300000000000001
+    }
+  },
+  "candidates": [
+    {
+      "penalty": 0.01,
+      "gains": {
+        "next": [
+          0.5,
+          0.5,
+          0.5,
+          0.6289559870552571,
+          0.5176548204431276
+        ],
+        "prefix2": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "fitting": {
+        "next": {
+          "converged": true,
+          "iterations": 4,
+          "objective": 7.68308416626684,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+        },
+        "prefix2": {
+          "converged": true,
+          "iterations": 1,
+          "objective": 3.9974913878882887,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+        }
+      },
+      "selection": {
+        "domains": {
+          "conversation": {
+            "primary": 0.295,
+            "next": 0.11,
+            "next_top5": 0.27,
+            "prefix1": 0.34,
+            "prefix1_top5": 0.53,
+            "prefix2": 0.48,
+            "prefix2_top5": 0.7,
+            "prefix3": 0.685,
+            "prefix3_top5": 0.905
+          },
+          "prose": {
+            "primary": 0.19,
+            "next": 0.07,
+            "next_top5": 0.14,
+            "prefix1": 0.17,
+            "prefix1_top5": 0.305,
+            "prefix2": 0.31,
+            "prefix2_top5": 0.505,
+            "prefix3": 0.47,
+            "prefix3_top5": 0.74
+          }
+        },
+        "equal_domain": {
+          "primary": 0.2425,
+          "next": 0.09,
+          "next_top5": 0.20500000000000002,
+          "prefix1": 0.255,
+          "prefix1_top5": 0.4175,
+          "prefix2": 0.395,
+          "prefix2_top5": 0.6025,
+          "prefix3": 0.5775,
+          "prefix3_top5": 0.8225
+        }
+      }
+    },
+    {
+      "penalty": 0.1,
+      "gains": {
+        "next": [
+          0.5,
+          0.5,
+          0.5,
+          0.6444423875006609,
+          0.5302928074497961
+        ],
+        "prefix2": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "fitting": {
+        "next": {
+          "converged": true,
+          "iterations": 5,
+          "objective": 7.732966281108138,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+        },
+        "prefix2": {
+          "converged": true,
+          "iterations": 1,
+          "objective": 4.053741387888289,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+        }
+      },
+      "selection": {
+        "domains": {
+          "conversation": {
+            "primary": 0.2975,
+            "next": 0.115,
+            "next_top5": 0.275,
+            "prefix1": 0.34,
+            "prefix1_top5": 0.525,
+            "prefix2": 0.48,
+            "prefix2_top5": 0.7,
+            "prefix3": 0.685,
+            "prefix3_top5": 0.905
+          },
+          "prose": {
+            "primary": 0.19,
+            "next": 0.07,
+            "next_top5": 0.135,
+            "prefix1": 0.17,
+            "prefix1_top5": 0.305,
+            "prefix2": 0.31,
+            "prefix2_top5": 0.505,
+            "prefix3": 0.47,
+            "prefix3_top5": 0.74
+          }
+        },
+        "equal_domain": {
+          "primary": 0.24375,
+          "next": 0.0925,
+          "next_top5": 0.20500000000000002,
+          "prefix1": 0.255,
+          "prefix1_top5": 0.41500000000000004,
+          "prefix2": 0.395,
+          "prefix2_top5": 0.6025,
+          "prefix3": 0.5775,
+          "prefix3_top5": 0.8225
+        }
+      }
+    },
+    {
+      "penalty": 1.0,
+      "gains": {
+        "next": [
+          0.5644514131548296,
+          0.5,
+          0.5,
+          0.7410512658419156,
+          0.6284772755038238
+        ],
+        "prefix2": [
+          0.5,
+          0.5,
+          0.5,
+          0.5253264739968801,
+          0.5348992341033753
+        ]
+      },
+      "fitting": {
+        "next": {
+          "converged": true,
+          "iterations": 6,
+          "objective": 8.180450276561013,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+        },
+        "prefix2": {
+          "converged": true,
+          "iterations": 5,
+          "objective": 4.613821140161726,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+        }
+      },
+      "selection": {
+        "domains": {
+          "conversation": {
+            "primary": 0.295,
+            "next": 0.105,
+            "next_top5": 0.26,
+            "prefix1": 0.345,
+            "prefix1_top5": 0.55,
+            "prefix2": 0.485,
+            "prefix2_top5": 0.7,
+            "prefix3": 0.685,
+            "prefix3_top5": 0.905
+          },
+          "prose": {
+            "primary": 0.195,
+            "next": 0.075,
+            "next_top5": 0.15,
+            "prefix1": 0.175,
+            "prefix1_top5": 0.305,
+            "prefix2": 0.315,
+            "prefix2_top5": 0.505,
+            "prefix3": 0.475,
+            "prefix3_top5": 0.74
+          }
+        },
+        "equal_domain": {
+          "primary": 0.245,
+          "next": 0.09,
+          "next_top5": 0.20500000000000002,
+          "prefix1": 0.26,
+          "prefix1_top5": 0.4275,
+          "prefix2": 0.4,
+          "prefix2_top5": 0.6025,
+          "prefix3": 0.5800000000000001,
+          "prefix3_top5": 0.8225
+        }
+      }
+    }
+  ],
+  "selected": {
+    "penalty": 1.0,
+    "gains": {
+      "next": [
+        0.5644514131548296,
+        0.5,
+        0.5,
+        0.7410512658419156,
+        0.6284772755038238
+      ],
+      "prefix2": [
+        0.5,
+        0.5,
+        0.5,
+        0.5253264739968801,
+        0.5348992341033753
+      ]
+    },
+    "fitting": {
+      "next": {
+        "converged": true,
+        "iterations": 6,
+        "objective": 8.180450276561013,
+        "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+      },
+      "prefix2": {
+        "converged": true,
+        "iterations": 5,
+        "objective": 4.613821140161726,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+      }
+    },
+    "selection": {
+      "domains": {
+        "conversation": {
+          "primary": 0.295,
+          "next": 0.105,
+          "next_top5": 0.26,
+          "prefix1": 0.345,
+          "prefix1_top5": 0.55,
+          "prefix2": 0.485,
+          "prefix2_top5": 0.7,
+          "prefix3": 0.685,
+          "prefix3_top5": 0.905
+        },
+        "prose": {
+          "primary": 0.195,
+          "next": 0.075,
+          "next_top5": 0.15,
+          "prefix1": 0.175,
+          "prefix1_top5": 0.305,
+          "prefix2": 0.315,
+          "prefix2_top5": 0.505,
+          "prefix3": 0.475,
+          "prefix3_top5": 0.74
+        }
+      },
+      "equal_domain": {
+        "primary": 0.245,
+        "next": 0.09,
+        "next_top5": 0.20500000000000002,
+        "prefix1": 0.26,
+        "prefix1_top5": 0.4275,
+        "prefix2": 0.4,
+        "prefix2_top5": 0.6025,
+        "prefix3": 0.5800000000000001,
+        "prefix3_top5": 0.8225
+      }
+    }
+  }
+}
