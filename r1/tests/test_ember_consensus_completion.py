@@ -63,7 +63,7 @@ def test_backend_keeps_model_version_and_completion_suffix(monkeypatch):
     monkeypatch.setattr(backend,'_model',Stub())
     out=backend.run(dict(prompt='Thank you for bei',mode='complete-word'))
     assert out['output']=='ng' and out['suggestions']==['being','beings']
-    assert out['model']=='ember-v0.3.7' and out['completion_alpha']==7
+    assert out['model']=='ember-v0.3.8' and out['completion_alpha']==7
     assert out['suggestion_probabilities']==[.7,.3] and out['probability_scope']=='conditional-on-typed-prefix'
     single=backend.run(dict(prompt='Thank you for b',mode='complete-word'))
     assert single['completion_alpha']==0 and single['completion_probability_gain']==16

@@ -1,5 +1,21 @@
 # Changelog
 
+## Ember v0.3.8 —13 October2026
+
+Same learned integer-rule cellular architecture. Existing context coefficients
+and biases are refit, and the two existing word heads now combine 9:7 with
+training-calibrated conditional probabilities. Matched clean two-letter
+completion: conversation **68.90% →70.56%**, everyday **60.73% →63.61%**;
+equal-domain gain **+2.27pp[95%+1.26,+3.31]**. Conditional word loss also improves.
+These full eligible-set results use 968/937 prompts, not the older400-prompt table.
+Most gains come from decoding; new coefficients add a small significant loss
+gain, without an established additional accuracy gain. **Next-word behavior,
+byte engine/memory and Tiny ToM remain unchanged** (26.20% byte-normalized).
+No new sentence-quality claim. See [full evidence, units and limitations](docs/ember-0.3.8-release.md).
+
+Compatible handoff runtime/correction-pipeline fixes included. [Release evidence](docs/ember-0.3.8-release.md).
+
+
 Model files are identified by their SHA-256. Scores come from the exact integer engine; see
 [RESEARCH.md](RESEARCH.md) for how each number is measured.
 

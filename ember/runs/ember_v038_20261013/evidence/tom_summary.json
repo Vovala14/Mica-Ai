@@ -1,0 +1,222 @@
+{
+  "model": "Ember latest TinyStories word candidate, byte LM + integer byte memory",
+  "identity": {
+    "candidate_completion_head": "mica\\r1\\runs\\codex_ember038_story_bias_20261013\\rank_heads.npz",
+    "candidate_completion_sha256": "44c60a2e64a5d671a03dfc162fca0c9c435b75c2059ebca95eec47ab4a2a92ce",
+    "parent_completion_head": "mica\\r1\\runs\\codex_ember038_tinystories_20261013\\context_bias_3000_heads.npz",
+    "parent_completion_sha256": "15bdfcc3bf1dc149aea303cfb1a5197b77a8ef5d52e385f1c42c4380f8380dfd",
+    "byte_model": "mica\\r1\\runs\\claude_ember_037_20261011\\hf\\model.mica",
+    "byte_model_sha256": "c2bef375c8dcd6f944e1a44f4b92869645ddf97eb386382fa322cf9519eda506",
+    "byte_memory": "mica\\r1\\runs\\claude_ember_037_20261011\\hf\\memory.npz",
+    "byte_memory_sha256": "3827c2a38981347bff17f9666543c333178c5a89fdd089d216e5c6f8ab8847c8",
+    "changed_prefix2_biases": 31283,
+    "byte_score_path_identical_to_parent_and_released037": true,
+    "word_heads_used_by_tom": false,
+    "data_path": "mica\\r1\\runs\\claude_slm_bench_20261004\\data\\tom.jsonl",
+    "data_sha256": "58827a0361597ae4d5ffa79ddbab0936d1509cafcfc02cbb731e4d7a7f3584b8",
+    "protocol_sha256": "02585654a438428dc1d227903233f29dd06b4c5f015cacbbee8a0e5cc43934c7",
+    "scorer_sha256": "7458b61258e4f07f14951382952891c2aad2587eaf312be7707b982aa0d93d41",
+    "word_normalization_tokenizer_sha256": "00ac2d8b20863f7ff6bfe17df11d011baa4f451c6672dec3f9f25d98b34ccf55"
+  },
+  "normalizations": {
+    "byte": {
+      "correct": 524,
+      "total": 2000,
+      "accuracy_percent": 26.2,
+      "wilson95_percent": [
+        24.319799240911593,
+        28.171452209676044
+      ]
+    },
+    "char": {
+      "correct": 524,
+      "total": 2000,
+      "accuracy_percent": 26.2,
+      "wilson95_percent": [
+        24.319799240911593,
+        28.171452209676044
+      ]
+    },
+    "word": {
+      "correct": 545,
+      "total": 2000,
+      "accuracy_percent": 27.25,
+      "wilson95_percent": [
+        25.343656800967455,
+        29.243568850329556
+      ]
+    }
+  },
+  "primary": "byte",
+  "topic_breakdown": {
+    "ignorance": {
+      "n": 50,
+      "correct": 10
+    },
+    "mutual_knowledge": {
+      "n": 50,
+      "correct": 17
+    },
+    "knowledge_by_perception": {
+      "n": 50,
+      "correct": 14
+    },
+    "bluffing": {
+      "n": 50,
+      "correct": 15
+    },
+    "mistaken_identity": {
+      "n": 50,
+      "correct": 6
+    },
+    "first_order_false_belief": {
+      "n": 50,
+      "correct": 10
+    },
+    "communication_failure": {
+      "n": 50,
+      "correct": 13
+    },
+    "belief_revision": {
+      "n": 50,
+      "correct": 13
+    },
+    "perspective_taking": {
+      "n": 50,
+      "correct": 16
+    },
+    "deception": {
+      "n": 50,
+      "correct": 12
+    },
+    "second_order_false_belief": {
+      "n": 50,
+      "correct": 10
+    },
+    "accidental_vs_intentional": {
+      "n": 50,
+      "correct": 12
+    },
+    "sarcasm_irony": {
+      "n": 50,
+      "correct": 9
+    },
+    "hidden_emotions": {
+      "n": 50,
+      "correct": 19
+    },
+    "false_inference": {
+      "n": 50,
+      "correct": 15
+    },
+    "diverse_desires": {
+      "n": 50,
+      "correct": 13
+    },
+    "diverse_beliefs": {
+      "n": 50,
+      "correct": 11
+    },
+    "desire_based_emotion": {
+      "n": 50,
+      "correct": 20
+    },
+    "unexpected_contents_false_belief": {
+      "n": 50,
+      "correct": 16
+    },
+    "appearance_reality": {
+      "n": 50,
+      "correct": 11
+    },
+    "faux_pas": {
+      "n": 50,
+      "correct": 17
+    },
+    "white_lie": {
+      "n": 50,
+      "correct": 13
+    },
+    "indirect_request": {
+      "n": 50,
+      "correct": 13
+    },
+    "epistemic_trust": {
+      "n": 50,
+      "correct": 11
+    },
+    "goal_inference": {
+      "n": 50,
+      "correct": 11
+    },
+    "mistaken_intention": {
+      "n": 50,
+      "correct": 12
+    },
+    "emotion_from_belief": {
+      "n": 50,
+      "correct": 15
+    },
+    "audience_design": {
+      "n": 50,
+      "correct": 15
+    },
+    "reputation_management": {
+      "n": 50,
+      "correct": 16
+    },
+    "joke_vs_lie": {
+      "n": 50,
+      "correct": 14
+    },
+    "recursive_belief_reasoning": {
+      "n": 50,
+      "correct": 10
+    },
+    "counterfactual_mental_state": {
+      "n": 50,
+      "correct": 17
+    },
+    "interpretive_diversity": {
+      "n": 50,
+      "correct": 6
+    },
+    "common_ignorance": {
+      "n": 50,
+      "correct": 14
+    },
+    "participant_role_common_ground": {
+      "n": 50,
+      "correct": 10
+    },
+    "epistemic_independence": {
+      "n": 50,
+      "correct": 14
+    },
+    "epistemic_uncertainty": {
+      "n": 50,
+      "correct": 17
+    },
+    "belief_desire_integration": {
+      "n": 50,
+      "correct": 10
+    },
+    "pluralistic_ignorance": {
+      "n": 50,
+      "correct": 14
+    },
+    "persuasive_intent": {
+      "n": 50,
+      "correct": 13
+    }
+  },
+  "seconds": 306.15600000019185,
+  "completion_head_affects_score": false,
+  "parent_and_released037_byte_path_identical": true,
+  "paired_difference_to_identical_byte_path_points": 0,
+  "baseline_identity_not_independent_rerun": true,
+  "no_training": true,
+  "no_clean_sealed_data": true,
+  "published": false,
+  "deployed": false
+}

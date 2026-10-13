@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "all_records_aligned": 2000,
+  "ending_lengths_verified": 8000,
+  "full_contexts_verified": 2000,
+  "no_truncation": true,
+  "source_and_dataset_unchanged": true,
+  "result_sha256": "f94d56cdfca65fa1eeacc25b6e19cf3b11a3c0f5c7ec306c80bfdb022505f846",
+  "summary_sha256": "2aa3b38a2a2ba6875b14c00be092a3cb649f8f3888507ad0aac1ce066a1d007e",
+  "verification_sha256": "8e019e7175c49f916a220241275ac0fc50ac1cd0254460d29cb9f4ef7fc5c52e"
+}

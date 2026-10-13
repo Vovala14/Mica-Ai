@@ -1,0 +1,210 @@
+[
+  {
+    "prompt": "He frowns at Sam. Sam is angry and sad. He tries to take the shark from Tom. They pull and tug and fight. The shark is we",
+    "target": "weak",
+    "suggestions": [
+      [
+        "weak",
+        0.4019163905670041
+      ],
+      [
+        "well",
+        0.298615102128039
+      ],
+      [
+        "wearing",
+        0.18226421045351626
+      ],
+      [
+        "were",
+        0.07669421153677144
+      ],
+      [
+        "went",
+        0.03131141510138813
+      ]
+    ]
+  },
+  {
+    "prompt": "Ben saw the fox and knew he had to be clever to save his friends. He thought of a plan. Ben hopped very fa",
+    "target": "fast",
+    "suggestions": [
+      [
+        "fast",
+        0.995485523664373
+      ],
+      [
+        "fancy",
+        0.002275827541588348
+      ],
+      [
+        "famous",
+        0.001774229208127564
+      ],
+      [
+        "faces",
+        7.128961261014619e-05
+      ],
+      [
+        "falling",
+        4.053972053044407e-05
+      ]
+    ]
+  },
+  {
+    "prompt": "\"And I love you, too. You are a good learner and a good brother. Thank you for saying sorry.\" They both smiled and played with the boat. Th",
+    "target": "they",
+    "suggestions": [
+      [
+        "they",
+        0.8909429728871687
+      ],
+      [
+        "there",
+        0.048096674577381274
+      ],
+      [
+        "then",
+        0.017952679980127804
+      ],
+      [
+        "this",
+        0.015267659648687376
+      ],
+      [
+        "that",
+        0.013341502496844109
+      ]
+    ]
+  },
+  {
+    "prompt": "One sunny day, a little bi",
+    "target": "bird",
+    "suggestions": [
+      [
+        "bird",
+        0.9913403453547414
+      ],
+      [
+        "bicycle",
+        0.006041793204137807
+      ],
+      [
+        "bike",
+        0.0010334712359829604
+      ],
+      [
+        "bigger",
+        0.0006378505984330934
+      ],
+      [
+        "birds",
+        0.0005512645395205898
+      ]
+    ]
+  },
+  {
+    "prompt": "They feel sorry. They say, \"We are sorry. We are friends. We can share the slide. We can take turns. Red and bl",
+    "target": "blue",
+    "suggestions": [
+      [
+        "black",
+        0.5624250481278349
+      ],
+      [
+        "blue",
+        0.431950649402561
+      ],
+      [
+        "blew",
+        0.002334805648932279
+      ],
+      [
+        "blouse",
+        0.001012588529402246
+      ],
+      [
+        "blueberries",
+        0.0006932068670017582
+      ]
+    ]
+  },
+  {
+    "prompt": "The bird asked, \"Can I help you?\" The squirrel said, \"Yes, please!\" The bird used its beak to help shut the box. The squirrel was happy. They became good friends and played all day. The dizzy bird felt better and they had a lot of fun to",
+    "target": "together",
+    "suggestions": [
+      [
+        "together",
+        0.73672552557568
+      ],
+      [
+        "today",
+        0.24371114990515444
+      ],
+      [
+        "tonight",
+        0.013231397436481865
+      ],
+      [
+        "tomorrow",
+        0.0028292752328940318
+      ],
+      [
+        "toys",
+        0.0017782315021280326
+      ]
+    ]
+  },
+  {
+    "prompt": "Pandy was happy because he was dry under the big tr",
+    "target": "tree",
+    "suggestions": [
+      [
+        "tree",
+        0.8938738085179556
+      ],
+      [
+        "trees",
+        0.07913148816875154
+      ],
+      [
+        "truck",
+        0.0157574115194044
+      ],
+      [
+        "traffic",
+        0.0039576196119194525
+      ],
+      [
+        "train",
+        0.0028889249278893866
+      ]
+    ]
+  },
+  {
+    "prompt": "Jane asked, \"What does your purse look li",
+    "target": "like",
+    "suggestions": [
+      [
+        "like",
+        0.9993506997218718
+      ],
+      [
+        "little",
+        0.00035058916755034025
+      ],
+      [
+        "light",
+        0.00011353343498703277
+      ],
+      [
+        "living",
+        7.290892229368706e-05
+      ],
+      [
+        "liked",
+        4.811124011109674e-05
+      ]
+    ]
+  }
+]
