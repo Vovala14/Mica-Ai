@@ -5,8 +5,6 @@ flame/runs/claude_flamew_035_20261011/** -text
 flame/runs/claude_flamew_036_20261012/** -text
 ember/runs/ember_v035_20261011/** -text
 ember/runs/ember_v037_20261011/** -text
-# This calibrated policy is pinned by its original CRLF byte hash.
-ember/runs/ember_v037_20261011/completion_policy.json whitespace=cr-at-eol
 
 # Frozen public038 artifacts and manifests.
 ember/runs/ember_v038_20261013/** -text

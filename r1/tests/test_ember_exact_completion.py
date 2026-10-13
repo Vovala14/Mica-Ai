@@ -5,7 +5,7 @@ import re
 import numpy as np
 import pytest
 
-PATH=Path(__file__).resolve().parents[2]/'ember/runs/ember_v037_20261011/fast_completion.py'
+PATH=Path(__file__).resolve().parents[2]/'ember/runs/ember_v038_20261013/fast_completion.py'
 spec=importlib.util.spec_from_file_location('ember_completion_test',PATH)
 module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
 

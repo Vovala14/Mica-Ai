@@ -11,11 +11,9 @@ at the word: each picks a page by pairdiff routing, scores its candidates with s
 integer bias, and the winner (ties to the lowest index) writes six integer values that the readout also
 reads. In 'words' mode a term reads the current probe state or a fixed 16-value code of one of the
 previous three words (a hash of the word, like the byte tape's 16 channels per byte); in 'probes' mode it
-reads the probe states at the previous three word starts. Cellular updates and readouts have integer
-results; optional conditional probabilities use floating-point normalization.
+reads the probe states at the previous three word starts. Everything is integer arithmetic.
 Completion works for any number of typed letters: one letter uses the next-word readout restricted to
-that letter; two or more use the configured integer head blend at the second letter, restricted to all
-typed letters. The completion policy is separate from the frozen learned cellular weights.
+that letter; two or more use the completion readout at the second letter, restricted to the typed letters.
 
     python word_model.py "Thank you for "                 # next word
     python word_model.py --complete "Thank you for be"    # finish the word being typed
@@ -102,15 +100,6 @@ class EmberWord:
             self.by2.setdefault(w[:2], []).append(i)
         self.by1 = {k: np.asarray(v) for k, v in self.by1.items()}
         self.by2 = {k: np.asarray(v) for k, v in self.by2.items()}
-        self.completion_alpha, self.completion_probability_gain = 0, 16
-        policy_path = HERE / "completion_policy.json"
-        if policy_path.exists():
-            policy = json.loads(policy_path.read_text())
-            if (policy['source']['model_sha256'] != manifest['source_sha256'] or
-                    policy['source']['heads_sha256'] != manifest['word_heads_sha256']):
-                raise RuntimeError('Completion policy is not calibrated for these artifacts')
-            self.completion_alpha = policy['alpha']
-            self.completion_probability_gain = policy['gain']
 
     def probes(self, data: bytes) -> np.ndarray:
         """[len(data)+1, 240] probe states: row t is the state after BOS and the first t bytes."""
@@ -166,36 +155,29 @@ class EmberWord:
         return base
 
     def next_words(self, context: str, top_k: int = 5) -> list[str]:
-        if top_k < 1:
-            raise ValueError('top_k must be positive')
         data = context.encode("utf-8")
         P = self.probes(data)
         x = self._input("next", data, P, word_starts(data), len(data), len(data))
-        from fast_completion import unique_words
-        return unique_words(self.words, self._rank(self._scores("next", x), len(self.words)), top_k)
+        return [self.words[int(i)] for i in self._rank(self._scores("next", x), top_k)]
 
     def complete(self, context: str, top_k: int = 5) -> list[str]:
-        """Configured native integer scores, restricted to matching words.
-
-        Stateless by default. For repeated keystrokes in one user's session,
-        use new_completion_session(); the model itself stores no user context.
-        """
-        from fast_completion import CompletionEngine
-        return CompletionEngine(self, alpha=self.completion_alpha,
-                                probability_gain=self.completion_probability_gain).complete(context, top_k)
-
-    def complete_with_probabilities(self, context: str, top_k: int = 5):
-        """Conditional prefix probabilities; no byte or unconditional LM claim."""
-        from fast_completion import CompletionEngine
-        return CompletionEngine(self, alpha=self.completion_alpha,
-                                probability_gain=self.completion_probability_gain).complete_with_probabilities(context, top_k)
-
-    def new_completion_session(self, *, ttl_seconds=60, max_context_bytes=8192):
-        """Bounded ephemeral reuse; clear/discard at logout or model replacement."""
-        from fast_completion import CompletionEngine
-        return CompletionEngine(self, alpha=self.completion_alpha,
-                                probability_gain=self.completion_probability_gain).new_session(
-            ttl_seconds=ttl_seconds, max_context_bytes=max_context_bytes)
+        """Finish the word whose first letters end the context (one or more ASCII letters)."""
+        m = TYPED.search(context)
+        if not m:
+            return []
+        typed = m.group(1)
+        idx = self.candidates(typed)
+        if not len(idx):
+            return []
+        data = context.encode("utf-8")
+        start = len(data) - len(typed)
+        P = self.probes(data)
+        starts = word_starts(data)
+        if len(typed) == 1:
+            scores = self._scores("next", self._input("next", data, P, starts, start, start))
+        else:
+            scores = self._scores("prefix2", self._input("prefix2", data, P, starts, start + 2, start))
+        return [self.words[int(i)] for i in self._rank(scores, top_k, idx)]
 
     def suggest(self, context: str, *, prefix2: bool = False, top_k: int = 5) -> list[str]:
         """v0.3.x interface: next word, or (prefix2=True) finish a word from its typed letters."""
